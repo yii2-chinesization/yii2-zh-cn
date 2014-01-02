@@ -1,6 +1,7 @@
 协议
 =========
-*本作品及衍生作品本作品采用知识共享 署名-相同方式共享 4.0 国际 许可协议进行许可。访问 http://creativecommons.org/licenses/by-sa/4.0/deed.zh 查看该许可协议。\*
+*本作品及衍生作品本作品采用知识共享 署名-相同方式共享 4.0 国际 许可协议进行许可。访问 http://creativecommons.org/licenses/by-sa/4.0/deed.zh 查看该许可协议。
+\*
 
 *本作品继承并同时支持针对官方及用户贡献文本所指定的[GNU Free Documentation License (GFDL)协议](http://www.gnu.org/copyleft/fdl.html)。
 
