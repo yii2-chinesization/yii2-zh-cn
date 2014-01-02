@@ -1,12 +1,13 @@
 协议
 =========
-*本作品及衍生作品本作品采用知识共享 署名-相同方式共享 4.0 国际 许可协议进行许可。访问 http://creativecommons.org/licenses/by-sa/4.0/deed.zh 查看该许可协议。\*
+*本作品及衍生作品本作品采用知识共享 署名-相同方式共享 4.0 国际 许可协议进行许可。访问 http://creativecommons.org/licenses/by-sa/4.0/deed.zh 查看该许可协议。*
 
 *本作品继承并同时支持针对官方及用户贡献文本所指定的[GNU Free Documentation License (GFDL)协议](http://www.gnu.org/copyleft/fdl.html)。
 
 相关引用
 =========
 > 注意：使用Yii2 Framework需要遵循BSD协议，保留其相关著作权。协议原文如下。#
+
 > The Yii framework is free software. It is released under the terms of the following BSD License.
 
 >>Copyright © 2008-2014 by Yii Software LLC
