@@ -6,7 +6,7 @@
 
 相关引用
 =========
-> 注意：使用Yii2 Framework需要遵循BSD协议，保留其相关著作权。协议原文如下。\#
+> 注意：使用Yii2 Framework需要遵循BSD协议，保留其相关著作权。协议原文如下。#
 > The Yii framework is free software. It is released under the terms of the following BSD License.
 
 >>Copyright © 2008-2014 by Yii Software LLC
