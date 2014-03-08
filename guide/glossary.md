@@ -1,10 +1,10 @@
-#ÊõÓï±íGlossary
+#æœ¯è¯­è¡¨Glossary
 
 
 A
 ====================
 
-aliasÂ·¾¶±ğÃû
+aliasè·¯å¾„åˆ«å
 ------------------
 
 Alias is a string that's used by Yii to refer to the class or directory such as @app/vendor.
@@ -32,7 +32,7 @@ Bundle, known as package in Yii 1.1, refers to a number of assets and a configur
 C
 ====================
 
-configurationÅäÖÃ
+configurationé…ç½®
 ------------------
 
 Configuration may refer either to the process of setting properties of an object or to a configuration file that stores settings for an object or a class of objects.
@@ -40,7 +40,7 @@ Configuration may refer either to the process of setting properties of an object
 E
 ====================
 
-extensionÀ©Õ¹
+extensionæ‰©å±•
 ------------------
 
 Extension is a set of classes, asset bundles and configurations that adds more features to the application.
@@ -48,7 +48,7 @@ Extension is a set of classes, asset bundles and configurations that adds more f
 I
 ====================
 
-installation°²×°
+installationå®‰è£…
 ------------------
 
 Installation is a process of preparing something to work either by following a readme file or by executing specially prepared script. In case of Yii it's setting permissions and fullfilling software requirements.
@@ -56,7 +56,7 @@ Installation is a process of preparing something to work either by following a r
 M
 ====================
 
-module×ÓÄ£¿é
+moduleå­æ¨¡å—
 ------------------
 
 Module is a sub-application which contains MVC elements by itself, such as models, views, controllers, etc. and can be used withing the main application. Typically by forwarding requests to the module instead of handling it via controllers.
@@ -64,7 +64,7 @@ Module is a sub-application which contains MVC elements by itself, such as model
 N
 ====================
 
-namespaceÃüÃû¿Õ¼ä
+namespaceå‘½åç©ºé—´
 ------------------
 
 Namespace refers to a PHP language feature which is actively used in Yii2.
@@ -72,7 +72,7 @@ Namespace refers to a PHP language feature which is actively used in Yii2.
 P
 ====================
 
-package°ü
+packageåŒ…
 ------------------
 
 See bundle.
