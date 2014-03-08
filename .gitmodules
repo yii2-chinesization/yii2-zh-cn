@@ -1,0 +1,3 @@
+[submodule "apidoc/site"]
+	path = apidoc/site
+	url = https://github.com/yiisoft/yii2-apidoc.git
