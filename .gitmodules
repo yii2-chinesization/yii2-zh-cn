@@ -1,3 +1,6 @@
 [submodule "apidoc/site"]
 	path = apidoc/site
 	url = https://github.com/yiisoft/yii2-apidoc.git
+[submodule "guide/en"]
+	path = guide/en
+	url = https://github.com/yii2-chinesization/doc-guide-en.git
