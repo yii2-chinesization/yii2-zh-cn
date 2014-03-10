@@ -28,7 +28,7 @@ Transifex
 进入具体翻译的页面，这里以[ActiveRecord](https://www.transifex.com/projects/p/yii2-guide-chinesization-program/translate/#zh_CN/active-record)为例。
 
 ####复制文本
-长句子，可以点击右上角机器翻译。（注：机翻使用的是qiansen1386同学搭建的Microsoft的API，Google的收费，Microsoft的免费限额，每月刷新，
+长句子，可以点击右上角机器翻译。（注：机翻使用的是qiansen1386同学搭建的Microsoft的在线翻译API，Google的收费，而Microsoft的有免费限额，每月刷新。
 简单的句子能不机翻就不要机翻，月末如果机翻功能还能用，就赶紧用，多多地用，够本地用。）
 短句子直接点复制原文。
 
