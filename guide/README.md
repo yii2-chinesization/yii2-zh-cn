@@ -6,7 +6,7 @@
 通识General
 ------------------
 
-###其一
+###其一，我们的工具
 工欲善其事，必先利其器。在翻译的过程，我们默认采用Transifex等专业的翻译工具来进行，
 可以简化翻译流程，提高翻译的速度和质量，降低审阅的困难度。但是，请大家依照规范进行命名和组织，
 尽量避免重复劳动。详细的讲解请参阅Transifex部分。
@@ -14,12 +14,14 @@
 ###其二，术语表
 关于某些特定概念，我们应该遵循相同的术语翻译，有些Yii的独有概念，其含义也很好理解的，我们选择不翻译。
 相关术语的介绍和参考翻译请见[官方的术语表](glossary.md)以及Transifex上[我们Project的术语表](#%E6%9C%AF%E8%AF%AD%E8%A1%A8)。
+###其三，翻译与校阅
+翻译的内容是繁重的，然而校阅的工作也是重要的。
 
 Transifex
 ------------------
 ###使用的基本流程###
 [登陆](https://www.transifex.com/signin/?next=/projects/p/yii2-guide-chinesization-program/)后，
-打开组织，点选项目，选择中文语言``代码zh_CN``，选择想要翻译的资源（文件），开始翻译字符串。
+打开组织，点选项目，选择中文语言（代码``zh_CN``），选择想要翻译的资源（文件），开始翻译字符串。
 （注：前两项可以简化为用[t.yii2.cn](http://t.yii2.cn)直接访问）
 
 ###翻译小循环###
@@ -33,7 +35,7 @@ Transifex
 ####翻译
 额，就翻译啊。
 
-查有道，查Google，参考[Yii1.1的手册翻译](http://www.yiiframework.com/doc/guide/1.1/zh_cn/index)。
+查有道，查Google，参考[Yii1.1的手册翻译](http://www.yiiframework.com/doc/guide/1.1/zh_cn/index)。可能有些文字，涉及较深的专业知识，其含义本身就算是中文也不太好理解。你可以选择跳过，也可以选择查阅相关维基百科，来搞明白这些概念，方便的话请随后把这些概念加入[术语表](#%E6%9C%AF%E8%AF%AD%E8%A1%A8)。
 
 ####术语表
 值得注意的一点是，如果有相应的词条被加入了**[词汇表（术语表，或者叫Glossary）](https://www.transifex.com/projects/p/yii2-guide-chinesization-program/glossary/l/zh_CN/)**
