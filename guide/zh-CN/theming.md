@@ -16,12 +16,12 @@
 
 ```php
 'components' => [
-'view' => [
-'theme' => [
-'pathMap' => ['@app/views' => '@webroot/themes/basic'],
-'baseUrl' => '@web/themes/basic',
-],
-],
+	'view' => [
+		'theme' => [
+			'pathMap' => ['@app/views' => '@webroot/themes/basic'],
+			'baseUrl' => '@web/themes/basic',
+		],
+	],
 ],
 ```
 
@@ -35,10 +35,10 @@
 
 ```php
 'pathMap' => [
-'/web/views' => [
-'/web/themes/christmas',
-'/web/themes/basic',
-],
+	'/web/views' => [
+		'/web/themes/christmas',
+		'/web/themes/basic',
+	],
 ]
 ```
 
