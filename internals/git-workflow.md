@@ -1,7 +1,7 @@
 Yii2 贡献者的 Git 工作流程
 ===================================
 
-你想助 Yii2 一臂之力吗？太棒了！为了你的提交能更快被通过，请遵循下列步骤（前两步仅需做一次）。 如果你是 Git 和 Github 新人，也许想先看看 [Github 帮助(http://help.github.com/)， [尝试 Git](https://try.github.com)
+你想助 Yii2 一臂之力吗？太棒了！为了你的提交能更快被通过，请遵循下列步骤（前两步仅需做一次）。 如果你是 Git 和 Github 新人，也许想先看看 [Github] 帮助(http://help.github.com/)， [尝试 Git](https://try.github.com)
 或了解下 [Git 内部的数据模型](http://nfarina.com/post/9868516270/git-is-simpler)。
 
 ### 1. 在 Github 上 [Fork](http://help.github.com/fork-a-repo/) Yii 的代码仓库并克隆你的 Fork 至本地环境
