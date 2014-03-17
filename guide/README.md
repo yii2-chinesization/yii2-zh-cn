@@ -24,7 +24,7 @@ Transifex的使用及翻译的注意事项
 ###使用的基本流程###
 [登陆](https://www.transifex.com/signin/?next=/projects/p/yii2-guide-chinesization-program/)后，
 打开组织，点选项目，选择中文语言（代码``zh_CN``），选择想要翻译的资源（文件），开始翻译字符串。
-（注：前两项可以简化为用[t.yii2.cn](http://t.yii2.cn)直接访问）
+（注：前两项可以简化为用[t.yii2.cn](http://t.yii2.cn)直接访问）（注2：请大家不要提交zh-CN（GBK）和zh相关的其他语言选项了。我们目前只优先翻译zh-CN，即简体中文，之后有能力的话帮忙把zh-CN转换为zh-TW就好了。）
 
 ###翻译小循环###
 进入具体翻译的页面，这里以[ActiveRecord](https://www.transifex.com/projects/p/yii2-guide-chinesization-program/translate/#zh_CN/active-record)为例。
