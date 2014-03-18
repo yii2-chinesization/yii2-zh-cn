@@ -120,4 +120,27 @@ PS：目前我不知道添加术语是否需要权限，如果需要请在群里
 ####方括号很重要，链接图片显神效####
 markdown特有的，`[链接文字](链接地址)`,`![图片描述](图片地址)`这些小玩意儿可千万别弄掉，不然图片或链接显示不出来不说，后面的丑陋的链接也会暴露出来。（强迫症们很可爱的，你们不要欺负他（我）们！）
 
+####GitHub中关于#id 锚链接的实现####
+
+众所周知（么），GitHub对于markdown锚链接的实现方式是这样的：
+```Markdown
+[链接](#hyper-link)
+指向
+###Hyper Link
+```
+但是……中文呢？
+```Markdown
+[链接](#%E8%B6%85%E7%BA%A7%E9%93%BE%E6%8E%A5-abc)
+指向
+###超级链接 ABC
+```
+这一长串是尼玛什么玩意儿？这是Url Encode之后的样子，坑爹啊，GitHub不像Wikipedia支持原生中文URL，他们的URL是encode过的。
+那翻译时遇到了怎么办呢？比如`Controller.md`里出现的`[for example](#custom-response-class)`这个怎么翻译呢？
+就是这样啦：
+```Markdown
+[举个栗子](#%E8%87%AA%E5%AE%9A%E4%B9%89response%E7%B1%BB)
+注：假定下文中的“Custom Response Class”被翻译为“自定义Response类”
+```
+如果不像来到GitHub里转换的话，大家也可以使用[工具网的在线Urlencode转换工具](http://www.gongju.com/urlencode/)，亲测可用，纯中文状态，完全吻合，中英文混合，需要手动把+换成-，大写换成小写。（GitHub的锚链接，准确的说是Html，大小写敏感）
+
 ####更多欢乐更多欢笑，尽在肯……不对，尽在[Markdown中文语法大全](http://wowubuntu.com/markdown/)####
