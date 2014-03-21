@@ -1,11 +1,38 @@
 Yii2 文档汉化项目
 ==============
 
-目前Yii2的中文资料比较少，正在期待玩过Yii1的同学和开发有基础的同学加入Yii2的文档，wiki，源码等资料的翻译校对工作中来。感兴趣可以来看下，这里是一个正在准备做这个工作的一个QQ群，想学东西或者对自己英文有信心的同学可以来看下[![加入QQ群](http://pub.idqqimg.com/wpa/images/group.png)343188481](http://url.cn/SIMfwO)。
+目前Yii2的中文资料比较少，正在期待玩过Yii1的同学和开发有基础的同学加入Yii2的文档，wiki，源码等资料的翻译校对工作中来。感兴趣可以来看下，我们有一个QQ群，想学东西或者对自己英文有信心的同学可以来看下[![加入QQ群](http://pub.idqqimg.com/wpa/images/group.png)343188481](http://url.cn/SIMfwO)。
 
-Shorcut
+URL捷径
 --------
 
-* 仓库地址: [c11n.yii2.cn](http://c11n.yii2.cn)
-* Transifex地址: [t.yii2.cn](http://t.yii2.cn)
-* Yii2官方仓库地址: [yii2.cn](http://yii2.cn)
+* 汉化仓库: [c11n.yii2.cn](http://c11n.yii2.cn)
+* 汉化工具Transifex: [t.yii2.cn](http://t.yii2.cn)
+* Yii2官方: [yii2.cn](http://yii2.cn)
+* Yii2 英文文档：[doc.yii2.cn](http://doc.yii2.cn)
+
+鸣谢
+--------
+
+###官方：
+* Qiang（薛强 中国） Yii 1/Yii 2项目的领导人，同时为旅美中国大陆人，与中国的 Yii 开发者关系密切，有困难可以找强哥。
+* Samdark（Alexander Makarov 俄罗斯）Yii 2主要开发者之一，对于国际化及手册贡献良多。
+* cebe （Carsten Brandt 德国）Yii 2主要开发者之一，负责开发了api-doc系统，对于文档系统的规范化进行了很多设定。官方文档的完全体样貌可以在[stuff.cebe.cc/yii2docs](http://stuff.cebe.cc/yii2docs)略窥一斑。
+
+###项目组织：
+qiansen1386（钱森，昵称：东方孤思子 中国）旅居新加坡的中国留学生，特长卖萌，学习能力强于动手能力,强迫症晚期患者，已弃疗。
+
+###汉化大神：
+（请各位大神自己填进来吧，在此之前请参考Transifex的团队列表及GitHub的Commits History\^_^/~~）
+
+###特别鸣谢：
+* Transifex提供的免费开源项目仓库
+* GitHub提供好用的在线平台
+* **钱森花大价钱买的域名**
+* 有道词典
+* Google Translate
+* 万恶的 Microsoft 提供的免费Translation API机翻额度
+* 万恶的腾讯提供的免费QQ群
+* Google
+* Wikipedia
+* 过往地各路天神佛祖，天尊，妈祖，轩辕，神农，伏羲，仓颉，真主，上帝，圣母玛利亚……排名不分先后，保佑项目顺利进行。
