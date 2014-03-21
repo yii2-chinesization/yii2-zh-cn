@@ -74,24 +74,24 @@ echo Url::toRoute('post/index');
 // /index.php?r=site/index
 echo Url::toRoute('/site/index');
 
-/ /区分大小写的控制器动作 `actionHiTech` 的 url 格式
+// 区分大小写的控制器动作 `actionHiTech` 的 url 格式
 // /index.php?r=management/default/hi-tech
 echo Url::toRoute('hi-tech');
 
-/ / 控制器和动作都区分大小写的 url，如'DateTimeController::actionFastForward' ：
+// 控制器和动作都区分大小写的 url，如'DateTimeController::actionFastForward' ：
 // /index.php?r=date-time/fast-forward&id=105
 echo Url::toRoute(['/date-time/fast-forward', 'id' => 105]);
 
-/ /  从别名中获取 URL 
+//  从别名中获取 URL 
 // http://google.com/
 Yii::setAlias('@google', 'http://google.com/');
 echo Url::to('@google');
 
-/ / 获取当前页的标准 URL 
+// 获取当前页的标准 URL 
 // /index.php?r=management/default/users
 echo Url::canonical();
 
-/ / 获得 home 主页的 URL
+// 获得 home 主页的 URL
 // /index.php?r=site/index
 echo Url::home();
 
