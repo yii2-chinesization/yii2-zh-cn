@@ -3,6 +3,19 @@ Yii2 文档汉化项目
 
 目前Yii2的中文资料比较少，正在期待玩过Yii1的同学和开发有基础的同学加入Yii2的文档，wiki，源码等资料的翻译校对工作中来。感兴趣可以来看下，我们有一个QQ群，想学东西或者对自己英文有信心的同学可以来看下[![加入QQ群](http://pub.idqqimg.com/wpa/images/group.png)343188481](http://url.cn/SIMfwO)。
 
+###项目目录结构
+```
+/root
+ -/guide 手册
+   --/en 子模块，嵌入的是官方的doc文档，等同于doc.yii2.cn
+   --/zh-CN 翻译好的文档
+   --其他文件包括，翻译必读，术语表等重要指导性文件。
+ -/ internal 翻译的官方内部文档，包括如何向Yii官方贡献代码，如何创建新的文档等。
+ -/ api-doc 子模块的源文件，嵌入的是cebe的api-doc系统，具体演示在[stuff.cebe.cc/yii2docs](http://stuff.cebe.cc/yii2docs)
+ -/ messages Yii框架本身的国际化文件，比如错误反馈的国际化，有关中文在zh-CN文件夹。
+ - Root根目录下放置说明，授权等文件。
+```
+
 URL捷径
 --------
 
