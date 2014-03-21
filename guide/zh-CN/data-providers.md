@@ -1,4 +1,4 @@
-Data providers
+数据供应器
 ==============
 
 Data provider abstracts data set via [[yii\data\DataProviderInterface]] and handles pagination and sorting.
