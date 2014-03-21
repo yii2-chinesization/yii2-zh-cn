@@ -21,7 +21,7 @@ $customer->save();  // 一行新数据插入 tbl_customer 表
 ------------------------------
 
 定义 AR 类可以通过继承 [[yii\db\ActiveRecord]] 来实现，
-实现`tableName` 方法：
+实现 `tableName` 方法：
 
 ```php
 use yii\db\ActiveRecord;
@@ -653,7 +653,7 @@ $customer->link('orders', $order);
 ```
 
 上面调用的 [[yii\db\ActiveRecord::link()|link()]] 会设置 order 的 `customer_id` 为主键
-$customer 的值，然后调用 save() 方法保存订单到数据库。
+$customer 的值，然后调用 [[yii\db\ActiveRecord::save()|save()]] 方法保存订单到数据库。
 
 
 ActiveRecord 对象的生命周期
@@ -666,21 +666,21 @@ AR 或其子类行为可以在其生命周期通过
 以 AR 实例为例，生命周期如下：
 
 1.构造函数
-2. init() 初始化方法将触发一个 [[yii\db\ActiveRecord::EVENT_INIT|EVENT_INIT]] 事件。
+2. [[yii\db\ActiveRecord::init()|init()]] 初始化方法将触发一个 [[yii\db\ActiveRecord::EVENT_INIT|EVENT_INIT]] 事件。
 
 通过 [[yii\db\ActiveRecord::find()|find()]] 方法得到的 AR 实例的生命周期：
 
 1.构造函数
-2. init() 初始化方法将触发一个 [[yii\db\ActiveRecord::EVENT_INIT|EVENT_INIT]] 事件。
+2. [[yii\db\ActiveRecord::init()|init()]] 初始化方法将触发一个 [[yii\db\ActiveRecord::EVENT_INIT|EVENT_INIT]] 事件。
 3.  [[yii\db\ActiveRecord::afterFind()|afterFind()]] 将触发[[yii\db\ActiveRecord::EVENT_AFTER_FIND|EVENT_AFTER_FIND]]事件
 
 当调用[[yii\db\ActiveRecord::save()|save()]] 方法插入或更新一条 AR 记录时，将经历以下生命周期：
 
 1. [[yii\db\ActiveRecord::beforeValidate()|beforeValidate()]] 会触发[[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]]事件
-2.[[yii\db\ActiveRecord::afterValidate()|afterValidate()]]会触发[[yii\db\ActiveRecord::EVENT_AFTER_VALIDATE|EVENT_AFTER_VALIDATE]] 事件
-3. [[yii\db\ActiveRecord::beforeSave()|beforeSave()]]触发[[yii\db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]] 事件或[[yii\db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]] 事件
+2. [[yii\db\ActiveRecord::afterValidate()|afterValidate()]] 会触发 [[yii\db\ActiveRecord::EVENT_AFTER_VALIDATE|EVENT_AFTER_VALIDATE]] 事件
+3. [[yii\db\ActiveRecord::beforeSave()|beforeSave()]] 触发 [[yii\db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]] 事件或[[yii\db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]] 事件
 4.执行数据插入或更新
-5. [[yii\db\ActiveRecord::afterSave()|afterSave()]]: 触发 [[yii\db\ActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] 或[[yii\db\ActiveRecord::EVENT_AFTER_UPDATE|EVENT_AFTER_UPDATE]] 事件
+5. [[yii\db\ActiveRecord::afterSave()|afterSave()]]: 触发 [[yii\db\ActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] 或 [[yii\db\ActiveRecord::EVENT_AFTER_UPDATE|EVENT_AFTER_UPDATE]] 事件
 
 当调用 [[yii\db\ActiveRecord::delete()|delete()]] 方法删除 AR 数据时所经历的生命周期如下：
 
