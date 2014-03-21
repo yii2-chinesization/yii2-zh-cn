@@ -1,8 +1,7 @@
-Error Handling
+错误处理
 ==============
 
-Error handling in Yii is different than handling errors in plain PHP. First of all, Yii will convert all non-fatal errors
-to *exceptions*:
+Yii 的错误处理与原生 PHP 是不一样的。首先，Yii 会把所有非致命（non-fatal）的错误转换为*exceptions*（异常）：
 
 ```php
 use yii\base\ErrorException;
@@ -11,27 +10,23 @@ use Yii;
 try {
 	10/0;
 } catch (ErrorException) {
-	Yii::warning("Tried dividing by zero.");
+	Yii::warning("试图除以零。");
 }
 
-// execution may continue
+// 执行仍可能继续
 ```
 
-As demonstrated above you may handle errors using `try`-`catch`.
+如上面所演示的，你可以用 `try`-`catch` 处理处理这些错误。
 
+其次，即使是 fatal（致命的）错误，在 Yii 中也会被以一种更好的方式渲染一下。也就是，debugging mode（调试模式），你可以探查是什么导致了这些致命错误，从而更高效地定位故障原因。
 
-Second, even fatal errors in Yii are rendered in a nice way. This means that in debugging mode, you can trace the causes
-of fatal errors in order to more quickly identify the cause of the problem.
-
-Rendering errors in a dedicated controller action
+用专门的控制器动作渲染错误页面
 -------------------------------------------------
 
-The default Yii error page is great when developing a site, and is acceptable for production sites if `YII_DEBUG`
-is turned off in your bootstrap index.php file. But but you may want to customize the default error page to make it
-more suitable for your project.
+Yii 默认的错误页面在开发一个网站时是很棒的，并且如果在引导脚本里关闭了 `YII_DEBUG` 的话，它再说生产环境的样子也不差。但是，你仍旧可能有自定义错误页面需要，使其更适应你的项目。
 
-The easiest way to create a custom error page it is to use a dedicated controller action for error rendering. First,
-you'll need to configure the `errorHandler` component in the application's configuration:
+最简单的自定义错误页面的方式就是用一个专门的控制器动作渲染错误页面。
+首先，你需要在应用的配置文件中设置下 `errorHandler` 组件：
 
 ```php
 return [
@@ -43,8 +38,8 @@ return [
     ],
 ```
 
-With that configuration in place, whenever an error occurs, Yii will execute the "error" action of the "Site" controller.
-That action should look for an exception and, if present, render the proper view file, passing along the exception:
+在上面的配置中，当错误发生时，Yii 会执行 “site” 控制器的 “error” 动作。
+这个动作应该会尝试捕获一个异常，且如果真有，就会渲染一个合适的视图文件，把异常传递进去：
 
 ```php
 public function actionError()
@@ -55,23 +50,23 @@ public function actionError()
 }
 ```
 
-Next, you would create the `views/site/error.php` file, which would make use of the exception. The exception object has
-the following properties:
+之后，你会创建 `views/site/error.php` 文件，他会读取这个异常。
+异常对象有如下属性：
 
-- `statusCode`: the HTTP status code (e.g. 403, 500). Available for HTTP exceptions only.
-- `code`: the code of the exception.
-- `type`: the error type (e.g. HttpException, PHP Error).
-- `message`: the error message.
-- `file`: the name of the PHP script file where the error occurs.
-- `line`: the line number of the code where the error occurs.
-- `trace`: the call stack of the error.
-- `source`: the context source code where the error occurs.
+- `statusCode`: HTTP 状态代码（e.g. 403、500）。该属性仅存在于 HTTP 异常。
+- `code`: 这个异常的代码。
+- `type`: 错误类型（e.g. HttpException, PHP Error 等）。
+- `message`: 错误信息。
+- `file`: 引起错误发生的 PHP 脚本文件的名字。
+- `line`: 引起错误发生的代码的行号。
+- `trace`: 该错误的方法调用堆栈。
+- `source`: 引起错误的地方附近的源代码。
 
-Rendering errors without a dedicated controller action
+用不用专门的控制器动作渲染错误页面
 ------------------------------------------------------
 
-Instead of creating a dedicated action within the Site controller, you could just indicate to Yii what class should
-be used to handle errors:
+不必专门创建一个的动作来处理错误，你可以直接向 Yii 指定
+一个用于处理错误的类：
 
 ```php
 public function actions()
@@ -84,11 +79,11 @@ public function actions()
 }
 ```
 
-After associating the class with the error as in the above, define the `views/site/error.php` file, which will
-automatically be used. The view will be passed three variables:
+如上面代码所示，在把这个类与错误相关联之后，定义 `views/site/error.php` 文件，这个视图会被自动使用。
+这个视图可以被传入三个变量：
 
-- `$name`: the error name
-- `$message`: the error message
-- `$exception`: the exception being handled
+- `$name`: 错误名
+- `$message`: 错误信息
+- `$exception`: 被处理的异常本身
 
-The `$exception` object will have the same properties outlined above.
+这个 `$exception` 对象会包含有跟刚刚上面列出来的那些一样的属性值。
