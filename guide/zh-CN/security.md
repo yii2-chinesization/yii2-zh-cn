@@ -1,4 +1,4 @@
-Security
+安全
 ========
 
 Good security is vital to the health and success of any application. Unfortunately, many developers cut corners when it comes to security, either due to a lack of understanding or because implementation is too much of a hurdle. To make your Yii powered application as secure as possible, Yii has included several excellent and easy to use security features.
@@ -31,7 +31,7 @@ if (Security::validatePassword($password, $hash)) {
 }
 ```
 
-Generating Pseudorandom data
+生成伪随机数据
 -----------
 
 Pseudorandom data is useful in many situations. For example when resetting a password via email you need to generate a token, save it to the database, and send it via email to end user which in turn will allow them to prove ownership of that account. It is very important that this token be unique and hard to guess, else there is a possibility and attacker can predict the token's value and reset the user's password.
@@ -45,7 +45,7 @@ $key = \yii\helpers\Security::generateRandomKey();
 
 Note that you need to have the `openssl` extension installed in order to generate cryptographically secure random data.
 
-Encryption and decryption
+加密及解密
 -------------------------
 
 Yii provides convenient helper functions that allow you to encrypt/decrypt data using a secret key. The data is passed through and encryption function so that only the person which has the secret key will be able to decrypt it.
@@ -65,7 +65,7 @@ Subsequently when user wants to read the data:
 $data = \yii\helpers\Security::decrypt($encryptedData, $secretKey);
 ```
 
-Confirming data integrity
+确认数据完整性
 --------------------------------
 
 There are situations in which you need to verify that your data hasn't been tampered with by a third party or even corrupted in some way. Yii provides an easy way to confirm data integrity in the form of two helper functions.  
@@ -86,14 +86,14 @@ $data = \yii\helpers\Security::validateData($data, $secretKey);
 ```
 
 
-Securing Cookies
+Cookies 安全
 ----------------
 
 - validation
 - httpOnly
 
-See also
+另见
 --------
 
-- [Views security](view.md#security)
+- [视图安全](view.md#security)
 
