@@ -99,7 +99,7 @@ Url::remember() ; //  保存URL以供下次使用
 Url::previous(); // 取出前面保存的 URL 
 ```
 
-> **小技巧**： 为生成一个指向 # 号（锚连接 ID ）的 URL ，比如 `/index.php?r=site/page&id=100#title`， 你要
+> **小贴士**： 为生成一个指向 # 号（锚连接 ID ）的 URL ，比如 `/index.php?r=site/page&id=100#title`， 你要
   指定 `#` 参数 ，采用  `Url::to(['post/read', 'id' => 100, '#' => 'title'])` 来创建。
 
 自定义 URL 
