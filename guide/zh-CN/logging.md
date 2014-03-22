@@ -1,19 +1,19 @@
-Logging
+日志记录（Logging）
 =======
 
-Yii provides flexible and extensible logger that is able to handle messages according to serverity level or their type.
-You may filter messages by multiple criteria and forward them to files, email, debugger etc.
+Yii 提供一个很灵活可扩展的日志记录器，可以基于严格级别和他们的类型处理相关信息。
+你可以通过设立不同的标准来过滤这些信息，并把他们存进不同的的文件，邮件或者调试器，等等。
 
-Logging basics
+日志基础
 --------------
 
-Basic logging is as simple as calling one method:
+基本的说日志记录就像调用一个方法一样简单：
 
 ```php
-\Yii::info('Hello, I am a test log message');
+\Yii::info('你好，我是一条测试消息');
 ```
 
-### Message category
+### 消息分类
 
 Additionally to the message itself message category could be specified in order to allow filtering such messages and
 handing these differently. Message category is passed as a second argument of logging methods and is `application` by
@@ -26,7 +26,7 @@ There are multiple severity levels and corresponding methods available:
 - [[Yii::trace]] used maily for development purpose to indicate workflow of some code. Note that it only works in
   development mode when `YII_DEBUG` is set to `true`.
 - [[Yii::error]] used when there's unrecoverable error.
-- [[Yii::warning]] used when an error occured but execution can be continued.
+- [[Yii::warning]] used when an error occurred but execution can be continued.
 - [[Yii::info]] used to keep record of important events such as administrator logins.
 
 Log targets

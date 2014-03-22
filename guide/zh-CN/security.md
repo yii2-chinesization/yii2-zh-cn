@@ -1,87 +1,87 @@
 安全
 ========
 
-Good security is vital to the health and success of any application. Unfortunately, many developers cut corners when it comes to security, either due to a lack of understanding or because implementation is too much of a hurdle. To make your Yii powered application as secure as possible, Yii has included several excellent and easy to use security features.
+好的安全性对于一个应用的健康与成功是至关重要的。不幸的是，或因为理解有限，也可能是该领域有太多障碍难以逾越，很多开发者都在安全这方面偷了懒。为了让您的 Yii 应用可以尽可能的安全，我们引入了很多很棒又很易用的安全特性。
 
-Hashing and verifying passwords
+加密与验证密码
 -------------------------------
 
-Most developers know that passwords cannot be stored in plain text, but many developers believe it's still safe to hash passwords using `md5` or `sha1`. There was a time when using the aforementioned hashing algorithms was sufficient, but modern hardware makes it possible to reverse such hashes very quickly using brute force attacks.
+很多开发者都知道密码不能直接保存原文，但是很多开发者相信，用 `md5` 或是 `sha1` 加密密码还很安全（译者注：作者的意思就是“呵呵”）。曾几何时，用上面那俩哈希算法还算安全，而现如今的现代硬件已经让快速地暴力破解这些哈希串成为了可能。（译者注：有数据显示目前的硬件水准暴力破解 md5 只要七分钟）
 
-In order to provide increased security for user passwords, even in the worst case scenario (your application is breached), you need to use a hashing algorithm that is resilient against brute force attacks. The best current choice is `bcrypt`. In PHP, you can create a `bcrypt` hash  using the [crypt function](http://php.net/manual/en/function.crypt.php). Yii provides two helper functions which make using `crypt` to securely generate and verify hashes easier.
+为了能给用户密码提供更多安全，即使是在最悲催的情况下（就是应用被破坏了），你需要使用一种能对暴力破解有抵抗力的哈希算法。目前最好的选择是 `bcrypt`。在 PHP 里，你可以用 PHP 的 [crypt 函数](http://php.net/manual/zh/function.crypt.php)来创建一条 `bcrypt` 哈希串。Yii 提供了两个 helper（助手）函数，他们封装了 `crypt`，从而使得生成与验证这些哈希串更方便更容易。
 
-When a user provides a password for the first time (e.g., upon registration), the password needs to be hashed:
+当一个用户提供了一条密码（e.g. 注册的时候），这条密码需要被加密：
 
 
 ```php
 $hash = \yii\helpers\Security::generatePasswordHash($password);
 ```
 
-The hash can then be associated with the corresponding model attribute, so it can be stored in the database for later use.
+这条哈希串可以被存到相应模型的特性里，这样他就可以被存储进数据库以待备用。
 
-When a user attempts to log in, the submitted password must be verified against the previously hashed and stored password:
+当一个用户尝试登陆的时候，提交的密码必须与之前加密的存储密码相验证：
 
 
 ```php
 use yii\helpers\Security;
 if (Security::validatePassword($password, $hash)) {
-	// all good, logging user in
+	// 一切安好，则许其登陆
 } else {
-	// wrong password
+	// 错误密码则……
 }
 ```
 
 生成伪随机数据
 -----------
 
-Pseudorandom data is useful in many situations. For example when resetting a password via email you need to generate a token, save it to the database, and send it via email to end user which in turn will allow them to prove ownership of that account. It is very important that this token be unique and hard to guess, else there is a possibility and attacker can predict the token's value and reset the user's password.
+伪随机数据在很多情况下很有用，比如当通过电子邮件重置密码时，就需要生产一个 token（令牌），同时保存进数据库，并把它发送给相关邮箱地址，用以让端用户证明他对其账户拥有所有权。这样 token 的唯一性与不易猜测就很重要啦，如若不然，黑客就可能推测令牌的值，进而重置你用户的密码。
 
-Yii security helper makes generating pseudorandom data simple:
+Yii 的 security（安全）助手类让生成伪随机数据简单得很：
 
 
 ```php
 $key = \yii\helpers\Security::generateRandomKey();
 ```
 
-Note that you need to have the `openssl` extension installed in order to generate cryptographically secure random data.
+注意，要想生成密码学上安全可靠的随机数据，你需要确保服务器上预先安装 PHP 的 `openssl` 扩展。（译者：一般都安装了，只是需要手动检查下有没有开启）
 
 加密及解密
 -------------------------
 
-Yii provides convenient helper functions that allow you to encrypt/decrypt data using a secret key. The data is passed through and encryption function so that only the person which has the secret key will be able to decrypt it.
-For example, we need to store some information in our database but we need to make sure only the user which has the secret key can view it (even if the application database is compromised):
+Yii 提供了很方便的助手函数，可以帮助你基于一个密匙来加密或者解密数据。这样当数据被这样加密了之后，只有拥有密匙的人才能解密它。
+举例而言，如果我们需要在数据库中保存某些信息，但是我们需要确保只有拥有密匙的人才能看到它们（即使被拖库了）时：
 
 
 ```php
-// $data and $secretKey are obtained from the form
+// $data 和 $secretKey 是从表单处传入的
 $encryptedData = \yii\helpers\Security::encrypt($data, $secretKey);
-// store $encryptedData to database
+// 把 $encryptedData 存入数据库
 ```
 
-Subsequently when user wants to read the data:
+这之后当用户需要读取数据时：
 
 ```php
-// $secretKey is obtained from user input, $encryptedData is from the database
+// $secretKey 是从用户输入处获取的，$encryptedData 则来自数据库
 $data = \yii\helpers\Security::decrypt($encryptedData, $secretKey);
 ```
 
 确认数据完整性
 --------------------------------
 
-There are situations in which you need to verify that your data hasn't been tampered with by a third party or even corrupted in some way. Yii provides an easy way to confirm data integrity in the form of two helper functions.  
+有这样一种情况是，你需要检查你的数据没有被第三方干扰或者因某些原因被损坏了。Yii 提供了一个简单的检查数据完整性的方法，它包含了两个助手函数。
 
-Prefix the data with a hash generated from the secret key and data
+基于密匙和数据给这个数据本身加个哈希的前缀
 
 
 ```php
-// $secretKey our application or user secret, $genuineData obtained from a reliable source 
+// $secretKey 是我们的应用或用户的密匙，$genuineData 获取自某一可信任的资源
 $data = \yii\helpers\Security::hashData($genuineData, $secretKey);
 ```
 
-Checks if the data integrity has been compromised
+检查数据完整性是否被破坏
 
 ```php
-// $secretKey our application or user secret, $data obtained from an unreliable source 
+// $secretKey 是我们的应用或用户的密匙，$genuineData 获取自某一不可信的资源
 $data = \yii\helpers\Security::validateData($data, $secretKey);
 ```
 

@@ -1,18 +1,18 @@
-数据供应器
+数据供应器(Data provider)
 ==============
 
-Data provider abstracts data set via [[yii\data\DataProviderInterface]] and handles pagination and sorting.
-It can be used by [grids](data-grid.md), [lists and other data widgets](data-widgets.md).
+数据供应器通过 [[yii\data\DataProviderInterface]] 接口抽象了数据集（Data Set）用以处理分页及排序。
+它可以被 [grids](data-grid.md)，[lists 或其他数据小部件](data-widgets.md)使用。
 
-In Yii there are three built-in data providers: [[yii\data\ActiveDataProvider]], [[yii\data\ArrayDataProvider]] and
-[[yii\data\SqlDataProvider]].
+在 Yii 中，存在三种内建的数据提供器，分别是：[[yii\data\ActiveDataProvider]]，[[yii\data\ArrayDataProvider]] 以及
+[[yii\data\SqlDataProvider]]。
 
-Active data provider
+Active data provider（活动数据提供器）
 --------------------
 
-`ActiveDataProvider` provides data by performing DB queries using [[\yii\db\Query]] and [[\yii\db\ActiveQuery]].
+`ActiveDataProvider` 通过使用 [[\yii\db\Query]] 和 [[\yii\db\ActiveQuery]] 执行 DB 查询从而提供数据。
 
-The following is an example of using it to provide ActiveRecord instances:
+下面的例子演示了如何通过提供一个 ActiveRecord 实例对象来使用它：
 
 ```php
 $provider = new ActiveDataProvider([
@@ -22,11 +22,11 @@ $provider = new ActiveDataProvider([
 	],
 ]);
 
-// get the posts in the current page
+// 获取当前页的所有帖子
 $posts = $provider->getModels();
-~~~
+```
 
-And the following example shows how to use ActiveDataProvider without ActiveRecord:
+下面的例子演示了如何在不使用 ActiveRecord 的情况下，使用 ActiveDataProvider：
 
 ```php
 $query = new Query();
@@ -37,29 +37,30 @@ $provider = new ActiveDataProvider([
 	],
 ]);
 
-// get the posts in the current page
+// 获取当前页的所有帖子
 $posts = $provider->getModels();
 ```
 
-Array data provider
+Array data provider（数组数据提供器）
 -------------------
 
-ArrayDataProvider implements a data provider based on a data array.
+ArrayDataProvider 基于一个数据的数组来实现数据提供器的功能。
 
-The [[yii\data\ArrayDataProvider::$allModels]] property contains all data models that may be sorted and/or paginated.
-ArrayDataProvider will provide the data after sorting and/or pagination.
-You may configure the [[yii\data\ArrayDataProvider::$sort]] and [[yii\data\ArrayDataProvider::$pagination]] properties to
-customize the sorting and pagination behaviors.
+[[yii\data\ArrayDataProvider::$allModels]] 属性包含着所有可能需要排序或分页的数据模型。
+ArrayDataProvider 会在排序或分页之后提供数据。
+你可以设置 [[yii\data\ArrayDataProvider::$sort]] 和 [[yii\data\ArrayDataProvider::$pagination]] 属性，
+来自定义排序和分页的行为。
 
-Elements in the [[yii\data\ArrayDataProvider::$allModels]] array may be either objects (e.g. model objects)
-or associative arrays (e.g. query results of DAO).
-Make sure to set the [[yii\data\ArrayDataProvider::$key]] property to the name of the field that uniquely
-identifies a data record or false if you do not have such a field.
+[[yii\data\ArrayDataProvider::$allModels]] 数组中的元素可以是对象（e.g. 模型对象）
+也可以是关联数组（e.g. DAO 的查询结果集）。
+确保你给 [[yii\data\ArrayDataProvider::$key]] 属性设置了那个可以唯一标识一条数据记录字段的名字
+或者是 `false`，如果你没有那样一个字段。
 
-Compared to `ActiveDataProvider`, `ArrayDataProvider` could be less efficient
-because it needs to have [[yii\data\ArrayDataProvider::$allModels]] ready.
+与 `ActiveDataProvider`相比，`ArrayDataProvider` 可能会稍微低效一些，
+因为他需要预先准备下 [[yii\data\ArrayDataProvider::$allModels]] 属性。
 
-ArrayDataProvider may be used in the following way:
+ArrayDataProvider 可以这样用：
+
 
 ```php
 $query = new Query();
@@ -72,25 +73,26 @@ $provider = new ArrayDataProvider([
         'pageSize' => 10,
     ],
 ]);
-// get the posts in the current page
+
+// 获取当前页的所有帖子
 $posts = $provider->getModels();
 ```
 
-> Note: if you want to use the sorting feature, you must configure the [[sort]] property
-so that the provider knows which columns can be sorted.
+> 注意：如果你想用排序功能，你必须先设置 [[sort]] 属性
+这样提供器才知道哪些字段是可以被排序的。
 
-SQL data provider
+SQL data provider（SQL 数据提供器）
 -----------------
 
-SqlDataProvider implements a data provider based on a plain SQL statement. It provides data in terms of arrays, each
-representing a row of query result.
+SqlDataProvider 基于一个简单的 SQL 语句实现数据提供器功能。它通过一系列的数组提供数据，
+每个数组代表查询结果的一行记录。
 
-Like other data providers, SqlDataProvider also supports sorting and pagination. It does so by modifying the given
-[[yii\data\SqlDataProvider::$sql]] statement with "ORDER BY" and "LIMIT" clauses. You may configure the
-[[yii\data\SqlDataProvider::$sort]] and [[yii\data\SqlDataProvider::$pagination]] properties to customize sorting
-and pagination behaviors.
+像其他数据提供器一样，SqlDataProvider 也支持分页和排序。它通过修改给定的
+[[yii\data\SqlDataProvider::$sql]] 语句的 "ORDER BY" 和 "LIMIT" 子句来实现。你可以设置
+[[yii\data\SqlDataProvider::$sort]] 和 [[yii\data\SqlDataProvider::$pagination]] 属性
+来自定义分页和排序的行为。
 
-`SqlDataProvider` may be used in the following way:
+`SqlDataProvider` 可以这样用：
 
 ```php
 $count = Yii::$app->db->createCommand('
@@ -117,17 +119,16 @@ $dataProvider = new SqlDataProvider([
     ],
 ]);
 
-// get the user records in the current page
+// 获取当前页的所有帖子
 $models = $dataProvider->getModels();
 ```
 
-> Note: if you want to use the pagination feature, you must configure the [[yii\data\SqlDataProvider::$totalCount]]
-property to be the total number of rows (without pagination). And if you want to use the sorting feature,
-you must configure the [[yii\data\SqlDataProvider::$sort]] property so that the provider knows which columns can
-be sorted.
+> 注意：如果你想用分页功能，你需要设置 [[yii\data\SqlDataProvider::$totalCount]]
+属性为分页之前总共有多少行。并且如果你想用排序功能，你需要设置 [[yii\data\SqlDataProvider::$sort]] 熟悉，
+这样提供器就知道哪些字段可以被排序。
 
 
-Implementing your own custom data provider
+实现一个自定义的 data provider
 ------------------------------------------
 
-TBD
+待定...
