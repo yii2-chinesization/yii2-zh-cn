@@ -75,6 +75,14 @@ Yii 2.0扩展了路径别名的用法，以同时应用于文件/目录的路径
 你可以定义一个`@Zend`路径别名，将它指向其安装目录，
 这样Yii就能自动导入这个类库中的任何类。
 
+我们的核心框架已经预定义了以下几个路径别名：
+
+- `@yii` - 框架目录。
+- `@app` - 当前运行的应用主体的路径（base path）。
+- `@runtime` - runtime（运行环境）目录。
+- `@vendor` - Composer 的 vendor 文件夹。
+- `@webroot` - 当前运行应用的 web 根目录。
+- `@web` - 当前运行应用的 base URL（根URL）。
 
 自动加载（Autoloading）
 -----------
@@ -114,9 +122,11 @@ echo Html::encode('Test > test');
 - FileHelper
 - Html
 - HtmlPurifier
+- Image
 - Inflector
 - Json
 - Markdown
 - Security
 - StringHelper
+- Url
 - VarDumper
