@@ -1,83 +1,152 @@
 Active Record（活动记录）
 =============
 
-[Active Record](http://zh.wikipedia.org/wiki/Active_Record) （活动记录，以下简称AR）提供了一个面向对象的接口，
-用以访问数据库中的数据。一个 AR 类关联一张数据表，
-每个 AR 对象对应表中的一行，对象的属性（即 AR 的特性Attribute）映射到数据行的对应列。
+Active Record（活动记录，以下简称AR）实现了[Active Record 的设计模式](http://zh.wikipedia.org/wiki/Active_Record)。
+使用 AR 的前提是单个对象关联到数据表的特定行。对象属性映射到数据表的对应列。引用一个 AR 属性等同于连接数据表获取相应列数据。
 一条活动记录（AR对象）对应数据表的一行，AR对象的属性则映射该行的相应列。
-您可以直接以面向对象的方式来操纵数据表中的数据，妈妈再不用担心我需要写原生 SQL 语句啦。
 
-例如，假定 `Customer` AR 类关联着 `customer` 表，且该类的 `name` 属性代表 `customer` 表的 `name` 列。
-你可以写以下代码来哉 `customer` 表里插入一行新的记录:
+例如，`Customer` AR类关联 `tbl_customer` 表，意味着该类的 `name` 属性自动映射到 `tbl_customer` 表的 `name` 列。
+有了活动记录的帮忙，假设变量 $customer 代表 `Customer` 类对象，可使用 `$customer->name` 获取关联数据行的 `name` 列。上例中，AR提供了一种面向对象的方式来获取数据库存储的数据。但 AR 的功能不止于此。
 
 用 AR 而不是原生的 SQL 语句去执行数据库查询，可以调用直观方法来实现相同目标。如，调用 [[yii\db\ActiveRecord::save()|save()]] 方法将执行插入或更新轮询，将在该 AR 类关联的数据表新建或更新一行数据：
 
 ```php
 $customer = new Customer();
-$customer->name = '李狗蛋';
-$customer->save();  // 一行新数据插入 customer 表
+$customer->name = 'Qiang';
+$customer->save();  // 一行新数据插入 tbl_customer 表
 ```
 
-上面的代码和使用下面的原生 SQL 语句是等效的，但显然前者更直观，
-更不易出错，并且面对不同的数据库系统（DBMS, Database Management System）时更不容易产生兼容性问题。
 
-```php
-$db->createCommand('INSERT INTO customer (name) VALUES (:name)', [
-    ':name' => '李狗蛋',
-])->execute();
-```
-
-下面是所有目前被 Yii 的 AR 功能所支持的数据库列表：
-
-* MySQL 4.1 及以上：通过 [[yii\db\ActiveRecord]]
-* PostgreSQL 7.3 及以上：通过 [[yii\db\ActiveRecord]]
-* SQLite 2 和 3：通过 [[yii\db\ActiveRecord]]
-* Microsoft SQL Server 2010 及以上：通过 [[yii\db\ActiveRecord]]
-* Oracle: 通过 [[yii\db\ActiveRecord]]
-* CUBRID 9.1 及以上：通过 [[yii\db\ActiveRecord]]
-* Sphnix：通过 [[yii\sphinx\ActiveRecord]]，需求 `yii2-sphinx` 扩展
-* ElasticSearch：通过 [[yii\elasticsearch\ActiveRecord]]，需求 `yii2-elasticsearch` 扩展
-* Redis 2.6.12 及以上：通过 [[yii\redis\ActiveRecord]]，需求 `yii2-redis` 扩展
-* MongoDB 1.3.0 及以上：通过 [[yii\mongodb\ActiveRecord]]，需求 `yii2-mongodb` 扩展
-
-如你所见，Yii 不仅提供了对关系型数据库的 AR 支持，还提供了 NoSQL 数据库的支持。
-在这个教程中，我们会主要描述对关系型数据库的 AR 用法。
-然而，绝大多数的内容在 NoSQL 的 AR 里同样适用。
-
-声明 AR 类
+定义 AR 类并关联数据表
 ------------------------------
 
-要想声明一个 AR 类，你需要扩展 [[yii\db\ActiveRecord]] 基类，
-并实现 `tableName` 方法，返回与之相关联的的数据表的名称：
+定义 AR 类可以通过继承 [[yii\db\ActiveRecord]] 来实现，
+实现 `tableName` 方法：
 
 ```php
-namespace app\models;
-
 use yii\db\ActiveRecord;
 
 class Customer extends ActiveRecord
 {
-    /**
-     * @return string 返回该AR类关联的数据表名
-     */
-    public static function tableName()
-    {
-        return 'customer';
-    }
+	/**
+	 * @return string 返回该AR类关联的数据表名
+	 */
+	public static function tableName()
+	{
+		return 'tbl_customer';
+	}
 }
 ```
+
+`tableName` 方法只须返回与该类相关联的数据表名。
+
+可以用以下两种方法之一获取该类实例：
+
+* 使用 `new` 创建对象，将插入新的数据行。
+* 使用一个方法来提取数据库现有记录 （或记录集）
+
+连接数据库
+----------------------
+
+AR 的实现依赖 [[yii\db\Connection|DB connection]] 执行基础的 DB 操作。
+默认情况下，ActiveRecord假定存在一个名为`db` 的应用组件，提供数据库连接信息（满足[[yii\db\Connection]] 所需）和配置信息。
+该组件通常在应用配置文件中配置：
+
+```php
+return [
+	'components' => [
+		'db' => [
+			'class' => 'yii\db\Connection',
+			'dsn' => 'mysql:host=localhost;dbname=testdb',
+			'username' => 'demo',
+			'password' => 'demo',
+		],
+	],
+];
+```
+
+请阅读 [Database basics](database-basics.md) 章节，来了解关于如何配置和使用数据库连接的更多信息。
+
+查询数据
+---------------------------
+
+有两个从数据库查询数据的 AR 方法：
+
+ - [[yii\db\ActiveRecord::find()]]
+ - [[yii\db\ActiveRecord::findBySql()]]
+
+以上两个方法都会返回 [[yii\db\ActiveQuery]] 实例，该类继承自 [[yii\db\Query]]，同样支持灵活且强大的 DB 轮询方法。
+以下例子提供了一些可选择的方法：
+
+```php
+// 取回所有状态为 *active*（激活的）的客户并以他们的 ID 排序：
+$customers = Customer::find()
+	->where(['status' => Customer::STATUS_ACTIVE])
+	->orderBy('id')
+	->all();
+
+// 返回ID为1的客户：
+$customer = Customer::find(1);
+
+// 以上代码等价于下面的代码：
+$customer = Customer::find()
+	->where(['id' => 1])
+	->one();
+
+// 用原生SQL语句检索客户：
+$sql = 'SELECT * FROM tbl_customer';
+$customers = Customer::findBySql($sql)->all();
+
+// 取回活跃客户（状态为 *active*）的数量：
+$count = Customer::find()
+	->where(['status' => Customer::STATUS_ACTIVE])
+	->count();
+
+// 以数组而不是对象形式取回客户信息：
+$customers = Customer::find()
+	->asArray()
+	->all();
+// $customers的每个元素都是键值对数组
+
+// 以客户ID索引结果集：
+$customers = Customer::find()->indexBy('id')->all();
+// $customers 数组以 ID 为索引
+```
+
+> 注意：在上面的代码中，`Customer::STATUS_ACTIVE` 是一个在 `Customer` 类里定义的常量。
+  相较于直接依赖于写死的字符串或数字，引用一个常量是一种更好的编程习惯。
+
+
+AR 也支持批量查询，如：
+
+```php
+// 一次提取 10 个客户信息
+foreach (Customer::find()->batch(10) as $customers) {
+	// $customers 是 10 个或更少的客户对象的数组
+}
+// 一次提取 10 个客户并一个一个地遍历处理
+foreach (Customer::find()->each(10) as $customer) {
+	// $customer 是一个 ”Customer“ 对象
+}
+// 贪婪加载模式的批处理查询
+foreach (Customer::find()->with('orders')->each() as $customer) {
+}
+```
+
+如 [Query Builder](query-builder.md) 所述，
+当请求大量数据时，批量查询非常有用，它会把你的内存占用限制在一定程度内。
+
 
 访问列数据
 ---------------------
 
-AR 把相应数据行的每一个字段映射为 AR 对象的一个个特性变量（Attribute）
-一个特性就好像一个普通对象的公共属性一样（public property）。
-特性变量的名称和对应字段的名称是一样的，且大小姓名。
+AR的属性映射对应数据行的列数据对象。
+特性表现和常规的对象公开属性一样，特性名和对应的列名一样且区分大小写。
 
 使用以下语法读取列的值：
 
 ```php
-// "id" 和 "mail" 是 $customer 对象所关联的数据表的对应字段名
+// "id" 和 "mail" 是 $customer AR对象关联的数据表列名
 $id = $customer->id;
 $email = $customer->email;
 ```
@@ -85,236 +154,57 @@ $email = $customer->email;
 要改变列值，只要给关联属性赋新值并保存对象即可：
 
 ```php
-$customer->email = '哪吒@example.com';
+$customer->email = 'jane@example.com';
 $customer->save();
 ```
-
-
-建立数据库连接
-----------------------
-
-AR 用一个 [[yii\db\Connection|DB connection]] 对象与数据库交换数据。
-它使用 `db` 组件作为其连接对象。详见[数据库基础](database-basics.md)章节，
-你可以在应用程序配置文件中设置下 `db` 组件，就像这样，
-
-
-```php
-return [
-    'components' => [
-        'db' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=testdb',
-            'username' => 'demo',
-            'password' => 'demo',
-        ],
-    ],
-];
-```
-
-如果在你的应用中应用了不止一个数据库，且你需要给你的 AR 类使用不同的数据库链接（DB connection）
-，你可以覆盖掉 [[yii\db\ActiveRecord::getDb()|getDb()]] 方法：
-
-```php
-class Customer extends ActiveRecord
-{
-    // ...
-
-    public static function getDb()
-    {
-        return \Yii::$app->db2;  // 使用名为 "db2" 的应用组件
-    }
-}
-```
-
-查询数据
----------------------------
-
-AR 提供了两种方法来构建 DB 查询并向 AR 实例里填充数据：
-
- - [[yii\db\ActiveRecord::find()]]
- - [[yii\db\ActiveRecord::findBySql()]]
-
-以上两个方法都会返回 [[yii\db\ActiveQuery]] 实例，该类继承自[[yii\db\Query]]，
-因此，他们都支持同一套灵活且强大的 DB 查询方法，如 `where()`，`join()`，`orderBy()`，等等。 
-下面的这些案例展示了一些可能的玩法：
-
-```php
-// 取回所有活跃客户(状态为 *active* 的客户）并以他们的 ID 排序：
-$customers = Customer::find()
-    ->where(['status' => Customer::STATUS_ACTIVE])
-    ->orderBy('id')
-    ->all();
-
-// 返回ID为1的客户：
-$customer = Customer::find()
-    ->where(['id' => 1])
-    ->one();
-
-// 取回活跃客户的数量：
-$count = Customer::find()
-    ->where(['status' => Customer::STATUS_ACTIVE])
-    ->count();
-
-// 以客户ID索引结果集：
-$customers = Customer::find()->indexBy('id')->all();
-// $customers 数组以 ID 为索引
-
-// 用原生 SQL 语句检索客户：
-$sql = 'SELECT * FROM customer';
-$customers = Customer::findBySql($sql)->all();
-```
-
-> 小贴士：在上面的代码中，`Customer::STATUS_ACTIVE` 是一个在 `Customer` 类里定义的常量。（译者注：这种常量的值一般都是tinyint）相较于直接在代码中写死字符串或数字，使用一个更有意义的常量名称是一种更好的编程习惯。
-
-`find()` 方法也支持用一种简化的用法，让你直接通过主键的值或者一系列其他字段值的数组来获取 AR 对象。
-主要的不同点在于，
-它并不返回 [[yii\db\ActiveQuery]] 对象，而是基于输入的字段值，直接返回一个 AR 对象
-而无需调用 `one()` 方法。
-
-```php
-// 返回ID为1的客户：
-$customer = Customer::find(1);
-
-// 返回ID为1的活跃客户：
-$customer = Customer::find([
-    'id' => 1,
-    'status' => Customer::STATUS_ACTIVE,
-]);
-```
-
-### 以数组形式获取数据
-
-有时候，我们需要处理很大量的数据，这时可能需要用一个数组来存储取到的数据，
-从而节省内存。你可以用 `asArray()` 函数做到这一点：
-
-```php
-// 以数组而不是对象形式取回客户信息：
-$customers = Customer::find()
-    ->asArray()
-    ->all();
-// $customers 的每个元素都是键值对数组
-```
-
-
-### 批量获取数据
-
-在 [Query Builder（查询构造器）](query-builder.md) 里，我们已经解释了当需要从数据库中查询大量数据时，你可以用 *batch query（批量查询）*来限制内存的占用。
-你可能也想在 AR 里使用相同的技巧，比如这样……
-
-```php
-// 一次提取 10 个客户信息
-foreach (Customer::find()->batch(10) as $customers) {
-    // $customers 是 10 个或更少的客户对象的数组
-}
-// 一次提取 10 个客户并一个一个地遍历处理
-foreach (Customer::find()->each(10) as $customer) {
-    // $customer 是一个 ”Customer“ 对象
-}
-// 贪婪加载模式的批处理查询
-foreach (Customer::find()->with('orders')->each() as $customer) {
-}
-```
-
 
 操作数据
 -----------------------------
 
-AR 提供以下方法插入、更新和删除与 AR 对象关联的那张表中的某一行：
+AR 提供以下方法插入、更新和删除数据库数据：
 
 - [[yii\db\ActiveRecord::save()|save()]]
 - [[yii\db\ActiveRecord::insert()|insert()]]
 - [[yii\db\ActiveRecord::update()|update()]]
 - [[yii\db\ActiveRecord::delete()|delete()]]
-
-AR 同时提供了一下静态方法，可以应用在与某 AR 类所关联的整张表上。
-用这些方法的时候千万要小心，因为他们作用于整张表！
-比如，`deleteAll()`  会删除掉表里**所有**的记录。
-
 - [[yii\db\ActiveRecord::updateCounters()|updateCounters()]]
 - [[yii\db\ActiveRecord::updateAll()|updateAll()]]
 - [[yii\db\ActiveRecord::updateAllCounters()|updateAllCounters()]]
 - [[yii\db\ActiveRecord::deleteAll()|deleteAll()]]
 
-
-下面的这些例子里，详细展现了如何使用这些方法：
+请注意 [[yii\db\ActiveRecord::updateAll()|updateAll()]]， [[yii\db\ActiveRecord::updateAllCounters()|updateAllCounters()]] 和 [[yii\db\ActiveRecord::deleteAll()|deleteAll()]] 都是静态方法，用整个整个数据表。其他方法只对 AR 对象关联的数据行有效。
 
 ```php
 // 插入新客户的记录
 $customer = new Customer();
-$customer->name = '詹姆斯';
-$customer->email = '007@example.com';
+$customer->name = 'James';
+$customer->email = 'james@example.com';
 $customer->save();  // 等同于 $customer->insert();
 
 // 更新现有客户记录
 $customer = Customer::find($id);
-$customer->email = '邦德@demo.com';
+$customer->email = 'james@example.com';
 $customer->save();  // 等同于 $customer->update();
 
 // 删除已有客户记录
 $customer = Customer::find($id);
 $customer->delete();
 
-// 所有客户的age（年龄）字段加1：
+// 所有客户的age字段加1：
 Customer::updateAllCounters(['age' => 1]);
 ```
 
-> 须知：`save()` 方法会调用 `insert()` 和 `update()` 中的一个，
-> 用哪个取决于当前 AR 对象是不是新对象（在函数内部，他会检查 [[yii\db\ActiveRecord::isNewRecord]] 的值）。
-> 若 AR 对象是由 `new` 操作符 初始化出来的，`save()` 方法会在表里*插入*一条数据；
-> 如果一个 AR 是由 `find()` 方法获取来的，
-> 则 `save()` 会*更新*表里的对应行记录。
+> 补充信息：执行 `save()` 方法前， AR 先通过 `ActiveRecord::isNewRecord` 方法分析 AR 对象是否为 PHP 端初始化出来的，并以此来判断是需要 `INSERT`（插入）还是 `UPDATE`（更新）数据，
+  然后哉 save() 方法保存数据时，就会执行相应的 SQL 语句。
 
-
-### 数据输入与有效性验证
-
-Because Active Record extends from [[yii\base\Model]], it supports the same data input and validation features
-as described in [Model](model.md). For example, you may declare validation rules by overwriting the
-[[yii\base\Model::rules()|rules()]] method; you may massively assign user input data to an Active Record instance;
-and you may call [[yii\base\Model::validate()|validate()]] to trigger data validation.
-
-When you call `save()`, `insert()` or `update()`, these methods will automatically call [[yii\base\Model::validate()|validate()]].
-If the validation fails, the corresponding data saving operation will be cancelled.
-
-The following example shows how to use an Active Record to collect/validate user input and save them into database:
-
-```php
-// creating a new record
-$model = new Customer;
-if ($model->load(Yii::$app->request->post()) && $model->save()) {
-    // the user input has been collected, validated and saved
-}
-
-// updating a record whose primary key is $id
-$model = Customer::find($id);
-if ($model === null) {
-    throw new NotFoundHttpException;
-}
-if ($model->load(Yii::$app->request->post()) && $model->save()) {
-    // the user input has been collected, validated and saved
-}
-```
-
-
-### 读取默认值
-
-Your table columns may be defined with default values. Sometimes, you may want to pre-populate your
-Web form for an Active Record with these values. To do so, call the `loadDefaultValues()` method before
-rendering the form:
+如果想引用数据库 schema 里定义的默认值，则可以使用 `loadDefaultValues()` 方法：
 
 ```php
 $customer = new Customer();
 $customer->loadDefaultValues();
-// ... 渲染 $customer 的 HTML 表单 ...
+$customer->name = 'Alexander';
+$customer->save();
 ```
-
-
-
-
-《《《待整理暂停线，下面的是以前翻译的，跟强哥前两天更新的不一样，还没有完全整理。
-
-
-
-
 
 
 数据输入和有效性验证
@@ -327,52 +217,52 @@ AR 继承了 [[yii\base\Model]] 的数据有效性验证和数据输入能力。
 
 查询关联的数据
 ------------------------
+
 使用 AR 方法也可以查询数据表的关联数据（如，选出表A的数据可以拉出表B的关联数据）。
-有了 AR，
-返回的关联数据连接就像连接关联主表的 AR 对象的属性一样。
+有了 AR，返回的关联数据连接就像连接关联主表的 AR 对象的属性一样。
 
 建立关联关系后，通过 `$customer->orders` 可以获取
 一个 `Order` 对象的数组，该数组代表当前客户对象的订单集。
 
-定义关联关系使用一个可以返回 [[yii\db\ActiveQuery]] 对象的 getter 方法，
+定义关联关系使用一个可以返回[[yii\db\ActiveQuery]]对象的 getter 方法，
 [[yii\db\ActiveQuery]]对象有关联上下文的相关信息，因此可以只查询关联数据。
 
 ```php
 class Customer extends \yii\db\ActiveRecord
 {
-    public function getOrders()
-    {
-        // 客户和订单通过 Order.customer_id -> id 关联的一对多关系
-        return $this->hasMany(Order::className(), ['customer_id' => 'id']);
-    }
+	public function getOrders()
+	{
+		// 客户和订单通过 Order.customer_id -> id 关联的一对多关系
+		return $this->hasMany(Order::className(), ['customer_id' => 'id']);
+	}
 }
 
 class Order extends \yii\db\ActiveRecord
 {
-    // 订单和客户通过 Customer.id -> customer_id 关联的一对一关系
-    public function getCustomer()
-    {
-        return $this->hasOne(Customer::className(), ['id' => 'customer_id']);
-    }
+	// 订单和客户通过 Customer.id -> customer_id 关联的一对一关系
+	public function getCustomer()
+	{
+		return $this->hasOne(Customer::className(), ['id' => 'customer_id']);
+	}
 }
 ```
 
 以上使用了 [[yii\db\ActiveRecord::hasMany()]] 和 [[yii\db\ActiveRecord::hasOne()]] 方法。
 以上两例分别是关联数据多对一关系和一对一关系的建模范例。
 如，一个客户有很多订单，一个订单只归属一个客户。
-两个方法都有两个参数并返回 [[yii\db\ActiveQuery]] 对象。
+两个方法都有两个参数并返回[[yii\db\ActiveQuery]]对象。
 
  - `$class`：关联模型类名，它必须是一个完全合格的类名。
  - `$link`: 两个表的关联列，应为键值对数组的形式。
    数组的键是 `$class` 关联表的列名，
    而数组值是关联类 $class 的列名。
-   基于表外键定义关联关系是最佳方法。
+   基于表外键定义关联关系是最佳实践。
 
 建立关联关系后，获取关联数据和获取组件属性一样简单，
 执行以下相应getter方法即可：
 
 ```php
-// 取得客户的订单
+//取得客户的订单
 $customer = Customer::find(1);
 $orders = $customer->orders; // $orders 是 Order 对象数组
 ```
@@ -380,8 +270,8 @@ $orders = $customer->orders; // $orders 是 Order 对象数组
 以上代码实际执行了以下两条 SQL 语句：
 
 ```sql
-SELECT * FROM customer WHERE id=1;
-SELECT * FROM order WHERE customer_id=1;
+SELECT * FROM tbl_customer WHERE id=1;
+SELECT * FROM tbl_order WHERE customer_id=1;
 ```
 
 > 提示:再次用表达式 `$customer->orders`将不会执行第二次 SQL 查询，
@@ -391,22 +281,22 @@ SQL 查询只在该表达式第一次使用时执行。
 
 有时候需要在关联查询中传递参数，如不需要返回客户全部订单，
 只需要返回购买金额超过设定值的大订单，
-通过以下getter方法声明一个关联数据 `bigOrders` ：
+通过以下 getter 方法声明一个关联数据 `bigOrders` ：
 
 ```php
 class Customer extends \yii\db\ActiveRecord
 {
-    public function getBigOrders($threshold = 100)
-    {
-        return $this->hasMany(Order::className(), ['customer_id' => 'id'])
-            ->where('subtotal > :threshold', [':threshold' => $threshold])
-            ->orderBy('id');
-    }
+	public function getBigOrders($threshold = 100)
+	{
+		return $this->hasMany(Order::className(), ['customer_id' => 'id'])
+			->where('subtotal > :threshold', [':threshold' => $threshold])
+			->orderBy('id');
+	}
 }
 ```
 
-`hasMany()` 返回 [[yii\db\ActiveQuery]] 对象，该对象允许你通过
-[[yii\db\ActiveQuery]] 方法定制查询。
+`hasMany()` 返回[[yii\db\ActiveQuery]]对象，该对象允许你通过
+[[yii\db\ActiveQuery]]方法定制查询。
 
 如上声明后，执行`$customer->bigOrders` 就返回
 总额大于100的订单。使用以下代码更改设定值：
@@ -416,7 +306,7 @@ $orders = $customer->getBigOrders(200)->all();
 ```
 
 >注意：关联查询返回的是 [[yii\db\ActiveQuery]] 的实例，如果像特性（如类属性）那样连接关联数据，
-返回的结果是关联查询的结果，即 [[yii\db\ActiveRecord]] 的实例，
+返回的结果是关联查询的结果，即[[yii\db\ActiveRecord]]的实例，
 或者是数组，或者是 null ，取决于关联关系的多样性。如，`$customer->getOrders()` 返回
 `ActiveQuery` 实例，而 `$customer->orders` 返回`Order` 对象数组
 （如果查询结果为空则返回空数组）。
@@ -426,51 +316,44 @@ $orders = $customer->getBigOrders(200)->all();
 --------------------------
 
 有时，两个表通过中间表关联，定义这样的关联关系，
-可以通过调用 [[yii\db\ActiveQuery::via()|via()]] 方法或 [[yii\db\ActiveQuery::viaTable()|viaTable()]] 方法来定制 [[yii\db\ActiveQuery]] 对象
-。
+可以通过调用 [[yii\db\ActiveQuery::via()|via()]] 方法或[[yii\db\ActiveQuery::viaTable()|viaTable()]] 方法
+来定制[[yii\db\ActiveQuery]]对象。
 
-举例而言，如果 `order` 表和 `item`  表通过中间表 `order_item`关联起来，
+`tbl_order`表和`tbl_item`表通过中间表`tbl_order_item`关联，
 可以在 `Order` 类声明 `items` 关联关系取代中间表：
-
-《《《待处理标识符：上面两句狗屁不通的话需要参照原文修订下。
-
-
-
-
-
 
 ```php
 class Order extends \yii\db\ActiveRecord
 {
-    public function getItems()
-    {
-        return $this->hasMany(Item::className(), ['id' => 'item_id'])
-            ->viaTable('order_item', ['order_id' => 'id']);
-    }
+	public function getItems()
+	{
+		return $this->hasMany(Item::className(), ['id' => 'item_id'])
+			->viaTable('tbl_order_item', ['order_id' => 'id']);
+	}
 }
 ```
 
 两个方法是相似的，除了
-[[yii\db\ActiveQuery::via()|via()]] 方法的第一个参数是使用 AR 类中定义的关联名。
+via() 方法的第一个参数是使用 AR 类中定义的关联名。
 以上方法取代了中间表，等价于：
 
 ```php
 class Order extends \yii\db\ActiveRecord
 {
-    public function getOrderItems()
-    {
-        return $this->hasMany(OrderItem::className(), ['order_id' => 'id']);
-    }
+	public function getOrderItems()
+	{
+		return $this->hasMany(OrderItem::className(), ['order_id' => 'id']);
+	}
 
-    public function getItems()
-    {
-        return $this->hasMany(Item::className(), ['id' => 'item_id'])
-            ->via('orderItems');
-    }
+	public function getItems()
+	{
+		return $this->hasMany(Item::className(), ['id' => 'item_id'])
+			->via('orderItems');
+	}
 }
 ```
 
-[pivot table]: http://en.wikipedia.org/wiki/Pivot_table "Pivot table（既中间表，英文，维基百科）"
+[pivot table]: http://en.wikipedia.org/wiki/Pivot_table "Pivot table（数据透视表，英文，维基百科）"
 
 
 延迟加载和即时加载（又称惰性加载与贪婪加载）
@@ -481,9 +364,9 @@ class Order extends \yii\db\ActiveRecord
 如果再次连接相同的关联对象，不再执行任何查询语句，这种数据库查询的执行方法称为“延迟加载”。如：
 
 ```php
-// SQL executed: SELECT * FROM customer WHERE id=1
+// 被执行的 SQL 语句: SELECT * FROM tbl_customer WHERE id=1
 $customer = Customer::find(1);
-// SQL executed: SELECT * FROM order WHERE customer_id=1
+// 被执行的 SQL 语句: SELECT * FROM tbl_order WHERE customer_id=1
 $orders = $customer->orders;
 // 没有 SQL 语句被执行
 $orders2 = $customer->orders; //取回上次查询的缓存数据
@@ -492,13 +375,13 @@ $orders2 = $customer->orders; //取回上次查询的缓存数据
 延迟加载非常实用，但是，在以下场景中使用延迟加载会遭遇性能问题：
 
 ```php
-// SQL executed: SELECT * FROM customer LIMIT 100
+// 被执行的 SQL 语句: SELECT * FROM tbl_customer LIMIT 100
 $customers = Customer::find()->limit(100)->all();
 
 foreach ($customers as $customer) {
-    // SQL executed: SELECT * FROM order WHERE customer_id=...
-    $orders = $customer->orders;
-    // ...处理 $orders...
+	// 100条 SQL 语句将被执行: SELECT * FROM tbl_order WHERE customer_id=...
+	$orders = $customer->orders;
+	// ...处理 $orders...
 }
 ```
 
@@ -509,21 +392,21 @@ foreach ($customers as $customer) {
 为解决以上性能问题，可以通过调用 [[yii\db\ActiveQuery::with()]] 方法使用*即时加载*解决。
 
 ```php
-// SQL executed: SELECT * FROM customer LIMIT 100;
-//               SELECT * FROM orders WHERE customer_id IN (1,2,...)
+// SQL 语句被执行: SELECT * FROM tbl_customer LIMIT 100;
+//               SELECT * FROM tbl_orders WHERE customer_id IN (1,2,...)
 $customers = Customer::find()->limit(100)
-    ->with('orders')->all();
+	->with('orders')->all();
 
 foreach ($customers as $customer) {
-    // 没有 SQL 语句被执行
-    $orders = $customer->orders;
-    // ...处理 $orders...
+	// 没有 SQL 语句被执行
+	$orders = $customer->orders;
+	// ...处理 $orders...
 }
 ```
 
 如你所见，同样的任务只需要两个 SQL 语句。
 
-> 须知：通常，即时加载 N 个关联关系而通过 `via()` 或者 `viaTable()` 定义了 M 个关联关系，
+> 须知:通常，即时加载 N 个关联关系而通过 `via()` 或者 `viaTable()` 定义了 M 个关联关系，
 将有 1+M+N 条 SQL 查询语句被执行：一个查询取回主表行数，
 一个查询给每一个 (M) 中间表，一个查询给每个 (N) 关联表。
 
@@ -541,15 +424,15 @@ $orders = Order::find()->select(['id', 'amount', 'customer_id'])->with('customer
 
 ```php
 $customer = Customer::find(1);
-// lazy loading: SELECT * FROM order WHERE customer_id=1 AND subtotal>100
+// 惰性加载：SELECT * FROM tbl_order WHERE customer_id=1 AND subtotal>100
 $orders = $customer->getOrders()->where('subtotal>100')->all();
 
-// eager loading: SELECT * FROM customer LIMIT 100
-//                SELECT * FROM order WHERE customer_id IN (1,2,...) AND subtotal>100
+// 贪婪加载：SELECT * FROM tbl_customer LIMIT 100
+//                SELECT * FROM tbl_order WHERE customer_id IN (1,2,...) AND subtotal>100
 $customers = Customer::find()->limit(100)->with([
-    'orders' => function($query) {
-        $query->andWhere('subtotal>100');
-    },
+	'orders' => function($query) {
+		$query->andWhere('subtotal>100');
+	},
 ])->all();
 ```
 
@@ -563,20 +446,20 @@ $customers = Customer::find()->limit(100)->with([
 ```php
 class Customer extends ActiveRecord
 {
-    ....
-    public function getOrders()
-    {
-        return $this->hasMany(Order::className(), ['customer_id' => 'id']);
-    }
+	....
+	public function getOrders()
+	{
+		return $this->hasMany(Order::className(), ['customer_id' => 'id']);
+	}
 }
 
 class Order extends ActiveRecord
 {
-    ....
-    public function getCustomer()
-    {
-        return $this->hasOne(Customer::className(), ['id' => 'customer_id']);
-    }
+	....
+	public function getCustomer()
+	{
+		return $this->hasOne(Customer::className(), ['id' => 'customer_id']);
+	}
 }
 ```
 
@@ -585,43 +468,43 @@ class Order extends ActiveRecord
 而连接一个订单的 `customer` 将触发另一条 SQL 语句。
 
 ```php
-// SELECT * FROM customer WHERE id=1
+// SELECT * FROM tbl_customer WHERE id=1
 $customer = Customer::find(1);
 // echoes "not equal"
-// SELECT * FROM order WHERE customer_id=1
-// SELECT * FROM customer WHERE id=1
+// SELECT * FROM tbl_order WHERE customer_id=1
+// SELECT * FROM tbl_customer WHERE id=1
 if ($customer->orders[0]->customer === $customer) {
-    echo 'equal';
+	echo 'equal';
 } else {
-    echo 'not equal';
+	echo 'not equal';
 }
 ```
 
-为避免多余执行的后一条语句，我们可以为 `customer`或 `orders` 关联关系定义相反的关联关系，
+为避免多余执行的后一条语句，我们可以为 `customer`或  `orders` 关联关系定义相反的关联关系，
 通过调用 [[yii\db\ActiveQuery::inverseOf()|inverseOf()]] 方法可以实现。
 
 ```php
 class Customer extends ActiveRecord
 {
-    ....
-    public function getOrders()
-    {
-        return $this->hasMany(Order::className(), ['customer_id' => 'id'])->inverseOf('customer');
-    }
+	....
+	public function getOrders()
+	{
+		return $this->hasMany(Order::className(), ['customer_id' => 'id'])->inverseOf('customer');
+	}
 }
 ```
 
 现在我们同样执行上面的查询，我们将得到：
 
 ```php
-// SELECT * FROM customer WHERE id=1
+// SELECT * FROM tbl_customer WHERE id=1
 $customer = Customer::find(1);
 // 输出相同
-// SELECT * FROM order WHERE customer_id=1
+// SELECT * FROM tbl_order WHERE customer_id=1
 if ($customer->orders[0]->customer === $customer) {
-    echo 'equal';
+	echo 'equal';
 } else {
-    echo 'not equal';
+	echo 'not equal';
 }
 ```
 
@@ -629,20 +512,20 @@ if ($customer->orders[0]->customer === $customer) {
 相对关系也可以用在即时加载中：
 
 ```php
-// SELECT * FROM customer
-// SELECT * FROM order WHERE customer_id IN (1, 2, ...)
+// SELECT * FROM tbl_customer
+// SELECT * FROM tbl_order WHERE customer_id IN (1, 2, ...)
 $customers = Customer::find()->with('orders')->all();
 // 输出相同
 if ($customers[0]->orders[0]->customer === $customers[0]) {
-    echo 'equal';
+	echo 'equal';
 } else {
-    echo 'not equal';
+	echo 'not equal';
 }
 ```
 
 > 注意:相对关系不能在包含中间表的关联关系中定义。
-> 即是，如果你的关系是通过[[yii\db\ActiveQuery::via()|via()]] 或 [[yii\db\ActiveQuery::viaTable()|viaTable()]]方法定义的，
-> 就不能调用[[yii\db\ActiveQuery::inverseOf()]]方法了。
+> 即是，如果你的关系是通过 [[yii\db\ActiveQuery::via()|via()]] 或 [[yii\db\ActiveQuery::viaTable()|viaTable()]] 方法定义的，
+> 就不能调用 [[yii\db\ActiveQuery::inverseOf()]] 方法了。
 
 
  JOIN 类型关联查询
@@ -655,13 +538,14 @@ JOIN SQL语句的查询条件和参数，使用 [[yii\db\ActiveQuery::joinWith()
 
 ```php
 // 查找所有订单并以客户 ID 和订单 ID 排序，并贪婪加载 "customer" 表
-$orders = Order::find()->joinWith('customer')->orderBy('customer.id, order.id')->all();
+$orders = Order::find()->joinWith('customer')->orderBy('tbl_customer.id, tbl_order.id')->all();
 // 查找包括书籍的所有订单，并以 `INNER JOIN` 的连接方式即时加载 "books" 表
 $orders = Order::find()->innerJoinWith('books')->all();
 ```
 
-以上，方法 [[yii\db\ActiveQuery::innerJoinWith()|innerJoinWith()]] 是访问 `INNER JOIN` 类型的  [[yii\db\ActiveQuery::joinWith()|joinWith()]] 的快捷方式。
+以上，方法 [[yii\db\ActiveQuery::innerJoinWith()|innerJoinWith()]] 是访问 `INNER JOIN` 类型的  [[yii\db\ActiveQuery::joinWith()|joinWith()]] 的快捷方式
 。
+
 
 可以连接一个或多个关联关系，可以自由使用查询条件到关联查询，
 也可以嵌套连接关联查询。如：
@@ -670,10 +554,10 @@ $orders = Order::find()->innerJoinWith('books')->all();
 // 连接多重关系
 // 找出24小时内注册客户包含书籍的订单
 $orders = Order::find()->innerJoinWith([
-    'books',
-    'customer' => function ($query) {
-        $query->where('customer.created_at > ' . (time() - 24 * 3600));
-    }
+	'books',
+	'customer' => function ($query) {
+		$query->where('tbl_customer.created_at > ' . (time() - 24 * 3600));
+	}
 ])->all();
 // 连接嵌套关系：连接 books 表及其 author 列
 $orders = Order::find()->joinWith('books.author')->all();
@@ -693,7 +577,7 @@ bing填充相应的关联记录。
 可以使用关联表的列来挑选主模型数据，
 
 当使用 [[yii\db\ActiveQuery::joinWith()|joinWith()]] 方法时可以响应没有歧义的列名。
-In the above examples, we use `item.id` and `order.id` to disambiguate the `id` column references
+上例可以使用 `tbl_item.id` 和 `tbl_order.id` 来消除 `id` 列指代的歧义。 
 因为订单表和项目表都包括 `id` 列。
 
 当连接关联关系时，关联关系默认使用即时加载。你可以
@@ -718,10 +602,10 @@ $orders = Order::find()->joinWith('books', false, 'INNER JOIN')->all();
 ```php
 class User extends ActiveRecord
 {
-    public function getBooks()
-    {
-        return $this->hasMany(Item::className(), ['owner_id' => 'id'])->onCondition(['category_id' => 1]);
-    }
+	public function getBooks()
+	{
+		return $this->hasMany(Item::className(), ['owner_id' => 'id'])->onCondition(['category_id' => 1]);
+	}
 }
 ```
 
@@ -729,12 +613,12 @@ class User extends ActiveRecord
 当你用 [[yii\db\ActiveQuery::joinWith()|joinWith()]] 执行一条查询时，取决于正被调用的是哪个 [[yii\db\ActiveQuery::onCondition()|onCondition()]]，
 返回 `category_id` 为 1 的 items 
 
-当你用 [[yii\db\ActiveQuery::joinWith()|joinWith()]] 进行一次查询时，“on-condition”条件会被放置在相应查询语句的 ON 部分，
+当你用 [[yii\db\ActiveQuery::joinWith()|joinWith()]] 进行一次查询时，“on-condition”条件会被放置在相应查询语句的 ON 部分。
 如：
 
 ```php
-// SELECT user.* FROM user LEFT JOIN item ON item.owner_id=user.id AND category_id=1
-// SELECT * FROM item WHERE owner_id IN (...) AND category_id=1
+// SELECT tbl_user.* FROM tbl_user LEFT JOIN tbl_item ON tbl_item.owner_id=tbl_user.id AND category_id=1
+// SELECT * FROM tbl_item WHERE owner_id IN (...) AND category_id=1
 $users = User::find()->joinWith('books')->all();
 ```
 
@@ -742,9 +626,9 @@ $users = User::find()->joinWith('books')->all();
 因为，此时此处并没有发生 JOIN 查询。比如：
 
 ```php
-// SELECT * FROM user WHERE id=10
+// SELECT * FROM tbl_user WHERE id=10
 $user = User::find(10);
-// SELECT * FROM item WHERE owner_id=10 AND category_id=1
+// SELECT * FROM tbl_item WHERE owner_id=10 AND category_id=1
 $books = $user->books;
 ```
 
@@ -769,7 +653,40 @@ $customer->link('orders', $order);
 ```
 
 上面调用的 [[yii\db\ActiveRecord::link()|link()]] 会设置 order 的 `customer_id` 为主键
-$customer 的值，然后调用  [[yii\db\ActiveRecord::save()|save()]]  方法保存订单到数据库。
+$customer 的值，然后调用 [[yii\db\ActiveRecord::save()|save()]] 方法保存订单到数据库。
+
+
+ActiveRecord 对象的生命周期
+-------------------------------------
+
+ActiveRecord 的对象在不同情况下被使用时，有不同的生命周期。
+AR 或其子类行为可以在其生命周期通过
+覆写方法和事件处理机制来注入定制代码。
+
+以 AR 实例为例，生命周期如下：
+
+1.构造函数
+2. [[yii\db\ActiveRecord::init()|init()]] 初始化方法将触发一个 [[yii\db\ActiveRecord::EVENT_INIT|EVENT_INIT]] 事件。
+
+通过 [[yii\db\ActiveRecord::find()|find()]] 方法得到的 AR 实例的生命周期：
+
+1.构造函数
+2. [[yii\db\ActiveRecord::init()|init()]] 初始化方法将触发一个 [[yii\db\ActiveRecord::EVENT_INIT|EVENT_INIT]] 事件。
+3.  [[yii\db\ActiveRecord::afterFind()|afterFind()]] 将触发[[yii\db\ActiveRecord::EVENT_AFTER_FIND|EVENT_AFTER_FIND]]事件
+
+当调用[[yii\db\ActiveRecord::save()|save()]] 方法插入或更新一条 AR 记录时，将经历以下生命周期：
+
+1. [[yii\db\ActiveRecord::beforeValidate()|beforeValidate()]] 会触发[[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]]事件
+2. [[yii\db\ActiveRecord::afterValidate()|afterValidate()]] 会触发 [[yii\db\ActiveRecord::EVENT_AFTER_VALIDATE|EVENT_AFTER_VALIDATE]] 事件
+3. [[yii\db\ActiveRecord::beforeSave()|beforeSave()]] 触发 [[yii\db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]] 事件或[[yii\db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]] 事件
+4.执行数据插入或更新
+5. [[yii\db\ActiveRecord::afterSave()|afterSave()]]: 触发 [[yii\db\ActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] 或 [[yii\db\ActiveRecord::EVENT_AFTER_UPDATE|EVENT_AFTER_UPDATE]] 事件
+
+当调用 [[yii\db\ActiveRecord::delete()|delete()]] 方法删除 AR 数据时所经历的生命周期如下：
+
+1. [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]]:触发[[yii\db\ActiveRecord::EVENT_BEFORE_DELETE|EVENT_BEFORE_DELETE]] 事件
+2.执行数据删除
+3. [[yii\db\ActiveRecord::afterDelete()|afterDelete()]]: 触发[[yii\db\ActiveRecord::EVENT_AFTER_DELETE|EVENT_AFTER_DELETE]] 事件
 
 
 作用域
@@ -795,11 +712,11 @@ use yii\db\ActiveQuery;
 
 class CommentQuery extends ActiveQuery
 {
-    public function active($state = true)
-    {
-        $this->andWhere(['active' => $state]);
-        return $this;
-    }
+	public function active($state = true)
+	{
+		$this->andWhere(['active' => $state]);
+		return $this;
+	}
 }
 ```
 
@@ -819,11 +736,11 @@ use yii\db\ActiveRecord;
 
 class Comment extends ActiveRecord
 {
-    public static function createQuery($config = [])
-    {
-        $config['modelClass'] = get_called_class();
-        return new CommentQuery($config);
-    }
+	public static function createQuery($config = [])
+	{
+		$config['modelClass'] = get_called_class();
+		return new CommentQuery($config);
+	}
 }
 ```
 
@@ -839,11 +756,11 @@ $inactiveComments = Comment::find()->active(false)->all();
 ```php
 class Post extends \yii\db\ActiveRecord
 {
-    public function getActiveComments()
-    {
-        return $this->hasMany(Comment::className(), ['post_id' => 'id'])->active();
+	public function getActiveComments()
+	{
+		return $this->hasMany(Comment::className(), ['post_id' => 'id'])->active();
 
-    }
+	}
 }
 ```
 
@@ -851,9 +768,9 @@ class Post extends \yii\db\ActiveRecord
 
 ```php
 $posts = Post::find()->with([
-    'comments' => function($q) {
-        $q->active();
-    }
+	'comments' => function($q) {
+		$q->active();
+	}
 ])->all();
 ```
 
@@ -870,7 +787,7 @@ $posts = Post::find()->with([
  */
 class Comment extends ActiveRecord
 {
-    // ...
+	// ...
 }
 ```
 
@@ -881,7 +798,7 @@ class Comment extends ActiveRecord
  */
 class CommentQuery extends ActiveQuery
 {
-    // ...
+	// ...
 }
 ```
 
@@ -893,13 +810,13 @@ class CommentQuery extends ActiveQuery
 ```php
 public static function createQuery($config = [])
 {
-    $config['modelClass'] = get_called_class();
-    return (new ActiveQuery($config))->where(['deleted' => false]);
+	$config['modelClass'] = get_called_class();
+	return (new ActiveQuery($config))->where(['deleted' => false]);
 }
 ```
 
 注意现在你的所有查询都不能使用[[yii\db\ActiveQuery::where()|where()]]方法，
-只能使用[[yii\db\ActiveQuery::where()|where()]]和[[yii\db\ActiveQuery::orWhere()|orWhere()]]方法，
+只能使用 [[yii\db\ActiveQuery::where()|where()]] 和 [[yii\db\ActiveQuery::orWhere()|orWhere()]] 方法，
 以避免覆写了缺省条件。
 
 
@@ -911,8 +828,8 @@ public static function createQuery($config = [])
 TODO: FIXME: WIP, TBD, https://github.com/yiisoft/yii2/issues/226
 
 ,
-[[yii\db\ActiveRecord::afterSave()|afterSave()]], [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]] 和 [[yii\db\ActiveRecord::afterDelete()|afterDelete()]]生命周期方法. 
-开发者的解决方案是通过数据库事务包覆写[[yii\db\ActiveRecord::save()|save()]]方法
+[[yii\db\ActiveRecord::afterSave()|afterSave()]], [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]] 和 [[yii\db\ActiveRecord::afterDelete()|afterDelete()]] 生命周期方法. 
+开发者的解决方案是通过数据库事务包覆写 [[yii\db\ActiveRecord::save()|save()]] 方法
 甚至在控制器功能方法中使用事务，这个解决方式严格来说不是最佳实践
 (违背了 “小控制器大模型”的基本规则）。
 
@@ -921,22 +838,22 @@ TODO: FIXME: WIP, TBD, https://github.com/yiisoft/yii2/issues/226
 ```php
 class Feature extends \yii\db\ActiveRecord
 {
-    // ...
+	// ...
 
-    public function getProduct()
-    {
-        return $this->hasOne(Product::className(), ['product_id' => 'id']);
-    }
+	public function getProduct()
+	{
+		return $this->hasOne(Product::className(), ['product_id' => 'id']);
+	}
 }
 
 class Product extends \yii\db\ActiveRecord
 {
-    // ...
+	// ...
 
-    public function getFeatures()
-    {
-        return $this->hasMany(Feature::className(), ['id' => 'product_id']);
-    }
+	public function getFeatures()
+	{
+		return $this->hasMany(Feature::className(), ['id' => 'product_id']);
+	}
 }
 ```
 
@@ -946,10 +863,10 @@ class Product extends \yii\db\ActiveRecord
 
 class ProductController extends \yii\web\Controller
 {
-    public function actionCreate()
-    {
-        // FIXME: TODO: WIP, TBD
-    }
+	public function actionCreate()
+	{
+		// FIXME: TODO: WIP, TBD
+	}
 }
 ```
 
@@ -958,10 +875,10 @@ class ProductController extends \yii\web\Controller
 ```php
 class ProductController extends \yii\web\Controller
 {
-    public function actionCreate()
-    {
-        // FIXME: TODO: WIP, TBD
-    }
+	public function actionCreate()
+	{
+		// FIXME: TODO: WIP, TBD
+	}
 }
 ```
 
@@ -970,56 +887,56 @@ class ProductController extends \yii\web\Controller
 ```php
 class Feature extends \yii\db\ActiveRecord
 {
-    // ...
+	// ...
 
-    public function getProduct()
-    {
-        return $this->hasOne(Product::className(), ['product_id' => 'id']);
-    }
+	public function getProduct()
+	{
+		return $this->hasOne(Product::className(), ['product_id' => 'id']);
+	}
 
-    public function scenarios()
-    {
-        return [
-            'userCreates' => [
-                'attributes' => ['name', 'value'],
-                'atomic' => [self::OP_INSERT],
-            ],
-        ];
-    }
+	public function scenarios()
+	{
+		return [
+			'userCreates' => [
+				'attributes' => ['name', 'value'],
+				'atomic' => [self::OP_INSERT],
+			],
+		];
+	}
 }
 
 class Product extends \yii\db\ActiveRecord
 {
-    // ...
+	// ...
 
-    public function getFeatures()
-    {
-        return $this->hasMany(Feature::className(), ['id' => 'product_id']);
-    }
+	public function getFeatures()
+	{
+		return $this->hasMany(Feature::className(), ['id' => 'product_id']);
+	}
 
-    public function scenarios()
-    {
-        return [
-            'userCreates' => [
-                'attributes' => ['title', 'price'],
-                'atomic' => [self::OP_INSERT],
-            ],
-        ];
-    }
+	public function scenarios()
+	{
+		return [
+			'userCreates' => [
+				'attributes' => ['title', 'price'],
+				'atomic' => [self::OP_INSERT],
+			],
+		];
+	}
 
-    public function afterValidate()
-    {
-        parent::afterValidate();
-        // FIXME: TODO: WIP, TBD
-    }
+	public function afterValidate()
+	{
+		parent::afterValidate();
+		// FIXME: TODO: WIP, TBD
+	}
 
-    public function afterSave($insert)
-    {
-        parent::afterSave($insert);
-        if ($this->getScenario() === 'userCreates') {
-            // FIXME: TODO: WIP, TBD
-        }
-    }
+	public function afterSave($insert)
+	{
+		parent::afterSave($insert);
+		if ($this->getScenario() === 'userCreates') {
+			// FIXME: TODO: WIP, TBD
+		}
+	}
 }
 ```
 
@@ -1028,14 +945,14 @@ class Product extends \yii\db\ActiveRecord
 ```php
 class ProductController extends \yii\web\Controller
 {
-    public function actionCreate()
-    {
-        // FIXME: TODO: WIP, TBD
-    }
+	public function actionCreate()
+	{
+		// FIXME: TODO: WIP, TBD
+	}
 }
 ```
 
-乐观锁（Optimistic Locks）
+Optimistic Locks
 ----------------
 
 TODO
@@ -1048,5 +965,5 @@ TODO
 另见
 --------
 
-- [模型（Model）](model.md)
+- [Model](model.md)
 - [[yii\db\ActiveRecord]]
