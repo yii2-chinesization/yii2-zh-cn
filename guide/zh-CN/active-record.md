@@ -7,13 +7,13 @@ Active Record（活动记录）
 指向对应行的一个字段值。
 您可以直接以面向对象的方式来操纵数据表中的数据，妈妈再不用担心我需要写原生 SQL 语句啦。
 
-For example, assume `Customer` is an Active Record class is associated with the `customer` table
-and `name` is a column of `customer` table. You can write the following code to insert a new
-row into `customer` table:
+举例来说，假设 `Customer` 是一个关联着 `tbl_customer` 表的 AR 类，
+而 `name` 是 `tbl_customer` 表的一个字段。你可以用以下代码
+在 `tbl_customer` 表中插入一个新纪录：
 
 ```php
 $customer = new Customer();
-$customer->name = 'Qiang';
+$customer->name = '强';
 $customer->save();
 ```
 
@@ -26,22 +26,22 @@ $db->createCommand('INSERT INTO customer (name) VALUES (:name)', [
 ])->execute();
 ```
 
-Below is the list of databases that are currently supported by Yii Active Record:
+下面是所有目前被 Yii 的 AR 功能所支持的数据库列表：
 
-* MySQL 4.1 or later: via [[yii\db\ActiveRecord]]
-* PostgreSQL 7.3 or later: via [[yii\db\ActiveRecord]]
-* SQLite 2 and 3: via [[yii\db\ActiveRecord]]
-* Microsoft SQL Server 2010 or later: via [[yii\db\ActiveRecord]]
-* Oracle: via [[yii\db\ActiveRecord]]
-* CUBRID 9.1 or later: via [[yii\db\ActiveRecord]]
-* Sphnix: via [[yii\sphinx\ActiveRecord]], requires `yii2-sphinx` extension
-* ElasticSearch: via [[yii\elasticsearch\ActiveRecord]], requires `yii2-elasticsearch` extension
-* Redis 2.6.12 or later: via [[yii\redis\ActiveRecord]], requires `yii2-redis` extension
-* MongoDB 1.3.0 or later: via [[yii\mongodb\ActiveRecord]], requires `yii2-mongodb` extension
+* MySQL 4.1 及以上：通过 [[yii\db\ActiveRecord]]
+* PostgreSQL 7.3 及以上：通过 [[yii\db\ActiveRecord]]
+* SQLite 2 和 3：通过 [[yii\db\ActiveRecord]]
+* Microsoft SQL Server 2010 及以上：通过 [[yii\db\ActiveRecord]]
+* Oracle: 通过 [[yii\db\ActiveRecord]]
+* CUBRID 9.1 及以上：通过 [[yii\db\ActiveRecord]]
+* Sphnix：通过 [[yii\sphinx\ActiveRecord]]，需求 `yii2-sphinx` 扩展
+* ElasticSearch：通过 [[yii\elasticsearch\ActiveRecord]]，需求 `yii2-elasticsearch` 扩展
+* Redis 2.6.12 及以上：通过 [[yii\redis\ActiveRecord]]，需求 `yii2-redis` 扩展
+* MongoDB 1.3.0 及以上：通过 [[yii\mongodb\ActiveRecord]]，需求 `yii2-mongodb` 扩展
 
-As you can see, Yii provides Active Record support for relational databases as well as NoSQL databases.
-In this tutorial, we will mainly describe the usage of Active Record for relational databases.
-However, most content described here are also applicable to Active Record for NoSQL databases.
+如你所见，Yii 不仅提供了对关系型数据库的 AR 支持，还提供了 NoSQL 数据库的支持。
+在这个教程中，我们会主要描述对关系型数据库的 AR 用法。
+然而，绝大多数的内容在 NoSQL 的 AR 里同样适用。
 
 
 声明 AR 类
@@ -78,7 +78,7 @@ AR 把相应数据行的每一个字段映射为 AR 对象的一个个特性变�
 使用以下语法读取列的值：
 
 ```php
-// "id" 和 "mail" 是 $customer AR对象关联的数据表列名
+// "id" 和 "mail" 是 $customer 对象所关联的数据表的对应字段名
 $id = $customer->id;
 $email = $customer->email;
 ```
@@ -165,8 +165,8 @@ $sql = 'SELECT * FROM customer';
 $customers = Customer::findBySql($sql)->all();
 ```
 
-> Tip: In the code above `Customer::STATUS_ACTIVE` is a constant defined in `Customer`. It is a good practice to
-  use meaningful constant names rather than hardcoded strings or numbers in your code.
+> 小贴士：在上面的代码中，`Customer::STATUS_ACTIVE` 是一个在`Customer`类里定义的常量。
+> 在我们的代码中使用一个有意义的常量名而不是一串写死的字符串，是一种更好的编程习惯。
 
 
 The `find()` method also supports the following shortcut usage which allows you to retrieve an Active Record
@@ -175,10 +175,10 @@ returning a [[yii\db\ActiveQuery]] instance, the method takes the column value(s
 instance directly without the need to call `one()`.
 
 ```php
-// 返回ID为1的客户：
+// 返回一个ID为1的客户：
 $customer = Customer::find(1);
 
-// to return an *active* customer whose ID is 1:
+// 返回一个ID唯一，且状态为 *active* 的客户:
 $customer = Customer::find([
     'id' => 1,
     'status' => Customer::STATUS_ACTIVE,
@@ -186,7 +186,7 @@ $customer = Customer::find([
 ```
 
 
-### Retrieving Data in Arrays
+### 以数组形式获取数据
 
 Sometimes when you are processing a large amount of data, you may want to use arrays to hold the data
 retrieved from database to save memory. This can be done by calling `asArray()`:
@@ -200,7 +200,7 @@ $customers = Customer::find()
 ```
 
 
-### Retrieving Data in Batches
+### 批量获取数据
 
 In [Query Builder](query-builder.md), we have explained that you may use *batch query* to keep your memory
 usage under a limit when querying a large amount of data from database. You may use the same technique
@@ -301,7 +301,7 @@ if ($model->load(Yii::$app->request->post()) && $model->save()) {
 ```
 
 
-### Loading Default Values
+### 读取默认值
 
 Your table columns may be defined with default values. Sometimes, you may want to pre-populate your
 Web form for an Active Record with these values. To do so, call the `loadDefaultValues()` method before
@@ -1054,7 +1054,7 @@ class ProductController extends \yii\web\Controller
 }
 ```
 
-Optimistic Locks
+乐观锁（Optimistic Locks）
 ----------------
 
 TODO
