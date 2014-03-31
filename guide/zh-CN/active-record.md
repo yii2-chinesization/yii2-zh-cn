@@ -1,20 +1,21 @@
 Active Record（活动记录）
 =============
 
-[Active Record](http://zh.wikipedia.org/wiki/Active_Record) 提供了一个面向对象的接口
+[Active Record](http://zh.wikipedia.org/wiki/Active_Record) （活动记录，以下简称AR）提供了一个面向对象的接口，
 用以访问数据库中的数据。一个 AR 类关联一张数据表，
-一个 AR 对象对应表中的一行，并且 AR 对象的每一个特性
-指向对应行的一个字段值。
+每个 AR 对象对应表中的一行，对象的属性（即 AR 的特性Attribute）映射到数据行的对应列。
+一条活动记录（AR对象）对应数据表的一行，AR对象的属性则映射该行的相应列。
 您可以直接以面向对象的方式来操纵数据表中的数据，妈妈再不用担心我需要写原生 SQL 语句啦。
 
-举例来说，假设 `Customer` 是一个关联着 `tbl_customer` 表的 AR 类，
-而 `name` 是 `tbl_customer` 表的一个字段。你可以用以下代码
-在 `tbl_customer` 表中插入一个新纪录：
+例如，假定 `Customer` AR 类关联着 `customer` 表，且该类的 `name` 属性代表 `customer` 表的 `name` 列。
+你可以写以下代码来哉 `customer` 表里插入一行新的记录:
+
+用 AR 而不是原生的 SQL 语句去执行数据库查询，可以调用直观方法来实现相同目标。如，调用 [[yii\db\ActiveRecord::save()|save()]] 方法将执行插入或更新轮询，将在该 AR 类关联的数据表新建或更新一行数据：
 
 ```php
 $customer = new Customer();
-$customer->name = '强';
-$customer->save();
+$customer->name = '李狗蛋';
+$customer->save();  // 一行新数据插入 customer 表
 ```
 
 上面的代码和使用下面的原生 SQL 语句是等效的，但显然前者更直观，
@@ -22,7 +23,7 @@ $customer->save();
 
 ```php
 $db->createCommand('INSERT INTO customer (name) VALUES (:name)', [
-    ':name' => '强',
+    ':name' => '李狗蛋',
 ])->execute();
 ```
 
@@ -42,7 +43,6 @@ $db->createCommand('INSERT INTO customer (name) VALUES (:name)', [
 如你所见，Yii 不仅提供了对关系型数据库的 AR 支持，还提供了 NoSQL 数据库的支持。
 在这个教程中，我们会主要描述对关系型数据库的 AR 用法。
 然而，绝大多数的内容在 NoSQL 的 AR 里同样适用。
-
 
 声明 AR 类
 ------------------------------
@@ -67,7 +67,6 @@ class Customer extends ActiveRecord
 }
 ```
 
-
 访问列数据
 ---------------------
 
@@ -86,7 +85,7 @@ $email = $customer->email;
 要改变列值，只要给关联属性赋新值并保存对象即可：
 
 ```php
-$customer->email = 'jane@example.com';
+$customer->email = '哪吒@example.com';
 $customer->save();
 ```
 
@@ -97,6 +96,7 @@ $customer->save();
 AR 用一个 [[yii\db\Connection|DB connection]] 对象与数据库交换数据。
 它使用 `db` 组件作为其连接对象。详见[数据库基础](database-basics.md)章节，
 你可以在应用程序配置文件中设置下 `db` 组件，就像这样，
+
 
 ```php
 return [
@@ -126,21 +126,20 @@ class Customer extends ActiveRecord
 }
 ```
 
-
-从数据库里查询数据
+查询数据
 ---------------------------
 
-AR 提供了两种进入方法来构建 DB 查询并向 AR 实例里填充数据：
+AR 提供了两种方法来构建 DB 查询并向 AR 实例里填充数据：
 
  - [[yii\db\ActiveRecord::find()]]
  - [[yii\db\ActiveRecord::findBySql()]]
 
-以上两个方法都会返回 [[yii\db\ActiveQuery]] 实例，该类继承自[[yii\db\Query]]，同样支持灵活且强大的 DB  轮询方法。
-of flexible and powerful DB query building methods, such as `where()`, `join()`, `orderBy()`, etc. The following examples
-demonstrate some of the possibilities.
+以上两个方法都会返回 [[yii\db\ActiveQuery]] 实例，该类继承自[[yii\db\Query]]，
+因此，他们都支持同一套灵活且强大的 DB 查询方法，如 `where()`，`join()`，`orderBy()`，等等。 
+下面的这些案例展示了一些可能的玩法：
 
 ```php
-// 取回所有状态为 *active*（激活的）的客户并以他们的 ID 排序：
+// 取回所有活跃客户(状态为 *active* 的客户）并以他们的 ID 排序：
 $customers = Customer::find()
     ->where(['status' => Customer::STATUS_ACTIVE])
     ->orderBy('id')
@@ -151,7 +150,7 @@ $customer = Customer::find()
     ->where(['id' => 1])
     ->one();
 
-// 取回活跃客户（状态为 *active*）的数量：
+// 取回活跃客户的数量：
 $count = Customer::find()
     ->where(['status' => Customer::STATUS_ACTIVE])
     ->count();
@@ -165,31 +164,28 @@ $sql = 'SELECT * FROM customer';
 $customers = Customer::findBySql($sql)->all();
 ```
 
-> 小贴士：在上面的代码中，`Customer::STATUS_ACTIVE` 是一个在`Customer`类里定义的常量。
-> 在我们的代码中使用一个有意义的常量名而不是一串写死的字符串，是一种更好的编程习惯。
+> 小贴士：在上面的代码中，`Customer::STATUS_ACTIVE` 是一个在 `Customer` 类里定义的常量。（译者注：这种常量的值一般都是tinyint）相较于直接在代码中写死字符串或数字，使用一个更有意义的常量名称是一种更好的编程习惯。
 
-
-The `find()` method also supports the following shortcut usage which allows you to retrieve an Active Record
-instance based on a primary key value or a set of column values. The main difference here is that instead of
-returning a [[yii\db\ActiveQuery]] instance, the method takes the column value(s) and returns an Active Record
-instance directly without the need to call `one()`.
+`find()` 方法也支持用一种简化的用法，让你直接通过主键的值或者一系列其他字段值的数组来获取 AR 对象。
+主要的不同点在于，
+它并不返回 [[yii\db\ActiveQuery]] 对象，而是基于输入的字段值，直接返回一个 AR 对象
+而无需调用 `one()` 方法。
 
 ```php
-// 返回一个ID为1的客户：
+// 返回ID为1的客户：
 $customer = Customer::find(1);
 
-// 返回一个ID唯一，且状态为 *active* 的客户:
+// 返回ID为1的活跃客户：
 $customer = Customer::find([
     'id' => 1,
     'status' => Customer::STATUS_ACTIVE,
 ]);
 ```
 
-
 ### 以数组形式获取数据
 
-Sometimes when you are processing a large amount of data, you may want to use arrays to hold the data
-retrieved from database to save memory. This can be done by calling `asArray()`:
+有时候，我们需要处理很大量的数据，这时可能需要用一个数组来存储取到的数据，
+从而节省内存。你可以用 `asArray()` 函数做到这一点：
 
 ```php
 // 以数组而不是对象形式取回客户信息：
@@ -202,9 +198,8 @@ $customers = Customer::find()
 
 ### 批量获取数据
 
-In [Query Builder](query-builder.md), we have explained that you may use *batch query* to keep your memory
-usage under a limit when querying a large amount of data from database. You may use the same technique
-in Active Record. For example,
+在 [Query Builder（查询构造器）](query-builder.md) 里，我们已经解释了当需要从数据库中查询大量数据时，你可以用 *batch query（批量查询）*来限制内存的占用。
+你可能也想在 AR 里使用相同的技巧，比如这样……
 
 ```php
 // 一次提取 10 个客户信息
@@ -224,17 +219,16 @@ foreach (Customer::find()->with('orders')->each() as $customer) {
 操作数据
 -----------------------------
 
-Active Record provides the following methods to insert, update and delete a single row in a table associated with
-a single Active Record instance:
+AR 提供以下方法插入、更新和删除与 AR 对象关联的那张表中的某一行：
 
 - [[yii\db\ActiveRecord::save()|save()]]
 - [[yii\db\ActiveRecord::insert()|insert()]]
 - [[yii\db\ActiveRecord::update()|update()]]
 - [[yii\db\ActiveRecord::delete()|delete()]]
 
-Active Record also provides the following static methods that apply to a whole table associated with
-an Active Record class. Be extremely careful when using these methods as they affect the whole table.
-For example, `deleteAll()` will delete ALL rows in the table.
+AR 同时提供了一下静态方法，可以应用在与某 AR 类所关联的整张表上。
+用这些方法的时候千万要小心，因为他们作用于整张表！
+比如，`deleteAll()`  会删除掉表里**所有**的记录。
 
 - [[yii\db\ActiveRecord::updateCounters()|updateCounters()]]
 - [[yii\db\ActiveRecord::updateAll()|updateAll()]]
@@ -242,36 +236,36 @@ For example, `deleteAll()` will delete ALL rows in the table.
 - [[yii\db\ActiveRecord::deleteAll()|deleteAll()]]
 
 
-The following examples show how to use these methods:
+下面的这些例子里，详细展现了如何使用这些方法：
 
 ```php
 // 插入新客户的记录
 $customer = new Customer();
-$customer->name = 'James';
-$customer->email = 'james@example.com';
+$customer->name = '詹姆斯';
+$customer->email = '007@example.com';
 $customer->save();  // 等同于 $customer->insert();
 
 // 更新现有客户记录
 $customer = Customer::find($id);
-$customer->email = 'james@example.com';
+$customer->email = '邦德@demo.com';
 $customer->save();  // 等同于 $customer->update();
 
 // 删除已有客户记录
 $customer = Customer::find($id);
 $customer->delete();
 
-// 所有客户的age字段加1：
+// 所有客户的age（年龄）字段加1：
 Customer::updateAllCounters(['age' => 1]);
 ```
 
-> Info: The `save()` method will call either `insert()` or `update()`, depending on whether
-  the Active Record instance is new or not (internally it will check the value of [[yii\db\ActiveRecord::isNewRecord]]).
-  If an Active Record is instantiated via the `new` operator, calling `save()` will
-  insert a row in the table; if an Active Record is obtained by `find()`, calling `save()` will
-  update the corresponding row in the table.
+> 须知：`save()` 方法会调用 `insert()` 和 `update()` 中的一个，
+> 用哪个取决于当前 AR 对象是不是新对象（在函数内部，他会检查 [[yii\db\ActiveRecord::isNewRecord]] 的值）。
+> 若 AR 对象是由 `new` 操作符 初始化出来的，`save()` 方法会在表里*插入*一条数据；
+> 如果一个 AR 是由 `find()` 方法获取来的，
+> 则 `save()` 会*更新*表里的对应行记录。
 
 
-### Data Input and Validation
+### 数据输入与有效性验证
 
 Because Active Record extends from [[yii\base\Model]], it supports the same data input and validation features
 as described in [Model](model.md). For example, you may declare validation rules by overwriting the
@@ -310,49 +304,29 @@ rendering the form:
 ```php
 $customer = new Customer();
 $customer->loadDefaultValues();
-// ... render HTML form for $customer ...
+// ... 渲染 $customer 的 HTML 表单 ...
 ```
 
 
-Active Record Life Cycles
+
+
+《《《待整理暂停线，下面的是以前翻译的，跟强哥前两天更新的不一样，还没有完全整理。
+
+
+
+
+
+
+数据输入和有效性验证
 -------------------------
 
-It is important to understand the life cycles of Active Record when it is used to manipulate data in database.
-These life cycles are typically associated with corresponding events which allow you to inject code
-to intercept or respond to these events. They are especially useful for developing Active Record [behaviors](behaviors.md).
+AR 继承了 [[yii\base\Model]] 的数据有效性验证和数据输入能力。有效性验证的方法会在数据保存时被调用。
+数据的有效性验证会在 `save()` 方法执行时自动完成，如果验证失败，数据保存操作将取消。
 
-When instantiating a new Active Record instance, we will have the following life cycles:
+更多细节请参看本指南的 [Model](model.md) 部分。
 
-1.构造函数
-2. [[yii\db\ActiveRecord::save()|save()]] 初始化方法将触发一个 [[yii\db\ActiveRecord::EVENT_INIT|EVENT_INIT]] 事件。
-
-When querying data through the [[yii\db\ActiveRecord::find()|find()]] method, we will have the following life cycles
-for EVERY newly populated Active Record instance:
-
-1.构造函数
-2. [[yii\db\ActiveRecord::save()|save()]] 初始化方法将触发一个 [[yii\db\ActiveRecord::EVENT_INIT|EVENT_INIT]] 事件。
-3.  [[yii\db\ActiveRecord::afterFind()|afterFind()]] 将触发[[yii\db\ActiveRecord::EVENT_AFTER_FIND|EVENT_AFTER_FIND]]事件
-
-When calling [[yii\db\ActiveRecord::save()|save()]] to insert or update an ActiveRecord, we will have
-the following life cycles:
-
-1. [[yii\db\ActiveRecord::beforeValidate()|beforeValidate()]] 会触发[[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]]事件
-2.[[yii\db\ActiveRecord::afterValidate()|afterValidate()]] 会触发[[yii\db\ActiveRecord::EVENT_AFTER_VALIDATE|EVENT_AFTER_VALIDATE]] 事件
-3. [[yii\db\ActiveRecord::beforeSave()|beforeSave()]] 触发 [[yii\db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]] 事件或[[yii\db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]] 事件
-4.执行数据插入或更新
-5. [[yii\db\ActiveRecord::afterSave()|afterSave()]]：触发 [[yii\db\ActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] 或[[yii\db\ActiveRecord::EVENT_AFTER_UPDATE|EVENT_AFTER_UPDATE]] 事件
-
-And Finally when calling [[yii\db\ActiveRecord::delete()|delete()]] to delete an ActiveRecord, we will have
-the following life cycles:
-
-1. [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]]:触发[[yii\db\ActiveRecord::EVENT_BEFORE_DELETE|EVENT_BEFORE_DELETE]] 事件
-2.执行数据删除
-3. [[yii\db\ActiveRecord::afterDelete()|afterDelete()]]: 触发[[yii\db\ActiveRecord::EVENT_AFTER_DELETE|EVENT_AFTER_DELETE]] 事件
-
-
-Working with Relational Data
-----------------------------
-
+查询关联的数据
+------------------------
 使用 AR 方法也可以查询数据表的关联数据（如，选出表A的数据可以拉出表B的关联数据）。
 有了 AR，
 返回的关联数据连接就像连接关联主表的 AR 对象的属性一样。
@@ -455,8 +429,15 @@ $orders = $customer->getBigOrders(200)->all();
 可以通过调用 [[yii\db\ActiveQuery::via()|via()]] 方法或 [[yii\db\ActiveQuery::viaTable()|viaTable()]] 方法来定制 [[yii\db\ActiveQuery]] 对象
 。
 
-For example, if table `order` and table `item` are related via pivot table `order_item`,
+举例而言，如果 `order` 表和 `item`  表通过中间表 `order_item`关联起来，
 可以在 `Order` 类声明 `items` 关联关系取代中间表：
+
+《《《待处理标识符：上面两句狗屁不通的话需要参照原文修订下。
+
+
+
+
+
 
 ```php
 class Order extends \yii\db\ActiveRecord
@@ -489,7 +470,7 @@ class Order extends \yii\db\ActiveRecord
 }
 ```
 
-[pivot table]: http://en.wikipedia.org/wiki/Pivot_table "Pivot table（数据透视表，英文，维基百科）"
+[pivot table]: http://en.wikipedia.org/wiki/Pivot_table "Pivot table（既中间表，英文，维基百科）"
 
 
 延迟加载和即时加载（又称惰性加载与贪婪加载）
@@ -1067,5 +1048,5 @@ TODO
 另见
 --------
 
-- [Model](model.md)
+- [模型（Model）](model.md)
 - [[yii\db\ActiveRecord]]
