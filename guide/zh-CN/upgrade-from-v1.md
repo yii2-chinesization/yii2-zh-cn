@@ -11,31 +11,24 @@ Yii 2.0 最大的变化是命名空间的使用。几乎所有核心类都使用
 组件和对象
 --------------------
 
-Yii 2.0 breaks the `CComponent` class in 1.1 into two classes: [[yii\base\Object]] and [[yii\base\Component]].
-The [[yii\base\Object|Object]] class is a lightweight base class that allows defining class properties
-via getters and setters. The [[yii\base\Component|Component]] class extends from [[yii\base\Object|Object]] and supports
-the event feature and the behavior feature.
+Yii 2.0 把 Yii 1.1 的 `CComponent` 类分离为`对象` 和 `组件`两个类: [[yii\base\Object]] and [[yii\base\Component]].
+[[yii\base\Object|Object]] 对象类是轻量级的基本类，允许通过 getters 和 setters 来定义类属性。[[yii\base\Component|Component]] 组件类继承自[[yii\base\Object|Object]] 对象类并支持事件特性和行为特性。
 
-If your class does not need the event or behavior feature, you should consider using
-`Object` as the base class. This is usually the case for classes that represent basic
-data structures.
+若自定义类不需要事件或行为特性，继承自对象类即可，通常用于那些代表基本数据结构的类。
 
-More details about Object and component can be found in the [Basic concepts section](basics.md).
+对象和组件的更多细节请参看[Basic concepts section](basics.md)。
 
-
-Object Configuration
+配置对象
 --------------------
 
-The [[yii\base\Object|Object]] class introduces a uniform way of configuring objects. Any descendant class
-of [[yii\base\Object|Object]] should declare its constructor (if needed) in the following way so that
-it can be properly configured:
+[[yii\base\Object|Object]] 对象类提供了配置对象的统一方法。对象类的子类需要如下格式声明构造器（如需要）以便对象被恰当配置：
 
 ```php
 class MyClass extends \yii\base\Object
 {
     public function __construct($param1, $param2, $config = [])
     {
-        // ... initialization before configuration is applied
+        // ... 配置生效前的初始化
 
         parent::__construct($config);
     }
@@ -44,18 +37,14 @@ class MyClass extends \yii\base\Object
     {
         parent::init();
 
-        // ... initialization after configuration is applied
+        // ... 配置生效后的初始化
     }
 }
 ```
 
-In the above, the last parameter of the constructor must take a configuration array
-which contains name-value pairs for initializing the properties at the end of the constructor.
-You can override the [[yii\base\Object::init()|init()]] method to do initialization work that should be done after
-the configuration is applied.
-
-By following this convention, you will be able to create and configure a new object
-using a configuration array like the following:
+上面构造器的最后一个参数必须是一个配置数组，是用于构造器运行结束时初始化属性的名值对。
+可以通过覆写[[yii\base\Object::init()|init()]]方法在配置生效后再运行初始化。
+遵循该约定，可以如下使用配置数组创建和配置新对象：
 
 ```php
 $object = Yii::createObject([
@@ -65,30 +54,25 @@ $object = Yii::createObject([
 ], [$param1, $param2]);
 ```
 
-More on configuration can be found in the [Basic concepts section](basics.md).
+更多配置信息请查阅[基础概念](basics.md).
 
-
-Events
+事件
 ------
 
-There is no longer the need to define an `on`-method in order to define an event in Yii 2.0.
-Instead, you can use whatever event names. To attach a handler to an event, you should now
-use the `on` method:
+Yii 2.0 定义事件不再需要使用 `on`开头的方法来定义事件，可以使用任何事件名。附加处理器到事件上，Yii 2 使用`on`方法来实现：
 
 ```php
 $component->on($eventName, $handler);
-// To detach the handler, use:
+// 分离处理器，使用:
 // $component->off($eventName, $handler);
 ```
 
-
 When you attach a handler, you can now associate it with some parameters which can be later
 accessed via the event parameter by the handler:
-
+附加处理器后，可以将其关联到一些参数上，这些参数稍后将通过事件参数被处理器访问到：
 ```php
 $component->on($eventName, $handler, $params);
 ```
-
 
 Because of this change, you can now use "global" events. Simply trigger and attach handlers to
 an event of the application instance:
