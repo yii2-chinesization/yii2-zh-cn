@@ -16,10 +16,8 @@ Yii 2.0 权威指南
 - [从1.1升级到2.0](upgrade-from-v1.md)
 - [安装](installation.md) - 如何下载 Yii 和配置 Web 服务器？
 - [配置](configuration.md) -  Yii 应用配置
-
 - [基础应用样板](apps-basic.md) - 无后台简单应用的参考模板。
 - [高级应用样板](apps-advanced.md) - 复杂应用的参考模板。
-
 - [创建自己的应用程序结构](apps-own.md) - 学习如何从头开始使用Yii。
 
 基础概念
