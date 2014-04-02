@@ -62,25 +62,20 @@ Linux环境可创建一个软连接使其能访问，使用以下命令创建软
 ln -s requirements.php ../requirements.php
 ```
 
-For the advanded app the `requirements.php` is two levels up so you have to use `ln -s requirements.php ../../requirements.php`.
-高级应用的 `requirements.php`
-Yii 2 requires PHP 5.4.0 or higher. Yii has been tested with the [Apache HTTP server](http://httpd.apache.org/) and
-[Nginx HTTP server](http://nginx.org/) on Windows and Linux.
-Yii may also be usable on other web servers and platforms, provided that PHP 5.4 or higher is supported.
+高级应用的 `requirements.php` 我就在根目录的下两级，所以需要使用 `ln -s requirements.php ../../requirements.php` 来创建软连接。
+Yii 2 要求 PHP 5.4.0或更高版本. Yii 在Windows 和 Linux下均通过了[Apache HTTP server](http://httpd.apache.org/)和[Nginx HTTP server](http://nginx.org/)的使用测试。
+Yii 在其他提供PHP 5.4以上版本的 web 服务器和平台也可以使用。
 
 
-Recommended Apache Configuration
+推荐的 Apache 配置
 --------------------------------
 
-Yii is ready to work with a default Apache web server configuration. As a security measure, Yii comes with `.htaccess`
-files in the Yii framework folder to deny access to those restricted resources.
+Yii 能在默认的 Apache web 服务器配置下运行。Yii 在 框架文件夹使用 `.htaccess`作为安全措施，拒绝受限来源访问。
 
-By default, requests for pages in a Yii-based site go through the bootstrap file, usually named `index.php`, and placed
-in the application's `web` directory. The result will be URLs in the format `http://hostname/index.php/controller/action/param/value`.
+Yii 应用的所有页面请求默认必须经过引导文件，通常命名为`index.php`，放置在应用的`web` 目录。返回的 URL 格式是`http://hostname/index.php/controller/action/param/value`。
 
-To hide the bootstrap file in your URLs, add `mod_rewrite` instructions to the `.htaccess` file in your web document root
-(or add the instructions to the virtual host configuration in Apache's `httpd.conf` file, `Directory` section for your webroot).
-The applicable instructions are:
+要在 URL 上隐藏引导文件，添加 `mod_rewrite` 指令到 `.htaccess` 文件（或添加指令到虚拟主机配置文件 `httpd.conf` 你的网站目录部分）。
+可应用的指令是：
 
 ~~~
 RewriteEngine on
@@ -93,13 +88,10 @@ RewriteRule . index.php
 ~~~
 
 
-Recommended Nginx Configuration
+推荐的 Nginx 配置
 -------------------------------
 
-Yii can also be used with the popular [Nginx](http://wiki.nginx.org/) web server, so long it has PHP installed as
-an [FPM SAPI](http://php.net/install.fpm). Below is a sample host configuration for a Yii-based site on Nginx.
-The configuration tells the server to send all requests for non-existent resources through the bootstrap file,
-resulting in "prettier" URLs without the need for `index.php` references.
+Yii 同样能用于流行的 [Nginx](http://wiki.nginx.org/) web 服务器, 只要PHP安装为 [FPM SAPI](http://php.net/install.fpm)。以下是  Nginx 的 Yii 应用配置主机的示例，配置要求服务器发送所有资源不存在的请求到引导文件，返回 URL 不包含 `index.php` 。
 
 ```
 server {
@@ -140,8 +132,6 @@ server {
 }
 ```
 
-When using this configuration, you should set `cgi.fix_pathinfo=0` in the `php.ini` file in order to avoid many unnecessary system `stat()` calls.
+要使用这个配置，需要设置 `php.ini` 文件中的 `cgi.fix_pathinfo=0` ，以避免系统很多不必要的`stat()` 调用。
 
-
-Note that when running a HTTPS server you need to add `fastcgi_param HTTPS on;` in order for Yii to properly detect if
-connection is secure.
+注意，运行 HTTPS 服务器需要添加`fastcgi_param HTTPS on;` 以便 Yii 正确地侦查连接是否安全。
