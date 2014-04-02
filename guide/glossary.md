@@ -4,15 +4,25 @@
 A
 ====================
 
-alias路径别名
+action
 ------------------
-
-Alias is a string that's used by Yii to refer to the class or directory such as @app/vendor.
+动作
 
 Active Record
 ------------------
 
 Active Record（中文名：活动记录）是一种领域模型模式，特点是一个模型类对应关系型数据库中的一个表，而模型类的一个实例对应表中的一行记录。关系型数据库往往通过外键来表述实体关系，Active Record 在数据源层面上也将这种关系映射为对象的关联和聚集。Active Record 适合非常简单的领域需求，尤其在领域模型和数据库模型十分相似的情况下。
+
+ActiveForm
+------------------
+
+活动表单
+
+alias路径别名
+------------------
+
+Alias is a string that's used by Yii to refer to the class or directory such as @app/vendor.
+
 
 application
 ------------------
@@ -25,6 +35,11 @@ assets
 ------------------
 
 Asset refers to a resource file. Typically it contains JavaScript or CSS code but can be anything else that is accessed via HTTP.
+资源文件，通常包括 JS 和 CSS 代码，可以通过 HTTP 被访问。
+
+attribute
+---------------
+特性，特指对象属性，以区别于类的属性/俗称的property
 
 B
 ====================
@@ -32,7 +47,7 @@ B
 bundle
 ------------------
 
-Bundle, known as package in Yii 1.1, refers to a number of assets and a configuration file that describes dependencies and lists assets.
+资源包，包括资源集合及一个描述了资源依赖关系和资源清单的配置文件。
 
 C
 ====================
@@ -48,6 +63,11 @@ D
 
 E
 ====================
+
+eager loading
+------------------
+预先加载，和延迟加载（lazy loading）相反
+预先加载通过级联查询读取主表同时将关联表相关数据也一并读回来，目的是减少对数据库的访问次数，提升应用的运行效率。
 
 extension扩展
 ------------------
@@ -68,6 +88,10 @@ installation安装
 ------------------
 
 Installation is a process of preparing something to work either by following a readme file or by executing specially prepared script. In case of Yii it's setting permissions and fullfilling software requirements.
+
+I18N
+-----------------
+i18n（其来源是英文单词 internationalization的首末字符i和n，18为中间的字符数）是“国际化”的简称。
 
 J
 ====================
@@ -139,13 +163,18 @@ U
 V
 ====================
 
+
 vendor
 ------------------
 
-Vendor is an organization or individual developer providing code in form of extensions, modules or libraries.
+Vendor 是代码供应商（开发者个人或组织），以扩展、模块或第三方库等形式提供代码。
 
 W
 ====================
+
+widget
+---------------
+小部件，是一小块可以在任意一个基于HTML的Web页面上执行的代码，它的表现形式可能是视频，地图，新闻，小游戏等等。它的根本思想来源于代码复用，通常情况下，Widget的代码形式包含了HTML,JavaScript以及CSS等。
 
 X
 ====================
