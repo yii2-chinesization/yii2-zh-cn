@@ -1,74 +1,72 @@
 基础应用模板
 ==========================
 
-The basic Yii application template is a perfect fit for small projects or when you're just learning the framework.
+Yii 基础应用模板是非常适用于小型项目或框架学习。
 
-The basic application template includes four pages: a homepage, an about page, a contact page, and a login page.
-The contact page displays a contact form that users can fill in to submit their inquiries to the webmaster. Assuming the site has access to a mail server and that the administrator's email address is entered in the configuration file, the contact form will work. The same goes for the login page, which allows users to be authenticated before accessing privileged content.
+基础应用模板包括四个页面：主页、关于页、联系页和登录页。
+联系页显示了一个联系表单，用户可以填写需求并提交给站长。假设站点连接好一个邮件服务器，管理员邮箱也在配置文件中做好设置，这个联系表单将会工作。而登录页就用于用户访问受限内容前进行身份验证。
 
-Installation
+
+安装
 ------------
 
-Installation of the framework requires [Composer](http://getcomposer.org/). If you do not have Composer on your system yet, you may download it from
-[http://getcomposer.org/](http://getcomposer.org/), or run the following command on Linux/Unix/MacOS:
+Yii 框架安装需要使用[Composer](http://getcomposer.org/)。如你的系统还没有 Composer ，请到
+[http://getcomposer.org/](http://getcomposer.org/)下载, 或在 Linux/Unix/MacOS 运行以下命令:
 
 ~~~
 curl -s http://getcomposer.org/installer | php
 ~~~
 
-You can then create a basic Yii application using the following :
+然后可以使用以下命令创建 Yii 基础应用：
 
 ~~~
 php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic /path/to/yii-application
 ~~~
 
-Now set document root directory of your Web server to /path/to/yii-application/web and you should be able to access the application using the URL `http://localhost/`.
+现在设置你的 Web 服务器根目录到 /path/to/yii-application/web 就可以通过 `http://localhost/` 访问该应用。
 
-Directory structure
+
+目录结构
 -------------------
 
-The basic application does not divide application directories much. Here's the basic structure:
+基础应用没有很明显的分离应用目录，以下是基础应用目录结构：
 
-- `assets` - application asset files.
-  - `AppAsset.php` - definition of application assets such as CSS, JavaScript etc. Check [Managing assets](assets.md) for
-    details.
-- `commands` - console controllers.
-- `config` - configuration.
-- `controllers` - web controllers.
-- `models` - application models.
-- `runtime` - logs, states, file cache.
-- `views` - view templates.
-- `web` - webroot.
+- `assets` - 应用资源文件目录
+  - `AppAsset.php` - 应用资源文件如 CSS 、JS 等定义文件，细节请参看[资源管理](assets.md)。
+- `commands` - 控制台命令目录
+- `config` - 配置文件目录
+- `controllers` - web 控制器
+- `models` - 模型
+- `runtime` - 日志、状态、缓存文件
+- `views` - 视图
+- `web` - 入口目录.
 
-Root directory contains a set of files.
+根目录包括一系列文件
 
-- `.gitignore` contains a list of directories ignored by git version system. If you need something never get to your source
-code repository, add it there.
-- `codeception.yml` - Codeception config.
-- `composer.json` - Composer config described in detail below.
-- `LICENSE.md` - license info. Put your project license there. Especially when opensourcing.
-- `README.md` - basic info about installing template. Consider replacing it with information about your project and its
-  installation.
-- `requirements.php` - Yii requirements checker.
-- `yii` - console application bootstrap.
-- `yii.bat` - same for Windows.
+- `.gitignore` 包括要被 GIT 版本控制系统忽略的目录清单。有些文档不需要上传到源码库，就在该文件列明。
+- `codeception.yml` - Codeception 配置
+- `composer.json` - Composer 配置，细节在下面描述
+- `LICENSE.md` - 版权文件，在此放你的项目许可，特别是开源项目
+- `README.md` - 安装模板的基础信息，可以用你的项目及安装相关信息来替换
+- `requirements.php` - Yii 必要环境检查文件
+- `yii` - 控制台应用引导文件
+- `yii.bat` - Windows 下的控制台应用引导文件
 
 
-### config
+### 配置
 
-This directory contains configuration files:
+该目录包括配置文件：
 
-- `console.php` - console application configuration.
-- `params.php` - common application parameters.
-- `web.php` - web application configuration.
-- `web-test.php` - web application configuration used when running functional tests.
+- `console.php` - 控制台应用配置文件
+- `params.php` - 应用共享参数
+- `web.php` - web 应用配置文件
+- `web-test.php` - 用于运行功能测试的web 应用配置文件
 
-All these files are returning arrays used to configure corresponding application properties. Check
-[Configuration](configuration.md) guide section for details.
+以上这些文件都是返回用于配置应用相应属性的数组，更多细节请参考本指南[配置](configuration.md)部分。
 
-### views
+### 视图
 
-Views directory contains templates your application is using. In the basic template there are:
+视图目录包括应用使用的视图模板，基础应用模板包括这些视图模板：
 
 ```
 layouts
@@ -81,14 +79,12 @@ site
     login.php
 ```
 
-`layouts` contains HTML layouts i.e. page markup except content: doctype, head section, main menu, footer etc.
-The rest are typically controller views. By convention these are located in subdirectories matching controller id. For
-`SiteController` views are under `site`. Names of the views themselves are typically match controller action names.
-Partials are often named starting with underscore.
+`layouts` 包括 HTML 布局文件，除了内容的页面标记：文件类型、头信息、主菜单、 footer 等。
+其他目录就是典型的控制器视图了，根据约定，控制器所属的视图文件放在该控制器目录下，如`SiteController` 视图在`site` 目录下。视图名也通常匹配相应的控制器和动作名。局部视图通常以下划线开头。
 
 ### web
 
-Directory is a webroot. Typically a webserver is pointed into it.
+该目录是 web 根目录， web 服务器通常指向该目录，从这里开始执行。
 
 ```
 assets
@@ -97,19 +93,17 @@ index.php
 index-test.php
 ```
 
-`assets` contains published asset files such as CSS, JavaScript etc. Publishing process is automatic so you don't need
-to do anything with this directory other than making sure Yii has enough permissions to write to it.
+`assets` 包括公开的资源文件，如 CSS 、JS 文件等。发布流程是自动的，不需要对该目录做任何事，只要确保Yii 框架对该目录有足够的写入权限即可。
 
-`css` contains plain CSS files and is useful for global CSS that isn't going to be compressed or merged by assets manager.
+`css` 显然包括的是 CSS 文件，用于无需用资源管理器压缩和合并的全局 CSS 文件。
 
-`index.php` is the main web application bootstrap and is the central entry point for it. `index-test.php` is the entry
-point for functional testing.
+`index.php` 是主要的 web 应用引导文件，即唯一的入口文件。 `index-test.php` 是功能测试的入口文件。
 
-Configuring Composer
+配置 Composer
 --------------------
 
-After application template is installed it's a good idea to adjust default `composer.json` that can be found in the root
-directory:
+
+应用模板安装后，调整默认的 `composer.json` 是好的做法，该文件在根目录下：
 
 ```json
 {
@@ -152,11 +146,10 @@ directory:
 }
 ```
 
-First we're updating basic information. Change `name`, `description`, `keywords`, `homepage` and `support` to match
-your project.
+首先升级基础信息，修改 `name`, `description`, `keywords`, `homepage` 和 `support` 以匹配你的项目。
 
-Now the interesting part. You can add more packages your application needs to `require` section.
-All these packages are coming from [packagist.org](https://packagist.org/) so feel free to browse the website for useful code.
+现在是有趣的部分，在 `require` 部分添加更多你的项目需要引入的包。所有的包都来自[packagist.org](https://packagist.org/)，请到该网站自由的浏览有用的代码。
 
 After your `composer.json` is changed you can run `php composer.phar update --prefer-dist`, wait till packages are downloaded and
 installed and then just use them. Autoloading of classes will be handled automatically.
+修改了 `composer.json` 后运行 `php composer.phar update --prefer-dist` 将下载包，完成后安装即可使用包了。类加载是自动处理的。
