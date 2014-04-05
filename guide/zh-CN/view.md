@@ -1,11 +1,9 @@
 视图
 ====
 
-The view component is an important part of MVC. The view acts as the interface to the application, making it responsible
-for presenting data to end users, displaying forms, and so forth.
+视图组件是 MVC 的重要部分。视图作为应用界面，履行其向终端用户表现数据的职责，如显示表单等。
 
-
-Basics
+基础
 ------
 
 By default, Yii uses PHP in view templates to generate content and elements. A web application view typically contains
