@@ -1,27 +1,25 @@
 模型
 =====
 
-In keeping with the MVC approach, a model in Yii is intended for storing or temporarily representing application data.
-Yii models have the following basic features:
+Yii 遵循 MVC 结构，在 Yii 中模型的作用是存储或表示应用暂存的数据。 Yii 模型有以下基本特性：
 
-- Attribute declaration: a model defines what is considered an attribute.
-- Attribute labels: each attribute may be associated with a label for display purpose.
-- Massive attribute assignment: the ability to populate multiple model attributes in one step.
-- Scenario-based data validation.
+- 特性定义：模型定义了什么看作特性。
+- 特性标签：出于显示目的每个特性可能和一个标签关联。
+- 批量填充特性：一次填充多个模型特性的能力。
+- 基于场景的数据校验。
 
-Models in Yii extend from the [[yii\base\Model]] class. Models are typically used to both hold data and define
-the validation rules for that data (aka, the business logic). The business logic greatly simplifies the generation
-of models from complex web forms by providing validation and error reporting.
+Yii 的模型继承自[[yii\base\Model]]类。模型通常用来保持数据何定义数据的验证规则（又称为业务逻辑）。业务逻辑通过提供验证和错误报告极大地简化了
+从复杂 web 表单到生成模型的过程。
 
-The Model class is also the base class for more advanced models with additional functionality, such
-as [Active Record](active-record.md).
+模型类也是更多多功能高级模型的基类，如[活动记录](active-record.md)。
 
-Attributes
+特性
 ----------
 
 The actual data represented by a model is stored in the model's *attributes*. Model attributes can
 be accessed like the member variables of any object. For example, a `Post` model
 may contain a `title` attribute and a `content` attribute, accessible as follows:
+
 
 ```php
 $post = new Post();
