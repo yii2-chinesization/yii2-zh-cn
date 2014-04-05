@@ -16,10 +16,7 @@ Yii 的模型继承自[[yii\base\Model]]类。模型通常用来保持数据何�
 特性
 ----------
 
-The actual data represented by a model is stored in the model's *attributes*. Model attributes can
-be accessed like the member variables of any object. For example, a `Post` model
-may contain a `title` attribute and a `content` attribute, accessible as follows:
-
+实际上模型代表的数据是存储在模型的 *特性* 中。模型特性可以像对象的变量那样访问。如， `Post` 模型包括 `title` 和 `content` 特性，如下访问：
 
 ```php
 $post = new Post();
@@ -29,8 +26,7 @@ echo $post->title;
 echo $post->content;
 ```
 
-Since [[yii\base\Model|Model]] implements the [ArrayAccess](http://php.net/manual/en/class.arrayaccess.php) interface,
-you can also access the attributes as if they were array elements:
+既然[[yii\base\Model|Model]]实现了[ArrayAccess](http://php.net/manual/en/class.arrayaccess.php)接口，也可以当作数组元素来访问：
 
 ```php
 $post = new Post();
@@ -40,12 +36,10 @@ echo $post['title'];
 echo $post['content'];
 ```
 
-By default, [[yii\base\Model|Model]] requires that attributes be declared as *public* and *non-static*
-class member variables. In the following example, the `LoginForm` model class declares two attributes:
-`username` and `password`.
+默认情况下，[[yii\base\Model|Model]]要求特性声明为 *公开的* 和 *非静态的* 类成员变量。下例中， `LoginForm` 模型类声明了两个特性：`username` 和 `password`。
 
 ```php
-// LoginForm has two attributes: username and password
+// LoginForm 有两个特性: username 和 password
 class LoginForm extends \yii\base\Model
 {
     public $username;
