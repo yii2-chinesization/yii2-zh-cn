@@ -31,14 +31,14 @@ defined('YII_DEBUG') or define('YII_DEBUG', false);
 
 ```php
 define('YII_DEBUG', true); // 仅开发阶段使用 
-defined('YII_DEBUG') or define('YII_DEBUG', false);
+defined('YII_DEBUG') or define('YII_DEBUG', false); //生产环境使用
 ```
 
 配置应用实例
 ------------------------------------
 
 当一个应用实例在引导脚本中被创建时，它就会被配置。这些配置通常被
-存储在一个放置在应用目录下 `/config` 文件夹里的一个PHP文件中，
+存储在`/config` 文件夹里的一个PHP文件中，
 
 ```php
 <?php
