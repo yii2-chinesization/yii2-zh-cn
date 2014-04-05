@@ -10,14 +10,14 @@ Yii 基础应用模板是非常适用于小型项目或框架学习。
 安装
 ------------
 
-Yii 框架安装需要使用[Composer](http://getcomposer.org/)。如你的系统还没有 Composer ，请到
+Yii 应用安装需要使用[Composer](http://getcomposer.org/)。如你的系统还没有 Composer ，请到
 [http://getcomposer.org/](http://getcomposer.org/)下载, 或在 Linux/Unix/MacOS 运行以下命令:
 
 ~~~
 curl -s http://getcomposer.org/installer | php
 ~~~
 
-然后可以使用以下命令创建 Yii 基础应用：
+然后使用以下命令创建 Yii 基础应用：
 
 ~~~
 php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic /path/to/yii-application
@@ -150,6 +150,4 @@ index-test.php
 
 现在是有趣的部分，在 `require` 部分添加更多你的项目需要引入的包。所有的包都来自[packagist.org](https://packagist.org/)，请到该网站自由的浏览有用的代码。
 
-After your `composer.json` is changed you can run `php composer.phar update --prefer-dist`, wait till packages are downloaded and
-installed and then just use them. Autoloading of classes will be handled automatically.
-修改了 `composer.json` 后运行 `php composer.phar update --prefer-dist` 将下载包，完成后安装即可使用包了。类加载是自动处理的。
+修改了 `composer.json` 后运行 `php composer.phar update --prefer-dist` 将下载包，完成后安装即可使用包了。类会自动加载。
