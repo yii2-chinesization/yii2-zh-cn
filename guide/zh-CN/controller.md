@@ -1,17 +1,16 @@
 控制器
 ==========
 
-Controller is one of the key parts of the application. It determines how to handle incoming request and creates a response.
+控制器是应用的关键部分。它决定如何处理输入请求并创建响应。
 
-Most often a controller takes HTTP request data and returns HTML, JSON or XML as a response.
+通常控制器接收 HTTP 数据请求，返回 HTML、JSON 或 XML 作为响应。
 
-Basics
+基础
 ------
 
-Controller resides in application's `controllers` directory and is named like `SiteController.php`,
-where the `Site` part could be anything describing a set of actions it contains.
+控制器位于应用的 `controllers` 目录并像 `SiteController.php`这样命名， `Site` 部分包括一系列动作。
 
-The basic web controller is a class that extends [[yii\web\Controller]] and could be very simple:
+基本的 web 控制器是继承自[[yii\web\Controller]]且可以非常简单：
 
 ```php
 namespace app\controllers;
@@ -22,13 +21,13 @@ class SiteController extends Controller
 {
     public function actionIndex()
     {
-        // will render view from "views/site/index.php"
+        // 将渲染 "views/site/index.php"
         return $this->render('index');
     }
 
     public function actionTest()
     {
-        // will just print "test" to the browser
+        // 仅打印 "test" 到浏览器
         return 'test';
     }
 }
@@ -39,6 +38,7 @@ The output of an action is what the method returns: it could be a string or an i
 The return value will be handled by the `response` application
 component which can convert the output to different formats such as JSON for example. The default behavior
 is to output the value unchanged though.
+
 
 
 Routes
