@@ -1,127 +1,116 @@
 高级应用模板
 =============================
 
-This template is for large projects developed in teams where backend is divided from frontend, application is deployed
-to multiple servers etc. This application template also goes a bit further regarding features and provides essential
-database, signup and password restore out of the box.
+该模板适用于大型项目开发，分离前后台使应用可以分别安装到多个服务器。该应用模板还提供了一些令人喜爱的特性、必不可少的数据库、非常棒的注册和密码存储。
 
-Installation
+安装
 ------------
 
-### Install via Composer
+### 用 Composer 安装
 
-If you do not have [Composer](http://getcomposer.org/), you may download it from
-[http://getcomposer.org/](http://getcomposer.org/) or run the following command on Linux/Unix/MacOS:
+Yii 应用安装需要使用[Composer](http://getcomposer.org/)。如你的系统还没有 Composer ，请到
+[http://getcomposer.org/](http://getcomposer.org/)下载, 或在 Linux/Unix/MacOS 运行以下命令:
 
 ~~~
 curl -s http://getcomposer.org/installer | php
 ~~~
 
-You can then install the application using the following command:
+然后使用以下命令创建 Yii 高级应用：
 
 ~~~
 php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-advanced /path/to/yii-application
 ~~~
 
-Getting started
+开始
 ---------------
 
-After you install the application, you have to conduct the following steps to initialize
-the installed application. You only need to do these once for all.
+安装应用后，必须执行以下步骤来初始化应用，只需做一次：
 
-1. Execute the `init` command and select `dev` as environment.
+1. 执行 `init` 命令并选择 `dev` 环境。
+
    ```
    php /path/to/yii-application/init
    ```
-2. Create a new database and adjust the `components.db` configuration in `common/config/main-local.php` accordingly.
-3. Apply migrations with console command `yii migrate`.
-4. Set document roots of your Web server:
+2. 创建新的数据库并在 `common/config/main-local.php` 相应地调整 `components.db` 配置。
+3. 以控制台命令 `yii migrate` 运行数据库合并。
+4. 设置 web 服务器的文件根目录：
 
-- for frontend `/path/to/yii-application/frontend/web/` and using the URL `http://frontend/`
-- for backend `/path/to/yii-application/backend/web/` and using the URL `http://backend/`
+- 前台是 `/path/to/yii-application/frontend/web/` ，使用 `http://frontend/` 访问。
+- 后台是 `/path/to/yii-application/backend/web/` ，使用 `http://backend/` 访问。
 
-Directory structure
+目录结构
 -------------------
 
-The root directory contains the following subdirectories:
+根目录包括以下子目录：
 
-- `backend` - backend web application.
-- `common` - files common to all applications.
-- `console` - console application.
-- `environments` - environment configs.
-- `frontend` - frontend web application.
+- `backend` - web 应用后台
+- `common` - 所有应用共享文件
+- `console` - 控制台应用
+- `environments` - 环境配置
+- `frontend` - web 应用前台
 
-Root directory contains a set of files.
+根目录还包括以下文件：
 
-- `.gitignore` contains a list of directories ignored by git version system. If you need something never get to your source
-  code repository, add it there.
-- `composer.json` - Composer config described in detail below.
-- `init` - initialization script described in "Composer config described in detail below".
-- `init.bat` - same for Windows.
-- `LICENSE.md` - license info. Put your project license there. Especially when opensourcing.
-- `README.md` - basic info about installing template. Consider replacing it with information about your project and its
-  installation.
-- `requirements.php` - Yii requirements checker.
-- `yii` - console application bootstrap.
-- `yii.bat` - same for Windows.
+- `.gitignore` 包括要被 GIT 版本控制系统忽略的目录清单。有些文档不需要上传到源码库，就在该文件列明。
+- `composer.json` - 细节在下面描述的 Composer 配置
+- `init` - 初始化脚本，并描述在 "细节在下面描述的 Composer 配置"
+- `init.bat` - Windows 下的初始化脚本
+- `LICENSE.md` - 版权文件，在此放你的项目许可，特别是开源项目
+- `README.md` - 安装模板的基础信息，可以用你的项目及安装相关信息来替换
+- `requirements.php` - Yii 必要环境检查文件
+- `yii` - 控制台应用引导文件
+- `yii.bat` - Windows 下的控制台应用引导文件
 
-Applications
+应用
 ------------
 
-There are three applications in advanced template: frontend, backend and console. Frontend is typically what is presented
-to end user, the project itself. Backend is admin panel, analytics and such functionality. Console is typically used for
-cron jobs and low-level server management. Also it's used during application deployment and handles migrations and assets.
+高级模板有三个应用：前台、后台和控制台。前台通常面向终端用户，项目自身。后台是管理平台，诸如数据分析等功能。控制台通常用于守护程序和底层服务器管理，也用于应用部署、合并及资源处理。
 
-There's also a `common` directory that contains files used by more than one application. For example, `User` model.
+还有个 `common` 目录，包括的文件在不止一个应用中使用。如，`User` 模型。
 
-frontend and backend are both web applications and both contain `web` directory. That's the webroot you should point your
-webserver to.
+前台和后台都是 web 应用，都包括 `web` 目录，该目录是设置服务器指向的根目录。
 
-Each application has its own namespace and alias corresponding to its name. Same applies to common directory.
+每个应用有其自己的命名空间和对应的路径别名，也适用于通用目录。
 
-Configuration and environments
-------------------------------
+配置和环境
+--------------
 
-There are multiple problems with straightforward approach to configuration:
+直接配置应用会产生很多问题：
 
-- Each team member has its own configuration options. Committing such config will affect other team members.
-- Production database password and API keys should not end up in repository.
-- There are multiple servers: development, testing, production. Each should have its own configuration.
-- Defining all configuration options for each case is very repetitive and takes too much time to maintain.
+- 每个应用成员都有自己的配置选项，直接配置会影响其他应用成员.
+- 生产环境的数据库密码和 API keys 不应该出现在版本库里。
+- 考虑有很多服务器：开发服务器、测试服务器、发布服务器。每个都应该有其单独的配置。
+- 为每个状况定义所有的配置选项是重复的，也需要太多时间维护。
 
-In order to solve these issues Yii introduces environments concept that is very simple. Each environment is represented
-by a set of files under `environments` directory. `init` command is used to switch between these. What it really does is
-just copying everything from environment directory over the root directory where all applications are.
+Yii 使用环境概念解决以上问题就非常简单。每个环境用`environments` 目录下的一系列文件表示。用 `init` 命令来变换环境，它所做的其实是复制环境目录的所有文件来替换所有应用所在根目录文件。
 
-Typically environment contains application bootstrap files such as `index.php` and config files suffixed with
-`-local.php`. These are added to `.gitignore` and never added to source code repository.
+通常环境包括应用的引导文件如 `index.php` 和后缀名为`-local.php` 的配置文件。这些要添加到 `.gitignore` ，不要提交到源码库。
 
-In order to avoid duplication configurations are overriding each other. For example, frontend reads configuration in the
-following order:
+为避免重复，配置可相互覆写。如，前台按以下顺序读取配置：
 
 - `common/config/main.php`
 - `common/config/main-local.php`
 - `frontend/config/main.php`
 - `frontend/config/main-local.php`
 
-Parameters are read in the following order:
+参数按以下顺序读取配置：
 
 - `common/config/params.php`
 - `common/config/params-local.php`
 - `frontend/config/params.php`
 - `frontend/config/params-local.php`
 
-The later config file overrides the former.
 
-Here's the full scheme:
+后面的配置文件会覆写前面的配置文件。
 
-![Advanced application configs](images/advanced-app-configs.png)
+以下是完整配置顺序：
 
-Configuring Composer
+![高级应用配置](images/advanced-app-configs.png)
+
+配置 Composer
 --------------------
 
-After application template is installed it's a good idea to adjust default `composer.json` that can be found in the root
-directory:
+应用模板安装后，调整默认的 `composer.json` 是好的做法，该文件在根目录下：
 
 ```json
 {
@@ -167,36 +156,32 @@ directory:
 }
 ```
 
-First we're updating basic information. Change `name`, `description`, `keywords`, `homepage` and `support` to match
-your project.
+首先升级基础信息，修改 `name`, `description`, `keywords`, `homepage` 和 `support` 以匹配你的项目。
 
-Now the interesting part. You can add more packages your application needs to `require` section.
-All these packages are coming from [packagist.org](https://packagist.org/) so feel free to browse the website for useful code.
+现在是有趣的部分，在 `require` 部分添加更多你的项目需要引入的包。所有的包都来自[packagist.org](https://packagist.org/)，请到该网站自由的浏览有用的代码。
 
-After your `composer.json` is changed you can run `php composer.phar update --prefer-dist`, wait till packages are downloaded and
-installed and then just use them. Autoloading of classes will be handled automatically.
+修改了 `composer.json` 后运行 `php composer.phar update --prefer-dist` 将下载包，完成后安装即可使用包了。类会自动加载。
 
-Creating links from backend to frontend
----------------------------------------
+创建后台到前台的链接
+------------------------
 
-Often it's required to create links from backend application to frontend application. Since frontend application may
-contain its own URL manager rules you need to duplicate that for backend application naming it differently:
+经常需要创建后台应用到前台应用的链接。前台应用已经有其单独的 URL 管理器规则，你需要给后台应用复制 URL 管理器并重新命名以区分：
 
 ```php
 return [
     'components' => [
         'urlManager' => [
-            // here is your normal backend url manager config
+            // 这是后台 URL 管理器配置
         ],
         'urlManagerFrontend' => [
-            // here is your frontend URL manager config
+            // 这是前台 URL 管理器配置
         ],
 
     ],
 ];
 ```
 
-After it is done you can get URL poiting to frontend like the following:
+配置完成就可以使用以下代码获得指向前台的 URL：
 
 ```php
 echo Yii::$app->urlManagerFrontend->createUrl(...);
