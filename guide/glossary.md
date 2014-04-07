@@ -18,6 +18,8 @@ ActiveForm
 
 活动表单
 
+
+
 alias路径别名
 ------------------
 
@@ -117,6 +119,11 @@ namespace命名空间
 ------------------
 
 Namespace refers to a PHP language feature which is actively used in Yii2.
+
+named arguments
+----------------
+
+具名实参
 
 O
 ===================
