@@ -6,12 +6,9 @@
 基础
 ------
 
-By default, Yii uses PHP in view templates to generate content and elements. A web application view typically contains
-some combination of HTML, along with PHP `echo`, `foreach`, `if`, and other basic constructs.
-Using complex PHP code in views is considered to be bad practice. When complex logic and functionality is needed,
-such code should either be moved to a controller or a widget.
+Yii 默认使用 PHP 作为视图模板来生成内容和元素。web 应用视图通常包括一些 HTML 和 PHP `echo`, `foreach`, `if` 等基础结构的联合体。视图中使用复杂的 PHP 代码被认为是不良实践。当复杂逻辑和功能是必须的，这些代码应移动到控制器或小部件。
 
-The view is typically called from controller action using the [[yii\base\Controller::render()|render()]] method:
+视图通常被控制器动作用[[yii\base\Controller::render()|render()]]方法调用：
 
 ```php
 public function actionIndex()
