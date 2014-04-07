@@ -47,26 +47,17 @@ class LoginForm extends \yii\base\Model
 }
 ```
 
-Derived model classes may declare attributes in different ways, by overriding the [[yii\base\Model::attributes()|attributes()]]
-method. For example, [[yii\db\ActiveRecord]] defines attributes using the column names of the database table
-that is associated with the class.
+模型子类可通过覆写[[yii\base\Model::attributes()|attributes()]]方法以不同方式定义特性。如，[[yii\db\ActiveRecord]]使用类关联的数据表列名来定义特性。
 
-
-Attribute Labels
+特性标签
 ----------------
 
-Attribute labels are mainly used for display purpose. For example, given an attribute `firstName`, we can declare
-a label `First Name` that is more user-friendly when displayed to end users in places such as form labels and
-error messages. Given an attribute name, you can obtain its label by calling [[yii\base\Model::getAttributeLabel()]].
+特性标签主要用于显示，如，对给定的特性 `firstName` ，可定义一个 `First Name` 标签，当在表单标签或错误提示等地方显示给终端用户时更人性化。给定一个特性名就可通过调用[[yii\base\Model::getAttributeLabel()]]获取它的标签。
 
-To declare attribute labels, override the [[yii\base\Model::attributeLabels()]] method. The overridden method returns
-a mapping of attribute names to attribute labels, as shown in the example below. If an attribute is not found
-in this mapping, its label will be generated using the [[yii\base\Model::generateAttributeLabel()]] method.
-In many cases, [[yii\base\Model::generateAttributeLabel()]] will generate reasonable labels (e.g. `username` to `Username`,
-`orderNumber` to `Order Number`).
+覆写[[yii\base\Model::attributeLabels()]]方法可自定义特性标签。该方法返回特性名到特性标签的映射表，如下例所示。如果特性不在该映射表，它的标签将使用[[yii\base\Model::generateAttributeLabel()]]方法生成。很多情况[[yii\base\Model::generateAttributeLabel()]]都能生成合适的标签（如 `username` 特性生成 `Username` 标签，`orderNumber` 特性生成 `Order Number` 标签）。
 
 ```php
-// LoginForm has two attributes: username and password
+// LoginForm 有两个特性: username and password
 class LoginForm extends \yii\base\Model
 {
     public $username;
@@ -82,23 +73,16 @@ class LoginForm extends \yii\base\Model
 }
 ```
 
-Scenarios
+场景
 ---------
 
-A model may be used in different *scenarios*. For example, a `User` model may be used to collect user login inputs,
-but it may also be used for user registration purposes. In the one scenario, every piece of data is required;
-in the other, only the username and password would be.
+模型可用于不同 *场景* 。如， `User` 模型可用于收集用户登录输入数据，也可以用于用户注册。在注册场景中，每项数据都是必须的，而登录场景中，只有用户名和密码是必须的。
 
-To easily implement the business logic for different scenarios, each model has a property named `scenario`
-that stores the name of the scenario that the model is currently being used in. As will be explained in the next
-few sections, the concept of scenarios is mainly used for data validation and massive attribute assignment.
+为简化实现不同场景的业务逻辑，每个模型都有一个 `scenario` 属性，储存了模型正被使用的场景。如将在以下部分所介绍的那样，场景这个概念主要用于数据验证和批量特性赋值。
 
-Associated with each scenario is a list of attributes that are *active* in that particular scenario. For example,
-in the `login` scenario, only the `username` and `password` attributes are active; while in the `register` scenario,
-additional attributes such as `email` are *active*. When an attribute is *active* this means that it is subject to validation.
+每个场景关联了一系列在特定场景 *活动的* 特性。如，在 `login` （登录）场景，只有 `username` 和 `password` 特性是活跃的；而在`register` （注册）场景，除了用户名和密码外，其他特性如 `email` 等也是 *活动的* 。当特性是 *活动的* 就意味着这个特性要接受验证。
 
-Possible scenarios should be listed in the `scenarios()` method. This method returns an array whose keys are the scenario
-names and whose values are lists of attributes that should be active in that scenario:
+可能需要的场景列入 `scenarios()` 方法，该方法返回一个数组，该数组键为场景名，值为在该场景中活动的特性列表：
 
 ```php
 class User extends \yii\db\ActiveRecord
@@ -113,10 +97,10 @@ class User extends \yii\db\ActiveRecord
 }
 ```
 
-If `scenarios` method is not defined, default scenario is applied. That means attributes with validation rules are
-considered *active*.
+如 `scenarios` 方法未定义，默认场景启用。即有验证规则的特性看作是 *活动的* 。
 
-If you want to keep the default scenario available besides your own scenarios, use inheritance to include it:
+如希望自定义场景生效后还保持默认场景生效，引用父类方法：
+
 ```php
 class User extends \yii\db\ActiveRecord
 {
@@ -131,31 +115,29 @@ class User extends \yii\db\ActiveRecord
 ```
 
 
-Sometimes, we want to mark an attribute as not safe for massive assignment (but we still want the attribute to be validated).
-We may do so by prefixing an exclamation character to the attribute name when declaring it in `scenarios()`. For example:
+有时批量赋值时需要标记某个特性是不安全的（但仍想验证该特性），可以在 `scenarios()` 方法定义该特性时给特性名添加感叹号前缀来标记。如：
 
 ```php
 ['username', 'password', '!secret']
 ```
 
-In this example `username`, `password` and `secret` are *active* attributes but only `username` and `password` are
-considered safe for massive assignment.
+该例中 `username`, `password` 和 `secret` are *活动的* 特性，但只有 `username` 和 `password` 在批量赋值时认为是安全的。
 
-Identifying the active model scenario can be done using one of the following approaches:
+识别活动的模型场景可使用以下方法之一：
 
 ```php
 class EmployeeController extends \yii\web\Controller
 {
     public function actionCreate($id = null)
     {
-        // first way
+        // 第一种方法
         $employee = new Employee(['scenario' => 'managementPanel']);
 
-        // second way
+        // 第二种方法
         $employee = new Employee();
         $employee->scenario = 'managementPanel';
 
-        // third way
+        // 第三种方法
         $employee = Employee::find()->where('id = :id', [':id' => $id])->one();
         if ($employee !== null) {
             $employee->scenario = 'managementPanel';
@@ -164,66 +146,54 @@ class EmployeeController extends \yii\web\Controller
 }
 ```
 
-The example above presumes that the model is based upon [Active Record](active-record.md). For basic form models,
-scenarios are rarely needed, as the basic form model is normally tied directly to a single form and, as noted above,
-the default implementation of the `scenarios()` returns every property with active validation rule making it always
-available for mass assignment and validation.
+上例假定模型基于[Active Record](active-record.md)。而基础的表单模型很少需要场景，因为基础表单通常直接连接到一个简单的表单，另一个原因如上所示， `scenarios()` 默认情况是返回带有活动验证规则的每一个属性，这些活动的验证规则使属性非常适用于批量赋值和验证。
 
-
-Validation
+验证
 ----------
 
-When a model is used to collect user input data via its attributes, it usually needs to validate the affected attributes
-to make sure they satisfy certain requirements, such as an attribute cannot be empty, an attribute must contain letters
-only, etc. If errors are found in validation, they may be presented to the user to help him fix the errors.
-The following example shows how the validation is performed:
+当模型用于以特性收集用户输入数据时，通常需要验证受影响的特性以确保这些特性满足特定要求，如特性不能为空，必须只包含字母等。如验证发现错误，就会显示出来提示用户改正。以下示例演示了验证如何履行：
 
 ```php
 $model = new LoginForm();
 $model->username = $_POST['username'];
 $model->password = $_POST['password'];
 if ($model->validate()) {
-    // ... login the user ...
+    // ... 用户登录 ...
 } else {
     $errors = $model->getErrors();
-    // ... display the errors to the end user ...
+    // ... 显示错误信息给用户 ...
 }
 ```
 
-The possible validation rules for a model should be listed in its `rules()` method. Each validation rule applies to one
-or several attributes and is effective in one or several scenarios. A rule can be specified using a validator object - an
-instance of a [[yii\validators\Validator]] child class, or an array with the following format:
+模型可用的验证规则列于 `rules()` 方法。一条验证规则适用于一个或多个特性并作用于一个或多个场景。一条规则可使用验证器对象——[[yii\validators\Validator]]子类实例或以下格式的数组指定：
 
 ```php
 [
-    ['attribute1', 'attribute2', ...],
-    'validator class or alias',
-    // specifies in which scenario(s) this rule is active.
-    // if not given, it means it is active in all scenarios
-    'on' => ['scenario1', 'scenario2', ...],
-    // the following name-value pairs will be used
-    // to initialize the validator properties
+    ['特性1', '特性2', ...],
+    '验证器类或别名',
+    // 指定规则适用的场景
+    // 未指定场景则适用于所有场景
+    'on' => ['场景1', '场景2', ...],
+    // 以下名值对将用于初始化验证器属性
     'property1' => 'value1',
     'property2' => 'value2',
     // ...
 ]
 ```
 
-When `validate()` is called, the actual validation rules executed are determined using both of the following criteria:
+调用 `validate()` 时，真正执行的验证规则取决于以下两个准则：
 
-- the rule must be associated with at least one active attribute;
-- the rule must be active for the current scenario.
+- 规则必须关联至少一个活动的特性；
+- 规则必须在当前场景是活动的。
 
 
-### Creating your own validators (Inline validators)
+### 建立你自己的验证器 (内联验证方法)
 
-If none of the built in validators fit your needs, you can create your own validator by creating a method in you model class.
-This method will be wrapped by an [[yii\validators\InlineValidator|InlineValidator]] an be called upon validation.
-You will do the validation of the attribute and [[yii\base\Model::addError()|add errors]] to the model when validation fails.
+如果内置验证器不能满足你的需求，可以通过在模型类创建一个方法来建立你自己的验证器。这个方法可由[[yii\validators\InlineValidator|InlineValidator]]包裹并在验证时调用，然后用于验证特性并在验证失败时以[[yii\base\Model::addError()|add errors]]添加错误到模型。
 
-The method has the following signature `public function myValidator($attribute, $params)` while you are free to choose the name.
+自定义验证方法可以 `public function myValidator($attribute, $params)` 来识别，方法名可自由选择。
 
-Here is an example implementation of a validator validating the age of a user:
+以下示例实现了一个用于验证用户年龄的验证器：
 
 ```php
 public function validateAge($attribute, $params)
@@ -243,18 +213,15 @@ public function rules()
 }
 ```
 
-You may also set other properties of the [[yii\validators\InlineValidator|InlineValidator]] in the rules definition,
-for example the [[yii\validators\InlineValidator::$skipOnEmpty|skipOnEmpty]] property:
+也可在规则定义中设置[[yii\validators\InlineValidator|InlineValidator]]的其他属性。以[[yii\validators\InlineValidator::$skipOnEmpty|skipOnEmpty]]属性为例：
 
 ```php
 [['birthdate'], 'validateAge', 'params' => ['min' => '12'], 'skipOnEmpty' => false],
 ```
 
-### Conditional validation
+### 条件验证
 
-To validate attributes only when certain conditions apply, e.g. the validation of
-one field depends on the value of another field you can use [[yii\validators\Validator::when|the `when` property]]
-to define such conditions:
+当某条件应用时才验证特性，如一个字段的验证依赖另一个字段的值，可以使用[[yii\validators\Validator::when|the `when` property]]来定义这个条件：
 
 ```php
 ['state', 'required', 'when' => function($model) { return $model->country == Country::USA; }],
@@ -262,7 +229,7 @@ to define such conditions:
 ['mother', 'required', 'when' => function($model) { return $model->age < 18 && $model->married != true; }],
 ```
 
-For better readability the conditions can also be written like this:
+如下这样写条件更易读：
 
 ```php
 public function rules()
@@ -272,19 +239,17 @@ public function rules()
     $child = function($model) { return $model->age < 18 && $model->married != true; };
     return [
         ['state', 'required', 'when' => $usa],
-        ['stateOthers', 'required', 'when' => $notUsa], // note that it is not possible to write !$usa
+        ['stateOthers', 'required', 'when' => $notUsa], // 注意不是 !$usa
         ['mother', 'required', 'when' => $child],
     ];
 }
 ```
 
 
-Massive Attribute Retrieval and Assignment
-------------------------------------------
+批量特性检索和赋值
+---------------------
 
-Attributes can be massively retrieved via the `attributes` property.
-The following code will return *all* attributes in the `$post` model
-as an array of name-value pairs.
+特性可以通过 `attributes` 属性批量检索。以下代码返回了 *所有*  `$post` 模型的名值对数组形式的特性。
 
 ```php
 $post = Post::find(42);
@@ -294,7 +259,7 @@ if ($post) {
 }
 ```
 
-Using the same `attributes` property you can massively assign data from associative array to model attributes:
+使用 `attributes` 属性还可以从关联数组批量赋值到模型特性：
 
 ```php
 $post = new Post();
@@ -306,17 +271,12 @@ $post->attributes = $attributes;
 var_dump($attributes);
 ```
 
-In the code above we're assigning corresponding data to model attributes named as array keys. The key difference from mass
-retrieval that always works for all attributes is that in order to be assigned an attribute should be **safe** else
-it will be ignored.
+以上代码赋值到相应的模型特性，特性名作为数组的键。和对所有特性总是有效的批量检索的关键区别是赋值的特性必须是 **安全的**，否则会被忽略。
 
+验证规则和批量赋值
+---------------------
 
-Validation rules and mass assignment
-------------------------------------
-
-In Yii2 unlike Yii 1.x validation rules are separated from mass assignment. Validation
-rules are described in `rules()` method of the model while what's safe for mass
-assignment is described in `scenarios` method:
+Yii 2 的验证规则是和批量赋值分离的，这和 1.x 是不一样的。验证规则描述在模型的`rules()` 方法，而什么是安全的批量赋值描述在 `scenarios` 方法：
 
 ```php
 class User extends ActiveRecord
@@ -324,12 +284,12 @@ class User extends ActiveRecord
     public function rules()
     {
         return [
-            // rule applied when corresponding field is "safe"
+            // 当相应的字段是“安全的”，规则启用
             ['username', 'string', 'length' => [4, 32]],
             ['first_name', 'string', 'max' => 128],
             ['password', 'required'],
 
-            // rule applied when scenario is "signup" no matter if field is "safe" or not
+            // 当场景是“注册”，无论字段是否“安全的”，规则启用
             ['hashcode', 'check', 'on' => 'signup'],
         ];
     }
@@ -337,7 +297,7 @@ class User extends ActiveRecord
     public function scenarios()
     {
         return [
-            // on signup allow mass assignment of username
+            // 注册场景允许 username 的批量赋值
             'signup' => ['username', 'password'],
             'update' => ['username', 'first_name'],
         ];
@@ -345,7 +305,7 @@ class User extends ActiveRecord
 }
 ```
 
-For the code above mass assignment will be allowed strictly according to `scenarios()`:
+以上代码在严格遵守 `scenarios()` 后才允许批量赋值：
 
 ```php
 $user = User::find(42);
@@ -354,7 +314,7 @@ $user->attributes = $data;
 print_r($user->attributes);
 ```
 
-Will give you empty array because there's no default scenario defined in our `scenarios()`.
+以上将返回空数组，因为在 `scenarios()`未定义默认场景。
 
 ```php
 $user = User::find(42);
@@ -368,18 +328,18 @@ $user->attributes = $data;
 print_r($user->attributes);
 ```
 
-Will give you the following:
+以上代码将返回下面结果：
 
 ```php
 array(
     'username' => 'samdark',
     'first_name' => null,
     'password' => '123',
-    'hashcode' => null, // it's not defined in scenarios method
+    'hashcode' => null, // 该特性未在场景方法中定义
 )
 ```
 
-In case of not defined `scenarios` method like the following:
+防止未定义 `scenarios` 方法的措施：
 
 ```php
 class User extends ActiveRecord
@@ -395,7 +355,7 @@ class User extends ActiveRecord
 }
 ```
 
-The code above assumes default scenario so mass assignment will be available for all fields with `rules` defined:
+以上代码假设了默认场景所以批量赋值将对所有定义过 `rules` 的字段生效：
 
 ```php
 $user = User::find(42);
@@ -409,7 +369,7 @@ $user->attributes = $data;
 print_r($user->attributes);
 ```
 
-Will give you the following:
+以上代码将返回：
 
 ```php
 array(
@@ -419,7 +379,7 @@ array(
 )
 ```
 
-If you want some fields to be unsafe for default scenario:
+如果希望对默认场景设置一些字段是不安全的：
 
 ```php
 class User extends ActiveRecord
@@ -442,7 +402,7 @@ class User extends ActiveRecord
 }
 ```
 
-Mass assignment is still available by default:
+批量赋值默认仍可用：
 
 ```php
 $user = User::find(42);
@@ -455,18 +415,18 @@ $user->attributes = $data;
 print_r($user->attributes);
 ```
 
-The code above gives you:
+以上代码输出：
 
 ```php
 array(
     'username' => 'samdark',
     'first_name' => 'Alexander',
-    'password' => null, // because of ! before field name in scenarios
+    'password' => null, // 因为场景中该字段名前面有 !
 )
 ```
 
-See also
+更多内容请参考
 --------
 
-- [Model validation reference](validation.md)
+- [模型验证](validation.md)
 - [[yii\base\Model]]
