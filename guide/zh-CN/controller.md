@@ -33,54 +33,43 @@ class SiteController extends Controller
 }
 ```
 
-As you can see, typical controller contains actions that are public class methods named as `actionSomething`.
-The output of an action is what the method returns: it could be a string or an instance of [[yii\web\Response]], [for example](#custom-response-class).
-The return value will be handled by the `response` application
-component which can convert the output to different formats such as JSON for example. The default behavior
-is to output the value unchanged though.
+如你所见，控制器通常包括一些动作，这些动作是公开的类方法，以`actionSomething` 形式命名。
+动作的输出就是这些方法返回的结果：可以是字符串或[[yii\web\Response]]的实例，[示例](#custom-response-class)。
+返回值将被 `response` 应用组件处理，该组件可以把输出转变为不同格式，如 JSON。默认行为是输出原始的值（不改变输出值）。
 
 
-
-Routes
+路由（路径）
 ------
 
-Each controller action has a corresponding internal route. In our example above `actionIndex` has `site/index` route
-and `actionTest` has `site/test` route. In this route `site` is referred to as controller ID while `test` is action ID.
+每个控制器动作有相应的内部路径。上例中 `actionIndex` 的路径是 `site/index` ，而 `actionTest` 的路径是 `site/test` 。在这个路径中 `site` 是指控制器 ID ，而 `test` 是动作 ID 。
 
-By default you can access specific controller and action using the `http://example.com/?r=controller/action` URL. This
-behavior is fully customizable. For more details please refer to [URL Management](url.md).
+访问确定控制器和动作的默认 URL 格式是`http://example.com/?r=controller/action` 。这个行为可以
+完全自定义。更多细节请参考[URL 管理](url.md)。
 
-If a controller is located inside a module, the route of its actions will be in the format of `module/controller/action`.
+如果控制器位于模块内，其动作的路径格式是 `module/controller/action` 。
 
-A controller can be located under a subdirectory of the controller directory of an application or module. The route
-will be prefixed with the corresponding directory names. For example, you may have a `UserController` under `controllers/admin`.
-The route of its `actionIndex` would be `admin/user/index`, and `admin/user` would be the controller ID.
+控制器可以位于应用或模块的控制器目录的子目录，这样路径将在前面加上相应的目录名。如，有个 `UserController` 控制器位于 `controllers/admin` 目录下，该控制器的 `actionIndex` 动作的路径
+将是 `admin/user/index` ， `admin/user` 是控制器 ID 。
 
-In case module, controller or action specified isn't found Yii will return "not found" page and HTTP status code 404.
+如指定的模块、控制器或动作未找到，Yii 将返回“未找到”的页面和 HTTP 状态码 404 。
 
-> Note: If module name, controller name or action name contains camelCased words, internal route will use dashes i.e. for
-`DateTimeController::actionFastForward` route will be `date-time/fast-forward`.
+> 注意：如果模块名、控制器名或动作名包含驼峰式单词，内部路径将使用破折号。如`DateTimeController::actionFastForward` 的路径将是 `date-time/fast-forward`。
 
-### Defaults
+### 预设值
 
-If user isn't specifying any route i.e. using URL like `http://example.com/`, Yii assumes that default route should be
-used. It is determined by [[yii\web\Application::defaultRoute]] method and is `site` by default meaning that `SiteController`
-will be loaded.
+如用户未指定任何路由，如使用 `http://example.com/` 这样的 URL ，Yii 将启用默认路径。默认路径由[[yii\web\Application::defaultRoute]]方法定义，且 `site` 即 `SiteController` 将默认加载。
 
-A controller has a default action. When the user request does not specify which action to execute by using an URL such as
-`http://example.com/?r=site`, the default action will be executed. By default, the default action is named as `index`.
-It can be changed by setting the [[yii\base\Controller::defaultAction]] property.
+控制器有默认动作。当用户请求未指明执行的动作，如使用 `http://example.com/?r=site` 这样的 URL ，则默认动作将执行。当前预设的默认动作是 `index` 。
+设置[[yii\base\Controller::defaultAction]]属性可以改变预设动作。
 
-Action parameters
+动作参数
 -----------------
 
-It was already mentioned that a simple action is just a public method named as `actionSomething`. Now we'll review
-ways that an action can get parameters from HTTP.
+如前所述，一个简单的动作只是以 `actionSomething` 命名的公开方法。现在来回顾一下动作从 HTTP 获取参数的途径。
 
-### Action parameters
+### 动作参数
 
-You can define named arguments for an action and these will be automatically populated from corresponding values from
-`$_GET`. This is very convenient both because of the short syntax and an ability to specify defaults:
+可以为动作定义具名实参，会自动填充相应的 `$_GET` 值。这非常方便，不仅因为短语法，还因为有能力指定预设值：
 
 ```php
 namespace app\controllers;
@@ -106,15 +95,13 @@ class BlogController extends Controller
 }
 ```
 
-The action above can be accessed using either `http://example.com/?r=blog/view&id=42` or
-`http://example.com/?r=blog/view&id=42&version=3`. In the first case `version` isn't specified and default parameter
-value is used instead.
+上述动作可以用`http://example.com/?r=blog/view&id=42` 或`http://example.com/?r=blog/view&id=42&version=3` 访问。前者 `version` 没有指定，将使用默认参数值填充。
 
-### Getting data from request
+### 从请求获取数据
 
 If your action is working with data from HTTP POST or has too many GET parameters you can rely on request object that
 is accessible via `\Yii::$app->request`:
-
+如果动作工作的数据来自 HTTP POST 或有太多 GET 参数，可以依靠 request 对象以 `\Yii::$app->request` 的方式来访问：
 ```php
 namespace app\controllers;
 
@@ -142,11 +129,10 @@ class BlogController extends Controller
 }
 ```
 
-Standalone actions
+独立动作类
 ------------------
 
-If action is generic enough it makes sense to implement it in a separate class to be able to reuse it.
-Create `actions/Page.php`
+如果动作非常通用，最好用单独的类实现以便重用。创建 `actions/Page.php` ：
 
 ```php
 namespace app\actions;
@@ -162,8 +148,7 @@ class Page extends \yii\base\Action
 }
 ```
 
-The following code is too simple to implement as a separate action but gives an idea of how it works. Action implemented
-can be used in your controller as following:
+以下代码对于实现单独的动作类虽然简单，但提供了如何使用动作类的想法。实现的动作可以在控制器中如下这般使用:
 
 ```php
 class SiteController extends \yii\web\Controller
@@ -180,19 +165,16 @@ class SiteController extends \yii\web\Controller
 }
 ```
 
-After doing so you can access your action as `http://example.com/?r=site/about`.
+如上使用后可以通过 `http://example.com/?r=site/about` 访问该动作。
 
-
-Action Filters
+动作过滤器
 --------------
 
-You may apply some action filters to controller actions to accomplish tasks such as determining
-who can access the current action, decorating the result of the action, etc.
+可能会对控制器动作使用一些过滤器来实现如确定谁能访问当前动作、渲染动作结果的方式等任务。
 
-An action filter is an instance of a class extending [[yii\base\ActionFilter]].
+动作过滤器是[[yii\base\ActionFilter]]子类的实例。
 
-To use an action filter, attach it as a behavior to a controller or a module. The following
-example shows how to enable HTTP caching for the `index` action:
+使用动作过滤器是附加为控制器或模块的行为（behavior）。下例展示了如何为 `index` 动作开启 HTTP 缓存：
 
 ```php
 public function behaviors()
@@ -210,39 +192,26 @@ public function behaviors()
 }
 ```
 
-You may use multiple action filters at the same time. These filters will be applied in the
-order they are declared in `behaviors()`. If any of the filter cancels the action execution,
-the filters after it will be skipped.
+可以同时使用多个动作过滤器。过滤器启用的顺序定义在`behaviors()`。如任一个过滤器取消动作执行，后面的过滤器将跳过。
 
-When you attach a filter to a controller, it can be applied to all actions of that controller;
-If you attach a filter to a module (or application), it can be applied to the actions of any controller
-within that module (or application).
+过滤器附加到控制器，就被该控制器的所有动作使用；如附加到模块（或整个应用），则模块内所有控制器的所有动作都可以使用该过滤器（或应用的所有控制器的所有动作可以使用该过滤器）。
 
-To create a new action filter, extend from [[yii\base\ActionFilter]] and override the
-[[yii\base\ActionFilter::beforeAction()|beforeAction()]] and [[yii\base\ActionFilter::afterAction()|afterAction()]]
-methods. The former will be executed before an action runs while the latter after an action runs.
-The return value of [[yii\base\ActionFilter::beforeAction()|beforeAction()]] determines whether
-an action should be executed or not. If `beforeAction()` of a filter returns false, the filters after this one
-will be skipped and the action will not be executed.
+创建新的动作过滤器，继承[[yii\base\ActionFilter]]并覆写[[yii\base\ActionFilter::beforeAction()|beforeAction()]] 和 [[yii\base\ActionFilter::afterAction()|afterAction()]]方法，前者在动作运行前执行，而后者在动作运行后执行。[[yii\base\ActionFilter::beforeAction()|beforeAction()]]返回值决定动作是否执行。如果过滤器的 `beforeAction()` 返回 false ，该过滤器之后的过滤器都会跳过，且动作也不会执行。
 
-The [authorization](authorization.md) section of this guide shows how to use the [[yii\filters\AccessControl]] filter,
-and the [caching](caching.md) section gives more details about the [[yii\filters\PageCache]] and [[yii\filters\HttpCache]] filters.
-These built-in filters are also good references when you learn to create your own filters.
+本指南的[授权](authorization.md)部分展示了如何使用[[yii\filters\AccessControl]]过滤器，[缓存](caching.md)部分提供有关[[yii\filters\PageCache]] 和 [[yii\filters\HttpCache]]过滤器更多细节。
+这些内置过滤器是你创建自己的过滤器的良好参考。
 
+捕获所有请求
+----------------
 
-Catching all incoming requests
-------------------------------
-
-Sometimes it is useful to handle all incoming requests with a single controller action. For example, displaying a notice
-when website is in maintenance mode. In order to do it you should configure web application `catchAll` property either
-dynamically or via application config:
+有时使用一个简单的控制器动作处理所有请求是有用的。如，当网站维护时显示一条布告。动态或通过应用配置文件配置 web 应用的 `catchAll` 属性可以实现该目的：
 
 ```php
 return [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     // ...
-    'catchAll' => [ // <-- here
+    'catchAll' => [ // <-- 这里配置
         'offline/notice',
         'param1' => 'value1',
         'param2' => 'value2',
@@ -250,33 +219,32 @@ return [
 ]
 ```
 
-In the above `offline/notice` refer to `OfflineController::actionNotice()`. `param1` and `param2` are parameters passed
-to action method.
+上面 `offline/notice` 指向 `OfflineController::actionNotice()` 。 `param1` 和 `param2` 是传递给动作方法的参数。
 
-Custom response class
+自定义响应类
 ---------------------
 
 ```php
 namespace app\controllers;
 
 use yii\web\Controller;
-use app\components\web\MyCustomResponse; #extended from yii\web\Response
+use app\components\web\MyCustomResponse; //继承自 yii\web\Response
 
 class SiteController extends Controller
 {
     public function actionCustom()
     {
         /*
-         * do your things here
-         * since Response in extended from yii\base\Object, you can initialize its values by passing in
-         * __constructor() simple array.
+         * 这里做你自己的事
+         * 既然 Response 类继承自 yii\base\Object,
+         * 可以在__constructor() 传递简单数组初始化该类的值
          */
         return new MyCustomResponse(['data' => $myCustomData]);
     }
 }
 ```
 
-See also
+也可参考
 --------
 
-- [Console](console.md)
+- [控制台](console.md)
