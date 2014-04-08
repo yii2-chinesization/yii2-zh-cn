@@ -1,4 +1,4 @@
-Active Record（活动记录）
+待翻译新增内容 Active Record（活动记录）
 =============
 
 Active Record（活动记录，以下简称AR）实现了[Active Record 的设计模式](http://zh.wikipedia.org/wiki/Active_Record)。
