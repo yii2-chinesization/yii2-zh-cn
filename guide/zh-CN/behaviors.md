@@ -1,23 +1,17 @@
 行为
 =========
 
-A behavior (also knows as *mixin*) can be used to enhance the functionality of an existing component without modifying the component's
-code. In particular, a behavior can "inject" its public methods and properties into the component, making them directly accessible
-via the component itself. A behavior can also respond to  events triggered in the component, thus intercepting the normal
-code execution. Unlike [PHP's traits](http://www.php.net/traits), behaviors can be attached to classes at runtime.
-行为(behavior)（也称为 *mixin*）
+行为(behavior)（也称为 *mixin*）可以无须修改代码就可增强已有组件的功能。尤其是行为可以 “注入” 它的公开方法和属性到组件，并通过组件直接访问。行为也能响应触发的组件事件，由此拦截正常的代码执行。不同于[PHP's traits](http://www.php.net/traits)，行为可以运行时实时附加到类上。
 
-Using behaviors
+
+使用行为
 ---------------
 
-A behavior can be attached to any class that extends from [[yii\base\Component]] either from code or via application
-config.
+行为可以通过代码或应用配置附加到任何继承自[[yii\base\Component]]的类上。
 
-### Attaching behaviors via `behaviors` method
+### 通过 `behaviors` 方法附加行为
 
-In order to attach a behavior to a class you can implement the `behaviors` method of the component.
-As an example, Yii provides the [[yii\behaviors\TimestampBehavior]] behavior for automatically updating timestamp
-fields when saving an [[yii\db\ActiveRecord|Active Record]] model:
+为附加行为到类可以执行组件的 `behaviors` 方法。如， Yii 内置了[[yii\behaviors\TimestampBehavior]]行为在保存[[yii\db\ActiveRecord|Active Record]]模型时自动升级时间戳字段：
 
 ```php
 use yii\behaviors\TimestampBehavior;
@@ -41,20 +35,15 @@ class User extends ActiveRecord
 }
 ```
 
-In the above, the name `timestamp` can be used to reference the behavior through the component. For example, `$user->timestamp`
-gives the attached timestamp behavior instance. The corresponding array is the configuration used to create the
-[[yii\behaviors\TimestampBehavior|TimestampBehavior]] object.
+以上代码中， `timestamp` 名用来指向组件使用的行为。如 `$user->timestamp` 取得已附加的时间戳行为实例。对应的数组是用来创建[[yii\behaviors\TimestampBehavior|TimestampBehavior]]对象的配置。
 
-Besides responding to the insertion and update events of ActiveRecord, `TimestampBehavior` also provides a method `touch()`
-that can assign the current timestamp to a specified attribute. As aforementioned, you can access this method directly
-through the component, like the following:
+除了响应插入和更新活动记录， `TimestampBehavior` 还提供了 `touch()` 方法以分配当前时间戳到指定特性。如前所述，通过组件可直接访问该方法，如下所示：
 
 ```php
 $user->touch('login_time');
 ```
 
-If you do not need to access a behavior object, or the behavior does not need customization, you can also
-use the following simplified format when specifying the behavior,
+如果不需要访问行为对象，或行为不需要定制，当指定行为时也可以使用以下简单格式：
 
 ```php
 use yii\behaviors\TimestampBehavior;
@@ -67,33 +56,32 @@ class User extends ActiveRecord
     {
         return [
             TimestampBehavior::className(),
-            // or the following if you want to access the behavior object
+            // 或以下格式，要访问行为对象的话
             // 'timestamp' => TimestampBehavior::className(),
         ];
     }
 }
 ```
 
-### Attaching behaviors dynamically
+### 动态附加行为
 
-Another way to attach a behavior to a component is calling `attachBehavior` method like the followig:
+另一个附加行为到组件的方法是 `attachBehavior` ，如下所示：
 
 ```php
 $component = new MyComponent();
 $component->attachBehavior();
 ```
 
-### Attaching behaviors from config
+### 从配置附加行为
 
-One can attach a behavior to a component when configuring it with a configuration array. The syntax is like the
-following:
+当配置组件时使用配置数组也可以附加行为到组件。语法如下：
 
 ```php
 return [
     // ...
     'components' => [
         'myComponent' => [
-            // ...
+            // 'as 行为名'
             'as tree' => [
                 'class' => 'Tree',
                 'root' => 0,
@@ -103,14 +91,13 @@ return [
 ];
 ```
 
-In the config above `as tree` stands for attaching a behavior named `tree`, and the array will be passed to [[\Yii::createObject()]]
-to create the behavior object.
+以上配置 `as tree` 表示附加一个名为 `tree` 的行为，数组将传递到[[\Yii::createObject()]]创建行为对象。
 
 
-Creating your own behaviors
+创建你自己的行为
 ---------------------------
 
-To create your own behavior, you must define a class that extends [[yii\base\Behavior]].
+创建你自己的行为，需要定义一个继承自[[yii\base\Behavior]]的类：
 
 ```php
 namespace app\components;
@@ -122,7 +109,7 @@ class MyBehavior extends Behavior
 }
 ```
 
-To make it customizable, like [[yii\behaviors\TimestampBehavior]], add public properties:
+要像[[yii\behaviors\TimestampBehavior]]那样可定制，请添加公开的属性：
 
 ```php
 namespace app\components;
@@ -135,7 +122,7 @@ class MyBehavior extends Behavior
 }
 ```
 
-Now, when the behavior is used, you can set the attribute to which you'd want the behavior to be applied:
+现在，当行为被使用，就可以设置特性到希望应用该行为的地方：
 
 ```php
 namespace app\models;
@@ -158,8 +145,7 @@ class User extends ActiveRecord
 }
 ```
 
-Behaviors are normally written to take action when certain events occur. Below we're implementing `events` method
-to assign event handlers:
+行为当特定事件发生时会正常地执行，以下实现了`events` 方法来分派事件处理器：
 
 ```php
 namespace app\components;
