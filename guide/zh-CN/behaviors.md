@@ -1,10 +1,11 @@
-Behaviors
+行为
 =========
 
 A behavior (also knows as *mixin*) can be used to enhance the functionality of an existing component without modifying the component's
 code. In particular, a behavior can "inject" its public methods and properties into the component, making them directly accessible
 via the component itself. A behavior can also respond to  events triggered in the component, thus intercepting the normal
 code execution. Unlike [PHP's traits](http://www.php.net/traits), behaviors can be attached to classes at runtime.
+行为(behavior)（也称为 *mixin*）
 
 Using behaviors
 ---------------
