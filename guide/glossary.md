@@ -18,12 +18,32 @@ ActiveForm
 
 活动表单
 
+Argument
+------------------
+
+Argument与Parameter:
+1. parameter是指函数定义中参数，而argument指的是函数调用时的实际参数。
+2. 简略描述为：parameter=形参(formal parameter)， argument=实参(actual parameter)。
+3. 在不很严格的情况下，现在二者可以混用，一般用argument，而parameter则比较少用。
+
+一般说来，两个是可以互换的。但是 C 程序员的习惯是：parameter 是参数，而 argument 是参数的值。也就是说，函数原型的参数列表，是 parameter list，比如
+int sum(int a, int b);
+而当使用的时候
+int sum;
+sum = sum(10, 20);
+10 和 20 则是 argument。
+这个习惯也影响了很多其他语言的程序员。如果要混合两者的意义，一般用 argument，而 parameter 则比较少用。
+argument 有的时候也被称作 actual parameter。
+对应的中文术语是
+parameter = 形参 (估计是「形式参数」简称)
+argument = 实参 (估计是「实际参数」简称)
+我想，将parameter译为“参数”，将argument译为“参数赋值”就比较清楚了。
 
 
 alias路径别名
 ------------------
 
-Alias is a string that's used by Yii to refer to the class or directory such as @app/vendor.
+别名是被 Yii 使用来指向类或目录的字符串，格式如 @app/vendor 。
 
 
 application
@@ -41,7 +61,20 @@ Asset refers to a resource file. Typically it contains JavaScript or CSS code bu
 
 attribute
 ---------------
-特性，特指对象属性，以区别于类的属性/俗称的property
+
+为区别 Property 和 Attribute ,我们将Attribute称为特性，特指对象属性，以区别于类的成员属性property
+
+在OOA/OOD中的使用Attribute表示属性，指对象（Object）的特征（Feature）,是一个描述（或者说声明），描述对象在编译时或运行时的特征，属于面向对象分析与设计中的概念。
+
+Property是指编程过程中的字段，也即类的成员变量（Member Variable），是指类向外提供的数据区域。property属于编程语言中的概念。
+
+Field 字段，在指代类的成员变量时和 Property 通用。
+
+基于目前最新的UML2.0规范：
+* 总体上来说，Attribute是Property的子集，Property会在适当的时机表现为Attribute；
+* Property出现在类图的元模型中，代表了Class的所有结构化特征；Attribute没有出现在元模型中，它仅仅在Class的概念中存在，没有相应的语法了；
+* Property有详细的定义和约束，而Attribute没有详细的定义，因此也不能用OCL写出其约束。
+* Property和Attribute都是M2层的概念。在M1层，它们的实例是具体类的属性；在M0层，它们的实例的实例是具体对象的槽中存储的值。
 
 B
 ====================
