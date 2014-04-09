@@ -1,12 +1,9 @@
-Query Builder and Query
+查询生成器和查询
 =======================
 
-Yii provides a basic database access layer as described in the [Database basics](database-basics.md) section.
-The database access layer provides a low-level way to interact with the database. While useful in some situations,
-it can be tedious and error-prone to write raw SQLs. An alternative approach is to use the Query Builder.
-The Query Builder provides an object-oriented vehicle for generating queries to be executed.
+Yii 提供了基本的数据访问层，描述在[数据库基础](database-basics.md)部分。数据库访问层提供了数据库交互的底层方式，虽然一些情况很有用，但写原生的 SQL 语句容易出错、令人生厌。另一个可选的方案是使用查询生成器。查询生成器以面向对象的方式生成待执行的查询语句。
 
-A typical usage of the query builder looks like the following:
+查询生成器的典型用法如下：
 
 ```php
 $rows = (new \yii\db\Query())
@@ -15,74 +12,65 @@ $rows = (new \yii\db\Query())
     ->limit(10)
     ->all();
 
-// which is equivalent to the following code:
+// 等价于以下代码：
 
 $query = (new \yii\db\Query())
     ->select('id, name')
     ->from('user')
     ->limit(10);
 
-// Create a command. You can get the actual SQL using $command->sql
+// 创建命令，可以通过 $command->sql 来查看真正的 SQL 语句。
 $command = $query->createCommand();
 
-// Execute the command:
+// 执行命令：
 $rows = $command->queryAll();
 ```
 
-Query Methods
+查询方法
 -------------
 
-As you can see, [[yii\db\Query]] is the main player that you need to deal with. Behind the scene,
-`Query` is actually only responsible for representing various query information. The actual query
-building logic is done by [[yii\db\QueryBuilder]] when you call the `createCommand()` method,
-and the query execution is done by [[yii\db\Command]].
 
-For convenience, [[yii\db\Query]] provides a set of commonly used query methods that will build
-the query, execute it, and return the result. For example,
+如你所见，[[yii\db\Query]]似乎是需要处理的主角。但背后`Query` 实际只负责表示各种查询信息。真正生成查询
+的逻辑由[[yii\db\QueryBuilder]]调用 `createCommand()` 方法实现，而查询执行由[[yii\db\Command]]完成。
 
-- [[yii\db\Query::all()|all()]]: builds the query, executes it and returns all results as an array.
-- [[yii\db\Query::one()|one()]]: returns the first row of the result.
-- [[yii\db\Query::column()|column()]]: returns the first column of the result.
-- [[yii\db\Query::scalar()|scalar()]]: returns the first column in the first row of the result.
-- [[yii\db\Query::exists()|exists()]]: returns a value indicating whether the query results in anything.
-- [[yii\db\Query::count()|count()]]: returns the result of a `COUNT` query. Other similar methods
-  include `sum()`, `average()`, `max()`, `min()`, which support the so-called aggregational data query.
+为方便起见，[[yii\db\Query]]提供了一系列常用查询方法来生成查询、执行查询和返回查询结果。如，
+
+- [[yii\db\Query::all()|all()]]: 生成和执行查询并返回数组形式的所有查询结果。
+- [[yii\db\Query::one()|one()]]: 返回结果集的第一行。
+- [[yii\db\Query::column()|column()]]: 返回结果集的第一列。
+- [[yii\db\Query::scalar()|scalar()]]: 返回结果集第一行的第一列
+- [[yii\db\Query::exists()|exists()]]: 返回指明查询结果是否存在的值。
+- [[yii\db\Query::count()|count()]]: 返回 `COUNT` 查询的结果。其他相似的方法包括 `sum()`, `average()`, `max()`, `min()`, 这些方法支持所谓数据的聚集查询。
 
 
-Building Query
+生成查询语句
 --------------
 
-In the following, we will explain how to build various clauses in a SQL statement. For simplicity,
-we use `$query` to represent a [[yii\db\Query]] object.
-
+以下将介绍如何生成各种 SQL 语句从句。为了简单起见，使用 `$query` 代表[[yii\db\Query]]对象。
 
 ### `SELECT`
 
-In order to form a basic `SELECT` query, you need to specify what columns to select and from what table:
+为形成基本的 `SELECT` 查询语句，需要指定从哪个表选择什么列：
 
 ```php
 $query->select('id, name')
     ->from('user');
 ```
 
-Select options can be specified as a comma-separated string, as in the above, or as an array.
-The array syntax is especially useful when forming the selection dynamically:
+Select 选项可指定为如上逗号分隔的字符串，或指定为数组。数组在形成动态 select 查询语句特别有用：
 
 ```php
 $query->select(['id', 'name'])
     ->from('user');
 ```
 
-> Info: You should always use the array format if your `SELECT` clause contains SQL expressions.
-> This is because a SQL expression like `CONCAT(first_name, last_name) AS full_name` may contain commas.
-> If you list it together with other columns in a string, the expression may be split into several parts
-> by commas, which is not what you want to see.
+> 信息：如果 `SELECT` 从句包括 SQL 表达式，应该总是使用数组格式。
+> 因为 SQL 表达式 如 `CONCAT(first_name, last_name) AS full_name` 可能包括逗号。
+> 如果把该表达式和其他 columns 列排在一个字符串，该表达式将被逗号分离成你不希望看到的好几个部分。
 
-When specifying columns, you may include the table prefixes or column aliases, e.g., `user.id`, `user.id AS user_id`.
-If you are using array to specify the columns, you may also use the array keys to specify the column aliases,
-e.g., `['user_id' => 'user.id', 'user_name' => 'user.name']`.
+指定列可以包括表前缀或列别名，如 `user.id`, `user.id AS user_id` 。如使用数组指定列，也可以使用数组的键来指明列别名，如 `['user_id' => 'user.id', 'user_name' => 'user.name']`。
 
-To select distinct rows, you may call `distinct()`, like the following:
+要选择不同的行，可以调用 `distinct()` ：
 
 ```php
 $query->select('user_id')->distinct()->from('post');
@@ -90,7 +78,7 @@ $query->select('user_id')->distinct()->from('post');
 
 ### `FROM`
 
-To specify which table(s) to select data from, call `from()`:
+要指定从哪个表选择数据，调用 `from()`：
 
 ```php
 $query->select('*')->from('user');
@@ -100,6 +88,7 @@ You may specify multiple tables using a comma-separated string or an array.
 Table names can contain schema prefixes (e.g. `'public.user'`) and/or table aliases (e.g. `'user u'`).
 The method will automatically quote the table names unless it contains some parenthesis
 (which means the table is given as a sub-query or DB expression). For example,
+
 
 ```php
 $query->select('u.*, p.*')->from(['user u', 'post p']);
