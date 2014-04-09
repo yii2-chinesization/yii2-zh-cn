@@ -32,8 +32,8 @@ return [
             //'dsn' => 'dblib:host=localhost;dbname=mydatabase', // MS SQL Server, dblib driver
             //'dsn' => 'mssql:host=localhost;dbname=mydatabase', // MS SQL Server, mssql driver
             //'dsn' => 'oci:dbname=//localhost:1521/mydatabase', // Oracle
-            'username' => 'root',
-            'password' => '',
+            'username' => 'root', //数据库用户名
+            'password' => '', //数据库密码
             'charset' => 'utf8',
         ],
     ],
@@ -41,24 +41,21 @@ return [
 ];
 ```
 
-Please refer to the [PHP manual](http://www.php.net/manual/en/function.PDO-construct.php) for more details
-on the format of the DSN string.
+请参考[PHP manual](http://www.php.net/manual/en/function.PDO-construct.php)获取更多有关 DSN 格式信息。
 
-After the connection component is configured you can access it using the following syntax:
+配置连接组件后可以使用以下语法访问：
 
 ```php
 $connection = \Yii::$app->db;
 ```
 
-You can refer to [[yii\db\Connection]] for a list of properties you can configure. Also note that you can define more
-than one connection component and use both at the same time if needed:
+请参考[[yii\db\Connection]]获取可配置的属性列表。也请注意如果需要同时使用多个数据库可以定义 *多个* 连接组件：
 
 ```php
 $primaryConnection = \Yii::$app->db;
 $secondaryConnection = \Yii::$app->secondDb;
 ```
-
-If you don't want to define the connection as an application component you can instantiate it directly:
+如果不想定义数据库连接为应用组件，可以直接初始化使用：
 
 ```php
 $connection = new \yii\db\Connection([
@@ -70,8 +67,7 @@ $connection->open();
 ```
 
 
-> **Tip**: if you need to execute additional SQL queries right after establishing a connection you can add the
-> following to your application configuration file:
+> **小提示**：如果在创建了连接后需要执行额外的 SQL 查询，可以添加以下代码到应用配置文件：
 >
 ```php
 return [
@@ -90,51 +86,51 @@ return [
 ];
 ```
 
-Basic SQL queries
+ SQL 基础查询
 -----------------
 
-Once you have a connection instance you can execute SQL queries using [[yii\db\Command]].
+一旦有了连接实例就可以通过[[yii\db\Command]]执行 SQL 查询。
 
-### SELECT
+### SELECT 查询
 
-When query returns a set of rows:
+查询返回多行：
 
 ```php
 $command = $connection->createCommand('SELECT * FROM post');
 $posts = $command->queryAll();
 ```
 
-When only a single row is returned:
+返回单行：
 
 ```php
 $command = $connection->createCommand('SELECT * FROM post WHERE id=1');
 $post = $command->queryOne();
 ```
 
-When there are multiple values from the same column:
+查询多列值：
 
 ```php
 $command = $connection->createCommand('SELECT title FROM post');
 $titles = $command->queryColumn();
 ```
 
-When there's a scalar value:
+查询标量值/计算值：
 
 ```php
 $command = $connection->createCommand('SELECT COUNT(*) FROM post');
 $postCount = $command->queryScalar();
 ```
 
-### UPDATE, INSERT, DELETE etc.
+### UPDATE, INSERT, DELETE 更新、插入和删除等
 
-If SQL executed doesn't return any data you can use command's `execute` method:
+如果执行 SQL 不返回任何数据可使用命令中的 `execute` 方法：
 
 ```php
 $command = $connection->createCommand('UPDATE post SET status=1 WHERE id=1');
 $command->execute();
 ```
 
-Alternatively the following syntax that takes care of proper table and column names quoting is possible:
+选择以下考虑到引用了恰当表名和列名的语法是可能的：
 
 ```php
 // INSERT
@@ -143,7 +139,7 @@ $connection->createCommand()->insert('user', [
     'age' => 30,
 ])->execute();
 
-// INSERT multiple rows at once
+// INSERT 一次插入多行
 $connection->createCommand()->batchInsert('user', ['name', 'age'], [
     ['Tom', 30],
     ['Jane', 20],
@@ -157,10 +153,10 @@ $connection->createCommand()->update('user', ['status' => 1], 'age > 30')->execu
 $connection->createCommand()->delete('user', 'status = 0')->execute();
 ```
 
-Quoting table and column names
+引用的表名和列名
 ------------------------------
 
-Most of the time you would use the following syntax for quoting table and column names:
+大多数时间都使用以下语法来引用表名和列名：
 
 ```php
 $sql = "SELECT COUNT([[$column]]) FROM {{$table}}";
@@ -168,17 +164,16 @@ $rowCount = $connection->createCommand($sql)->queryScalar();
 ```
 
 In the code above `[[X]]` will be converted to properly quoted column name while `{{Y}}` will be converted to properly
-quoted table name.
+以上代码`[[X]]` 会转变为引用恰当的列名，而`{{Y}}` 就转变为引用恰当的表名。
 
-For table names there's a special variant `{{%Y}}` that allows you to automatically appending table prefix if it is set:
+表名有个专用的变体 `{{%Y}}` ，如果设置了表前缀使用该变体可以自动在表名前添加前缀：
 
 ```php
 $sql = "SELECT COUNT([[$column]]) FROM {{%$table}}";
 $rowCount = $connection->createCommand($sql)->queryScalar();
 ```
 
-The code above will result in selecting from `tbl_table` if you have table prefix configured like the following in your
-config file:
+如果在配置文件如下设置了表前缀，以上代码将在 `tbl_table` 这个表查询结果：
 
 ```php
 return [
@@ -193,8 +188,8 @@ return [
 ];
 ```
 
-The alternative is to quote table and column names manually using [[yii\db\Connection::quoteTableName()]] and
-[[yii\db\Connection::quoteColumnName()]]:
+手工引用表名和列名的另一个选择是使用[[yii\db\Connection::quoteTableName()]] 和
+[[yii\db\Connection::quoteColumnName()]]：
 
 ```php
 $column = $connection->quoteColumnName($column);
@@ -203,10 +198,10 @@ $sql = "SELECT COUNT($column) FROM $table";
 $rowCount = $connection->createCommand($sql)->queryScalar();
 ```
 
-Prepared statements
+预处理语句
 -------------------
 
-In order to securely pass query parameters you can use prepared statements:
+为安全传递查询参数可以使用预处理语句：
 
 ```php
 $command = $connection->createCommand('SELECT * FROM post WHERE id=:id');
@@ -214,7 +209,7 @@ $command->bindValue(':id', $_GET['id']);
 $post = $command->query();
 ```
 
-Another usage is performing a query multiple times while preparing it only once:
+另一种用法是准备一次预处理语句而执行多次查询：
 
 ```php
 $command = $connection->createCommand('DELETE FROM post WHERE id=:id');
@@ -227,32 +222,32 @@ $id = 2;
 $command->execute();
 ```
 
-Transactions
+事务
 ------------
 
-You can perform transactional SQL queries like the following:
+如下执行 SQL 事务查询语句：
 
 ```php
 $transaction = $connection->beginTransaction();
 try {
     $connection->createCommand($sql1)->execute();
      $connection->createCommand($sql2)->execute();
-    // ... executing other SQL statements ...
+    // ... 执行其他 SQL 语句 ...
     $transaction->commit();
 } catch(Exception $e) {
     $transaction->rollBack();
 }
 ```
 
-You can also nest multiple transactions, if needed:
+如需要也可以嵌套多个事务：
 
 ```php
-// outer transaction
+// 外部事务
 $transaction1 = $connection->beginTransaction();
 try {
     $connection->createCommand($sql1)->execute();
 
-    // inner transaction
+    // 内部事务
     $transaction2 = $connection->beginTransaction();
     try {
         $connection->createCommand($sql2)->execute();
@@ -273,23 +268,23 @@ try {
 
 ### 获得模式信息
 
-You can get a [[yii\db\Schema]] instance like the following:
+如下获得[[yii\db\Schema]]实例：
 
 ```php
 $schema = $connection->getSchema();
 ```
 
-It contains a set of methods allowing you to retrieve various information about the database:
+该实例包括一系列方法来检索数据库多方面的信息：
 
 ```php
 $tables = $schema->getTableNames();
 ```
 
-For the full reference check [[yii\db\Schema]].
+完整参考请核对[[yii\db\Schema]]。
 
-### Modifying schema
+### 修改模式
 
-Aside from basic SQL queries [[yii\db\Command]] contains a set of methods allowing to modify database schema:
+除了基础的 SQL 查询，[[yii\db\Command]]还包括一系列方法来修改数据库模式：
 
 - createTable, renameTable, dropTable, truncateTable
 - addColumn, renameColumn, dropColumn, alterColumn
@@ -297,10 +292,10 @@ Aside from basic SQL queries [[yii\db\Command]] contains a set of methods allowi
 - addForeignKey, dropForeignKey
 - createIndex, dropIndex
 
-These can be used as follows:
+如下使用它们：
 
 ```php
-// CREATE TABLE
+// 新建表
 $connection->createCommand()->createTable('post', [
     'id' => 'pk',
     'title' => 'string',
