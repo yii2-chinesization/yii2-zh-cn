@@ -1,11 +1,10 @@
-待翻译新增内容 Active Record（活动记录）
+活动记录 （Active Record）
 =============
 
-Active Record（活动记录，以下简称AR）实现了[Active Record 的设计模式](http://zh.wikipedia.org/wiki/Active_Record)。
-使用 AR 的前提是单个对象关联到数据表的特定行。对象属性映射到数据表的对应列。引用一个 AR 属性等同于连接数据表获取相应列数据。
-一条活动记录（AR对象）对应数据表的一行，AR对象的属性则映射该行的相应列。
+活动记录（Active Record ，有时简称 AR ）实现了[活动记录设计模式](http://zh.wikipedia.org/wiki/Active_Record)。活动记录提供了一个面向对象的界面来访问数据库存储的数据，
+一个活动记录实例对应关联数据表的一行，活动记录实例的一个特性代表数据表那一行记录的一列。引用一个活动记录属性等同于连接数据表获取相应列的数据。取代了写原生的 SQL 语句，现在可以运用活动记录以面向对象的方式操作数据表的数据。
 
-例如，`Customer` AR类关联 `tbl_customer` 表，意味着该类的 `name` 属性自动映射到 `tbl_customer` 表的 `name` 列。
+例如，假设`Customer` AR类关联 `customer` 表，而特性 `name` 自动映射到 `tbl_customer` 表的 `name` 列。
 有了活动记录的帮忙，假设变量 $customer 代表 `Customer` 类对象，可使用 `$customer->name` 获取关联数据行的 `name` 列。上例中，AR提供了一种面向对象的方式来获取数据库存储的数据。但 AR 的功能不止于此。
 
 用 AR 而不是原生的 SQL 语句去执行数据库查询，可以调用直观方法来实现相同目标。如，调用 [[yii\db\ActiveRecord::save()|save()]] 方法将执行插入或更新轮询，将在该 AR 类关联的数据表新建或更新一行数据：
@@ -965,5 +964,5 @@ TODO
 另见
 --------
 
-- [Model](model.md)
+- [模型](model.md)
 - [[yii\db\ActiveRecord]]
