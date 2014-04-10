@@ -1,0 +1,49 @@
+term,translation_zh_CN,comment_zh_CN,pos
+> Info:,> 须知：,,Noun
+> note:,> 注意：,,Noun
+> tip:,> 小贴士：,,Noun
+Action,动作,,Noun
+Active Record,"活动记录,简称 AR",其实可以不翻译,Noun
+Composer,Composer,,Noun
+Gii,Gii,自动代码生成器,Noun
+MVC,MVC,,Noun
+Model,Model（模型）,,Noun
+PHP,PHP,,Noun
+Response,响应,,Noun
+Vendor,依赖库,,Noun
+alias,路径别名,,Noun
+application,应用主体,"此应用非彼应用。
+The application is the central object during HTTP request. It contains a number of components and with these is getting info from request and dispatching it to an appropriate controller for further processing.
+
+The application object is instantiated as a singleton by the entry script. The application singleton can be accessed at any place via \Yii::$app.",Noun
+attribute,特性,"$model->attributes 模型类(对象)的属性
+我觉着attribute 翻译成属性比较贴切 打小老师教我们说的都是类属性 不叫特性",Noun
+bundle,包,,Noun
+class ,类,,Noun
+column,字段,,Noun
+component ,组件,Yii 1的翻译,Noun
+configuration,配置,,Noun
+database ,数据库,,Noun
+design pattern,设计模式,,Noun
+eager loading,贪婪加载,,Noun
+extension,扩展,,Noun
+framework,框架,,Noun
+fullstack,全栈,包含或通晓，从前端到后端，从表现到数据，所有的领域叫做全栈，比如全栈工程师，和Yii这样的全栈框架。,Noun
+generator,生成器,,Noun
+helper,Helper（助手）,,Noun
+implement,实现,或具体实现,Verb
+installation,安装,,Noun
+lazy loading,惰性加载,,Noun
+massive assignment,块赋值,,Noun
+module,模块,或子模块,Noun
+overview,概览,,Noun
+package,包,,Noun
+perform,运作,,Verb
+property,属性,,Noun
+request,请求,,Noun
+route,路由,,Noun
+session,session（会话）,,Noun
+trait,trait（特质）,,Noun
+validation,验证，数据有效性验证,数据有效性验证,Noun
+widget,小部件,从其在Yii里的作用来看，叫“小部件”比Yii 1时代翻译的“挂件”更合适。,Noun
+workflow,工作流程,,Noun
