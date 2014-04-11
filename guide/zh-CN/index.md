@@ -1,4 +1,4 @@
-Yii 2.0 权威指南 （20140409统计翻译情况）
+Yii 2.0 权威指南 （20140412统计翻译情况）
 ===============================
 
 本教程遵循[ Yii 使用许可](http://www.yiiframework.com/doc/terms/)。
@@ -35,7 +35,7 @@ Yii 2.0 权威指南 （20140409统计翻译情况）
 --------
 
 - [基本操作](database-basics.md) - 数据库连接、基本查询、事务及(schema )模式操作
-- ！翻译中[查询生成器](query-builder.md) - 使用一个简单的抽象层来查询数据库
+- [查询生成器](query-builder.md) - 使用一个简单的抽象层来查询数据库
 - [活动记录](active-record.md) - 活动记录(active record)的对象-关系映射 (ORM) 技术、检索和操作记录及定义数据关联
 - ！翻译中[数据库迁移](console-migrate.md) - 用数据库迁移控制你的数据库版本
 
@@ -44,17 +44,17 @@ Yii 2.0 权威指南 （20140409统计翻译情况）
 
 - [辅助类](helpers.md)
 - [自动代码生成](gii.md)
-- ！！待翻译[调试工具和调试器](module-debug.md)
-- ！！待翻译[错误处理](error.md)
+- ！翻译中[调试工具和调试器](module-debug.md)
+- [错误处理](error.md)
 - ！翻译中[登录](logging.md)
 
 扩展和第三方库
 ----------------------------------
 
 - [Composer包管理器](composer.md) - 如何通过 Composer 管理应用的依赖关系
-- ！！待翻译[扩展 Yii](extensions.md)
+- ！翻译中[扩展 Yii](extensions.md)
 - [模板引擎](template.md) - 使用模板引擎，如 Smarty 和 Twig
-- ！！待翻译[整合第三方库](using-3rd-party-libraries.md) - 在第三方系统中使用 Yii 及 Yii 1 和 2 混合使用
+- ！翻译中[使用第三方库](using-3rd-party-libraries.md) - 在第三方系统中使用 Yii 及 Yii 1 和 2 混合使用
 
 安全和访问控制
 ---------------------------
@@ -68,7 +68,7 @@ Yii 2.0 权威指南 （20140409统计翻译情况）
 -------------------------------
 
 - [概述](data-overview.md)
-- ！！待翻译[数据源](data-providers.md)
+- [数据源](data-providers.md)
 - [数据小部件](data-widgets.md)
 - ！！待翻译[栅格(Grid)](data-grid.md)
 
@@ -91,3 +91,10 @@ Yii 2.0 权威指南 （20140409统计翻译情况）
 
 - ！！待翻译[模型验证](validation.md)
 - [Composer官方文档](http://getcomposer.org)
+
+
+console-fixture.md
+rest.md
+test-fixture.md
+title.md
+
