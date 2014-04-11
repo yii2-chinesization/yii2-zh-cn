@@ -1,43 +1,41 @@
 数据库迁移——数据库的版本控制工具
 ==================
 
-Like source code, the structure of a database evolves as a database-driven application is developed and maintained. For example, during development, a new table may be added; Or, after the application goes live, it may be discovered that an additional index is required. It is important to keep track of these structural database changes (called *迁移*), just as changes to the source code is tracked using version control. If the source code and the database become out of sync, bugs will occur, or the whole application might break. For this reason, Yii provides a database migration
-tool that can keep track of database migration history, apply new migrations, or revert existing ones.
+和源码相同，数据库结构也像数据库驱动的应用那样逐步形成，慢慢成熟，可持续维护。例如，开发阶段，可能添加新表；或在应用上线后，发现需要另一个索引。可持续追踪数据库结构的变化是非常重要的（这称为 *迁移* ），正如源码的变化用版本控制来追踪一样。如果源码和数据库不同步，bugs (错误)就会产生，或整个应用终止运行。因为这样，Yii 提供了数据库迁移工具来保持追踪数据库迁移的历史，应用新的迁移版本，或恢复之前的迁移版本。
 
-The following steps show how database migration is used by a team during development:
+以下步骤展示了一个开发团队在开发阶段如何使用数据库迁移：
 
-1. Tim creates a new migration (e.g. creates a new table, changes a column definition, etc.).
-2. Tim commits the new migration into the source control system (e.g. Git, Mercurial).
-3. Doug updates his repository from the source control system and receives the new migration.
-4. Doug applies the migration to his local development database, thereby syncing his database to reflect the changes Tim made.
+1. Tim 建立了新的迁移版本（如建立新表、更改一列的定义等）。
+2. Tim 提交新的迁移版本到代码控制系统（如 Git、Mercurial）。
+3. Doug 从代码控制系统升级他的版本库，接收到新的数据库迁移版本。
+4. Doug 应用该迁移版本到他的本地开发数据库，从而同步他的数据库以反映 Tim 所做的改变。
 
-Yii supports database migration via the `yii migrate` command line tool. This tool supports:
+Yii 用 `yii migrate` 命令行工具来支持数据库迁移。这个工具支持：
 
-* Creating new migrations
-* Applying, reverting, and redoing migrations
-* Showing migration history and new migrations
+* 建立新迁移版本
+* 应用、回退或重做迁移
+* 显示迁移历史和新的迁移
 
-Creating Migrations
+建立迁移
 -------------------
 
-To create a new migration, run the following command:
+建立新的迁移请运行以下命令：
 
 ```
 yii migrate/create <name>
 ```
 
-The required `name` parameter specifies a very brief description of the migration. For example, if the migration creates a new table named *news*, you'd use the command:
+必须的 `name` 参数指定了迁移的简要描述。例如，如果迁移建立名为 *news* 的新表，使用以下命令：
 
 ```
 yii migrate/create create_news_table
 ```
 
-As you'll shortly see, the `name` parameter
-is used as part of a PHP class name in the migration. Therefore, it should only contain letters,
-digits and/or underscore characters.
+你很快将看到，`name` 参数用作迁移版本中 PHP 类名的一部分。因此，这个参数应该只包括字母、数字或下划线。
 
 The above command will create a new
 file named `m101129_185401_create_news_table.php`. This file will be created within the `@app/migrations` directory. Initially, the migration file will be generated with the following code:
+以上命令将建立一个名为 `m101129_185401_create_news_table.php` 的新文件。该文件将创建在`@app/migrations` 目录内。刚生成的迁移文件就是下面的代码：
 
 ```php
 class m101129_185401_create_news_table extends \yii\db\Migration
@@ -54,23 +52,16 @@ class m101129_185401_create_news_table extends \yii\db\Migration
 }
 ```
 
-Notice that the class name is the same as the file name, and follows the pattern
-`m<timestamp>_<name>`, where:
+注意类名和文件名相同，都遵循 `m<timestamp>_<name>` 模式，其中：
 
-* `<timestamp>` refers to the UTC timestamp (in the
-format of `yymmdd_hhmmss`) when the migration is created,
-* `<name>` is taken from the command's `name` parameter.
+* `<timestamp>` 指迁移创建时的 UTC 时间戳 (格式是 `yymmdd_hhmmss`)，
+* `<name>` 从命令中的 `name` 参数获取。
 
-In the class, the `up()` method should contain the code implementing the actual database
-migration. In other words, the `up()` method executes code that actually changes the database. The `down()` method may contain code that reverts the changes made by `up()`.
+这个类中。 `up()` 方法应包括实际实现数据库迁移的代码。换言之， `up()` 方法执行了实际改变数据库的代码。`down()` 方法包括回退前版本的代码。
 
-Sometimes, it is impossible for the `down()` to undo the database migration. For example, if the migration deletes
-table rows or an entire table, that data cannot be recovered in the `down()` method. In such
-cases, the migration is called irreversible, meaning the database cannot be rolled back to
-a previous state. When a migration is irreversible, as in the above generated code, the `down()`
-method returns `false` to indicate that the migration cannot be reverted.
+有时，用 `down()` 撤销数据库迁移是不可能的。例如，如果迁移删除表的某些行或整个表，那些数据将不能在 `down()` 方法里恢复。这种情况，该迁移称为不可逆迁移，即数据库不能回退到前一状态。当迁移是不可逆的，在以上生成代码的 `down()` 方法将返回 `false` 来表明这个迁移版本不能回退。
 
-As an example, let's show the migration about creating a news table.
+下面举例说明迁移如何建立新表：
 
 ```php
 
