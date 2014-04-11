@@ -74,24 +74,24 @@ echo Url::toRoute('post/index');
 // /index.php?r=site/index
 echo Url::toRoute('/site/index');
 
-/ /区分大小写的控制器动作 `actionHiTech` 的 url 格式
+// 区分大小写的控制器动作 `actionHiTech` 的 url 格式
 // /index.php?r=management/default/hi-tech
 echo Url::toRoute('hi-tech');
 
-/ / 控制器和动作都区分大小写的 url，如'DateTimeController::actionFastForward' ：
+// 控制器和动作都区分大小写的 url，如'DateTimeController::actionFastForward' ：
 // /index.php?r=date-time/fast-forward&id=105
 echo Url::toRoute(['/date-time/fast-forward', 'id' => 105]);
 
-/ /  从别名中获取 URL 
+//  从别名中获取 URL 
 // http://google.com/
 Yii::setAlias('@google', 'http://google.com/');
 echo Url::to('@google');
 
-/ / 获取当前页的标准 URL 
+// 获取当前页的标准 URL 
 // /index.php?r=management/default/users
 echo Url::canonical();
 
-/ / 获得 home 主页的 URL
+// 获得 home 主页的 URL
 // /index.php?r=site/index
 echo Url::home();
 
@@ -99,7 +99,7 @@ Url::remember() ; //  保存URL以供下次使用
 Url::previous(); // 取出前面保存的 URL 
 ```
 
-> **小提示**： 为生成一个指向 # 号（锚连接 ID ）的 URL ，比如 `/index.php?r=site/page&id=100#title`， 你要
+> **小贴士**： 为生成一个指向 # 号（锚连接 ID ）的 URL ，比如 `/index.php?r=site/page&id=100#title`， 你要
   指定 `#` 参数 ，采用  `Url::to(['post/read', 'id' => 100, '#' => 'title'])` 来创建。
 
 自定义 URL 
