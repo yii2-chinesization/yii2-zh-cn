@@ -232,29 +232,27 @@ $query->orderBy([
 $query->groupBy('id, status');
 ```
 
-If you want to add another field after using `groupBy`:
-
+使用 `groupBy` 后添加其他字段：
 
 ```php
 $query->addGroupBy(['created_at', 'updated_at']);
 ```
 
-To add a `HAVING` condition the corresponding `having` method and its `andHaving` and `orHaving` can be used. Parameters
-for these are similar to the ones for `where` methods group:
+使用 `having` 方法和其 `andHaving` 及 `orHaving` 来添加 `HAVING` 条件。这些方法的参数类似于 `where` 方法群的参数：
 
 ```php
 $query->having(['status' => $status]);
 ```
 
-### `LIMIT` and `OFFSET`
+### `LIMIT` 和 `OFFSET`
 
-To limit result to 10 rows `limit` can be used:
+要限制查询结果只取10行，可以使用 `limit` ：
 
 ```php
 $query->limit(10);
 ```
 
-To skip 100 fist rows use:
+要跳过前100行使用：
 
 ```php
 $query->offset(100);
@@ -262,13 +260,13 @@ $query->offset(100);
 
 ### `JOIN`
 
-The `JOIN` clauses are generated in the Query Builder by using the applicable join method:
+ `JOIN` 从句可使用恰当的 join 方法在查询生成器生成：
 
 - `innerJoin()`
 - `leftJoin()`
 - `rightJoin()`
 
-This left join selects data from two related tables in one query:
+左连接在一条查询中从两个相关表筛选数据：
 
 ```php
 $query->select(['user.name AS author', 'post.title as title'])
@@ -276,20 +274,17 @@ $query->select(['user.name AS author', 'post.title as title'])
     ->leftJoin('post', 'post.user_id = user.id');
 ```
 
-In the code, the `leftJoin()` method's first parameter
-specifies the table to join to. The second parameter defines the join condition.
+以上代码， `leftJoin()` 方法的第一个参数指定连接的表，第二个参数定义连接条件。
 
-If your database application supports other join types, you can use those via the  generic `join` method:
+如果你的数据库应用支持其他连接类型，可以用统一 `join` 方法使用它们：
 
 ```php
 $query->join('FULL OUTER JOIN', 'post', 'post.user_id = user.id');
 ```
 
-The first argument is the join type to perform. The second is the table to join to, and the third is the condition.
+第一个参数是要执行的连接类型，第二个是要连接的表，第三个是条件。
 
-Like `FROM`, you may also join with sub-queries. To do so, specify the sub-query as an array
-which must contain one element. The array value must be a `Query` object representing the sub-query,
-while the array key is the alias for the sub-query. For example,
+像 `FROM` 一样，可以连接子查询。要这样做，指定子查询为包括至少一个元素的数组即可。数组值必须是 `Query` 对象，代表子查询，而数组键是子查询的别名。例如：
 
 ```php
 $query->leftJoin(['u' => $subQuery], 'u.id=author_id');
@@ -298,8 +293,7 @@ $query->leftJoin(['u' => $subQuery], 'u.id=author_id');
 
 ### `UNION`
 
-`UNION` in SQL adds results of one query to results of another query. Columns returned by both queries should match.
-In Yii in order to build it you can first form two query objects and then use `union` method:
+SQL 的`UNION` 添加一个查询的结果到另一个查询结果。返回的列必须匹配两个查询。Yii 里要建立 `UNION` ，先形成两个查询对象，然后使用 `union` 方法：
 
 ```php
 $query = new Query();
@@ -312,15 +306,12 @@ $query->union($anotherQuery);
 ```
 
 
-Batch Query
+批（量）查询
 -----------
 
-When working with large amount of data, methods such as [[yii\db\Query::all()]] are not suitable
-because they require loading all data into the memory. To keep the memory requirement low, Yii
-provides the so-called batch query support. A batch query makes uses of data cursor and fetches
-data in batches.
+处理大数据量的时候，类似[[yii\db\Query::all()]]这样的方法并不太合适，因为这些方法要求加载所有数据到内存。为保持低内存要求， Yii 提供了所谓的批查询支持。批查询利用数据指针分批取数据。
 
-Batch query can be used like the following:
+批查询这样使用：
 
 ```php
 use yii\db\Query;
@@ -330,26 +321,20 @@ $query = (new Query())
     ->orderBy('id');
 
 foreach ($query->batch() as $users) {
-    // $users is an array of 100 or fewer rows from the user table
+    // $users 是用户表的100行以内的数组
 }
 
-// or if you want to iterate the row one by one
+// 或者你希望逐行遍历（iterate，有时翻译为迭代）
 foreach ($query->each() as $user) {
-    // $user represents one row of data from the user table
+    // $user 表示用户表的一行数据
 }
 ```
 
-The method [[yii\db\Query::batch()]] and [[yii\db\Query::each()]] return an [[yii\db\BatchQueryResult]] object
-which implements the `Iterator` interface and thus can be used in the `foreach` construct.
-During the first iteration, a SQL query is made to the database. Data are since then fetched in batches
-in the iterations. By default, the batch size is 100, meaning 100 rows of data are being fetched in each batch.
-You can change the batch size by passing the first parameter to the `batch()` or `each()` method.
+[[yii\db\Query::batch()]] 和 [[yii\db\Query::each()]]方法返回[[yii\db\BatchQueryResult]]对象，该对象实现了 `Iterator` （迭代器）接口，因此可以用于 `foreach` 结构。在第一个遍历过程，建立了一条 SQL 查询到数据库，然后数据在这个迭代中被批量取回。一批数量缺省是100行，即每批取回100行数据。可以通过传递第一个参数到 `batch()` 和 `each()` 方法改变一批取回的数量。
 
-Compared to the [[yii\db\Query::all()]], the batch query only loads 100 rows of data at a time into the memory.
-If you process the data and then discard it right away, the batch query can help keep the memory usage under a limit.
+对比[[yii\db\Query::all()]]，批查询一次只加载100行数据到内存。如果你处理完数据马上丢弃，批查询可以帮助保持内存在限定范围内使用。
 
-If you specify the query result to be indexed by some column via [[yii\db\Query::indexBy()]], the batch query
-will still keep the proper index. For example,
+如需指定查询结果用[[yii\db\Query::indexBy()]]方法以某列来索引，批查询仍将保持本来的索引。例如：
 
 ```php
 use yii\db\Query;
@@ -359,7 +344,7 @@ $query = (new Query())
     ->indexBy('username');
 
 foreach ($query->batch() as $users) {
-    // $users is indexed by the "username" column
+    // $users 以 "username" 列为索引
 }
 
 foreach ($query->each() as $username => $user) {
