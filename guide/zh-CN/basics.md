@@ -115,7 +115,7 @@ use \yii\helpers\Html;
 echo Html::encode('Test > test');
 ```
 
-这里是几个框架所提供的助手类：
+这里是框架提供的几个助手类：
 
 - ArrayHelper
 - Console
