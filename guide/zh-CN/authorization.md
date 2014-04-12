@@ -1,13 +1,12 @@
-Authorization
+授权
 =============
 
-Authorization is the process of verifying that user has enough permissions to do something. Yii provides several methods
-of controlling it.
+授权是验证用户是否有足够权限做一些事情的过程。Yii 提供了一些方法来管理授权。
 
-Access control basics
+访问控制基础
 ---------------------
 
-Basic access control is very simple to implement using [[yii\filters\AccessControl]]:
+基本的访问控制用[[yii\filters\AccessControl]]实现是非常简单的：
 
 ```php
 class SiteController extends Controller
@@ -39,6 +38,7 @@ class SiteController extends Controller
 In the code above we're attaching access control behavior to a controller. Since there's `only` option specified, it
 will be applied to 'login', 'logout' and 'signup' actions only. A set of rules that are basically options for
 [[yii\filters\AccessRule]] reads as follows:
+
 
 - Allow all guest (not yet authenticated) users to access 'login' and 'signup' actions.
 - Allow authenticated users to access 'logout' action.
