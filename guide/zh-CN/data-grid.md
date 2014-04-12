@@ -1,12 +1,11 @@
-Data grid
+数据网格
 =========
 
-Data grid or GridView is one of the most powerful Yii widgets. It is extremely useful if you need to quickly build admin
-section of the system. It takes data from [data provider](data-providers.md) and renders each row using a set of columns
-presenting data in a form of a table.
+数据网格或网格视图是 Yii 最强大的小部件之一。如需快速建立系统的管理后台部分，数据网格特别有用。数据网格从[数据源](data-providers.md)获取数据并渲染每行，每行的列展现数据表的表单数据。
 
 Each row of the table represents the data of a single data item, and a column usually represents an attribute of
 the item (some columns may correspond to complex expression of attributes or static text).
+表的每一行代表一个数据项，
 
 Grid view supports both sorting and pagination of the data items. The sorting and pagination can be done in AJAX mode
 or normal page request. A benefit of using GridView is that when the user disables JavaScript, the sorting and pagination
