@@ -1,26 +1,24 @@
 调试工具和调试器
 ==========================
 
-Yii2 includes a handy toolbar, and built-in debugger, for faster development and debugging of your applications. The toolbar displays information
-about the currently opened page, while the debugger can be used to analyze data you've previously collected (i.e., to confirm the values of variables).
+Yii2 包括了一个方便的工具栏和内置的调试器来更快的开发和调试你的应用。工具栏显示当前打开页面的信息，而调试器用来分析之前收集的数据（如确认变量值）。
 
-Out of the box these tools allow you to:
+这些工具允许你开箱即用：
 
-- Quickly get the framework version, PHP version, response status, current controller and action, performance info and
-  more via toolbar
-- Browse the application and PHP configuration
-- View the request data, request and response headers, session data, and environment variables
-- See, search, and filter the logs
-- View any profiling results
-- View the database queries executed by the page
-- View the emails sent by the application
+- 通过工具栏可快速获取框架版本、PHP 版本、响应状态、当前控制器和动作、性能数据等
+- 浏览应用和 PHP 配置
+- 查看请求数据、请求和响应头、会话数据和环境变量
+- 查看、检索和过滤日志
+- 查看所有分析结果
+- 查看该页面执行的数据库查询
+- 查看应用发送的邮件
 
-All of this information will be available per request, allowing you to revisit the information for past requests as well.
+每个请求周期这些信息都是可用的，也允许你再次访问过往的请求信息。
 
-Installing and configuring
+安装和配置
 --------------------------
 
-To enable these features, add these lines to your configuration file to enable the debug module:
+要启用这些功能，添加以下代码到你的配置文件以启用调试模块：
 
 ```php
 'bootstrap' => ['debug'],
@@ -29,7 +27,7 @@ To enable these features, add these lines to your configuration file to enable t
 ]
 ```
 
-By default, the debug module only works when browsing the website from localhost. If you want to use it on a remote (staging) server, add the parameter `allowedIPs` to the configuration to whitelist your IP:
+调试模块默认浏览本地站点才运行。如要在远程（工作）服务器使用调试模块，添加 `allowedIPs` 参数到你的 IP 白名单配置文件：
 
 ```php
 'bootstrap' => ['debug'],
@@ -41,7 +39,7 @@ By default, the debug module only works when browsing the website from localhost
 ]
 ```
 
-If you are using `enableStrictParsing` URL manager option, add the following to your `rules`:
+如果使用 `enableStrictParsing` URL 管理器选项，添加以下代码到你的 `rules` 中：
 
 ```php
 'urlManager' => [
@@ -53,28 +51,25 @@ If you are using `enableStrictParsing` URL manager option, add the following to 
 ],
 ```
 
-### Extra configuration for logging and profiling
+### 日志分析补充配置
 
-Logging and profiling are simple but powerful tools that may help you to understand the execution flow of both the
-framework and the application. These tools are useful for development and production environments alike.
+日志和分析是简单但强大的工具，可以帮助你理解框架和应用两者的执行流程。这些工具对开发和生产环境都很有用。
 
-While in a production environment, you should log only significantly important  messages manually, as described in
-[logging guide section](logging.md). It hurts performance too much to continue to log all messages in production.
+在生产环境，应该只记录特别重要的信息，如[日志](logging.md)所描述的。生产环境持续记录所有信息对性能损耗严重。
 
-In a development environment, the more logging the better, and it's especially useful to record the execution trace.
+在开发环境中，越多日志越好，记录执行跟踪尤其有用。
 
-In order to see the trace messages that will help you to understand what happens under the hood of the framework, you need to set the
-trace level in the configuration file:
+为了看到追溯信息，这些信息能帮助你理解框架内部发生什么，需要在配置文件设置追溯级别：
 
 ```php
 return [
     // ...
     'components' => [
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0, // <-- here
+            'traceLevel' => YII_DEBUG ? 3 : 0, // <-- 这里
 ```
 
-By default, the trace level is automatically set to `3` if Yii is running in debug mode, as determined by the presence of the following line in your `index.php` file:
+ Yii 运行在调试模式的缺省追溯级别自动设置为 3 ，由你的 `index.php` 文件的以下部分决定：
 
 ```php
 defined('YII_DEBUG') or define('YII_DEBUG', true);
@@ -82,19 +77,18 @@ defined('YII_DEBUG') or define('YII_DEBUG', true);
 
 > Note: Make sure to disable debug mode in production environments since it may have a significant and adverse performance effect. Further, the debug mode may expose sensitive information to end users.
 
-Creating your own panels
+创建自己的面板
 ------------------------
 
-Both the toolbar and debugger are highly configurable and customizable. To do so, you can create your own panels that collect
-and display the specific data you want. Below we'll describe the process of creating a simple custom panel that:
+工具栏和调试器都是高度可配置和定制的，因此，你可以创建自己的面板来收集和显示你所需要的特定数据。以下描述了创建一个简单定制面板的过程：
 
-- Collects the views rendered during a request
-- Shows the number of views rendered in the toolbar
-- Allows you to check the view names in the debugger
+- 收集一个请求周期被渲染的视图
+- 在工具栏显示被渲染视图的数量
+- 允许你检查调试器中的视图名称
 
-The assumption is that you're using the basic application template.
+以上定制过程的前提是使用基础应用模板。
 
-First we need to implement the `Panel` class in `panels/ViewsPanel.php`:
+首先需要实现 `panels/ViewsPanel.php` 这个 `Panel`  类：
 
 ```php
 <?php
@@ -155,20 +149,18 @@ class ViewsPanel extends Panel
 }
 ```
 
-The workflow for the code above is:
+以上代码工作流是：
 
-1. `init` is executed before any controller action is run. This method is the best place to attach handlers that will collect data during the controller action's execution.
-2. `save` is called after controller action is executed. The data returned by this method will be stored in a data file. If nothing is returned by this method, the panel
-   won't be rendered.
-3. The data from the data file is loaded into `$this->data`. For the toolbar, this will always represent the latest data, For the debugger, this property may be set to be read from any previous data file as well.
-4. The toolbar takes its contents from `getSummary`. There, we're showing the number of view files rendered. The debugger uses
-   `getDetail` for the same purpose.
+1. `init` 在任何控制器动作运行前执行。该方法是附加这种事件处理器的最佳位置：在控制器动作执行期间收集数据的处理器。
+2. `save` 在控制器动作执行后调用。该方法返回的数据将存储在数据文件，如果该方法没有返回任何东西，面板将不渲染。
+3. 数据文件的数据可用 `$this->data` 加载。对工具栏来说， `$this->data` 只代表最新数据，而对于调试器，该属性可以设置来读取任何之前的数据文件。
+4. 工具栏从 `getSummary` 获取内容，在这里显示被渲染视图文件的数量。调试器用 `getDetail` 实现相同功能。
 
-Now it's time to tell the debugger to use the new panel. In `config/web.php`, the debug configuration is modified to:
+现在是时候告诉调试器使用新面板了。在 `config/web.php` ，修改调试配置如下：
 
 ```php
 if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
+    // 配置调整为 'dev' 开发环境
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
@@ -180,4 +172,4 @@ if (YII_ENV_DEV) {
 // ...
 ```
 
-That's it. Now we have another useful panel without writing much code.
+这就是新面板，现在我们无须编写太多代码就有了另一个有用的面板。
