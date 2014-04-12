@@ -84,27 +84,14 @@ class m101129_185401_create_news_table extends \yii\db\Migration
 }
 ```
 
-The base class [\yii\db\Migration] exposes a database connection via `db`
-property. You can use it for manipulating data and schema of a database.
+基类[\yii\db\Migration] 通过 `db` 属性建立一个数据库连接。可以使用它来操作数据和数据库的模式。
 
+上例中使用的列类型是抽象类型，将被 Yii 用相应的数据库管理系统的类型取代。可以使用它们来编写独立于数据库的迁移。如 `pk` 在 MySQL 中将替换为 `int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY` ，而在 sqlite 中则替换为 `integer PRIMARY KEY AUTOINCREMENT NOT NULL` 。更多细节和可用的类型列表请参考[[yii\db\QueryBuilder::getColumnType()]]。也可以使用定义在[[yii\db\Schema]]中的常量来定义列类型。
 
-The column types used in this example are abstract types that will be replaced
-by Yii with the corresponding types depended on your database management system.
-You can use them to write database independent migrations.
-For example `pk` will be replaced by `int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY`
-for MySQL and `integer PRIMARY KEY AUTOINCREMENT NOT NULL` for sqlite.
-See documentation of [[yii\db\QueryBuilder::getColumnType()]] for more details and a list
-of available types. You may also use the constants defined in [[yii\db\Schema]] to
-define column types.
-
-
-Transactional Migrations
+事务性的迁移（整体迁移或回滚）
 ------------------------
 
-While performing complex DB migrations, we usually want to make sure that each
-migration succeed or fail as a whole so that the database maintains the
-consistency and integrity. In order to achieve this goal, we can exploit
-DB transactions. We could use special methods `safeUp` and `safeDown` for these purposes.
+执行复杂的 DB 迁移时，通常想确定每个完整迁移全体是成功了还是失败了，以便数据库保持一致和完整。为实现该目标，可以利用数据库事务来处理，使用专用的 `safeUp` 和 `safeDown` 方法来达到这些目的。
 
 ```php
 
@@ -136,178 +123,130 @@ class m101129_185401_create_news_table extends \yii\db\Migration
 }
 ```
 
-When your code uses more then one query it is recommended to use `safeUp` and `safeDown`.
+当代码使用多于一条查询时推荐使用 `safeUp` 和 `safeDown` 。
 
-> Note: Not all DBMS support transactions. And some DB queries cannot be put
-> into a transaction. In this case, you will have to implement `up()` and
-> `down()`, instead. And for MySQL, some SQL statements may cause
-> [implicit commit](http://dev.mysql.com/doc/refman/5.1/en/implicit-commit.html).
+> 注意：不是所有的 DBMS 都支持事务，并且有些 DB 查询不能用事务表示。这种情况，必须用 `up()`
+> 和`down()` 方法替代实现。对于 MySQL，有些 SQL 语句会引发[隐式提交]
+> (http://dev.mysql.com/doc/refman/5.1/en/implicit-commit.html)。
 
 
-Applying Migrations
+应用迁移
 -------------------
 
-To apply all available new migrations (i.e., make the local database up-to-date),
-run the following command:
+要应用所有可用的新迁移（如，升级本地数据库），运行以下命令：
 
 ```
 yii migrate
 ```
 
-The command will show the list of all new migrations. If you confirm to apply
-the migrations, it will run the `up()` method in every new migration class, one
-after another, in the order of the timestamp value in the class name.
+该命令将显示所有新迁移列表。如果你确认应用这些迁移，它将会按类名的时间戳一个接一个地运行每个新迁移类的 `up()` 方法。
 
-After applying a migration, the migration tool will keep a record in a database
-table named `migration`. This allows the tool to identify which migrations
-have been applied and which are not. If the `migration` table does not exist,
-the tool will automatically create it in the database specified by the `db`
-application component.
+应用迁移成功后，迁移工具将在名为 `migration` 的数据库表保持迁移记录。这就允许该工具区分应用和未应用的迁移。如果 `migration` 表不存在，迁移工具将通过 `db` 组件自动在数据库中创建。
 
-Sometimes, we may only want to apply one or a few new migrations. We can use the
-following command:
+有时，我们只想应用一个或少量的新迁移，可以使用以下命令：
 
 ```
 yii migrate/up 3
 ```
 
-This command will apply the 3 new migrations. Changing the value 3 will allow
-us to change the number of migrations to be applied.
+这个命令将应用3个新的迁移，改变这个值就改变拟应用的迁移数量。
 
-We can also migrate the database to a specific version with the following command:
+也可以迁移数据库到特定版本，命令如下：
 
 ```
 yii migrate/to 101129_185401
 ```
 
-That is, we use the timestamp part of a migration name to specify the version
-that we want to migrate the database to. If there are multiple migrations between
-the last applied migration and the specified migration, all these migrations
-will be applied. If the specified migration has been applied before, then all
-migrations applied after it will be reverted (to be described in the next section).
+那就是，使用迁移数据表名的时间戳部分来指定需要迁移数据库的版本。如果在最后应用的迁移和指定迁移间有多个迁移，所有这些迁移将被应用。如果指定的迁移已经被应用，那么所有在其后应用的迁移将回退（指南下一节将描述）。
 
 
-Reverting Migrations
+迁移回退（恢复、回滚）
 --------------------
 
-To revert the last one or several applied migrations, we can use the following
-command:
+要恢复上一个或多个已应用的迁移，可以使用以下命令：
 
 ```
 yii migrate/down [step]
 ```
 
-where the optional `step` parameter specifies how many migrations to be reverted
-back. It defaults to 1, meaning reverting back the last applied migration.
+其中可选项 `step` 参数指定多少迁移将被恢复。缺省为 1 ，即回退上一个被应用的迁移。
 
-As we described before, not all migrations can be reverted. Trying to revert
-such migrations will throw an exception and stop the whole reverting process.
+如前所述，并不是所有的迁移都能恢复。尝试回退这些不能恢复的迁移将抛出一个异常并终止整个回退流程。
 
 
-Redoing Migrations
+重做迁移
 ------------------
 
-Redoing migrations means first reverting and then applying the specified migrations.
-This can be done with the following command:
+重做迁移就是首先回退然后应用指定的迁移，用以下命令完成：
 
 ```
 yii migrate/redo [step]
 ```
 
-where the optional `step` parameter specifies how many migrations to be redone.
-It defaults to 1, meaning redoing the last migration.
+其中可选项 `step` 参数指定了重做多少迁移。默认为 1 ，即重做上一个迁移。
 
-
-Showing Migration Information
+显示迁移信息
 -----------------------------
 
-Besides applying and reverting migrations, the migration tool can also display
-the migration history and the new migrations to be applied.
+除了应用和回退迁移，迁移工具还能显示迁移历史和拟应用的新迁移：
 
 ```
 yii migrate/history [limit]
 yii migrate/new [limit]
 ```
 
-where the optional parameter `limit` specifies the number of migrations to be
-displayed. If `limit` is not specified, all available migrations will be displayed.
+其中可选项 `limit` 参数指定了要显示的迁移数量。如果 `limit` 未指定，将显示所有可用的迁移。
 
-The first command shows the migrations that have been applied, while the second
-command shows the migrations that have not been applied.
+第一条命令显示被应用的所有迁移，而第二条命令显示没有被应用的所有新迁移。
 
 
-Modifying Migration History
+修改迁移历史
 ---------------------------
 
-Sometimes, we may want to modify the migration history to a specific migration
-version without actually applying or reverting the relevant migrations. This
-often happens when developing a new migration. We can use the following command
-to achieve this goal.
+有时，想修改迁移历史到特定的迁移版本，而不要真的应用或回退相关的迁移。当开发新迁移时经常发生这种需求。使用以下命令实现该目标：
 
 ```
 yii migrate/mark 101129_185401
 ```
 
-This command is very similar to `yii migrate/to` command, except that it only
-modifies the migration history table to the specified version without applying
-or reverting the migrations.
+该命令和 `yii migrate/to` 命令非常相似，除了只修改迁移历史表来指定版本，而不应用或恢复该迁移。
 
 
-Customizing Migration Command
+自定义迁移命令
 -----------------------------
 
-There are several ways to customize the migration command.
+自定义迁移命令有几种方法。
 
-### Use Command Line Options
+### 使用命令行选项
 
-The migration command comes with four options that can be specified in command
-line:
+迁移命令有五（？原文是四）个可指定的命令行选项：
 
-* `interactive`: boolean, specifies whether to perform migrations in an
-  interactive mode. Defaults to true, meaning the user will be prompted when
-  performing a specific migration. You may set this to false should the
-  migrations be done in a background process.
+* `interactive` ：布尔值，指定交互模式中是否执行迁移。默认为 true ，即执行特定迁移时将给用户弹出提示。可设置为 false 使迁移在后台执行。
 
-* `migrationPath`: string, specifies the directory storing all migration class
-  files. This must be specified in terms of a path alias, and the corresponding
-  directory must exist. If not specified, it will use the `migrations`
-  sub-directory under the application base path.
+* `migrationPath` ：字符串，指定存储所有迁移类文件的目录。必须以路径别名的形式提供，且相应的目录必须存在。如未指定该选项，将使用应用根路径下的 `migrations` 子目录。
 
-* `migrationTable`: string, specifies the name of the database table for storing
-  migration history information. It defaults to `migration`. The table
-  structure is `version varchar(255) primary key, apply_time integer`.
+* `migrationTable`：字符串，指定存储迁移历史信息的数据表名。默认为 `migration` ，表结构是 `version varchar(255) primary key, apply_time integer` 。
 
-* `connectionID`: string, specifies the ID of the database application component.
-  Defaults to 'db'.
+* `connectionID`：字符串，指定数据库连接应用组件的 ID ，默认为 'db'。
 
-* `templateFile`: string, specifies the path of the file to be served as the code
-  template for generating the migration classes. This must be specified in terms
-  of a path alias (e.g. `application.migrations.template`). If not set, an
-  internal template will be used. Inside the template, the token `{ClassName}`
-  will be replaced with the actual migration class name.
+* `templateFile`：字符串，指定用作迁移类生成模板的文件路径。必须以路径别名形式指定（如 `application.migrations.template`）。如未设置，将使用内部模板。模板内的占位符 `{ClassName}` 将用实际的迁移类名替换。
 
-To specify these options, execute the migrate command using the following format
+要指定这些选项，执行以下格式的迁移命令：
 
 ```
 yii migrate/up --option1=value1 --option2=value2 ...
 ```
 
-For example, if we want to migrate for a `forum` module whose migration files
-are located within the module's `migrations` directory, we can use the following
-command:
+例如，如果想迁移 `forum` 模块，其迁移文件放在模块内部的 `migrations` 目录，可以使用以下命令：
 
 ```
 yii migrate/up --migrationPath=@app/modules/forum/migrations
 ```
 
 
-### Configure Command Globally
+### 全局配置命令
 
-While command line options allow us to configure the migration command
-on-the-fly, sometimes we may want to configure the command once for all.
-For example, we may want to use a different table to store the migration history,
-or we may want to use a customized migration template. We can do so by modifying
-the console application's configuration file like the following,
+虽然命令行选项允许我们在运行时实时配置迁移命令，但有时也想一劳永逸地配置命令。例如，要用其他表来存储迁移历史，或想使用自定义迁移模板。可以如下修改控制台应用的配置文件实现：
 
 ```php
 'controllerMap' => [
@@ -318,6 +257,4 @@ the console application's configuration file like the following,
 ]
 ```
 
-Now if we run the `migrate` command, the above configurations will take effect
-without requiring us to enter the command line options every time. Other command options
-can be also configured this way.
+现在只要运行 `migrate` 命令，以上配置就会生效，无须我们每次输入命令行选项。其他命令选项也可以如此配置。
