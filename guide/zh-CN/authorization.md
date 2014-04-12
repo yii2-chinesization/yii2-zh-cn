@@ -35,19 +35,14 @@ class SiteController extends Controller
     // ...
 ```
 
-In the code above we're attaching access control behavior to a controller. Since there's `only` option specified, it
-will be applied to 'login', 'logout' and 'signup' actions only. A set of rules that are basically options for
-[[yii\filters\AccessRule]] reads as follows:
+以上代码附加了一个访问控制行为给控制器。既然 `only` 选项被指定，该行为将只应用到 'login', 'logout' 和 'signup' 这三个动作。一系列规则是[[yii\filters\AccessRule]]的基础选项，读取说明如下：
 
+- 允许所有游客（未认证）用户访问 'login' 和 'signup' 动作。
+- 允许认证用户访问 'logout' 动作。
 
-- Allow all guest (not yet authenticated) users to access 'login' and 'signup' actions.
-- Allow authenticated users to access 'logout' action.
+规则从上到下依次核对，如果规则匹配，动作立即发生。否则将核对下一个规则。如果没有任何规则匹配，访问被拒绝。
 
-Rules are checked one by one from top to bottom. If rule matches, action takes place immediately. If not, next rule is
-checked. If no rules matched access is denied.
-
-[[yii\filters\AccessRule]] is quite flexible and allows additionally to what was demonstrated checking IPs and request method
-(i.e. POST, GET). If it's not enough you can specify your own check via anonymous function:
+[[yii\filters\AccessRule]]非常灵活，又允许被验证者核对 IP 和请求方法（如 POST, GET）。如果还不够，可以通过匿名函数指定你自己的核对项：
 
 ```php
 class SiteController extends Controller
@@ -68,11 +63,11 @@ class SiteController extends Controller
                     ],
 ```
 
-And the action:
+动作：
 
 ```php
     // ...
-    // Match callback called! This page can be accessed only each October 31st
+    // 匹配的回调函数被调用！该页面只能在每年10月31日访问。
     public function actionSpecialCallback()
     {
         return $this->render('happy-halloween');
@@ -80,17 +75,16 @@ And the action:
 ```
 
 Sometimes you want a custom action to be taken when access is denied. In this case you can specify `denyCallback`.
+有时想要在访问被拒绝时执行一个自定义动作。这种情况可以指定 `denyCallback` 。
 
-Role based access control (RBAC)
+基于角色的访问控制 (RBAC)
 --------------------------------
 
-Role based access control is very flexible approach to controlling access that is a perfect match for complex systems
-where permissions are customizable.
+基于角色的访问控制是控制访问非常灵活的方法，非常完美地匹配可定制许可的复杂系统。
 
-### Using file-based config for RBAC
+### 为 RBAC 使用基于文件的配置
 
-In order to start using it some extra steps are required. First of all we need to configure `authManager` application
-component in application config file (`web.php` or `main.php` depending on template you've used):
+要开始使用 RBAC ，一些额外的步骤是必须的。首先需要在应用配置文件（根据你所使用的模板分别是`web.php` 或 `main.php` ）配置`authManager` 应用组件：
 
 ```php
 'authManager' => [
@@ -99,8 +93,7 @@ component in application config file (`web.php` or `main.php` depending on templ
 ],
 ```
 
-Often use role is stored in the same database table as other user data. In this case we may defined it by creating our
-own component (`app/components/PhpManager.php`):
+通常用户角色存储的数据表和其他用户数据相同。这种情况可以通过创建我们自己的组件（`app/components/PhpManager.php`）定义：
 
 ```php
 <?php
@@ -114,14 +107,14 @@ class PhpManager extends \yii\rbac\PhpManager
     {
         parent::init();
         if (!Yii::$app->user->isGuest) {
-            // we suppose that user's role is stored in identity
+            // 我们假设用户角色存储在 identity
             $this->assign(Yii::$app->user->identity->id, Yii::$app->user->identity->role);
         }
     }
 }
 ```
 
-Now create custom rule class:
+现在创建自定义的角色类：
 
 ```php
 namespace app\rbac;
@@ -140,7 +133,7 @@ class NotGuestRule extends Rule
 }
 ```
 
-Then create permissions hierarchy in `@app/data/rbac.php`:
+然后在 `@app/data/rbac.php`创建许可层级：
 
 ```php
 <?php
@@ -154,13 +147,13 @@ return [
         $notGuest->name => serialize($notGuest),
     ],
     'items' => [
-        // HERE ARE YOUR MANAGEMENT TASKS
+        // 这里是管理任务
         'manageThing0' => ['type' => Item::TYPE_OPERATION, 'description' => '...', 'ruleName' => null, 'data' => null],
         'manageThing1' => ['type' => Item::TYPE_OPERATION, 'description' => '...', 'ruleName' => null, 'data' => null],
         'manageThing2' => ['type' => Item::TYPE_OPERATION, 'description' => '...', 'ruleName' => null, 'data' => null],
         'manageThing3' => ['type' => Item::TYPE_OPERATION, 'description' => '...', 'ruleName' => null, 'data' => null],
 
-        // AND THE ROLES
+        // 这里是角色
         'guest' => [
             'type' => Item::TYPE_ROLE,
             'description' => 'Guest',
@@ -173,7 +166,7 @@ return [
             'description' => 'User',
             'children' => [
                 'guest',
-                'manageThing0', // User can edit thing0
+                'manageThing0', // 用户可以编辑 thing0
             ],
             'ruleName' => $notGuest->name,
             'data' => null
@@ -183,8 +176,8 @@ return [
             'type' => Item::TYPE_ROLE,
             'description' => 'Moderator',
             'children' => [
-                'user',         // Can manage all that user can
-                'manageThing1', // and also thing1
+                'user',         // 用户可以做的任何事，该角色也可以
+                'manageThing1', // 和 thing1
             ],
             'ruleName' => null,
             'data' => null
@@ -194,8 +187,8 @@ return [
             'type' => Item::TYPE_ROLE,
             'description' => 'Admin',
             'children' => [
-                'moderator',    // can do all the stuff that moderator can
-                'manageThing2', // and also manage thing2
+                'moderator',    // 可以做 moderator 能做的任何事
+                'manageThing2', // 和 thing2
             ],
             'ruleName' => null,
             'data' => null
@@ -205,8 +198,8 @@ return [
             'type' => Item::TYPE_ROLE,
             'description' => 'Super admin',
             'children' => [
-                'admin',        // can do all that admin can
-                'manageThing3', // and also thing3
+                'admin',        // 能做 admin 能做的任何事
+                'manageThing3', // 和 thing3
             ],
             'ruleName' => null,
             'data' => null
@@ -215,7 +208,7 @@ return [
 ];
 ```
 
-Now you can specify roles from RBAC in controller's access control configuration:
+现在可以在控制器的访问控制配置指定 RBAC 角色：
 
 ```php
 public function behaviors()
@@ -235,18 +228,17 @@ public function behaviors()
 }
 ```
 
-Another way is to call [[yii\web\User::checkAccess()]] where appropriate.
+另一个方法是调用适当的[[yii\web\User::checkAccess()]]方法。
 
-### Using DB-based storage for RBAC
+### 为 RBAC 使用基于数据库的存储
 
 Storing RBAC hierarchy in database is less efficient performancewise but is much more flexible. It is easier to create
 a good management UI for it so in case you need permissions structure that is managed by end user DB is your choice.
+用数据库存储 RBAC 层级，性能略低但更加灵活。（翻译者未理解下一句的原文意思）为此创建友好的管理界面更容易，因此万需要被终端用户 DB 管理的许可结构就成了你的选择。
 
-In order to get started you need to configure database connection in `db` component. After it is done [get `schema-*.sql`
-file for your database](https://github.com/yiisoft/yii2/tree/master/framework/rbac) and execute it.
+开始使用需要配置 `db` 组件的数据库连接。完成后[为自己的数据库获取 `schema-*.sql` 文件](https://github.com/yiisoft/yii2/tree/master/framework/rbac)并执行。
 
-Next step is to configure `authManager` application component in application config file (`web.php` or `main.php`
-depending on template you've used):
+下一步是在应用配置文件(官方基础模板是 web.php,高级模板是 main.php)配置 `authManager` 应用组件：
 
 ```php
 'authManager' => [
@@ -257,14 +249,13 @@ depending on template you've used):
 
 TBD
 
-### How it works
+### 如何工作
 
-TBD: write about how it works with pictures :)
+TBD: 用图片说明它如何工作 :)
 
-### Avoiding too much RBAC
+### 避免太多 RBAC
 
-In order to keep auth hierarchy simple and efficient you should avoid creating and using too much nodes. Most of the time
-simple checks could be used instead. For example such code that uses RBAC:
+为保持授权层级的简单和高效，应避免创建和使用太多的级数。更多情况下应使用简单的核对清单来替代。像这样的代码使用 RBAC ：
 
 ```php
 public function editArticle($id)
@@ -280,7 +271,7 @@ public function editArticle($id)
 }
 ```
 
-can be replaced with simpler code that doesn't use RBAC:
+可以替换为不使用 RBAC 更简单的代码：
 
 ```php
 public function editArticle($id)
