@@ -33,8 +33,6 @@ yii migrate/create create_news_table
 
 你很快将看到，`name` 参数用作迁移版本中 PHP 类名的一部分。因此，这个参数应该只包括字母、数字或下划线。
 
-The above command will create a new
-file named `m101129_185401_create_news_table.php`. This file will be created within the `@app/migrations` directory. Initially, the migration file will be generated with the following code:
 以上命令将建立一个名为 `m101129_185401_create_news_table.php` 的新文件。该文件将创建在`@app/migrations` 目录内。刚生成的迁移文件就是下面的代码：
 
 ```php
@@ -88,6 +86,7 @@ class m101129_185401_create_news_table extends \yii\db\Migration
 
 The base class [\yii\db\Migration] exposes a database connection via `db`
 property. You can use it for manipulating data and schema of a database.
+
 
 The column types used in this example are abstract types that will be replaced
 by Yii with the corresponding types depended on your database management system.
