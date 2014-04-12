@@ -37,14 +37,14 @@ Yii 2.0 权威指南 （20140412统计翻译情况）
 - [数据库基础](database-basics.md) - 数据库连接、基本查询、事务及(schema )模式操作
 - [查询生成器](query-builder.md) - 使用一个简单的抽象层来查询数据库
 - [活动记录](active-record.md) - 活动记录(active record)的对象-关系映射 (ORM) 技术、检索和操作记录及定义数据关联
-- ！翻译中[数据库迁移](console-migrate.md) - 用数据库迁移控制你的数据库版本
+- [数据库迁移](console-migrate.md) - 用数据库迁移控制你的数据库版本
 
 开发者工具箱
 ------------------
 
 - [助手类](helpers.md)
 - [代码自动生成](gii.md)
-- ！翻译中[调试工具和调试器](module-debug.md)
+- [调试工具和调试器](module-debug.md)
 - [错误处理](error.md)
 - ！翻译中[日志](logging.md)
 
@@ -60,8 +60,8 @@ Yii 2.0 权威指南 （20140412统计翻译情况）
 ---------------------------
 
 - [身份验证](authentication.md) - 识别用户身份
-- ！！待翻译[授权](authorization.md) - 访问控制和基于角色的访问控制（RBAC）
-- ！！待翻译[安全](security.md) - 哈希算法和密码验证、加密
+- ！翻译中[授权](authorization.md) - 访问控制和基于角色的访问控制（RBAC）
+- [安全](security.md) - 哈希算法和密码验证、加密
 - [视图安全](view.md#security)- 防止XSS攻击
 
 数据源、列表(lists)和栅格(grids)
@@ -70,7 +70,7 @@ Yii 2.0 权威指南 （20140412统计翻译情况）
 - [概述](data-overview.md)
 - [数据源](data-providers.md)
 - [数据小部件](data-widgets.md)
-- ！！待翻译[栅格(Grid)](data-grid.md)
+- ！翻译中[栅格(Grid)](data-grid.md)
 
 高级专题
 ---------------
