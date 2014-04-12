@@ -1,86 +1,84 @@
  Yii 扩展
 =============
-The Yii framework was designed to be easily extendable. Additional features can be added to your project and then reused, either by yourself on other projects or by sharing your work as a formal Yii extension.
 
-Code style
+Yii 框架设计得易于扩展。新增特性可以添加到你的项目，然后给你自己复用于其他项目或作为正式的 Yii 扩展分享给其他人。
+
+代码风格
 ----------
 
-To be consistent with core Yii conventions, your extensions ought to adhere to certain coding styles:
+为和 Yii 核心代码的约定保持一致，你的扩展应当遵循特定的代码风格：
 
-- Use the [core framework code style](https://github.com/yiisoft/yii2/wiki/Core-framework-code-style).
-- Document classes, methods and properties using [phpdoc](http://www.phpdoc.org/). - Extension classes should *not* be prefixed. Do not use the format `TbNavBar`, `EMyWidget`, etc.
+- 使用[框架核心的代码风格](https://github.com/yiisoft/yii2/wiki/Core-framework-code-style).
+- 使用[phpdoc](http://www.phpdoc.org/)记录类、方法和属性。
+- 扩展类 *不要* 使用前缀。不要使用 `TbNavBar`, `EMyWidget` 这样的格式。
 
-> Note that you can use Markdown within your code for documentation purposes. With Markdown, you can link to properties and methods using the following syntax: `[[name()]]`, `[[namespace\MyClass::name()]]`.
+> 注意从文档输出考虑可以在代码中使用 Markdown 。用 Markdown 可使用这样的语法 `[[name()]]`, `[[namespace\MyClass::name()]]`链接到属性和方法。
 
-### Namespace
+### 命名空间
 
-Yii 2 relies upon namespaces to organize code. (Namespace support was added to PHP in version 5.3.) If you want to use namespaces within your extension,
+Yii 2 依赖命名空间来组织代码（PHP 5.3 以上版本支持命名空间）。如果你要在你的扩展使用命名空间：
 
-- Do not use `yiisoft` anywhere in your namespaces.
-- Do not use `\yii`, `\yii2` or `\yiisoft` as root namespaces.
-- Namespaces should use the syntax `vendorName\uniqueName`.
+- 命名空间的任何地方都不要使用 `yiisoft`。
+- 不要使用 `\yii`, `\yii2` 或 `\yiisoft` 作为根命名空间。
+- 命名空间应使用这样的语法： `vendorName\uniqueName` 。
 
-Choosing a unique namespace is important to prevent name collisions, and also results in faster autoloading of classes. Examples of unique, consistent namepacing are:
+选定唯一命名空间对避免命名冲突是非常重要的，也会使类自动加载更快。唯一和一致的命名例子是：
 
 - `samdark\wiki`
 - `samdark\debugger`
 - `samdark\googlemap`
 
-Distribution
+发布扩展
 ------------
 
-Beyond the code itself, the entire extension distribution ought to have certain things.
+除了代码本身，整个扩展的发布也应当有这些特定的东西。
 
-There should be a `readme.md` file, written in English. This file should clearly describe what the extension does, its requirements, how to install it, 
-  and to use it. The README should be written using Markdown. If you want to provide translated README files, name them as `readme_ru.md`
-  where `ru` is your language code (in this case, Russian). 
+扩展应该有一个英文版的 `readme.md` 文件，该文件应清楚描述扩展能做什么、环境要求、如何安装和使用。 README 应使用 Markdown 写作。如果想提供 README 文件的翻译版本，以 `readme_ru.md` 这样的格式命名，其中 `ru` 是你要翻译的目标语言（在这个例子中是 Russian 俄国）。
   
-  It is a good idea to include some screenshots as part of the documentation, especially if your extension provides a widget. 
-  
-It is recommended to host your extensions at [Github](https://github.com).
+包括一些屏幕截图作为文档的部分是个好主意，特别是你的扩展作为小部件发布。
 
-Extensions should also be registered at [Packagist](https://packagist.org) in order to be installable via Composer. 
+推荐在[Github](https://github.com)托管你的扩展。
 
-### Composer package name
+扩展也应在[Packagist](https://packagist.org)注册以便能够通过 Composer 安装。
 
-Choose your extension's package name wisely, as you shouldn't change the package name later on. (Changing the name leads to losing the Composer stats, and makes it impossible for people  to install the package by the old name.) 
+### Composer 包命名
 
-If your extension was made specifically for Yii2 (i.e. cannot be used as a standalone PHP library) it is recommended to
-name it like the following:
+应明智地选择你的扩展包命名，因为你不应该以后再更改包名（更改包名会导致失去 Composer 统计数据，使别人无法通过旧名安装这个包）。
+
+如果扩展是特别为 Yii2 制作的（如，不能用作单独的 PHP 库），推荐命名如下：
 
 ```
 yii2-my-extension-name-type
 ```
 
-Where: 
+其中：
 
-- `yii2-` is a prefix.
-- The extension name is in all lowercase letters, with words separated by `-`.
-- The `-type` postfix may be `widget`, `behavior`, `module` etc.
+- `yii2-` 是前缀。
+- 扩展名以`-` 分隔单词并尽量简短。
+-  `-type` 后缀可以是 `widget`, `behavior`, `module` 等，根据你的扩展功能确定后缀类型。
 
-### Dependencies
+### 依赖关系
 
-Some extensions you develop may have their own dependencies, such as relying upon other extensions or third-party libraries. When dependencies exist, you should require them in your extension's `composer.json` file. Be certain to also use appropriate version constraints, eg. `1.*`, `@stable` for requirements.
+你开发的一些扩展可能有其依赖关系，如依赖其他扩展或第三方库。当依赖关系存在，需要在你的扩展的 `composer.json` 文件导入（require）依赖关系。肯定也会使用相应版本的约束条件，如`1.*`, `@stable` 等要求。
 
-Finally, when your extension is released in a stable version, double-check that its requirements do not include `dev` packages that do not have a `stable` release. In other words, the stable release of your extension should only rely upon stable dependencies.
+最后，当你的扩展以文档版本发布时，必须再次确认必要环境没有导入不包含 `stable` 版本的 `dev` 包。换言之，扩展发布稳定版本只应依靠稳定的依赖关系。
 
-### Versioning
+### 版本管理
 
-As you maintain and upgrading your extension, 
+当你维护和升级扩展时：
 
-- Use the rules of [semantic versioning](http://semver.org).
-- Use a consistent format for your repository tags, as they are treated as version strings by composer, eg. `0.2.4`,
-  `0.2.5`,`0.3.0`,`1.0.0`.
+- 使用[语义明确的版本管理](http://semver.org)规则。
+- 使用格式一致的版本库标记，因为 composer 把标记看作为版本的字符串，如 `0.2.4`, `0.2.5`,`0.3.0`,`1.0.0` 。
 
 ### composer.json
 
-Yii2 uses Composer for installation, and extensions for Yii2 should as well. Towards that end, 
+Yii2 使用 Composer 来安装 Yii2 和管理 Yii2 的扩展。为实现这一目标：
 
-- Use the type `yii2-extension` in `composer.json` file if your extension is Yii-specific.
-- Do not use `yii` or `yii2` as the Composer vendor name.
-- Do not use `yiisoft` in the Composer package name or the Composer vendor name.
+- 如果你的扩展是为 Yii2 定制的，请在 `composer.json` 文件使用 `yii2-extension` 类型。
+- 不要使用 `yii` 或 `yii2` 作为 Composer vendor 名。
+- 在 Composer 包名或 Composer vendor 名都不要使用 `yiisoft` 。
 
-If your extension classes reside directly in the repository root directory, you can use the PSR-4 autoloader in the following way in your `composer.json` file:
+如果扩展类直接放在版本库根目录内，可以在你的 `composer.json` 文件以以下方式使用 PSR-4 自动加载器：
 
 ```json
 {
@@ -107,21 +105,13 @@ If your extension classes reside directly in the repository root directory, you 
 }
 ```
 
-In the above, `myname/mywidget` is the package name that will be registered
-at [Packagist](https://packagist.org). It is common for the package name to match your Github repository name.
-Also, the `psr-4` autoloader is specified in the above, which maps the `myname\mywidget` namespace to the root directory where the classes reside.
+以上代码中， `myname/mywidget` 是包名，将注册到[Packagist](https://packagist.org)。通常包名和Github 的版本名是一致的。同样， `psr-4` 自动加载器会映射 `myname\mywidget` 命名空间到这些类所处的根目录。
 
-More details on this syntax can be found in the [Composer documentation](http://getcomposer.org/doc/04-schema.md#autoload).
+更多该语法的细节内容请参考[Composer 文档](http://getcomposer.org/doc/04-schema.md#autoload).
 
+### 引导扩展
 
-### Bootstrap with extension
-
-Sometimes, you may want your extension to execute some code during the bootstrap stage of an application.
-For example, your extension may want to respond to the application's `beginRequest` event. You can ask the extension user
-to explicitly attach your event handler in the extension to the application's event. A better way, however, is to
-do all these automatically.
-
-To achieve this goal, you can create a bootstrap class by implementing [[yii\base\BootstrapInterface]].
+有时，希望扩展在应用的引导阶段执行一些代码。如，扩展要响应应用的`beginRequest` 事件，可以要求扩展使用者显性附加扩展的事件处理器到应用事件。当然更好的方式是自动完成这些事。为实现该目标，可以通过实现[[yii\base\BootstrapInterface]]接口来创建一个引导类。
 
 ```php
 namespace myname\mywidget;
@@ -134,13 +124,13 @@ class MyBootstrapClass implements BootstrapInterface
     public function bootstrap($app)
     {
         $app->on(Application::EVENT_BEFORE_REQUEST, function () {
-             // do something here
+             // 这里处理一些事情
         });
     }
 }
 ```
 
-You then list this bootstrap class in `composer.json` as follows,
+然后把这个 bootstrap 类列入 `composer.json` ：
 
 ```json
 {
@@ -150,37 +140,36 @@ You then list this bootstrap class in `composer.json` as follows,
 }
 ```
 
-When the extension is installed in an application, Yii will automatically hook up the bootstrap class
-and call its `bootstrap()` while initializing the application for every request.
+当扩展在应用中安装后，Yii 将自动挂钩（hook up）这个引导类并在为每个请求初始化应用时调用其 `bootstrap()` 方法。
 
-
-Working with database
+使用数据库
 ---------------------
 
-Extensions sometimes have to use their own database tables. In such a situation,
+扩展有时必须使用它们自己的数据库表，这种情况：
 
-- If the extension creates or modifies the database schema, always use Yii migrations instead of SQL files or custom scripts.
-- Migrations should be applicable to different database systems.
-- Do not use Active Record models in your migrations.
+- 如果扩展建立或更改了数据库模式，应该一直使用 Yii 数据库迁移而不是 SQL 文件或定制脚本。
+- 数据库迁移应应用于不同的数据库系统。
+- 不要在数据库迁移中使用 Active Record 模型。
 
-Assets
+
+资源
 ------
 
-- Register assets [through bundles](assets.md).
+- 注册资源[通过包](assets.md).
 
-Events
+事件
 ------
 
 TBD
 
-i18n
+国际化
 ----
 
-- If extension outputs messages intended for end user these should be wrapped into `Yii::t()` in order to be translatable.
-- Exceptions and other developer-oriented message should not be translated.
-- Consider proving `config.php` for `yii message` command to simplify translation.
+- 如果扩展输出信息用于终端用户，它们应使用 `Yii::t()` 包裹以便翻译。
+- 异常和其他面向开发者的信息不需要翻译。
+- 考虑为 `yii message` 命令提供 `config.php` 以简化翻译。
 
-Testing your extension
+测试扩展
 ----------------------
 
-- Consider adding unit tests for PHPUnit.
+- 为 PHPUnit 添加单元测试。
