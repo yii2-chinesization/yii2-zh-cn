@@ -60,7 +60,7 @@ Yii 2.0 权威指南 （20140412统计翻译情况）
 ---------------------------
 
 - [身份验证](authentication.md) - 识别用户身份
-- ！翻译中[授权](authorization.md) - 访问控制和基于角色的访问控制（RBAC）
+- [授权](authorization.md) - 访问控制和基于角色的访问控制（RBAC）
 - [安全](security.md) - 哈希算法和密码验证、加密
 - [视图安全](view.md#security)- 防止XSS攻击
 
