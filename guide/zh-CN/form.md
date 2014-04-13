@@ -1,11 +1,9 @@
 表单使用
 ==================
 
-Yii 使用表单的主要方式是通过[[yii\widgets\ActiveForm]]。这个方法对模型表单是更好选择。另外，在[[yii\helpers\Html]]有一些有用的方法，通常用于添加按钮、帮助表单的文本填充。
+Yii 使用表单的主要方式是通过[[yii\widgets\ActiveForm]]。模型表单更推荐用这个方法。另外，在[[yii\helpers\Html]]有一些有用的方法，通常用于添加按钮、帮助表单的文本填充。
 
-When creating model-based forms, the first step is to define the model itself. The model can be either based upon the
-Active Record class, or the more generic Model class. For this login example, a generic model will be used:
-建立模型表单的第一步是定义模型，模型可以基于活动记录类或更普通的模型类。对这个登录例子来说，使用的是普通模型类：
+建立模型表单的第一步是定义模型，模型可以基于活动记录（Active Record）类或更普通的模型类。对这个登录例子来说，使用的是普通模型类：
 
 ```php
 use yii\base\Model;
@@ -77,31 +75,26 @@ use yii\widgets\ActiveForm;
 <?php ActiveForm::end() ?>
 ```
 
-以上代码中，[[yii\widgets\ActiveForm::begin()|ActiveForm::begin()]]不只是建立一个表单实例，还标记表单的开始位置。位于[[yii\widgets\ActiveForm::begin()|ActiveForm::begin()]]和 [[yii\widgets\ActiveForm::end()|ActiveForm::end()]]之间的所有内容将用 `<form>` 标签包裹。像其他小部件可以指定一些选项一样，ActiveForm允许传递数组到 `begin` 方法来配置此小部件。该例中，一个外部的 CSS 类和可识别的 ID 被传递和使用到 `<form>` 闭合标签。
+以上代码中，[[yii\widgets\ActiveForm::begin()|ActiveForm::begin()]]不只建立了一个表单实例，还标记表单的开始位置。位于[[yii\widgets\ActiveForm::begin()|ActiveForm::begin()]]和[[yii\widgets\ActiveForm::end()|ActiveForm::end()]]之间的所有内容将用 `<form>` 标签包裹。像其他小部件可以指定一些选项一样，ActiveForm允许传递数组到 `begin` 方法来配置此小部件。该例中，一个外部的 CSS 类和可识别的 ID 被传递和使用到 `<form>` 闭合标签。
 
-In order to create a form element in the form, along with the element's label, and any application JavaScript validation,
-the [[yii\widgets\ActiveForm::field()|ActiveForm::field()]] method of the Active Form widget is called.
-When the invocation of this method is echoed directly, the result is a regular (text) input.
-To customize the output, you can chain additional methods to this call:
-要建立表单元素，使用元素
+要建立表单元素和元素标记及任何 JS 验证，活动表单小部件的[[yii\widgets\ActiveForm::field()|ActiveForm::field()]]方法将被调用。直接 echo 该方法的结果是合格的（文本）输入。要自定义输出，可以链接其他方法到此调用：
 
 ```php
 <?= $form->field($model, 'password')->passwordInput() ?>
 
-// or
+// 或
 
 <?= $form->field($model, 'username')->textInput()->hint('Please enter your name')->label('Name') ?>
 ```
 
-This will create all the `<label>`, `<input>` and other tags according to the template defined by the form field.
-To add these tags yourself you can use the `Html` helper class. The following is equivalent to the code above:
+以上代码将根据表单字段定义的模板创建所有 `<label>`, `<input>` 和其他标签。要自己填写这些标签可以使用 `Html` 助手类。以下代码等价于以上代码：
 
 ```php
 <?= Html::activeLabel($model, 'password') ?>
 <?= Html::activePasswordInput($model, 'password') ?>
 <?= Html::error($model, 'password') ?>
 
-or
+或
 
 <?= Html::activeLabel($model, 'username', ['label' => 'name']) ?>
 <?= Html::activeTextInput($model, 'username') ?>
@@ -109,13 +102,13 @@ or
 <?= Html::error($model, 'username') ?>
 ```
 
-If you want to use one of HTML5 fields you may specify input type directly like the following:
+如果想使用 HTML5 字段，可以直接定义输入类型如下：
 
 ```php
 <?= $form->field($model, 'email')->input('email') ?>
 ```
 
-> **Tip**: in order to style required fields with asterisk you can use the following CSS:
+> **提示**: 为给必填项的样式添加星号，可以使用以下 CSS ：
 >
 ```css
 div.required label:after {
@@ -124,14 +117,12 @@ div.required label:after {
 }
 ```
 
-Handling multiple models with a single form
+处理多个模型结合到一个表单
 -------------------------------------------
 
-Sometimes you need to handle multiple models of the same kind in a single form. For example, multiple settings where
-each setting is stored as name-value and is represented by `Setting` model. The
-following shows how to implement it with Yii.
+有时必须处理单个表单的多个同类模型。例如，多个布置，其中每个布置以名值对存储并用 `Setting` 模型表示。以下代码展示 Yii 如何实现它：
 
-Let's start with controller action:
+以控制器动作开始：
 
 ```php
 namespace app\controllers;
@@ -162,12 +153,9 @@ class SettingsController extends Controller
 }
 ```
 
-In the code above we're using `indexBy` when retrieving models from database to make array indexed by model ids. These
-will be later used to identify form fields. `loadMultiple` fills multiple modelds with the form data coming from POST
-and `validateMultiple` validates all models at once. In order to skip validation when saving we're passing `false` as
-a parameter to `save`.
+以上代码从数据库检索模型时使用 `indexBy` 让数组以模型 ID 为索引。这些功能稍后将用于识别表单字段。 `loadMultiple` 用 POST 过来的表单数据填充多个模型，而 `validateMultiple` 一次验证所有模型。保存数据时要跳过验证通过传递`false` 参数给 `save` 。
 
-Now the form that's in `update` view:
+现在是在 `update` 视图的表单：
 
 ```php
 <?php
@@ -183,5 +171,4 @@ foreach ($settings as $index => $setting) {
 ActiveForm::end();
 ```
 
-Here for each setting we are rendering name and an input with a value. It is important to add a proper index
-to input name since that is how `loadMultiple` determines which model to fill with which values.
+这里为每个布置以值渲染名字和每个输入。添加适当的索引给输入名是重要的，因为 `loadMultiple` 决定哪些值填充哪些模型。
