@@ -1,11 +1,11 @@
 表单使用
 ==================
 
-Yii 使用表单的主要方式是通过[[yii\widgets\ActiveForm]]。这个方法在表单基于模型时是更优选择。另外，在[[yii\helpers\Html]]有一些有用的方法，通常用于添加按钮、帮助表单的文本填充。
+Yii 使用表单的主要方式是通过[[yii\widgets\ActiveForm]]。这个方法对模型表单是更好选择。另外，在[[yii\helpers\Html]]有一些有用的方法，通常用于添加按钮、帮助表单的文本填充。
 
 When creating model-based forms, the first step is to define the model itself. The model can be either based upon the
 Active Record class, or the more generic Model class. For this login example, a generic model will be used:
-
+建立模型表单的第一步是定义模型，模型可以基于活动记录类或更普通的模型类。对这个登录例子来说，使用的是普通模型类：
 
 ```php
 use yii\base\Model;
@@ -16,33 +16,33 @@ class LoginForm extends Model
     public $password;
 
     /**
-     * @return array the validation rules.
+     * @return array 返回验证规则数组
      */
     public function rules()
     {
         return [
-            // username and password are both required
+            // 用户名和密码都是必填项
             [['username', 'password'], 'required'],
-            // password is validated by validatePassword()
+            // 密码将被 validatePassword() 方法验证
             ['password', 'validatePassword'],
         ];
     }
 
     /**
-     * Validates the password.
-     * This method serves as the inline validation for password.
+     * 验证密码
+     * 该方法是密码验证的内置方法。
      */
     public function validatePassword()
     {
         $user = User::findByUsername($this->username);
         if (!$user || !$user->validatePassword($this->password)) {
-            $this->addError('password', 'Incorrect username or password.');
+            $this->addError('password', '错误的用户名或密码。');
         }
     }
 
     /**
-     * Logs in a user using the provided username and password.
-     * @return boolean whether the user is logged in successfully
+     * 给定用户名和密码的用户登录
+     * @return boolean 返回该用户是否登录成功的布尔值。
      */
     public function login()
     {
@@ -56,7 +56,7 @@ class LoginForm extends Model
 }
 ```
 
-The controller will pass an instance of that model to the view, wherein the Active Form widget is used:
+控制器传递模型实例到视图，其中的活动表单（ Active Form ）小部件将被应用：
 
 ```php
 use yii\helpers\Html;
@@ -77,16 +77,13 @@ use yii\widgets\ActiveForm;
 <?php ActiveForm::end() ?>
 ```
 
-In the above code, [[yii\widgets\ActiveForm::begin()|ActiveForm::begin()]] not only creates a form instance, but also marks the beginning of the form.
-All of the content placed between [[yii\widgets\ActiveForm::begin()|ActiveForm::begin()]] and
-[[yii\widgets\ActiveForm::end()|ActiveForm::end()]] will be wrapped within the `<form>` tag.
-As with any widget, you can specify some options as to how the widget should be configured by passing an array to
-the `begin` method. In this case, an extra CSS class and identifying ID are passed to be used in the opening `<form>` tag.
+以上代码中，[[yii\widgets\ActiveForm::begin()|ActiveForm::begin()]]不只是建立一个表单实例，还标记表单的开始位置。位于[[yii\widgets\ActiveForm::begin()|ActiveForm::begin()]]和 [[yii\widgets\ActiveForm::end()|ActiveForm::end()]]之间的所有内容将用 `<form>` 标签包裹。像其他小部件可以指定一些选项一样，ActiveForm允许传递数组到 `begin` 方法来配置此小部件。该例中，一个外部的 CSS 类和可识别的 ID 被传递和使用到 `<form>` 闭合标签。
 
 In order to create a form element in the form, along with the element's label, and any application JavaScript validation,
 the [[yii\widgets\ActiveForm::field()|ActiveForm::field()]] method of the Active Form widget is called.
 When the invocation of this method is echoed directly, the result is a regular (text) input.
 To customize the output, you can chain additional methods to this call:
+要建立表单元素，使用元素
 
 ```php
 <?= $form->field($model, 'password')->passwordInput() ?>
