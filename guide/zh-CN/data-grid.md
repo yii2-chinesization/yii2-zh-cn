@@ -5,7 +5,7 @@
 
 Each row of the table represents the data of a single data item, and a column usually represents an attribute of
 the item (some columns may correspond to complex expression of attributes or static text).
-表的每一行代表一个数据项，
+表的每一行代表一个数据项，一列
 
 Grid view supports both sorting and pagination of the data items. The sorting and pagination can be done in AJAX mode
 or normal page request. A benefit of using GridView is that when the user disables JavaScript, the sorting and pagination
