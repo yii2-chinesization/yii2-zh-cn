@@ -1,26 +1,15 @@
-资源文件的管理
+资源管理
 ===============
 
-在YII中，资源文件将会被视图页面所包含，他可以是css、JavaScript文件
-任何其它文件, Yii框架都从根本上提供了多种与资源文件一起使用的方式，比如`<script src="...">`标签
-具体详情可以查看[视图部分](view.md),高级用法部分发布一个非文件的内容
-不在WEB服务器根目录下的文件，解决JavaScript 的依赖和压缩CSS，我们将会在
+YII 的资源是一个要引入页面的文件，可以是 CSS、JavaScript 或任何其它文件。 Yii 框架提供了许多使用资源的方法，从基础的如给文件添加 `<script src="...">` 标签（描述在[视图](view.md)），到高级的如发布不在服务器文件根目录下的文件、解决 JavaScript 依赖关系和 CSS 压缩，这些将在下文描述。
 
 
-声明私有文件包(bundles)中提到这部分。
+声明资源包
 -----------------------
 
-In order to define a set of assets the belong together and should be used on the website you declare a class called
-an "asset bundle". The bundle defines a set of asset files and their dependencies on other asset bundles.
+资源文件可以放在服务器可访问目录也可以隐藏在应用或 vendor 目录内。如果是后者，资源包喜欢发布自身到服务器可访问目录以便被网站引入。这个功能对扩展很有用，扩展可以在一个目录装载所有内容，让安装更容易。
 
-Asset files can be located under the webservers accessable directory but also hidden inside of application or vendor
-directories. If the latter, the asset bundle will care for publishing them to a directory accessible by the webserver
-so they can be included in the website. This feature is useful for extensions so that they can ship all content in one
-directory and make installation easier for you.
-
-To define an asset you create a class extending from [[yii\web\AssetBundle]] and set the properties according to your needs.
-Here you can see an example asset definition which is part of the basic application template, the
-`AppAsset` asset bundle class. It defines assets required application wide:
+要定义一个资源需要创建一个继承自[[yii\web\AssetBundle]]的类并根据需求设置属性。以下是资源定义示例，资源定义是基础应用模板的一部分，即`AppAsset` 资源包类，它定义了应用必需资源：
 
 ```php
 <?php
@@ -46,6 +35,7 @@ class AppAsset extends AssetBundle
 In the above `$basePath` specifies web-accessible directory assets are served from. It is a base for relative
 `$css` and `$js` paths i.e. `@webroot/css/site.css` for `css/site.css`. Here `@webroot` is an [alias][] that points to
 application's `web` directory.
+以上 `$basePath` 指定资源要服务的可网络访问目录。
 
 `$baseUrl` is used to specify base URL for the same relative `$css` and `$js` i.e. `@web/css/site.css` where `@web`
 is an [alias][] that corresponds to your website base URL such as `http://example.com/`.
