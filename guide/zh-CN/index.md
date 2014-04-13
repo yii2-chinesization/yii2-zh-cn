@@ -76,11 +76,11 @@ Yii 2.0 权威指南 （20140413统计翻译情况）
 ---------------
 
 - ！翻译中[资源管理](assets.md)
-- ！翻译中[表单使用](form.md)
+- [表单使用](form.md)
 - [Bootstrap小部件](bootstrap-widgets.md)- 使用[twitter bootstrap](http://getbootstrap.com/)
 - [主题](theming.md)
 - [缓存](caching.md) - 数据缓存、页面片段和HTTP请求
-- ！！待翻译[国际化](i18n.md) - 消息翻译和格式化
+- ！翻译中，不知道谁挖的坑 [国际化](i18n.md) - 消息翻译和格式化
 - [URL管理](url.md) - 路由、自定义 Url 及搜索引擎优化
 - [控制台应用](console.md)
 - ！！待翻译[性能优化](performance.md)
@@ -96,8 +96,8 @@ Yii 2.0 权威指南 （20140413统计翻译情况）
 ~~~~~~~~~~~~~~~~~
 本索引没列入的文档
 
-console-fixture.md
-rest.md
-test-fixture.md
-title.md
+- ！！待翻译（console-fixture.md）
+- [rest风格的API]（rest.md）
+- ！！待翻译（test-fixture.md）
+- [标题]title.md
 
