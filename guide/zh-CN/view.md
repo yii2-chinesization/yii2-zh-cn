@@ -183,7 +183,7 @@ body { background: #f00; }
 </style>
 ```
 
-要指定样式标签的其他属性，可以传递名值对数组到第三个参数。如需确保只有一个样式标签，用第四个参数，方法如 meta 标签描述的一样。
+要指定样式标签的其他属性，可以传递键值对数组到第三个参数。如需确保只有一个样式标签，用第四个参数，方法如 meta 标签描述的一样。
 
 ```php
 $this->registerCssFile("http://example.com/css/themes/black-and-white.css", [BootstrapAsset::className()], ['media' => 'print'], 'css-print-theme');
