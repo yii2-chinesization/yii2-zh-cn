@@ -235,13 +235,14 @@ $query->select('*')->from(['u' => $subQuery]);
 
 ```
 
-## 逆关联关系
+## 逆关系
 
-关联关系通常成对定义。如 Customer 有一个关系名为 orders 而 Order 也有一个关系名为 customer 。下例中，我们会发现订单的 customer 不是那些订单的同一个客户对象，且访问 customer->orders 将触发一个 SQL 执行，而访问一个订单的 customer 将触发另一个 SQL 执行：
+关系通常成对定义。如 Customer 有一个关系名为 orders 而 Order 也有一个关系名为 customer 。下例中，我们会发现订单的 customer 不是那些订单的同一个客户对象，且访问 customer->orders 将触发一个 SQL 执行，而访问一个订单的 customer 将触发另一个 SQL 执行：
 
 ```
 // SELECT * FROM customer WHERE id=1
 $customer = Customer::findOne(1);
+
 // echoes "not equal"
 // SELECT * FROM order WHERE customer_id=1
 // SELECT * FROM customer WHERE id=1
@@ -253,7 +254,9 @@ if ($customer->orders[0]->customer === $customer) {
 
 ```
 
-To avoid the redundant execution of the last SQL statement, we could declare the inverse relation for the customer and the orders relations by calling the inverseOf() method, like the following:
+为避免最后一条 SQL 语句不必要的执行，我们可以为客户和订单关系声明逆关系，通过如下这样调用 inverseOf() 方法实现：
+
+```
 
 class Customer extends ActiveRecord
 {
@@ -263,7 +266,12 @@ class Customer extends ActiveRecord
         return $this->hasMany(Order::className(), ['customer_id' => 'id'])->inverseOf('customer');
     }
 }
-Now if we execute the same query as shown above, we would get:
+
+```
+
+现在我们执行以上所示的相同查询语句，我们将得到：
+
+```
 
 // SELECT * FROM customer WHERE id=1
 $customer = Customer::findOne(1);
@@ -275,14 +283,16 @@ if ($customer->orders[0]->customer === $customer) {
     echo 'not equal';
 }
 
+```
+
 ## 更一致的关联查询 API
 
-In 2.0 alpha, we have introduced ActiveRecord support for both relational (e.g. MySQL) and NoSQL databases (e.g. redis, elasticsearch, MongoDB). In Beta, we refactored the relevant code to make the interfaces more consistent. In particular, we dropped ActiveRelation and made ActiveQuery the sole entry point for building ActiveRecord relational queries and declaring relations. We also added ActiveRecord::findOne() and findAll() to support quick query by primary keys or column values. Previously, the same functionality was assumed by ActiveRecord::find() which sometimes caused confusion due to inconsistent return types.
+在 2.0 alpha，我们介绍了活动记录对关系数据库（如 MySQL）和非关系数据库（如 redis,elasticsearch,MongoDB）的支持。Beta版本，我们重构了相关代码以保持接口一致。尤其是，我们弃用活动关系并让 ActiveQuery 担任建立活动记录关联查询和声明关系的入口角色。我们还添加了ActiveRecord::findOne() 和 findAll() 方法以支持主键或列值的快速查询。以前，这个功能由ActiveRecord::find()承担，这个方法有时会因不一致的返回类型导致困惑。
 
 
 ## 高级 Ajax 支持
 
-We have decided to use the excellent Pjax library and created the yii\widgets\Pjax widget. This is a generic widget that can enable ajax support for anything it encloses. For example, you can enclose a GridView with Pjax to enable ajax-based grid pagination and sorting:
+我们决定使用优秀的 Pjax 库并创建 yii\widgets\Pjax 小部件。这是一个通用小部件，能够给它所包裹的任何东西启用 ajax 支持。例如，你可以用 Pjax 包裹网格视图（GridView）来启动基于 ajax 的网格分页和排序：
 
 use yii\widgets\Pjax;
 use yii\grid\GridView;
@@ -293,33 +303,42 @@ Pjax::end();
 
 ## 请求和响应
 
-Besides many internal bug fixes and improvements request and response got some significant changes. Most notably working with request data now looks like the following:
+除了修复内部缺陷和改进，请求和响应还有一些明显的改动。最明显的是现在操作请求数据要这样做：
 
-// take a GET parameter from the request, defaults to 1 if not given
+```
+
+// 从请求获得 GET 参数，缺省为 1
 $page = Yii::$app->request->get('page', 1);
-// take a POST parameter from the request, defaults to null if not given
+// 从请求获得 POST 参数，缺省为 null
 $name = Yii::$app->request->post('name');
-Another fundamental change is that response is actually sent at the very end of application lifecycle allowing you to modify headers and content as you like and where you prefer.
 
-The request class is now also able to parse different body types for example JSON requests.
+```
+
+另一个根本变化是响应直到应用的生命周期终止那一刻才真正发出，这允许你修改你想修改的 HTTP 头和内容及更改位置。
+
+请求类现在也能够理解不同 body 类型语法，如 JSON 请求。
 
 ## 过滤器
 
-The whole action filtering mechanism has been revamped. You can now enable action filtering at controller level as well as application and module levels. This allows you to filter action flow hierarchically. For example, you can install a filter in a module so that all actions within the module are subject to this filter; and you can further install another filter in some of the controllers in the module so that only actions in those controllers will be filtered.
+整个动作过滤机制已经被更新了。你现在能在控制器层或应用层面和模块层面使用动作过滤。这允许你分层过滤动作流。例如，你可以安装过滤器到模块，以便该模块的所有动作服从这个过滤器；你也能进一步安装其他的过滤器到模块的控制器，以便只有这些控制器的动作被过滤。
 
 We have reorganized our code and created a whole set of filters under the yii\filters namespace. For example, you can use yii\filters\HttpBasicAtuh filter to enable authentication based on HTTP Basic Auth by declaring it in a controller or module:
+我们重新组织了代码并建立整套过滤器到 yii\filters 命名空间。例如，你能使用 yii\filters\HttpBasicAuth 过滤器通过在控制器或模块声明它来启动基于 HTTP 的基础授权：
 
+```
 public function behaviors()
 {
     return [
         'basicAuth' => [
             'class' => \yii\filters\auth\HttpBasicAuth::className(),
-            'exclude'=> ['error'],   // do not apply it to the "error" action
+            'exclude'=> ['error'],   // 不要用在 "error" 动作
         ],
     ];
 }
+```
 
-## Bootstrap 组件
+
+## 引导组件
 
 We introduce the important "bootstrap" step in the application life cycle. Extensions can register bootstrap classes by declaring them in the composer.json file. A normal component can also be registered as a bootstrap component as long as it is declared in Application::$bootstrap.
 
@@ -390,34 +409,30 @@ new GroupUrlRule([
 
 ## 基于用户的访问控制（RBAC）
 
-We have revamped the RBAC implementation by following more closely to the original NIST RBAC model. In particular, we have dropped the concept of operation and task, and replaced them with permission which is the term used in NIST RBAC.
+我们修改了 RBAC 的实现以更紧密地跟随 original NIST RBAC 模型。特别是，我们丢弃了操作和任务的概念，并以许可来替换他们，许可是 NIST RBAC 使用的概念。
 
-And as aforementioned, we also redesigned the biz rule feature by managing it separately.
-
+且如前所述，我们还通过从 RBAC 分离来重新设计了商业规则功能。
 
 
 ## 翻译
 
-First of all we'd like to thank all the community members who have participated in translating framework messages. The core messages are now available in 26 languages, which is a very impressive number.
+首先我们由衷地感谢参与翻译框架核心信息的所有社区成员。现在核心信息已经有 26 种语言版本，这是非常令人钦佩的数字。
 
-Message translation now supports language fallback. For example, if your application is using fr-CA as the language while you only have fr translations, Yii will first look for fr-CA translations; if not found, it will try fr.
+信息翻译现在支持语言撤退。例如，如果你的应用使用 fr-CA 语言而你只有 fr 的翻译版本，Yii 首先搜寻 fr-CA 翻译文件，如果没有，将尝试寻找 fr 。
 
-A new option is added to every Gii generator, which allows you to choose if you want to generate code with message translated via Yii::t().
+一个新的选项添加到了每一个 Gii 生产器，该选项允许你选择是否需要通过 Yii::t() 生成信息已翻译的代码。
 
-The message extraction tool now supports writing strings into .po files as well as databases.
+信息抽取工具现在支持编写字符串到 .po 文件和数据库。
 
 ## 扩展和工具
 
-We have built a documentation generator extension named yii2-apidoc that can be used to help you generate nice looking API documentation as well as MarkDown-based tutorials. The generator can be easily customized and extended to fit for your specific needs. It is also used to generate official documentation and API docs, as you can see at http://www.yiiframework.com/doc-2.0/.
+我们建立了一个文档生产器扩展，取名为 yii2-apidoc ，它可以用来帮助你生成和基于 MarkDown 指南一样界面好看的 API 文档。该生产器易于定制并可方便扩展以满足你的特定需求。它也用来生成官方文档和 API 文件，你可以在http://www.yiiframework.com/doc-2.0/ 查看。
 
-The Yii Debugger was polished with many minor enhancements. It is also now equipped with a mail panel as well as DB query and mail summary column in its summary page.
+Yii 调试器经过许多微小的改进后更加好用。它现在也像数据库查询和邮件列表那样在它的主页装备了邮件面板。
 
-Besides the new translation supported mentioned above, the Yii code generator tool Gii can now be used to create a new extension. You may also notice the code preview window is enhanced so that you can quickly refresh and navigate among different files. It is also copy-paste friendly and supports keyboard shortcuts. Give it a try!
+除了以上新的翻译支持， Yii 代码生长器工具 Gii 现在能够用来生成新扩展。你会注意到代码预览窗口也加强了，以便你能快速刷新和导航不同文件。它也是很方便复制粘贴和支持快捷键的。来试一试吧！
 
 
 感谢你的支持！
 ==============
-Yii 2.0 Beta 发行是主要的里程碑，凝聚了各方极大的努力。我们认为没有我们优秀社区的[所有有价值的贡献](https://github.com/yiisoft/yii2/graphs/contributors)，Beta 版就不可能发行。感谢为此版本的发行付出努力的所有人。
-
-
-
+Yii 2.0 Beta 版的发行是一个重要的里程碑，凝聚了各方极大的努力。我们认为没有我们优秀社区的[所有有价值的贡献](https://github.com/yiisoft/yii2/graphs/contributors)，Beta 版就不可能发行。感谢为此版本的发行付出努力的所有人。
