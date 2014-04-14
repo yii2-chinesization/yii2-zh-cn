@@ -76,14 +76,13 @@
 ####URL####
 URL要不要翻译呢？如果是原文中的URL是维基百科或PHP手册，且提供了相应的中文翻译，我们最好把URL改为中文版本页面的URL。如果没有，则最好注明**英文**字样。
 比如AR中：
+
 ```markdown
-
 [pivot table]: http://en.wikipedia.org/wiki/Pivot_table "Pivot table（数据透视表，英文，维基百科）"
-
 ```
 
 ###修改Index.md
-Index.md是整个文档的目录索引。另外，[打开看下](https://github.com/yii2-chinesization/yii2-zh-cn/blob/translating/guide/zh-CN/index.md),你会发现，在每个条目的的前方会有一个标签，而后方则有着一些日期。他们是做神马的呢？
+Index.md是整个文档的目录索引。另外，[打开看下](https://github.com/yii2-chinesization/yii2-zh-cn/blob/master/guide/zh-CN/index.md),你会发现，在每个条目的的前方会有一个标签，而后方则有着一些日期。他们是做神马的呢？
 
 针对每一个不同的文件我们分别挂上一些tag，以及翻译时所参考的英文原文的版本日期。tag用来标注翻译的状态，日期用来在后续文档更新及审阅时，方便找到对应的英文版本，并根据 GitHub 所提供的 History 功能对照着修改我们的译文，使得我们的译文和英文始终保持对应状态。防止，英文原文已经更新了很久，而我们还必须看着已经过时老掉牙的译文版本，何其蛋疼。另外一方面，译文跟随国际原文的脚步越紧，越说明该国家对于这项技术的国际接轨程度，往常一般都是欧洲或者日本跟地比较紧。而我们现如今既然有能力，怎么肯让他们专美于前？
 
