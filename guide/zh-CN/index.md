@@ -62,7 +62,7 @@ Yii 2.0 权威指南 （20140413统计翻译情况）
 ---------------------------
 
 - 【需更新】[身份验证](authentication.md) - 识别用户身份
-- 【翻译中】[授权](authorization.md) - 访问控制和基于角色的访问控制（RBAC）（14-04-12）
+- 【需更新】[授权](authorization.md) - 访问控制和基于角色的访问控制（RBAC）（14-04-12）
 - 【未校对】[安全](security.md) - 哈希算法和密码验证、加密（14-04-12）
 - 【需更新】[视图安全](view.md#security)- 防止XSS攻击等
 
@@ -78,7 +78,7 @@ Yii 2.0 权威指南 （20140413统计翻译情况）
 ---------------
 
 - 【翻译中】[资源文件管理](assets.md)
-- 【翻译中】[表单使用](form.md)
+- 【已翻译】[表单使用](form.md)
 - 【未校对】[Bootstrap小部件](bootstrap-widgets.md)- 使用[twitter bootstrap](http://getbootstrap.com/)（2014-04-13）
 - 【需更新】[主题](theming.md)
 - 【未校对】[缓存](caching.md) - 数据缓存、页面片段和HTTP请求（2014-04-13）
