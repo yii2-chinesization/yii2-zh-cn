@@ -1,4 +1,4 @@
-Yii 2.0 权威指南 （20140413统计翻译情况）
+Yii 2.0 权威指南 （20140414统计翻译情况）
 ===============================
 
 本教程遵循[ Yii 使用许可](http://www.yiiframework.com/doc/terms/)。
@@ -15,7 +15,7 @@ Yii 2.0 权威指南 （20140413统计翻译情况）
 入门
 ---------------
 
-- 【未校对】[从1.1升级到2.0](upgrade-from-v1.md)
+- 【已翻译】[从1.1升级到2.0](upgrade-from-v1.md)（2014-04-07）
 - 【未校对】[安装](installation.md) - 如何下载 Yii 和配置 Web 服务器？（2014-03-18）
 - 【未校对】[配置](configuration.md) -  Yii 应用配置
 - 【未校对】[基础应用样板](apps-basic.md) - 无后台简单应用的参考模板。
@@ -28,10 +28,10 @@ Yii 2.0 权威指南 （20140413统计翻译情况）
 - 【未校对】[Yii的基本概念](basics.md) - 对象、组件类、路径别名和自动加载
 - 【需更新】[MVC](mvc.md) - Yii 实现的 MVC 及典型 MVC 应用的流程
 - 【需更新】[模型（Model）](model.md) - Yii 的模型提供属性、场景和数据验证
-- 【需更新】[视图(View)](view.md) - 应用布局渲染视图、小部件使用和资源(asset)管理
-- 【需更新】[控制器(Controller)](controller.md) - 控制器动作、路由和过滤器
-- 【需更新】[事件处理(Events)](events.md) - Yii的事件处理机制
-- 【需更新】[行为(Behaviors)](behaviors.md)
+- 【需更新】[视图（View）](view.md) - 应用布局渲染视图、小部件使用和资源(asset)管理
+- 【需更新】[控制器（Controller）](controller.md) - 控制器动作、路由和过滤器
+- 【需更新】[事件处理（Events）](events.md) - Yii的事件处理机制
+- 【需更新】[行为（Behaviors）](behaviors.md) - 用来指定控制器可以执行哪些动作
 
 数据库
 --------
@@ -78,7 +78,7 @@ Yii 2.0 权威指南 （20140413统计翻译情况）
 ---------------
 
 - 【翻译中】[资源文件管理](assets.md)
-- 【已翻译】[表单使用](form.md)
+- 【已翻译】[表单使用](form.md)（2014-03-24）
 - 【未校对】[Bootstrap小部件](bootstrap-widgets.md)- 使用[twitter bootstrap](http://getbootstrap.com/)（2014-04-13）
 - 【需更新】[主题](theming.md)
 - 【未校对】[缓存](caching.md) - 数据缓存、页面片段和HTTP请求（2014-04-13）
