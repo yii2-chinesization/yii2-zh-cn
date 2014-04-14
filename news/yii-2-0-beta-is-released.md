@@ -95,49 +95,50 @@ There are many useful enhancements to the model validation feature.
 
 The `UniqueValidator` and `ExistValidator` now support validating multiple columns. Below are some examples about the `unique` validation rule declaration:
 
-
+```php
+    // a1 needs to be unique
     ['a1', 'unique']
-
-
-    ['a1', 'unique', 'targetAttribute' =&gt; 'a2']
-
-
-    [['a1', 'a2'], 'unique', 'targetAttribute' =&gt; ['a1', 'a2']]
-
-
-    ['a1', 'unique', 'targetAttribute' =&gt; ['a1', 'a2']]
-
-
-    ['a1', 'unique', 'targetAttribute' =&gt; ['a2', 'a1' =&gt; 'a3']]
-
+     
+    // a1 needs to be unique, but column a2 will be used to check the uniqueness of the a1 value
+    ['a1', 'unique', 'targetAttribute' => 'a2']
+     
+    // a1 and a2 need to be unique together, and they both will receive an error message
+    [['a1', 'a2'], 'unique', 'targetAttribute' => ['a1', 'a2']]
+     
+    // a1 and a2 need to unique together, only a1 will receive the error message
+    ['a1', 'unique', 'targetAttribute' => ['a1', 'a2']]
+     
+    // a1 needs to be unique by checking the uniqueness of both a2 and a3 (using a1 value)
+    ['a1', 'unique', 'targetAttribute' => ['a2', 'a1' => 'a3']]
+```
 Validations can be done conditionally (aka. conditional validation). This is supported by the addition of two properties `when` and `whenClient` to each validator. The following example shows how to require the "state" input only when the country is selected as "USA":
 
-
+```php
     ['state', 'required',
-        'when' =&gt; function ($model) {
-            return $model-&gt;country == Country::USA;
+        'when' => function ($model) {
+            return $model->country == Country::USA;
         },
-        'whenClient' =&gt;  "function (attribute, value) {
+        'whenClient' =>  "function (attribute, value) {
             return $('#country').value == 'USA';
         }",
     ]
-
+```
 Sometimes, you may want to do some ad-hoc data validation without the trouble of writing new model classes. You can accomplish this with the help of the new `yiiase\DynamicModel`. For example,
 
-
+```php
     public function actionSearch($name, $email)
     {
         $model = DynamicModel::validateData(compact('name', 'email'), [
-            [['name', 'email'], 'string', 'max' =&gt; 128],
+            [['name', 'email'], 'string', 'max' => 128],
             ['email', 'email'],
         ]);
-        if ($model-&gt;hasErrors()) {
-
+        if ($model->hasErrors()) {
+            // validation fails
         } else {
-
+            // validation succeeds
         }
     }
-
+```
 ### Database and Active Record
 
 Database-related features are one of the strongest sides of Yii. They were quite interesting when alpha was released and now beta brought more improvements and features. Among support for SQL databases we have ActiveRecord implementations for [elasticsearch][16], [redis][17] and [Sphinx search][18] already. The Beta version now brings support for the [mongodb][19] document storage.
@@ -150,12 +151,13 @@ Yii now supports nested transactions. As a result, you can safely start a transa
 
 We added `ActiveQuery::joinWith()` to support creating JOIN SQL statements using the AR relations you have already declared. This is especially useful when you want to filter or sort by columns from foreign tables. For example,
 
-
-    $orders = Order::find()-&gt;joinWith('customer')-&gt;orderBy('customer.id, order.id')-&gt;all();
-
-
-    $orders = Order::find()-&gt;innerJoinWith('books')-&gt;all();
-
+```php
+    // find all orders and sort the orders by the customer id and the order id. also eager loading "customer"
+    $orders = Order::find()->joinWith('customer')->orderBy('customer.id, order.id')->all();
+     
+    // find all orders that contain books, and eager loading "books"
+    $orders = Order::find()->innerJoinWith('books')->all();
+```
 This feature is especially useful when displaying relational columns in a GridView. It became very easy making them sortable and filterable using `joinWith()`.
 
 #### Data Typecasting
@@ -166,93 +168,97 @@ ActiveRecord will now convert data retrieved from the database to proper types. 
 
 To facilitate building search functionality, we have added the `Query::filterWhere()` method which will automatically remove empty filter values. For example, if you have a search form with `name` and `email` filter fields. You may use the following code to build the search query. Without this method, you would have to check if the user has entered anything in a filter field, and if not you will not put it in the query condition. `filterWhere()` will only add non-empty fields to the condition.
 
-
-    $query = User::find()-&gt;filterWhere([
-        'name' =&gt; Yii::$app-&gt;request-&gt;get('name'),
-        'email' =&gt; Yii::$app-&gt;request-&gt;get('email'),
+```php
+    $query = User::find()->filterWhere([
+        'name' => Yii::$app->request->get('name'),
+        'email' => Yii::$app->request->get('email'),
     ]);
-
+```
 #### Batch Query
 
 To support big data query, we have added the batch query feature which brings back data in batches instead of all at once. This allows you to keep the server memory usage under a limit. For example,
 
-
+```php
     use yii\db\Query;
-
+     
     $query = (new Query())
-        -&gt;from('user')
-        -&gt;orderBy('id');
-
-    foreach ($query-&gt;batch() as $users) {
-
+        ->from('user')
+        ->orderBy('id');
+     
+    foreach ($query->batch() as $users) {
+        // $users is an array of 100 or fewer rows from the user table
     }
-
-
-    foreach ($query-&gt;each() as $user) {
-
+     
+    // or if you want to iterate the row one by one
+    foreach ($query->each() as $user) {
+        // $user represents one row of data from the user table
     }
-
+```
 You may use batch with ActiveRecord too. For example,
 
-
-    foreach (Customer::find()-&gt;batch(10) as $customers) {
-
+```php
+    // fetch 10 customers at a time
+    foreach (Customer::find()->batch(10) as $customers) {
+        // $customers is an array of 10 or fewer Customer objects
     }
-
-    foreach (Customer::find()-&gt;each(10) as $customer) {
-
+    // fetch 10 customers at a time and iterate them one by one
+    foreach (Customer::find()->each(10) as $customer) {
+        // $customer is a Customer object
     }
-
-    foreach (Customer::find()-&gt;with('orders')-&gt;each() as $customer) {
+    // batch query with eager loading
+    foreach (Customer::find()->with('orders')->each() as $customer) {
     }
-
+```
 #### Support for Sub-queries
 
 The query builder has been improved to support sub-queries. You may build a sub-query as a normal `Query` object and then use it in appropriate places in another query. For example,
 
-
-    $subQuery = (new Query())-&gt;select('id')-&gt;from('user')-&gt;where('status=1');
-    $query-&gt;select('*')-&gt;from(['u' =&gt; $subQuery]);
-
+```php
+    $subQuery = (new Query())->select('id')->from('user')->where('status=1');
+    $query->select('*')->from(['u' => $subQuery]);
+```
 #### Inverse Relations
 
 Relations can often be defined in pairs. For example, `Customer` may have a relation named `orders` while `Order` may have a relation named `customer`. In the following example, we may find that the `customer` of an order is not the same customer object that finds those orders, and accessing `customer-&gt;orders` will trigger one SQL execution while accessing the `customer` of an order will trigger another SQL execution:
 
-
+```php
+    // SELECT * FROM customer WHERE id=1
     $customer = Customer::findOne(1);
-
-
-
-    if ($customer-&gt;orders[0]-&gt;customer === $customer) {
+    // echoes "not equal"
+    // SELECT * FROM order WHERE customer_id=1
+    // SELECT * FROM customer WHERE id=1
+    if ($customer->orders[0]->customer === $customer) {
         echo 'equal';
     } else {
         echo 'not equal';
     }
+```
 
 To avoid the redundant execution of the last SQL statement, we could declare the inverse relation for the `customer` and the `orders` relations by calling the `inverseOf()` method, like the following:
 
-
+```php
     class Customer extends ActiveRecord
     {
-
+        // ...
         public function getOrders()
         {
-            return $this-&gt;hasMany(Order::className(), ['customer_id' =&gt; 'id'])-&gt;inverseOf('customer');
+            return $this->hasMany(Order::className(), ['customer_id' => 'id'])->inverseOf('customer');
         }
     }
-
+```
 Now if we execute the same query as shown above, we would get:
 
-
+```php
+    // SELECT * FROM customer WHERE id=1
     $customer = Customer::findOne(1);
-
-
-    if ($customer-&gt;orders[0]-&gt;customer === $customer) {
+    // echoes "equal"
+    // SELECT * FROM order WHERE customer_id=1
+    if ($customer->orders[0]->customer === $customer) {
         echo 'equal';
     } else {
         echo 'not equal';
     }
-
+```
 #### More Consistent Relational Query APIs
 
 In 2.0 alpha, we have introduced ActiveRecord support for both relational (e.g. MySQL) and NoSQL databases (e.g. redis, elasticsearch, MongoDB). In Beta, we refactored the relevant code to make the interfaces more consistent. In particular, we dropped `ActiveRelation` and made `ActiveQuery` the sole entry point for building ActiveRecord relational queries and declaring relations. We also added `ActiveRecord::findOne()` and `findAll()` to support quick query by primary keys or column values. Previously, the same functionality was assumed by `ActiveRecord::find()` which sometimes caused confusion due to inconsistent return types.
@@ -261,23 +267,24 @@ In 2.0 alpha, we have introduced ActiveRecord support for both relational (e.g. 
 
 We have decided to use the excellent [Pjax][20] library and created the `yii\widgets\Pjax` widget. This is a generic widget that can enable ajax support for anything it encloses. For example, you can enclose a `GridView` with `Pjax` to enable ajax-based grid pagination and sorting:
 
-
+```php
     use yii\widgets\Pjax;
     use yii\grid\GridView;
 
     Pjax::begin();
-    echo GridView::widget([  ]);
+    echo GridView::widget([ /*...*/ ]);
     Pjax::end();
-
+```
 ### Request and response
 
 Besides many internal bug fixes and improvements request and response got some significant changes. Most notably working with request data now looks like the following:
 
-
-    $page = Yii::$app-&gt;request-&gt;get('page', 1);
-
-    $name = Yii::$app-&gt;request-&gt;post('name');
-
+```php
+    // take a GET parameter from the request, defaults to 1 if not given
+    $page = Yii::$app->request->get('page', 1);
+    // take a POST parameter from the request, defaults to null if not given
+    $name = Yii::$app->request->post('name');
+```
 Another fundamental change is that response is actually sent at the very end of application lifecycle allowing you to modify headers and content as you like and where you prefer.
 
 The request class is now also able to parse different body types for example JSON requests.
@@ -288,17 +295,17 @@ The whole action filtering mechanism has been revamped. You can now enable actio
 
 We have reorganized our code and created a whole set of filters under the `yii ilters` namespace. For example, you can use `yii ilters\HttpBasicAtuh` filter to enable authentication based on HTTP Basic Auth by declaring it in a controller or module:
 
-
+```php
     public function behaviors()
     {
         return [
-            'basicAuth' =&gt; [
-                'class' =&gt; \yii\filters\auth\HttpBasicAuth::className(),
-                'exclude'=&gt; ['error'],
+            'basicAuth' => [
+                'class' => \yii\filters\auth\HttpBasicAuth::className(),
+                'exclude'=> ['error'],   // do not apply it to the "error" action
             ],
         ];
     }
-
+```
 ### Bootstrap Components
 
 We introduce the important "bootstrap" step in the application life cycle. Extensions can register bootstrap classes by declaring them in the `composer.json` file. A normal component can also be registered as a bootstrap component as long as it is declared in `Application::$bootstrap`.
@@ -309,67 +316,67 @@ A bootstrap component will be instantiated before the application starts to proc
 
 Since developers are dealing with URLs a lot we've extracted most of URL-related methods into a `Url` helper class resulting in a nicer API.
 
-
-    use yii\helpers\Url;
-
-
-
+```php
+     use yii\helpers\Url;
+     
+    // currently active route
+    // example: /index.php?r=management/default/users
     echo Url::to('');
-
-
-
-    echo Url::toRoute(['page', 'id' =&gt; 'contact']);
-
-
-
-
+     
+    // same controller, different action
+    // example: /index.php?r=management/default/page&id=contact
+    echo Url::toRoute(['page', 'id' => 'contact']);
+     
+     
+    // same module, different controller and action
+    // example: /index.php?r=management/post/index
     echo Url::toRoute('post/index');
-
-
-
+     
+    // absolute route no matter what controller is making this call
+    // example: /index.php?r=site/index
     echo Url::toRoute('/site/index');
-
-
-
+     
+    // url for the case sensitive action `actionHiTech` of the current controller
+    // example: /index.php?r=management/default/hi-tech
     echo Url::toRoute('hi-tech');
-
-
-
-    echo Url::toRoute(['/date-time/fast-forward', 'id' =&gt; 105]);
-
-
+     
+    // url for action the case sensitive controller, `DateTimeController::actionFastForward`
+    // example: /index.php?r=date-time/fast-forward&id=105
+    echo Url::toRoute(['/date-time/fast-forward', 'id' => 105]);
+     
+    // get URL from alias
     Yii::setAlias('@google', 'http://google.com/');
     echo Url::to('@google/?q=yii');
-
-
-
+     
+    // get canonical URL for the curent page
+    // example: /index.php?r=management/default/users
     echo Url::canonical();
-
-
-
+     
+    // get home URL
+    // example: /index.php?r=site/index
     echo Url::home();
-
-    Url::remember();
-    Url::previous();
-
-There are improvements in URL rules as well. You can use the new `yii\web\GroupUrlRule` to group rules defining their common parts once instead of repeating them:
-
-
+     
+    Url::remember(); // save URL to be used later
+    Url::previous(); // get previously saved URL
+```
+There are improvements in URL rules as well. You can use the new yii\web\GroupUrlRule to group rules defining their common parts once instead of repeating them:
+```php
     new GroupUrlRule([
-        'prefix' =&gt; 'admin',
-        'rules' =&gt; [
-            'login' =&gt; 'user/login',
-            'logout' =&gt; 'user/logout',
-            'dashboard' =&gt; 'default/dashboard',
+        'prefix' => 'admin',
+        'rules' => [
+            'login' => 'user/login',
+            'logout' => 'user/logout',
+            'dashboard' => 'default/dashboard',
         ],
     ]);
-
-
+     
+    // the above rule is equivalent to the following three rules:
     [
-        'admin/login' =&gt; 'admin/user/login',
-        'admin/logout' =&gt; 'admin/user/logout',
-        'admin/dashboard' =&gt; 'admin/default/dashboard',
+        'admin/login' => 'admin/user/login',
+        'admin/logout' => 'admin/user/logout',
+        'admin/dashboard' => 'admin/default/dashboard',
     ]
+```
 
 ### Role-Based Access Control (RBAC)
 
