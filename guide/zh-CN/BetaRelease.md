@@ -243,7 +243,7 @@ $query->select('*')->from(['u' => $subQuery]);
 // SELECT * FROM customer WHERE id=1
 $customer = Customer::findOne(1);
 
-// echoes "not equal"
+// echoes "not equal" 输出 “不等于”
 // SELECT * FROM order WHERE customer_id=1
 // SELECT * FROM customer WHERE id=1
 if ($customer->orders[0]->customer === $customer) {
@@ -275,7 +275,7 @@ class Customer extends ActiveRecord
 
 // SELECT * FROM customer WHERE id=1
 $customer = Customer::findOne(1);
-// echoes "equal"
+// echoes "equal" 输出 “等于”
 // SELECT * FROM order WHERE customer_id=1
 if ($customer->orders[0]->customer === $customer) {
     echo 'equal';
@@ -294,12 +294,15 @@ if ($customer->orders[0]->customer === $customer) {
 
 我们决定使用优秀的 Pjax 库并创建 yii\widgets\Pjax 小部件。这是一个通用小部件，能够给它所包裹的任何东西启用 ajax 支持。例如，你可以用 Pjax 包裹网格视图（GridView）来启动基于 ajax 的网格分页和排序：
 
+```
 use yii\widgets\Pjax;
 use yii\grid\GridView;
 
 Pjax::begin();
 echo GridView::widget([ /*...*/ ]);
 Pjax::end();
+
+```
 
 ## 请求和响应
 
@@ -314,7 +317,7 @@ $name = Yii::$app->request->post('name');
 
 ```
 
-另一个根本变化是响应直到应用的生命周期终止那一刻才真正发出，这允许你修改你想修改的 HTTP 头和内容及更改位置。
+另一个根本变化是响应直到应用的生命周期终止那一刻才真正发出，这允许你修改你想修改的 HTTP 头和内容及位置。
 
 请求类现在也能够理解不同 body 类型语法，如 JSON 请求。
 
@@ -322,7 +325,6 @@ $name = Yii::$app->request->post('name');
 
 整个动作过滤机制已经被更新了。你现在能在控制器层或应用层面和模块层面使用动作过滤。这允许你分层过滤动作流。例如，你可以安装过滤器到模块，以便该模块的所有动作服从这个过滤器；你也能进一步安装其他的过滤器到模块的控制器，以便只有这些控制器的动作被过滤。
 
-We have reorganized our code and created a whole set of filters under the yii\filters namespace. For example, you can use yii\filters\HttpBasicAtuh filter to enable authentication based on HTTP Basic Auth by declaring it in a controller or module:
 我们重新组织了代码并建立整套过滤器到 yii\filters 命名空间。例如，你能使用 yii\filters\HttpBasicAuth 过滤器通过在控制器或模块声明它来启动基于 HTTP 的基础授权：
 
 ```
@@ -340,56 +342,67 @@ public function behaviors()
 
 ## 引导组件
 
-We introduce the important "bootstrap" step in the application life cycle. Extensions can register bootstrap classes by declaring them in the composer.json file. A normal component can also be registered as a bootstrap component as long as it is declared in Application::$bootstrap.
+我们推介了应用生命周期中重要的 “引导” 步骤。扩展通过在 composer.json 文件声明可以注册到引导类。一个普通组件也可以注册为引导组件，只需在Application::$bootstrap 定义。
 
-A bootstrap component will be instantiated before the application starts to process a request. This gives the component the opportunity to register handlers to important events and participate in the application life cycle.
+一个引导组件在应用开始处理请求前就初始化了。这给了组件一个注册重要事件处理器和参与应用生命周期的机会。
 
 ## URL 处理
 
 Since developers are dealing with URLs a lot we've extracted most of URL-related methods into a Url helper class resulting in a nicer API.
+既然开发人员需要处理很多 URL 相关操作，我们提取了 URL 相关使用最多的方法到 Url 助手类来提供更好的 API 。
+
+```
 
 use yii\helpers\Url;
 
-// currently active route
-// example: /index.php?r=management/default/users
+// 当期活动路由
+// 示例： /index.php?r=management/default/users
 echo Url::to('');
 
-// same controller, different action
-// example: /index.php?r=management/default/page&id=contact
+// 同一个控制器，不同动作
+// 示例： /index.php?r=management/default/page&id=contact
 echo Url::toRoute(['page', 'id' => 'contact']);
 
 
-// same module, different controller and action
-// example: /index.php?r=management/post/index
+// 同一个模块，不同控制器和动作
+// 示例： /index.php?r=management/post/index
 echo Url::toRoute('post/index');
 
-// absolute route no matter what controller is making this call
-// example: /index.php?r=site/index
+// 不管哪个控制器调用这个方法的绝对路径
+// 示例： /index.php?r=site/index
 echo Url::toRoute('/site/index');
 
-// url for the case sensitive action `actionHiTech` of the current controller
-// example: /index.php?r=management/default/hi-tech
+// 当前控制器区分大小写动作 `actionHiTech` 的 url
+// 示例： /index.php?r=management/default/hi-tech
 echo Url::toRoute('hi-tech');
 
-// url for action the case sensitive controller, `DateTimeController::actionFastForward`
-// example: /index.php?r=date-time/fast-forward&id=105
+// 区分大小写控制器和动作 `DateTimeController::actionFastForward` 的 url
+// 示例： /index.php?r=date-time/fast-forward&id=105
 echo Url::toRoute(['/date-time/fast-forward', 'id' => 105]);
 
-// get URL from alias
+// 从别名获取 URL
 Yii::setAlias('@google', 'http://google.com/');
 echo Url::to('@google/?q=yii');
 
-// get canonical URL for the curent page
-// example: /index.php?r=management/default/users
+// 为当前页获取 canonical URL
+// 示例： /index.php?r=management/default/users
 echo Url::canonical();
 
-// get home URL
-// example: /index.php?r=site/index
+// 获取主页 URL
+// 示例： /index.php?r=site/index
 echo Url::home();
 
-Url::remember(); // save URL to be used later
-Url::previous(); // get previously saved URL
-There are improvements in URL rules as well. You can use the new yii\web\GroupUrlRule to group rules defining their common parts once instead of repeating them:
+```
+
+```
+Url::remember(); // 保存将被使用的页面 URL
+Url::previous(); // 获取前一保存页的 URL
+
+```
+
+URL 规则也有改进。你能使用新的 yii\web\GroupUrlRule 来组团一次定义规则的共同部分而不是重复它们：
+
+```
 
 new GroupUrlRule([
     'prefix' => 'admin',
@@ -400,12 +413,14 @@ new GroupUrlRule([
     ],
 ]);
 
-// the above rule is equivalent to the following three rules:
+// 以上规则等价于下面三条规则：
 [
     'admin/login' => 'admin/user/login',
     'admin/logout' => 'admin/user/logout',
     'admin/dashboard' => 'admin/default/dashboard',
 ]
+
+```
 
 ## 基于用户的访问控制（RBAC）
 
