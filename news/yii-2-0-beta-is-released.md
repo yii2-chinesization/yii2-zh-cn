@@ -1,118 +1,118 @@
 
-[Source](http://www.yiiframework.com/news/77/yii-2-0-beta-is-released/)  
+[Source：http://www.yiiframework.com/news/](http://www.yiiframework.com/news/77/yii-2-0-beta-is-released/)  
 使用 [MarkdownRules](http://markdownrules.com/)工具转换，可能出现错误，请多多包涵。
 
 # Yii 2.0 Beta 发布啦！
 
 [APR 13, 2014]:2014-04-13
 
-We are very pleased to announce the Beta release of Yii Framework version 2. You can [download it from yiiframework.com][1].
+我们很高兴的宣布 Yii 框架第二版 Beta 发布了。你可以从 [Yii 官网处下载][1]。
 
-This Beta release includes hundreds of new features, changes and bug fixes that have been made since the [alpha release][2]. We will review the most important ones in the following. But first, we would like to answer some commonly asked questions regarding Beta.
+Beta 发行版在 [alpha 版][2] 的基础上，又实现了上百个新功能、改动和缺陷修复。
+我们将在下面回顾下有哪些最重要的改变。但首先我们想回答一些有关 Beta 版经常被问到的问题。
 
-## Commonly Asked Questions
+## 常见问题
 
-  * **What does Beta mean?** Beta means feature and design freeze. After Beta and before GA (General Availability), we will mainly focus on fixing bugs and finishing documentation. We will no longer introduce major new features or significant design changes. There may still be changes that will break BC (Backward Compatibility), but we will try to minimize them and will record clearly the BC-breaking changes.
+  * **Beta 意味着什么？** Beta 意味着功能和设计确定下来了。在Beta 后 GA (General Availability) 前，我们主要聚焦于修复 bugs 和完善文档。我们不会再增加新的主要功能或对设计进行大幅修改。但仍有改动可能会破坏向后兼容性（BC：Backward Compatibility），我们将努力把影响减到最小并明确记录下那些会破坏兼容性的改动。
 
-  * **When will GA be released?** We do not have an exact date for that yet. Since our focus next is mainly on bug fixes and documentation, we expect it will not take long to reach GA.
+  * **GA 什么时候发行？** 我们还没有发行 GA 版的准确时间。既然我们下一个焦点主要是 Bug 修复和完善文档，我们只能预期说 GA 版的到来应该不会太久。
 
-  * **Can I use Beta for my projects?** Do not use Beta if your project is on a tight schedule and you are not familiar with Yii 2.0 yet. Otherwise, you may consider using Yii 2 Beta, provided that you are comfortable with occasional BC-breaking changes. We have heard there are already many projects built on 2.0 master and are working well. Also keep in mind that the minimum PHP version required is 5.4.
+  * **我能把 Beta 运用到我的项目吗？** 如果你的项目时间紧且你还没有熟悉 Yii 2.0 就不要使用 Beta 。不然的话，你可以考虑使用 Yii 2.0 Beta，当然前提是你能接受偶尔的不兼容改动。我们听说目前已经有很多基于 2.0 master 分支创建的项目，且运行良好。同时千万记得 PHP 版本的最低要求是 5.4 哦。
 
-  * **Are there any documentation for 2.0?** Yes, we have [The Definitive Guide][3] and [the API documentation][4]. And we are still adding more contents to the former.
+  * **2.0有文档吗?** 当然，我们有[官方指南][3]和 [API 文档][4]，并且我们还在持续添加更多内容。（译者注：也要关注我们的[文档中文化项目](https://github.com/yii2-chinesization/yii2-zh-cn/)呦！）
 
-  * **How can I upgrade my applications written in 1.1 to 2.0?** Please refer to [Upgrading from Yii 1.1][5]. Note that since 2.0 is a complete rewrite of 1.1, the upgrade will not be trivial. However, if you are familiar with 1.1, you will find many similarities in 2.0, which should help you to adopt 2.0 more quickly.
+  * **怎么把我的项目从 1.1 升级到 2.0？** 请参考手册中[从 Yii 1.1 升级][5]的章节。请注意，因为 2.0 相较于 1.1 是完全重构的，所以这种升级所需的改动不会太小。但是如果你掌握了 1.1，你会在 2.0 里发现很多相似之处，他们会帮助你更迅速地接受 2.0。
 
-  * **How can I upgrade from 2.0 alpha?** If you are updating alpha version via Composer you need to remove everything except `.gitignore` from vendor directory and re-run composer. This is a one-time thing that will not be required for any future releases. Please check the [CHANGELOG][6] file in the release to find out more details about the BC-breaking changes.
+  * **我怎么从2.0 alpha 升级** 如果你是通过 Composer 升级 alpha 版本，你需要移除 vendor 目录里，除了`.gitignore`以外的所有东西，然后重新运行 composer。这是一次性的，以后发布的版本都不会要求这样做了。请查看此次发布中的[CHANGLOG（更新日志）][6]文件，以了解那些有关影响兼容性的变动的更多细节。
 
-  * **How can I follow the 2.0 development?** All development activities of Yii 2.0 can be found on GitHub: . You may watch or star this project to receive development updates. You may also follow our twitter updates at .
+  * **我怎样了解2.0开发的最新动态？** Yii 2.0 的开发活动都在 GitHub 上：https://github.com/yiisoft/yii2 。你可以关注（watch）或标星（star）这个项目来接收开发动态。你也可以在 https://twitter.com/yiiframework follow 我们的 twitter。
 
-## Major Changes since 2.0 Alpha
+## 2.0 Alpha 至今的主要改动
 
-You may find a complete list of changes in the [CHANGELOG][7]. Below we are summarizing the most important new features and changes.
+你可以在[更新日志（CHANGELOG）][7]查看完整的改动列表。我们将只在下面总结最重要的新功能和改动。
 
-### Structure
+### 结构
 
-Yii 2 now follows the [PSR-4 standard][8] for its class autoloading. This results in three improvements:
+现在 Yii 2 的类自动加载会遵循 [PSR-4 标准][8]。这将带来三点改进：
 
-  * Simpler framework directory structure.
-  * Simpler extensions directory structure.
-  * We've dropped PEAR-style class naming resulting in simpler and faster autoloading.
+  * 框架目录结构更简洁。
+  * 扩展目录结构更简洁。
+  * 我们已经遗弃了 PEAR 风格的类命名，以使类的自动加载更简洁更快。
 
-Controller classes are now required to be namespaced and must be located under `Module::controllerNamespace`, unless you use controller mapping via `Module::controllerMap`.
+控制器类现在必须有命名空间且必须位于  `Module::controllerNamespace`，除非你通过 `Module::controllerMap` 来引用控制器映射机制。
 
-We have added back the support for grouping controllers by subdirectories, which is also supported in 1.1.
+我们还把用子目录分组控制器的支持添加回来了，和 1.1 一样。
 
-### Usability
+### 易用性（或可用性 Usability）
 
-Usability is one of the highest priorities for the Yii team. That's why we're spending lots of time choosing good names for everything, making code work with IDEs better and doing developer day-to-day job more pleasant.
+易用性是 Yii 开发团队的最高优先目标之一。这就是为什么我们一直在花费大量时间给每个元件挑选合适的名称、让代码对 IDE 更友好和让开发者们日复一日的工作体验更愉悦。我们已经接受使用 PSR-1 和 PSR-2 编码风格，现在能非常好地直接支持不同 IDE 、[代码风格校验器][9]和[自动代码格式化工具][10]。
 
-We've adopted PSR-1 and PSR-2 and got out of the box support from various IDEs, [code style checkers][9] and [automatic formatters][10].
+### 性能
 
-### Performance
+最显著的改动是Session会话会等到真正被使用时才开启。这样使得应用不必为非必要的 Session 会话启动浪费资源。
 
-The most notable change is that session is now started until it is actually used. This allows applications to not waste resources in starting sessions unnecessarily.
+如果你在你项目中使用了 MarkDown，你会发现 MarkDown 的渲染速度有明显改善。这是因为 Carsten Brandt（cebe，Yii 核心开发团队成员）分析了当下所有已有的解决方案后重新建立了一个全新的 MarkDown 库。这个新库快很多，且更易于扩展，还支持诸如 GitHub 风格格式和更多其他功能。
 
-If you are using MarkDown in your project, you may find the MarkDown formatting speed is significantly improved. This is because Carsten Brandt (cebe) built a new MarkDown library from scratch after analyzing all existing solutions. The new library is much fast and is easier to be extended. It also supports GitHub flavored format and many other features.
+### 安全
 
-### Security
+Yii 现在使用 _隐蔽的（masked）_  CSRF 令牌来阻止 [BREACH][11] 形式的欺骗攻击。
 
-Yii now uses _masked_ CSRF tokens to prevent [BREACH][11] type of exploits.
+RBAC 业务规则被重构了，重构后的 RBAC 提供了一个更灵活且安全的解决方案。我们消除了所有在业务规则中 `eval()` 方法的使用。
 
-RBAC biz rules were refactored, which results in a more flexible yet safer solution. We have eliminated the use of `eval()` for biz rules.
+### RESTful API 架构
 
-### RESTful API framework
+一个长期以来一直被被要求加入的功能就是对 RESTful API 开发的支持。这个功能随着 Beta 的发布终于实现了。由于篇幅限制，这里就不展开说细节了。你可以参阅[官方指南][12]了解更多细节。下面我们主要总结了目前已经支持的功能：
 
-A long wanted feature in Yii is the built-in support for RESTful API development. This finally came into reality with the Beta release. Due to the limit of this article, we will not expand the details here. You may refer to [The Definitive Guide][12] for details. Below we mainly summarize the supported features as of now:
+- 为活动记录（ActiveRecord）快速构建带有通用 API 支持的原型；
+- 响应格式协商（原生支持 JSON 和 XML 两种格式）；
+- 可自定义的对象序列化，并支持可选输出字段；
+- 以适当格式收集数据与错误验证；
+- 附带相应 HTTP 动作检查功能的高效路由；
+- 支持 `OPTIONS` 和 `HEAD` 动作；
+- 身份验证；
+- 用户权限；
+- 支持 HATEOAS（超媒体作为应用程序状态引擎）；
+- HTTP 缓存；
+- 速率限制。
 
-  * Quick prototyping with support for common APIs for ActiveRecord;
-  * Response format negotiation (supporting JSON and XML by default);
-  * Customizable object serialization with support for selectable output fields;
-  * Proper formatting of collection data and validation errors;
-  * Efficient routing with proper HTTP verb check;
-  * Support for `OPTIONS` and `HEAD` verbs;
-  * Authentication;
-  * Authorization;
-  * Support for HATEOAS;
-  * HTTP Caching;
-  * Rate limiting.
+### 依赖注入和服务定位器
 
-### Dependency Injection and Service Locator
+许多用户曾问到为什么 Yii 不提供依赖注入（DI）容器。事实上 Yii 很久前就已经提供了一个类似的工具，被称作Service Locator - 也就是 Yii 应用实例本身。现在我们正式提取出服务定位器作为一个可重用组件 `yii\di\ServiceLocator`。和以前一样， Yii 应用主体（Application）和其模块（Module）都是服务定位器。你可以使用 `Yii::$app->get('something')` 这个表达式获取服务（1.1 的术语里又称为应用组件）。
 
-Many users were asking why Yii does not provide a Dependency Injection (DI) Container. The fact is that Yii has long been providing a similar facility known as Service Locator - the Yii application instance. Now we have formally extracted out the service locator as a reusable component `yii\di\ServiceLocator`. Like before, the Yii application and also modules are both service locators. You may obtain a service (aka. application component in 1.1 terminology) using the expression `Yii::$app-&gt;get('something')`.
+除了服务定位器，我们还实现了一个 DI 容器 `yii\di\Container` 来帮助你开发更低耦合的代码。我们的内部分析表明该 DI 容器是所有知名的 PHP DI 实现中最快速的之一。你可以使用 `Yii::$container->set()` 来配置类的缺省设置。有了新的实现，旧的 `Yii::$objectConfig` 自然也就停止使用了。
 
-Besides Service Locator, we also implemented a DI Container `yii\di\Container` to help you develop code in a less coupled way. Our internal profiling shows this DI container is one of the fastest among most notable PHP DI implementations. You may use `Yii::$container-&gt;set()` to configure default settings of classes. The old `Yii::$objectConfig` is dropped in favor of this new implementation.
+### 测试
 
-### Testing
+Yii 整合了 [Codeception 测试框架][13]，它允许你测试一个应用程序作为一个整体模拟用户操作和验证输出是否正确。和 PhpUnit's selenium 支持相反，这个测试框架不需要浏览器，所以它更容易安装到持续集成（CI）服务器且运行更快。
 
-Yii got integration with the [Codeception testing framework][13]. It allows you to test an application as a whole simulating user actions and verifying if resulting output is correct. In contrast with PhpUnit's selenium support it doesn't require a browser so it's easier to install for CI server and runs much faster.
+Yii 还增加了对构建测试文件夹（test fixtures）更多的支持，构建测试时，这往往是一个繁琐和费时的任务。特别的，[fixture 框架][14]被开发来统一 fixture 的定义和管理。我们通过整合 “faker” 库创建了 [faker 扩展][15]来帮助你创造一些拟真的 fixture 假数据。
 
-Yii also added more support for building test fixtures, which is often a tedious and time consuming task when building tests. In particular, a [fixture framework][14] is developed to unify the fixture definition and management. We created the [faker extension][15] by integrating the "faker" library to help you create some realistically-looking faked fixture data.
+基础应用模板和高级应用模板（"apps-basic" and "apps-advanced"）都实现了测试功能，包括单元测试、功能测试和验收测试。这将为测试驱动开发（TDD）提供一个很好的起点。
 
-Both the "basic" and "advanced" application templates now come with tests, including unit tests, functionality tests and acceptance tests. This will give a good start for Test-Driven development.
+### 模型验证
 
-### Model Validation
+模型测试功能多了很多实用的改进。
 
-There are many useful enhancements to the model validation feature.
-
-The `UniqueValidator` and `ExistValidator` now support validating multiple columns. Below are some examples about the `unique` validation rule declaration:
+`UniqueValidator` 和 `ExistValidator` 现在支持验证多列了。以下是关于 `unique` 验证规则声明的一些示例：
 
 ```php
-// a1 needs to be unique
+// a1 必须是唯一的
 ['a1', 'unique']
  
-// a1 needs to be unique, but column a2 will be used to check the uniqueness of the a1 value
+// a1 必须唯一，但 a2 列将用于检查 a1 值的唯一性
 ['a1', 'unique', 'targetAttribute' => 'a2']
  
-// a1 and a2 need to be unique together, and they both will receive an error message
+// a1 和 a2 必须同时唯一且都接收错误信息
 [['a1', 'a2'], 'unique', 'targetAttribute' => ['a1', 'a2']]
  
-// a1 and a2 need to unique together, only a1 will receive the error message
+// a1 和 a2 必须同时唯一，只有 a1 接收错误信息
 ['a1', 'unique', 'targetAttribute' => ['a1', 'a2']]
  
-// a1 needs to be unique by checking the uniqueness of both a2 and a3 (using a1 value)
+ // a1 通过检查 a2 和 a3 的唯一性（使用 a1 值）来确保唯一
 ['a1', 'unique', 'targetAttribute' => ['a2', 'a1' => 'a3']]
 ```
-Validations can be done conditionally (aka. conditional validation). This is supported by the addition of two properties `when` and `whenClient` to each validator. The following example shows how to require the "state" input only when the country is selected as "USA":
+
+验证可以有条件地完成（又称条件验证）。这通过添加两个属性 `when` 和 `whenClient` 到每个验证器实现。以下示例展示了如何在只在国家选为 “USA” 时才要求 "state" 输入项：
 
 ```php
 ['state', 'required',
@@ -124,7 +124,8 @@ Validations can be done conditionally (aka. conditional validation). This is sup
     }",
 ]
 ```
-Sometimes, you may want to do some ad-hoc data validation without the trouble of writing new model classes. You can accomplish this with the help of the new `yiiase\DynamicModel`. For example,
+
+有时你可能需要做一些临时的数据验证又想避免编写新模型类的麻烦，你可以借助新 `yii\base\DynamicModel` 的帮助来完成。例如：
 
 ```php
 public function actionSearch($name, $email)
@@ -134,40 +135,41 @@ public function actionSearch($name, $email)
         ['email', 'email'],
     ]);
     if ($model->hasErrors()) {
-        // validation fails
+        // 验证失败
     } else {
-        // validation succeeds
+        // 验证成功
     }
 }
 ```
-### Database and Active Record
 
-Database-related features are one of the strongest sides of Yii. They were quite interesting when alpha was released and now beta brought more improvements and features. Among support for SQL databases we have ActiveRecord implementations for [elasticsearch][16], [redis][17] and [Sphinx search][18] already. The Beta version now brings support for the [mongodb][19] document storage.
+### 数据库和活动记录
 
-#### Nested Transaction Support
+数据库相关的功能是 Yii 最强大的方面之一。他们在 alpha 发布时就非常引人注意了，现在 beta 带来了更多功能和改进。除了对 SQL 数据库的支持，我们还已经为[elasticsearch RESTful 搜索引擎][16]、[redis 键值对存储数据库][17]和[Sphinx search 全文检索引擎][18]提供了活动记录设计模式的实现。Beta 版现在又增加了对[mongodb 分布式文件存储数据库][19]的支持。
 
-Yii now supports nested transactions. As a result, you can safely start a transaction without worrying if there is already an existing transaction enclosing it.
+#### 嵌套事务支持
 
-#### Join Queries
+Yii 现在支持嵌套事务。因此，你可以安全地开启一个事务而无需担心是否有现有的事务包围它了。
 
-We added `ActiveQuery::joinWith()` to support creating JOIN SQL statements using the AR relations you have already declared. This is especially useful when you want to filter or sort by columns from foreign tables. For example,
+#### 连接查询
+
+我们添加了 `ActiveQuery::joinWith()` 方法，来支持使用已声明的 AR 关系创建 JOIN SQL 语句。当你需要以外表的列筛选或排序时这个方法特别有用。比如：
 
 ```php
-// find all orders and sort the orders by the customer id and the order id. also eager loading "customer"
+// 查找所有订单并以顾客 id 和订单 id 排序，同时要预先加载 "customer"
 $orders = Order::find()->joinWith('customer')->orderBy('customer.id, order.id')->all();
  
-// find all orders that contain books, and eager loading "books"
+// 查找所有包括书籍的订单并预先加载 "books"
 $orders = Order::find()->innerJoinWith('books')->all();
 ```
-This feature is especially useful when displaying relational columns in a GridView. It became very easy making them sortable and filterable using `joinWith()`.
+这个功能在栅格视图（GridView）中显示关联列时特别有用，通过使用 `joinWith()` 来筛选和排序关联列特别简单.
 
-#### Data Typecasting
+#### 数据类型转换
 
-ActiveRecord will now convert data retrieved from the database to proper types. For example, if you have an integer column `type`, after the corresponding ActiveRecord instance is populated, you will find the `type` attribute gets an integer value, rather than a string value.
+在活动记录能将数据库检索出的数据转换为正确的数据类型。例如，如果你有个整型列 `type`，当相应的活动记录实例填充后，你将发现 `type` 数据属性会得到一个整型值，而不是字符串值。
 
-#### Searching
+#### 搜索
 
-To facilitate building search functionality, we have added the `Query::filterWhere()` method which will automatically remove empty filter values. For example, if you have a search form with `name` and `email` filter fields. You may use the following code to build the search query. Without this method, you would have to check if the user has entered anything in a filter field, and if not you will not put it in the query condition. `filterWhere()` will only add non-empty fields to the condition.
+为方便建立搜索功能，我们添加了 `Query::filterWhere()` 方法来自动移除空的过滤值。例如，如果你有个包括 `name` 和 `email` 过滤字段的搜索表单。你可以使用以下代码来建立搜索查询语句。如果没有这个方法，你就必须检查用户是否在过滤字段中输入任何东西，且没有输入的话你就不能把它放到查询条件。`filterWhere()` 将只添加非空字段到查询条件。
 
 ```php
 $query = User::find()->filterWhere([
@@ -175,67 +177,72 @@ $query = User::find()->filterWhere([
     'email' => Yii::$app->request->get('email'),
 ]);
 ```
-#### Batch Query
 
-To support big data query, we have added the batch query feature which brings back data in batches instead of all at once. This allows you to keep the server memory usage under a limit. For example,
+#### 批量查询
+
+要支持大数据量查询，我们添加了批查询功能来分批取得数据以取代一次取出全部数据。批查询允许你将服务器内存的使用限制在一定范围内。例如：
 
 ```php
 use yii\db\Query;
- 
+
 $query = (new Query())
     ->from('user')
     ->orderBy('id');
- 
+
 foreach ($query->batch() as $users) {
-    // $users is an array of 100 or fewer rows from the user table
+    // $users 是用户表取出100条记录以内的数组
 }
- 
-// or if you want to iterate the row one by one
+
+// 或者你需要逐行遍历记录
 foreach ($query->each() as $user) {
-    // $user represents one row of data from the user table
+    // $user 表示用户表取出的一行数据
 }
 ```
-You may use batch with ActiveRecord too. For example,
+
+你也可以用活动记录进行批量查询。例如：
 
 ```php
-// fetch 10 customers at a time
+// 一次取回 10 个客户
 foreach (Customer::find()->batch(10) as $customers) {
-    // $customers is an array of 10 or fewer Customer objects
+    // $customers 是10个以内的 Customer 对象数组
 }
-// fetch 10 customers at a time and iterate them one by one
+// 一次取回 10 个客户并逐个遍历
 foreach (Customer::find()->each(10) as $customer) {
-    // $customer is a Customer object
+    // $customer 是一个 Customer 对象
 }
-// batch query with eager loading
+// 使用预先加载的批查询
 foreach (Customer::find()->with('orders')->each() as $customer) {
 }
 ```
-#### Support for Sub-queries
 
-The query builder has been improved to support sub-queries. You may build a sub-query as a normal `Query` object and then use it in appropriate places in another query. For example,
+#### 子查询支持
+
+查询生成器已改进来支持子查询。你可以建立一个子查询作为常规的 `Query` 对象，然后在另一个查询中的适当位置使用它。例如：
 
 ```php
 $subQuery = (new Query())->select('id')->from('user')->where('status=1');
 $query->select('*')->from(['u' => $subQuery]);
 ```
-#### Inverse Relations
 
-Relations can often be defined in pairs. For example, `Customer` may have a relation named `orders` while `Order` may have a relation named `customer`. In the following example, we may find that the `customer` of an order is not the same customer object that finds those orders, and accessing `customer-&gt;orders` will trigger one SQL execution while accessing the `customer` of an order will trigger another SQL execution:
+#### 逆关系
+
+关系通常成对定义。比如，`Customer` 有一个关系名为 `orders`，而 `Order` 也有一个关系名为 `customer`。下例中，我们会发现某一订单的 `customer` 和关联那些订单的 `customer` 并不是同一个客户对象。且访问 `customer->orders` 将触发一个 SQL 执行，而访问一个订单的 `customer` 将触发另一个： 
 
 ```php
 // SELECT * FROM customer WHERE id=1
 $customer = Customer::findOne(1);
-// echoes "not equal"
+
+// 结果输出 “不等于”
 // SELECT * FROM order WHERE customer_id=1
 // SELECT * FROM customer WHERE id=1
 if ($customer->orders[0]->customer === $customer) {
-    echo 'equal';
+    echo '等于';
 } else {
-    echo 'not equal';
+    echo '不等于';
 }
 ```
 
-To avoid the redundant execution of the last SQL statement, we could declare the inverse relation for the `customer` and the `orders` relations by calling the `inverseOf()` method, like the following:
+为避免最后一条 SQL 语句不必要的执行，我们可以为 `customer` 客户和 `orders` 订单关系声明逆关系，通过如下这样调用 `inverseOf()` 方法实现：
 
 ```php
 class Customer extends ActiveRecord
@@ -247,26 +254,30 @@ class Customer extends ActiveRecord
     }
 }
 ```
-Now if we execute the same query as shown above, we would get:
+
+现在我们执行以上所示的相同查询语句，我们将得到：
 
 ```php
 // SELECT * FROM customer WHERE id=1
 $customer = Customer::findOne(1);
-// echoes "equal"
+
+// 结果输出 “等于”
 // SELECT * FROM order WHERE customer_id=1
+// SELECT * FROM customer WHERE id=1
 if ($customer->orders[0]->customer === $customer) {
-    echo 'equal';
+    echo '等于';
 } else {
-    echo 'not equal';
+    echo '不等于';
 }
 ```
-#### More Consistent Relational Query APIs
 
-In 2.0 alpha, we have introduced ActiveRecord support for both relational (e.g. MySQL) and NoSQL databases (e.g. redis, elasticsearch, MongoDB). In Beta, we refactored the relevant code to make the interfaces more consistent. In particular, we dropped `ActiveRelation` and made `ActiveQuery` the sole entry point for building ActiveRecord relational queries and declaring relations. We also added `ActiveRecord::findOne()` and `findAll()` to support quick query by primary keys or column values. Previously, the same functionality was assumed by `ActiveRecord::find()` which sometimes caused confusion due to inconsistent return types.
+#### 更一致的关联查询 API
 
-### Advanced Ajax Support
+在 2.0 alpha，我们介绍了活动记录对关系数据库（如 MySQL）和 NoSQL 数据库（如 redis,elasticsearch,MongoDB）的支持。Beta版本，我们重构了相关代码以保持接口更加一致。尤其是，我们弃用了 `ActiveRelation` 活动关系并让 `ActiveQuery` 担任建立活动记录关联查询和声明关系的入口角色。我们还添加了 `ActiveRecord::findOne()` 和 `findAll()` 方法以支持主键或列值的快速查询。以前，这个功能由 `ActiveRecord::find()` 承担，这个方法有时会因不一致的返回类型导致一些困惑。
 
-We have decided to use the excellent [Pjax][20] library and created the `yii\widgets\Pjax` widget. This is a generic widget that can enable ajax support for anything it encloses. For example, you can enclose a `GridView` with `Pjax` to enable ajax-based grid pagination and sorting:
+### 高级 Ajax 支持
+
+我们已经决定采用优秀的 [Pjax][20] 库并创建 `yii\widgets\Pjax` 小部件。这是一个通用小部件，能够给它所包裹的任何东西启用 ajax 支持。例如，你可以用 `Pjax` 包裹栅格视图 `GridView` 来启动基于 ajax 的网格分页和排序：
 
 ```php
 use yii\widgets\Pjax;
@@ -276,25 +287,27 @@ Pjax::begin();
 echo GridView::widget([ /*...*/ ]);
 Pjax::end();
 ```
-### Request and response
 
-Besides many internal bug fixes and improvements request and response got some significant changes. Most notably working with request data now looks like the following:
+### 请求和响应（Request and response）
+
+除了很多内部缺陷的修复和改进，请求和响应还有一些其他明显的改动。最明显的是现在操作请求数据要这样做：、
 
 ```php
-// take a GET parameter from the request, defaults to 1 if not given
+// 从请求获得 GET 参数，缺省为 1
 $page = Yii::$app->request->get('page', 1);
-// take a POST parameter from the request, defaults to null if not given
+// 从请求获得 POST 参数，缺省为 null
 $name = Yii::$app->request->post('name');
 ```
-Another fundamental change is that response is actually sent at the very end of application lifecycle allowing you to modify headers and content as you like and where you prefer.
 
-The request class is now also able to parse different body types for example JSON requests.
+另一个根本变化是响应直到应用的生命周期终止那一刻才真正发出，这允许你自由地修改你想要的 HTTP 头部和主体的细节及位置。
 
-### Filters
+请求类现在也能够理解不同 body 类型语法，如 JSON 请求。
 
-The whole action filtering mechanism has been revamped. You can now enable action filtering at controller level as well as application and module levels. This allows you to filter action flow hierarchically. For example, you can install a filter in a module so that all actions within the module are subject to this filter; and you can further install another filter in some of the controllers in the module so that only actions in those controllers will be filtered.
+### 过滤器
 
-We have reorganized our code and created a whole set of filters under the `yii ilters` namespace. For example, you can use `yii ilters\HttpBasicAtuh` filter to enable authentication based on HTTP Basic Auth by declaring it in a controller or module:
+整个动作过滤机制已经被更新修订了。现在不仅在控制器层面，甚至是应用层面或模块层面也都能使用动作过滤了。这允许你分层过滤动作流。例如，你可以安装过滤器到模块，以便该模块的所有动作服从这个过滤器；你也能进一步安装其他的过滤器到模块的控制器，以便只有这些控制器的动作被过滤。
+
+我们重新组织了代码并建立整套过滤器到 `yii\filters` 命名空间。例如，你能通过在控制器或模块声明 `yii\filters\HttpBasicAuth` 过滤器，来启动基于 HTTP 的基础授权：
 
 ```php
 public function behaviors()
@@ -302,65 +315,68 @@ public function behaviors()
     return [
         'basicAuth' => [
             'class' => \yii\filters\auth\HttpBasicAuth::className(),
-            'exclude'=> ['error'],   // do not apply it to the "error" action
+            'exclude'=> ['error'],   // 不要用在 "error" 动作（译者注：用来显示错误信息的页面，千万别给过滤掉）
         ],
     ];
 }
 ```
-### Bootstrap Components
 
-We introduce the important "bootstrap" step in the application life cycle. Extensions can register bootstrap classes by declaring them in the `composer.json` file. A normal component can also be registered as a bootstrap component as long as it is declared in `Application::$bootstrap`.
+### 引导组件（Bootstrap Components）
 
-A bootstrap component will be instantiated before the application starts to process a request. This gives the component the opportunity to register handlers to important events and participate in the application life cycle.
+我们引入了应用生命周期中重要的 “引导” 步骤。（译者注：这里的bootstrap，不是指那个前端框架）Yii 的扩展只要在 `Application::$bootstrap` 定义了，就可以通过在 `composer.json` 文件声明，从而注册到引导类。。
 
-### URL Handling
+一个引导组件在应用开始处理请求前就初始化了。这给了组件一个注册重要事件处理器和参与应用生命周期的机会。
 
-Since developers are dealing with URLs a lot we've extracted most of URL-related methods into a `Url` helper class resulting in a nicer API.
+### URL 处理
+
+由于开发人员正在处理的 URL 很多，我们已经提取大部分 URL 相关方法到 Url 助手类，从而打造一个更好的 API 。
 
 ```php
- use yii\helpers\Url;
- 
-// currently active route
-// example: /index.php?r=management/default/users
+use yii\helpers\Url;
+
+// 当期活动路由
+// 示例： /index.php?r=management/default/users
 echo Url::to('');
- 
-// same controller, different action
-// example: /index.php?r=management/default/page&id=contact
+
+// 同一个控制器，不同动作
+// 示例： /index.php?r=management/default/page&id=contact
 echo Url::toRoute(['page', 'id' => 'contact']);
- 
- 
-// same module, different controller and action
-// example: /index.php?r=management/post/index
+
+
+// 同一个模块，不同控制器和动作
+// 示例： /index.php?r=management/post/index
 echo Url::toRoute('post/index');
- 
-// absolute route no matter what controller is making this call
-// example: /index.php?r=site/index
+
+// 不管哪个控制器调用这个方法的绝对路径
+// 示例： /index.php?r=site/index
 echo Url::toRoute('/site/index');
- 
-// url for the case sensitive action `actionHiTech` of the current controller
-// example: /index.php?r=management/default/hi-tech
+
+// 当前控制器区分大小写动作 `actionHiTech` 的 url
+// 示例： /index.php?r=management/default/hi-tech
 echo Url::toRoute('hi-tech');
- 
-// url for action the case sensitive controller, `DateTimeController::actionFastForward`
-// example: /index.php?r=date-time/fast-forward&id=105
+
+// 区分大小写控制器和动作 `DateTimeController::actionFastForward` 的 url
+// 示例： /index.php?r=date-time/fast-forward&id=105
 echo Url::toRoute(['/date-time/fast-forward', 'id' => 105]);
- 
-// get URL from alias
+
+// 从别名获取 URL
 Yii::setAlias('@google', 'http://google.com/');
 echo Url::to('@google/?q=yii');
- 
-// get canonical URL for the curent page
-// example: /index.php?r=management/default/users
+
+// 为当前页获取规范 URL
+// 示例： /index.php?r=management/default/users
 echo Url::canonical();
- 
-// get home URL
-// example: /index.php?r=site/index
+
+// 获取主页 URL
+// 示例： /index.php?r=site/index
 echo Url::home();
- 
-Url::remember(); // save URL to be used later
-Url::previous(); // get previously saved URL
+
+Url::remember(); // 保存将被使用的页面 URL
+Url::previous(); // 获取前一保存页的 URL
 ```
-There are improvements in URL rules as well. You can use the new yii\web\GroupUrlRule to group rules defining their common parts once instead of repeating them:
+
+URL 规则也有改进。你能使用新的 `yii\web\GroupUrlRule` 把他们合并在一起，一次性地定义好的它们的共通部分，而无需多次重复：
+
 ```php
 new GroupUrlRule([
     'prefix' => 'admin',
@@ -371,7 +387,7 @@ new GroupUrlRule([
     ],
 ]);
  
-// the above rule is equivalent to the following three rules:
+// 以上规则等价于下面三条规则：
 [
     'admin/login' => 'admin/user/login',
     'admin/logout' => 'admin/user/logout',
@@ -379,33 +395,33 @@ new GroupUrlRule([
 ]
 ```
 
-### Role-Based Access Control (RBAC)
+### 基于用户角色的访问控制（RBAC）
 
-We have revamped the RBAC implementation by following more closely to the original NIST RBAC model. In particular, we have dropped the concept of _operation_ and _task_, and replaced them with _permission_ which is the term used in NIST RBAC.
+我们修改了 RBAC 的实现以使其更紧密地跟随 original NIST RBAC 模型。特别地，我们摒弃了 _operation（操作）_ 和 _task（任务）_的概念，并以 _permission(许可)_ 来替换他们，许可是 NIST RBAC 所使用的概念。
 
-And as aforementioned, we also redesigned the biz rule feature by managing it separately.
+且如前所述，我们还通过把业务规则（biz rule）从 RBAC 中分离出来，单独进行管理，重新设计了它的功能。
 
-### Translations
+### 翻译
 
-First of all we'd like to thank all the community members who have participated in translating framework messages. The core messages are now available in 26 languages, which is a very impressive number.
+首先我们由衷地感谢参与翻译框架核心信息的所有社区成员。现在核心信息已经有 26 种语言版本，这是非常令人钦佩的数字。（东方孤思子注：这里面也包括我的努力哦！）
 
-Message translation now supports language fallback. For example, if your application is using `fr-CA` as the language while you only have `fr` translations, Yii will first look for `fr-CA` translations; if not found, it will try `fr`.
+信息翻译现在支持语言的失败回滚（fallback）。例如，如果你的应用使用 `fr-CA` 语言而你只有 `fr` 的翻译版本，Yii 首先搜寻 `fr-CA` 翻译文件，如果没有，将尝试寻找 `fr` 。
 
-A new option is added to every Gii generator, which allows you to choose if you want to generate code with message translated via `Yii::t()`.
+一个新的选项添加到了每一个 Gii 生成器，该选项允许你选择是否需要通过 Yii::t() 生成带翻译信息的代码。
 
-The message extraction tool now supports writing strings into `.po` files as well as databases.
+信息抽取工具现在支持编写字符串到 `.po` 文件和数据库。
 
-### Extensions and Tools
+### 扩展和工具
 
-We have built a documentation generator extension named `yii2-apidoc` that can be used to help you generate nice looking API documentation as well as MarkDown-based tutorials. The generator can be easily customized and extended to fit for your specific needs. It is also used to generate official documentation and API docs, as you can see at .
+我们建立了一个文档生成器扩展，取名为 `yii2-apidoc`，它可以用来帮助你生成界面好看的 API 文档，以及基于 MarkDown 的教程指南 。该生成器易于定制并可方便扩展以满足你的特定需求。它也用来生成官方文档和 API 文件，你可以在 http://www.yiiframework.com/doc-2.0/ 处查看。
 
-The Yii Debugger was polished with many minor enhancements. It is also now equipped with a mail panel as well as DB query and mail summary column in its summary page.
+Yii 调试器经过许多微小的改进后更加好用。它现在也在它的总结页面装备了 email 面板，以及数据库查询和邮件总结列。
 
-Besides the new translation supported mentioned above, the Yii code generator tool Gii can now be used to create a new extension. You may also notice the code preview window is enhanced so that you can quickly refresh and navigate among different files. It is also copy-paste friendly and supports keyboard shortcuts. Give it a try!
+除了上面提到过的新的翻译支持， Yii 代码生成器工具 Gii 现在也能够用来生成新的扩展。会注意到代码预览窗口也加强了，现在可以快速刷新与在不同文件之间跳转。它也支持很方便地复制粘贴和支持快捷键的。来试一试吧！
 
-## Thank you!
+## 鸣谢！
 
-The Yii 2.0 Beta release is a major milestone that has involved tremendous efforts from all parties. We don't think it would be possible without [all the valuable contribution][21] from our excellent community. Thank you all for making this release possible.
+Yii 2.0 Beta 版的发行是一个重要的里程碑，凝聚了各方极大的努力。我们认为没有我们优秀社区的[所有有价值的贡献][21] ，Beta 版就不可能发行。感谢所有让此版本的发行成为现实的人们！
 
    [1]: http://www.yiiframework.com/download/
    [2]: http://www.yiiframework.com/news/76/yii-2-0-alpha-is-released/
