@@ -1,7 +1,6 @@
 [原文：http://www.yiiframework.com/news/](http://www.yiiframework.com/news/77/yii-2-0-beta-is-released/)  
-主翻译：@aliciamiao 校对：@qiansen1386(东方孤思子)
-# Yii 2.0 Beta 发布啦！[APR 13, 2014]:2014-04-13
-
+主翻译：@aliciamiao 校对：@qiansen1386(东方孤思子) 时间：2014年4月13
+# Yii 2.0 Beta 发布啦！
 
 我们很高兴的宣布 Yii 框架第二版 Beta 发布了。你可以从 [Yii 官网处下载][1]。
 
