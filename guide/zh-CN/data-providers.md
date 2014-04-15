@@ -16,10 +16,10 @@ Active data provider（活动数据提供器）
 
 ```php
 $provider = new ActiveDataProvider([
-	'query' => Post::find(),
-	'pagination' => [
-		'pageSize' => 20,
-	],
+    'query' => Post::find(),
+    'pagination' => [
+        'pageSize' => 20,
+    ],
 ]);
 
 // 获取当前页的所有帖子
@@ -31,10 +31,10 @@ $posts = $provider->getModels();
 ```php
 $query = new Query();
 $provider = new ActiveDataProvider([
-	'query' => $query->from('tbl_post'),
-	'pagination' => [
-		'pageSize' => 20,
-	],
+    'query' => $query->from('post'),
+    'pagination' => [
+        'pageSize' => 20,
+    ],
 ]);
 
 // 获取当前页的所有帖子
@@ -65,7 +65,7 @@ ArrayDataProvider 可以这样用：
 ```php
 $query = new Query();
 $provider = new ArrayDataProvider([
-    'allModels' => $query->from('tbl_post')->all(),
+    'allModels' => $query->from('post')->all(),
     'sort' => [
         'attributes' => ['id', 'username', 'email'],
     ],
@@ -96,11 +96,11 @@ SqlDataProvider 基于一个简单的 SQL 语句实现数据提供器功能。�
 
 ```php
 $count = Yii::$app->db->createCommand('
-    SELECT COUNT(*) FROM tbl_user WHERE status=:status
+    SELECT COUNT(*) FROM user WHERE status=:status
 ', [':status' => 1])->queryScalar();
 
 $dataProvider = new SqlDataProvider([
-    'sql' => 'SELECT * FROM tbl_user WHERE status=:status',
+    'sql' => 'SELECT * FROM user WHERE status=:status',
     'params' => [':status' => 1],
     'totalCount' => $count,
     'sort' => [

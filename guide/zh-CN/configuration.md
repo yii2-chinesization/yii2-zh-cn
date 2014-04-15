@@ -41,12 +41,12 @@ defined('YII_DEBUG') or define('YII_DEBUG', false); //生产环境使用
 ```php
 <?php
 return [
-	'id' => 'applicationId',
-	'basePath' => dirname(__DIR__),
-	'components' => [
-		//应用组件的配置放在这里……
-	],
-	'params' => require(__DIR__ . '/params.php'),
+    'id' => 'applicationId',
+    'basePath' => dirname(__DIR__),
+    'components' => [
+        //应用组件的配置放在这里……
+    ],
+    'params' => require(__DIR__ . '/params.php'),
 ];
 ```
 
@@ -66,23 +66,23 @@ return [
 ```php
 <?php
 return [
-	'id' => 'applicationId',
-	'basePath' => dirname(__DIR__),
-	'components' => [
-		'cache' => ['class' => 'yii\caching\FileCache'],
-		'user' => ['identityClass' => 'app\models\User'],
-		'errorHandler' => ['errorAction' => 'site/error'],
-		'log' => [
-			'traceLevel' => YII_DEBUG ? 3 : 0,
-			'targets' => [
-				[
-					'class' => 'yii\log\FileTarget',
-					'levels' => ['error', 'warning'],
-				],
-			],
-		],
-	],
-	// ...
+    'id' => 'applicationId',
+    'basePath' => dirname(__DIR__),
+    'components' => [
+        'cache' => ['class' => 'yii\caching\FileCache'],
+        'user' => ['identityClass' => 'app\models\User'],
+        'errorHandler' => ['errorAction' => 'site/error'],
+        'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' => [
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['error', 'warning'],
+                ],
+            ],
+        ],
+    ],
+    // ...
 ];
 ```
 

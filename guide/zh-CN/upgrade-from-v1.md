@@ -1,30 +1,30 @@
-从 Yii 1.1 升级到 Yii 2
+从 Yii 1.1 升级到 Yii 2.0
 ======================
 
-该章罗列了 Yii 2 相比 Yii 1.1 主要的变化。希望该列表能让你从 Yii 1.1 升级到 Yii 2更容易，并根据你已有的 Yii 知识快速掌握 Yii 2 。
+在本章中，我们罗列了 Yii 2 相比 Yii 1.1 的主要变化。希望该列表能让你更容易地接受从 Yii 1.1 升级到 Yii 2.0 时代里所发生的改变，并基于你对 Yii 1 已有的了解来快速掌握 Yii 2。
 
 
 命名空间
 ---------
 
-Yii 2.0 最大的变化是命名空间的使用。几乎所有核心类都使用命名空间，如 `yii\web\Request` 。Yii 1.1 的 C 前缀在类名中不再使用。命名空间遵循目录结构取名，如`yii\web\Request` 代表的类文件是 Yii 框架文件夹内的 `web/Request.php` 。通过 Yii 的类加载器，我们不需要显式引入类文件就能使用任何核心类。
+Yii 2.0 最大的变化是命名空间的使用。几乎所有核心类都使用命名空间，如 `yii\web\Request`。Yii 1.1 时代中常见的 **C** 类名前缀则不再使用。命名空间遵循目录结构取名，如 `yii\web\Request` 代表的类文件是 Yii 框架文件夹内的 `web/Request.php`。这样由于 Yii 的类自动加载器的存在，我们就不需要显式引入任何类文件就能直接使用相应的核心类。
 
 
 组件和对象
 --------------------
 
-Yii 2.0 把 Yii 1.1 的 `CComponent` 类分离为`对象` 和 `组件`两个类: [[yii\base\Object]] and [[yii\base\Component]].
-[[yii\base\Object|Object]] 对象类是轻量级的基本类，允许通过 getters 和 setters 来定义类属性。[[yii\base\Component|Component]] 组件类继承自[[yii\base\Object|Object]] 对象类并支持事件特性和行为特性。
+Yii 2.0 把 Yii 1.1 的 `CComponent` 类分离为`对象`和`组件`两个类：[[yii\base\Object]] and [[yii\base\Component]]。
+[[yii\base\Object|Object]] 对象类是轻量级的基本类，允许通过 getters 和 setters 来定义类属性。[[yii\base\Component|Component]] 组件类继承自 [[yii\base\Object|Object]] 对象类并支持事件特性和行为特性。
 
 若自定义类不需要事件或行为特性，继承自对象类即可，通常用于那些代表基本数据结构的类。
 
-对象和组件的更多细节请参看[Basic concepts section](basics.md)。
+对象和组件的更多细节请参看[Yii 的基本概念](basics.md)章节。
 
 
 配置对象
 --------------------
 
-[[yii\base\Object|Object]] 对象类提供了配置对象的统一方法。对象类的子类需要如下格式声明构造器（如需要）以便对象被恰当配置：
+[[yii\base\Object|Object]] 对象类提供了一个统一地配置对象的方法。对象类的子类需要使用如下格式的构造器（如需要），以使对象可以被恰当地配置：
 
 ```php
 class MyClass extends \yii\base\Object
@@ -45,7 +45,7 @@ class MyClass extends \yii\base\Object
 }
 ```
 
-上面构造器的最后一个参数必须是一个配置数组，是用于构造器运行结束时初始化属性的名值对。
+上面构造器的最后一个参数必须是一个配置数组，是用于构造器运行结束时初始化属性的键值对。
 可以通过覆写[[yii\base\Object::init()|init()]]方法在配置生效后再运行初始化。
 遵循该约定，可以如下使用配置数组创建和配置新对象：
 
@@ -63,7 +63,7 @@ $object = Yii::createObject([
 事件
 ------
 
-Yii 2.0 定义事件不再需要使用 `on`开头的方法来定义事件，可以使用任何事件名。附加处理器到事件上，Yii 2 使用`on`方法来实现：
+Yii 2.0 定义事件不再需要使用 `on` 开头的方法名称来定义事件，可以使用任何事件名。Yii 2 使用 `on` 方法来附加处理器到事件上：
 
 ```php
 $component->on($eventName, $handler);
@@ -113,6 +113,13 @@ Yii 2.0 将路径别名的使用扩展到文件/目录路径和 URL 路径。路
 
 Yii 2.0 提供了[[yii\web\View|View]]类来代表 MVC 模式中的视图部分。通过视图应用组件可以全局配置。用 `$this`可以在任何视图文件中访问到该"view"视图组件。比较 Yii 1.1,这个变化是最大的：
 **视图文件中的`$this` 不再指向控制器或小部件对象了。**而是指向用于渲染该视图文件的视图对象。现在需要通过`$this->context` 来访问控制器或小部件对象。
+
+For partial views, the [[yii\web\View|View]] class now includes a `render()` function. This creates another significant change in the usage of views compared to 1.1:
+ **`$this->render(...)` does not output the processed content; you must echo it yourself.**
+ 
+ ```php
+ echo $this->render('_item', ['item' => $item]);
+ ```
 
 通过"view"视图组件可以访问视图对象，因此可以在代码的任何地方，而不是必须在控制器或小部件内渲染视图文件：
 
@@ -241,14 +248,14 @@ Yii 2.0 移除了原来的日期格式和数字格式方法，而以PECL intl PH
 动作过滤器
 --------------
 
-动作过滤器现在通过行为来实现。定义新的过滤器需继承[[yii\base\ActionFilter]]类。使用过滤器需要把过滤器类当做行为附加到控制器上。如，使用过滤器[[yii\web\AccessControl]]，需编写以下代码：
+动作过滤器现在通过行为来实现。定义新的过滤器需继承[[yii\base\ActionFilter]]类。使用过滤器需要把过滤器类当做行为附加到控制器上。如，使用过滤器[[yii\filters\AccessControl]]，需编写以下代码：
 
 ```php
 public function behaviors()
 {
     return [
         'access' => [
-            'class' => 'yii\web\AccessControl',
+            'class' => 'yii\filters\AccessControl',
             'rules' => [
                 ['allow' => true, 'actions' => ['admin'], 'roles' => ['@']],
             ],
@@ -349,7 +356,7 @@ $customers = Customer::find()
     ->orderBy('id')
     ->all();
 // 返回主键为 1 的客户
-$customer = Customer::find(1);
+$customer = Customer::findOne(1);
 ```
 
 
