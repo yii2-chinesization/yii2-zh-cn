@@ -348,8 +348,7 @@ public function behaviors()
 
 ## URL 处理
 
-Since developers are dealing with URLs a lot we've extracted most of URL-related methods into a Url helper class resulting in a nicer API.
-既然开发人员需要处理很多 URL 相关操作，我们提取了 URL 相关使用最多的方法到 Url 助手类来提供更好的 API 。
+由于开发人员正在处理的 URL 很多，我们已经提取大部分 URL 相关方法到 Url 助手类来打造一个更好的 API 。
 
 ```
 
@@ -384,7 +383,7 @@ echo Url::toRoute(['/date-time/fast-forward', 'id' => 105]);
 Yii::setAlias('@google', 'http://google.com/');
 echo Url::to('@google/?q=yii');
 
-// 为当前页获取 canonical URL
+// 为当前页获取规范 URL
 // 示例： /index.php?r=management/default/users
 echo Url::canonical();
 
