@@ -31,7 +31,7 @@ Yii 2.0 权威指南 （20140415统计翻译情况）
 - 【需更新】[视图（View）](view.md) - 应用布局渲染视图、小部件使用和资源(asset)管理
 - 【需更新】[控制器（Controller）](controller.md) - 控制器动作、路由和过滤器
 - 【需更新】[事件处理（Events）](events.md) - Yii的事件处理机制
-- 【需更新】[行为（Behaviors）](behaviors.md) - 用来指定控制器可以执行哪些动作
+- 【未校对】[行为（Behaviors）](behaviors.md) - 用来指定控制器可以执行哪些动作（2014-03-24）
 
 数据库
 --------
@@ -77,7 +77,7 @@ Yii 2.0 权威指南 （20140415统计翻译情况）
 高级专题
 ---------------
 
-- 【翻译中】[资源文件管理](assets.md)
+- 【翻译中】[资源文件管理](assets.md)（2014-4-16）
 - 【已翻译】[表单使用](form.md)（2014-03-24）
 - 【未校对】[Bootstrap小部件](bootstrap-widgets.md)- 使用[twitter bootstrap](http://getbootstrap.com/)（2014-04-13）
 - 【需更新】[主题](theming.md)
