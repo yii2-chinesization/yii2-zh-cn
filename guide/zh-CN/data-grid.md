@@ -3,15 +3,11 @@
 
 数据网格或网格视图是 Yii 最强大的小部件之一。如需快速建立系统的管理后台部分，数据网格特别有用。数据网格从[数据源](data-providers.md)获取数据并渲染每行，每行的列展现数据表的表单数据。
 
-Each row of the table represents the data of a single data item, and a column usually represents an attribute of
-the item (some columns may correspond to complex expression of attributes or static text).
-表的每一行代表一个数据项，一列
+数据表的一行代表单个数据项的数据，一列通常表示数据项的一个特性（有些列会对应特性或静态文本的复杂表达式）。
 
-Grid view supports both sorting and pagination of the data items. The sorting and pagination can be done in AJAX mode
-or normal page request. A benefit of using GridView is that when the user disables JavaScript, the sorting and pagination
-automatically degrade to normal page requests and are still functioning as expected.
+网格视图支持数据项的排序和分页。排序和分页能以 AJAX 模式或标准页面请求两种方式实现。使用网格视图类（GridView）的好处之一是用户禁止 JavaScript 时，排序和分页能自动降级到标准页面请求且功能还能符合期望值。
 
-The minimal code needed to use GridView is as follows:
+使用 GridView 的最少代码示例如下：
 
 ```php
 use yii\data\GridView;
@@ -28,28 +24,27 @@ echo GridView::widget([
 ]);
 ```
 
-The above code first creates a data provider and then uses GridView to display every attribute in every row taken from
-data provider. The displayed table is equiped with sorting and pagination functionality.
+以上代码首先建立一个数据供应器，然后使用 GridView 展现从数据供应器取出的每行数据的每个特性。被显示的表配备了排序和分页的功能。
 
-Grid columns
+网格列
 ------------
 
-Yii grid consists of a number of columns. Depending on column type and settings these are able to present data differently.
+Yii 网格由许多列组成。根据列类型和设置就能够不同地显示数据。
 
-These are defined in the columns part of GridView config like the following:
+GridView 的列配置可定义如下：
 
 ```php
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
-        // A simple column defined by the data contained in $dataProvider.
-        // Data from model's column1 will be used.
+        // 通过 $dataProvider 包括的数据定义了一个简单列
+        // 模型列1 的数据将被使用
         'id',
         'username',
-        // More complex one.
+        // 更多复杂列
         [
-            'class' => 'yii\grid\DataColumn', // can be omitted, default
+            'class' => 'yii\grid\DataColumn', // 默认可省略
             'value' => function ($data) {
                 return $data->name;
             },
@@ -58,23 +53,24 @@ echo GridView::widget([
 ]);
 ```
 
-Note that if columns part of config isn't specified, Yii tries to show all possible data provider model columns.
+注意如果配置的列部分没有定义，Yii 将尝试显示所有可能的数据供应器的模型列。
 
-### Column classes
+### 列的类
 
-Grid columns could be customized by using different column classes:
+网格列可通过使用不同列的类来自定义：
 
 ```php
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'columns' => [
         [
-            'class' => 'yii\grid\SerialColumn', // <-- here
-            // you may configure additional properties here
+            'class' => 'yii\grid\SerialColumn', // <-- 这里
+            // 你可以定义其他属性在这里
         ],
 ```
 
 Additionally to column classes provided by Yii that we'll review below you can create your own column classes.
+
 
 Each column class extends from [[\yii\grid\Column]] so there some common options you can set while configuring
 grid columns.
