@@ -62,7 +62,7 @@ Asset refers to a resource file. Typically it contains JavaScript or CSS code bu
 attribute
 ---------------
 
-为区别 Property 和 Attribute ,我们将Attribute称为特性，特指对象属性，以区别于类的成员属性property
+为区别 Property 和 Attribute ,我们将Attribute称为特性（或属性赋值？），特指对象属性，以区别于类的成员属性property
 
 在OOA/OOD中的使用Attribute表示属性，指对象（Object）的特征（Feature）,是一个描述（或者说声明），描述对象在编译时或运行时的特征，属于面向对象分析与设计中的概念。
 
