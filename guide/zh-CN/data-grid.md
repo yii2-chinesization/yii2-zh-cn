@@ -69,16 +69,14 @@ echo GridView::widget([
         ],
 ```
 
-Additionally to column classes provided by Yii that we'll review below you can create your own column classes.
+另外除了使用我们将在下面回顾的 Yii 提供的列类（column classes），你可以创建自己的列类。
 
+每个列类都继承自[[\yii\grid\Column]]，因此在配置网格列时可以设置一些共同选项。
 
-Each column class extends from [[\yii\grid\Column]] so there some common options you can set while configuring
-grid columns.
-
-- `header` allows to set content for header row.
-- `footer` allows to set content for footer row.
-- `visible` is the column should be visible.
-- `content` allows you to pass a valid PHP callback that will return data for a row. The format is the following:
+- `header` 可以设置头信息
+- `footer` 可以设置页脚信息
+- `visible` 要显示的列
+- `content` 可以传递有效 PHP 回调函数以返回数据行的数据，格式如下：
 
 ```php
 function ($model, $key, $index, $grid) {
@@ -86,17 +84,18 @@ function ($model, $key, $index, $grid) {
 }
 ```
 
-You may specify various container HTML options passing arrays to:
+可以传递数组来指定不同容器的 HTML 选项：
 
 - `headerOptions`
 - `contentOptions`
 - `footerOptions`
 - `filterOptions`
 
-#### Data column
+#### 数据列
 
 Data column is for displaying and sorting data. It is default column type so specifying class could be omitted when
 using it.
+数据列用于数据显示和排序，默认列类型
 
 TBD
 
