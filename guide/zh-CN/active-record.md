@@ -166,19 +166,25 @@ $customers = Customer::findBySql($sql)->all();
 
 > 小贴士：在上面的代码中，`Customer::STATUS_ACTIVE` 是一个在 `Customer` 类里定义的常量。（译者注：这种常量的值一般都是tinyint）相较于直接在代码中写死字符串或数字，使用一个更有意义的常量名称是一种更好的编程习惯。
 
-`find()` 方法也支持用一种简化的用法，让你直接通过主键的值或者一系列其他字段值的数组来获取 AR 对象。
-主要的不同点在于，
-它并不返回 [[yii\db\ActiveQuery]] 对象，而是基于输入的字段值，直接返回一个 AR 对象
-而无需调用 `one()` 方法。
+有两个快捷方法：`findOne` 和 `findAll()` 用来返回一个或者一组`ActiveRecord`实例。前者返回第一个匹配到的实例，后者返回所有。
+例如：
 
 ```php
-// 返回ID为1的客户：
-$customer = Customer::find(1);
+// 返回 id 为 1 的客户
+$customer = Customer::findOne(1);
 
-// 返回ID为1的活跃客户：
-$customer = Customer::find([
+// 返回 id 为 1 且状态为 *active* 的客户
+$customer = Customer::findOne([
     'id' => 1,
     'status' => Customer::STATUS_ACTIVE,
+]);
+
+// 返回id为1、2、3的一组客户
+$customers = Customer::findAll([1, 2, 3]);
+
+// 返回所有状态为 "deleted" 的客户
+$customer = Customer::findAll([
+    'status' => Customer::STATUS_DELETED,
 ]);
 ```
 
@@ -216,8 +222,7 @@ foreach (Customer::find()->with('orders')->each() as $customer) {
 ```
 
 
-操作数据
------------------------------
+### 操作数据
 
 AR 提供以下方法插入、更新和删除与 AR 对象关联的那张表中的某一行：
 
@@ -241,17 +246,17 @@ AR 同时提供了一下静态方法，可以应用在与某 AR 类所关联的�
 ```php
 // 插入新客户的记录
 $customer = new Customer();
-$customer->name = '詹姆斯';
-$customer->email = '007@example.com';
+$customer->name = 'James';
+$customer->email = 'james@example.com';
 $customer->save();  // 等同于 $customer->insert();
 
 // 更新现有客户记录
-$customer = Customer::find($id);
-$customer->email = '邦德@demo.com';
+$customer = Customer::findOne($id);
+$customer->email = 'james@example.com';
 $customer->save();  // 等同于 $customer->update();
 
 // 删除已有客户记录
-$customer = Customer::find($id);
+$customer = Customer::findOne($id);
 $customer->delete();
 
 // 所有客户的age（年龄）字段加1：
@@ -267,40 +272,33 @@ Customer::updateAllCounters(['age' => 1]);
 
 ### 数据输入与有效性验证
 
-Because Active Record extends from [[yii\base\Model]], it supports the same data input and validation features
-as described in [Model](model.md). For example, you may declare validation rules by overwriting the
-[[yii\base\Model::rules()|rules()]] method; you may massively assign user input data to an Active Record instance;
-and you may call [[yii\base\Model::validate()|validate()]] to trigger data validation.
+由于AR继承自[[yii\base\Model]]，所以它同样也支持[Model](model.md)的数据输入、验证等特性。例如，你可以声明一个rules方法用来覆盖掉[[yii\base\Model::rules()|rules()]]里的；你也可以给AR实例批量赋值；你也可以通过调用[[yii\base\Model::validate()|validate()]]执行数据验证。
 
-When you call `save()`, `insert()` or `update()`, these methods will automatically call [[yii\base\Model::validate()|validate()]].
-If the validation fails, the corresponding data saving operation will be cancelled.
+当你调用 `save()`、`insert()`、`update()` 这三个方法时，会自动调用[[yii\base\Model::validate()|validate()]]方法。如果验证失败，数据将不会保存进数据库。
 
-The following example shows how to use an Active Record to collect/validate user input and save them into database:
+下面的例子演示了如何使用AR 获取/验证用户输入的数据并将他们保存进数据库：
 
 ```php
-// creating a new record
+// 新建一条记录
 $model = new Customer;
 if ($model->load(Yii::$app->request->post()) && $model->save()) {
-    // the user input has been collected, validated and saved
+    // 获取用户输入的数据，验证并保存
 }
 
-// updating a record whose primary key is $id
-$model = Customer::find($id);
+// 更新主键为$id的AR
+$model = Customer::findOne($id);
 if ($model === null) {
     throw new NotFoundHttpException;
 }
 if ($model->load(Yii::$app->request->post()) && $model->save()) {
-    // the user input has been collected, validated and saved
+    // 获取用户输入的数据，验证并保存
 }
 ```
 
 
 ### 读取默认值
 
-Your table columns may be defined with default values. Sometimes, you may want to pre-populate your
-Web form for an Active Record with these values. To do so, call the `loadDefaultValues()` method before
-rendering the form:
-
+你的表列也许定义了默认值。有时候，你可能需要在使用web表单的时候给AR预设一些值。如果你需要这样做，可以在显示表单内容前通过调用`loadDefaultValues()`方法来实现：
 ```php
 $customer = new Customer();
 $customer->loadDefaultValues();
@@ -308,9 +306,145 @@ $customer->loadDefaultValues();
 ```
 
 
+### Active Record的生命周期
+理解AR的生命周期对于你操作数据库非常重要。生命周期通常都会有些典型的事件存在。对于开发AR的behaviors来说非常有用。
+
+当你实例化一个新的AR对象时，我们将获得如下的生命周期：
+
+1. constructor
+2. [[yii\db\ActiveRecord::init()|init()]]: 会触发一个 [[yii\db\ActiveRecord::EVENT_INIT|EVENT_INIT]] 事件
+
+当你通过 [[yii\db\ActiveRecord::find()|find()]] 方法查询数据时，每个AR实例都将有以下生命周期：
+
+1. constructor
+2. [[yii\db\ActiveRecord::init()|init()]]: 会触发一个 [[yii\db\ActiveRecord::EVENT_INIT|EVENT_INIT]] 事件
+3. [[yii\db\ActiveRecord::afterFind()|afterFind()]]: 会触发一个 [[yii\db\ActiveRecord::EVENT_AFTER_FIND|EVENT_AFTER_FIND]] 事件
+
+当通过 [[yii\db\ActiveRecord::save()|save()]] 方法写入或者更新数据时, 我们将获得如下生命周期：
+
+1. [[yii\db\ActiveRecord::beforeValidate()|beforeValidate()]]: 会触发一个 [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] 事件
+2. [[yii\db\ActiveRecord::afterValidate()|afterValidate()]]: 会触发一个 [[yii\db\ActiveRecord::EVENT_AFTER_VALIDATE|EVENT_AFTER_VALIDATE]] 事件
+3. [[yii\db\ActiveRecord::beforeSave()|beforeSave()]]: 会触发一个 [[yii\db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]] 或 [[yii\db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]] 事件
+4. 执行实际的数据写入或更新
+5. [[yii\db\ActiveRecord::afterSave()|afterSave()]]: 会触发一个 [[yii\db\ActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] 或 [[yii\db\ActiveRecord::EVENT_AFTER_UPDATE|EVENT_AFTER_UPDATE]] 事件
+
+最后，当调用 [[yii\db\ActiveRecord::delete()|delete()]] 删除数据时, 我们将获得如下生命周期：
+
+1. [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]]: 会触发一个 [[yii\db\ActiveRecord::EVENT_BEFORE_DELETE|EVENT_BEFORE_DELETE]] 事件
+2. 执行实际的数据删除
+3. [[yii\db\ActiveRecord::afterDelete()|afterDelete()]]: 会触发一个 [[yii\db\ActiveRecord::EVENT_AFTER_DELETE|EVENT_AFTER_DELETE]] 事件
 
 
-《《《待整理暂停线，下面的是以前翻译的，跟强哥前两天更新的不一样，还没有完全整理。
+### 操作关联数据
+ActiveRecord 提供了下面两个方法用来建立和解除两个关联对象之间的关系：
+
+* [[yii\db\ActiveRecord::link()|link()]]
+* [[yii\db\ActiveRecord::unlink()|unlink()]]
+
+例如，给定一个customer和order对象，我们可以通过下面的代码使得customer对象拥有order对象：
+
+```php
+$customer = Customer::findOne(1);
+$order = new Order();
+$order->subtotal = 100;
+$customer->link('orders', $order);
+```
+
+[[yii\db\ActiveRecord::link()|link()]] 调用上述将设置 customer_id 的顺序是 $customer 的主键值，然后调用 [[yii\db\ActiveRecord::save()|save()]] 要将顺序保存到数据库中。
+
+
+### 作用域
+
+当你调用[[yii\db\ActiveRecord::find()|find()]] 或 [[yii\db\ActiveRecord::findBySql()|findBySql()]]方法时，将会返回一个[[yii\db\ActiveQuery|ActiveQuery]]实例。之后，你可以调用其他查询方法，如 [[yii\db\ActiveQuery::where()|where()]]，[[yii\db\ActiveQuery::orderBy()|orderBy()]], 进一步的指定查询条件。
+
+有时候你可能需要在不同的地方使用相同的查询方法。如果出现这种情况，你应该考虑定义所谓的作用域。作用域是本质上要求一组的查询方法来修改查询对象的自定义查询类中定义的方法。 之后你就可以像使用普通方法一样使用作用域。
+
+只需两步即可定义一个作用域。首先给你的model创建一个自定义的查询类，在此类中定义的所需的范围方法。例如，给Comment模型创建一个 CommentQuery类，然后在CommentQuery类中定义一个active()的方法为作用域，像下面的代码：
+
+```php
+namespace app\models;
+
+use yii\db\ActiveQuery;
+
+class CommentQuery extends ActiveQuery
+{
+    public function active($state = true)
+    {
+        $this->andWhere(['active' => $state]);
+        return $this;
+    }
+}
+```
+
+重点:
+
+1. 类必须继承 yii\db\ActiveQuery (或者是其他的 ActiveQuery ，比如 yii\mongodb\ActiveQuery)。
+2. 必须是一个public的方法且必须返回 $this 实现链式查询。作用域方法可以传入参数。
+3. 检查 [[yii\db\ActiveQuery]] 对于修改查询条件是非常有用的方法。
+
+其次，覆盖[[yii\db\ActiveRecord::find()]] 方法使其返回自定义的查询对象而不是常规的[[yii\db\ActiveQuery|ActiveQuery]]。对于上述例子，你需要编写如下代码：
+
+```php
+namespace app\models;
+
+use yii\db\ActiveRecord;
+
+class Comment extends ActiveRecord
+{
+    /**
+     * @inheritdoc
+     * @return CommentQuery
+     */
+    public static function find()
+    {
+        return new CommentQuery(get_called_class());
+    }
+}
+```
+
+就这样，现在你可以使用自定义的作用域方法了：
+
+```php
+$comments = Comment::find()->active()->all();
+$inactiveComments = Comment::find()->active(false)->all();
+```
+
+你也能在定义的关联里使用作用域方法，比如：
+
+```php
+class Post extends \yii\db\ActiveRecord
+{
+    public function getActiveComments()
+    {
+        return $this->hasMany(Comment::className(), ['post_id' => 'id'])->active();
+
+    }
+}
+```
+
+或者在执行关联查询的时候使用（on-the-fly 是啥？）：
+
+```php
+$posts = Post::find()->with([
+    'comments' => function($q) {
+        $q->active();
+    }
+])->all();
+```
+
+### 默认作用域
+
+如果你之前用过 Yii 1.1 就应该知道默认作用域的概念。一个默认的作用域可以作用于所有查询。你可以很容易的通过重写[[yii\db\ActiveRecord::find()]]方法来定义一个默认作用域，例如：
+
+```php
+public static function find()
+{
+    return parent::find()->where(['deleted' => false]);
+}
+```
+
+注意，你之后所有的查询都不能用 [[yii\db\ActiveQuery::where()|where()]]，但是可以用 [[yii\db\ActiveQuery::andWhere()|andWhere()]] 和 [[yii\db\ActiveQuery::orWhere()|orWhere()]]，他们不会覆盖掉默认作用域。（译者注：如果你要使用默认作用域，就不能在 xxx::find()后使用where()方法，你必须使用andXXX()或者orXXX()系的方法，否则默认作用域不会起效果，至于原因，打开where()方法的代码一看便知）
+
 
 
 
