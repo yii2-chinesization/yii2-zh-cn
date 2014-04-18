@@ -249,18 +249,12 @@ echo GridView::widget([
 ```
 
 
-与模型关联关系合作Working with model relations
+和关联模型一起使用
 ----------------------------
 
-When displaying active records in a GridView you might encounter the case where you display values of related
-columns such as the post's author's name instead of just his `id`.
-You do this by defining the attribute name in columns as `author.name` when the `Post` model
-has a relation named `author` and the author model has an attribute `name`.
-The GridView will then display the name of the author but sorting and filtering are not enabled by default.
-You have to adjust the `PostSearch` model that has been introduced in the last section to add this functionallity.
+在网格视图显示活动记录将会遇到何处显示关联列值的情况，如显示 post 的作者名而不是 `id` 。当 `Post` 模型有名为 `author` 的关联关系且 author 模型有 `name` 特性时，可以通过定义列中的特性名如 `author.name` 完成。网格视图将显示作者名但默认排序和筛选未启用。你可以调整将在本章最后一节介绍的 `PostSearch` 模型来添加该功能。
 
-To enable sorting on a related column you have to join the related table and add the sorting rule
-to the Sort component of the data provider:
+要在关联列排序，必须连接关联表并添加排序规则到 data provider 的 Sort 组件：
 
 ```php
 $query = Post::find();
@@ -268,10 +262,10 @@ $dataProvider = new ActiveDataProvider([
     'query' => $query,
 ]);
 
-// join with relation `author` that is a relation to the table `users`
-// and set the table alias to be `author`
+// 连接关联 `author` 表作为 `users` 表的一个关系
+// 并设置表别名为 `author`
 $query->joinWith(['author' => function($query) { $query->from(['author' => 'users']); }]);
-// enable sorting for the related column
+// 使关联列的排序生效
 $dataProvider->sort->attributes['author.name'] = [
     'asc' => ['author.name' => SORT_ASC],
     'desc' => ['author.name' => SORT_DESC],
@@ -280,12 +274,12 @@ $dataProvider->sort->attributes['author.name'] = [
 // ...
 ```
 
-Filtering also needs the joinWith call as above. You also need to define the searchable column in attributes and rules like this:
+筛选也需要像上面那样调用 joinWith 。也可以定义可搜索特性和规则的列如下：
 
 ```php
 public function attributes()
 {
-    // add related fields to searchable attributes
+    // 添加关联字段到可搜索特性
     return array_merge(parent::attributes(), ['author.name']);
 }
 
@@ -298,7 +292,7 @@ public function rules()
 }
 ```
 
-In `search()` you then just add another filter condition with `$query->andFilterWhere(['LIKE', 'author.name', $this->getAttribute('author.name')]);`.
+然后在 `search()` 方法只须以 `$query->andFilterWhere(['LIKE', 'author.name', $this->getAttribute('author.name')]);`添加另一个过滤条件。
 
 > 须知：更多有关 `joinWith` 和后台执行查询的相关信息请参考
 > [活动记录的预先加载和延迟加载](active-record.md#lazy-and-eager-loading).
