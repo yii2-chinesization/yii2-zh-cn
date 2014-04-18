@@ -32,13 +32,11 @@ class AppAsset extends AssetBundle
 }
 ```
 
-In the above `$basePath` specifies web-accessible directory assets are served from. It is a base for relative
-`$css` and `$js` paths i.e. `@webroot/css/site.css` for `css/site.css`. Here `@webroot` is an [alias][] that points to
-application's `web` directory.
-以上 `$basePath` 指定资源要服务的可网络访问目录。
+以上 `$basePath` 指定资源从哪个可网络访问的目录提供服务。这是相对`$css` 和 `$js` 路径的根目录，如 `@webroot/css/site.css` 指向 `css/site.css` 。这里的 `@webroot` 是指向应用 `web` 目录的别名。
 
 `$baseUrl` is used to specify base URL for the same relative `$css` and `$js` i.e. `@web/css/site.css` where `@web`
 is an [alias][] that corresponds to your website base URL such as `http://example.com/`.
+`$baseUrl` 用来指定刚才的 `$css` 和 `$js` 相对的根路径
 
 In case you have asset files under a non web accessible directory, that is the case for any extension, you need
 to specify `$sourcePath` instead of `$basePath` and `$baseUrl`. Files will be copied or symlinked from source path
