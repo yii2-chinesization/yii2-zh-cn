@@ -1,6 +1,6 @@
 Yii2 官方文档及其他文本的中文本土化项目 
 ==============
-项目网站：http://c11n.yii2.cn/
+项目网站：http://c11n.yii2.cn/ 基于原文：[Doc 2.0](http://www.yiiframework.com/doc-2.0/index.html)
 
 目前Yii2的中文资料比较少，正在期待玩过Yii1的同学和开发有基础的同学加入Yii2的文档，wiki，源码等资料的翻译校对工作中来。感兴趣可以来看下，我们有一个QQ群，想学东西或者对自己英文有信心的同学可以来看下[![加入QQ群](http://pub.idqqimg.com/wpa/images/group.png)343188481](http://url.cn/SIMfwO)。
 
@@ -17,6 +17,24 @@ Yii2 官方文档及其他文本的中文本土化项目
   ├──/ messages Yii框架本身的国际化文件，比如错误反馈的国际化，有关中文在zh-CN文件夹。
   └── Root根目录下放置说明，授权等文件。
 ```
+
+协议
+--------
+
+请前往：http://www.yiiframework.com/license/ 了解更多内容。
+官方提供与用户贡献的所有文档资料基于[GNU Free Documentation License (GFDL)](http://www.gnu.org/copyleft/fdl.html) 。
+
+###必须：
+
+* 授予与原协议完全相同的自由（CopyLeft什么意思，你们都懂得）
+* 通过一个指向源文件的连接通知原作者
+
+###可以：
+
+* 复制
+* 修改
+* 再分发
+
 
 URL捷径
 --------
