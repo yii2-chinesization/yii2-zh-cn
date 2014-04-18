@@ -57,7 +57,7 @@ echo GridView::widget([
 
 ### 列的类
 
-网格列可通过使用不同列的类来自定义：
+网格列可通过使用不同列类（column class）来自定义：
 
 ```php
 echo GridView::widget([
@@ -91,17 +91,15 @@ function ($model, $key, $index, $grid) {
 - `footerOptions`
 - `filterOptions`
 
-#### 数据列
+#### 数据列（类）
 
-Data column is for displaying and sorting data. It is default column type so specifying class could be omitted when
-using it.
-数据列用于数据显示和排序，默认列类型
+数据列用于数据显示和排序，这是默认列类型，使用它的话可以省略类的指定。
 
 TBD
 
-#### Action column
+#### 动作列（类）
 
-Action column displays action buttons such as update or delete for each row.
+动作列显示动作按钮如每行的更新或删除按钮。
 
 ```php
 echo GridView::widget([
@@ -109,41 +107,32 @@ echo GridView::widget([
     'columns' => [
         [
             'class' => 'yii\grid\ActionColumn',
-            // you may configure additional properties here
+            // 可在此配置其他属性
         ],
 ```
 
-Available properties you can configure are:
+可配置属性：
 
-- `controller` is the ID of the controller that should handle the actions. If not set, it will use the currently active
-  controller.
-- `template` the template used for composing each cell in the action column. Tokens enclosed within curly brackets are
-  treated as controller action IDs (also called *button names* in the context of action column). They will be replaced
-  by the corresponding button rendering callbacks specified in [[yii\grid\ActionColumn::$buttons|buttons]]. For example, the token `{view}` will be
-  replaced by the result of the callback `buttons['view']`. If a callback cannot be found, the token will be replaced
-  with an empty string. Default is `{view} {update} {delete}`.
-- `buttons` is an array of button rendering callbacks. The array keys are the button names (without curly brackets),
-  and the values are the corresponding button rendering callbacks. The callbacks should use the following signature:
+- `controller` 是处理动作的控制器 ID ，如果未设置，将使用当前活动控制器。
+- `template` 用来组成动作列元素的模板，大括号内的内容将视作控制器的动作 ID （也称为动作列的 *按钮名*）。它们将被指定在[[yii\grid\ActionColumn::$buttons|buttons]]内相应的按钮渲染回调函数取代。如， `{view}` 将被回调函数 `buttons['view']` 的结果取代。如果未找到回调函数，将被空字符串取代。默认 `{view} {update} {delete}` 。
+- `buttons` 是按钮渲染回调函数的数组，数组键是按钮名（没有大括号），而数组值是相应的按钮渲染回调函数。回调函数使用以下格式：
 
 ```php
 function ($url, $model) {
-    // return the button HTML code
+    // 返回按钮 HTML 代码
 }
 ```
 
-In the code above `$url` is the URL that the column creates for the button, and `$model` is the model object being
-rendered for the current row.
+以上代码中的 `$url` 是为创建按钮的列类的 URL ， `$model` 是被渲染的当前行的模型对象。
 
-- `urlCreator` is a callback that creates a button URL using the specified model information. The signature of
-  the callback should be the same as that of [[yii\grid\ActionColumn\createUrl()]]. If this property is not set,
-  button URLs will be created using [[yii\grid\ActionColumn\createUrl()]].
+- `urlCreator` 是使用指定模型信息建立按钮 URL 的回调函数。回调签名应该和[[yii\grid\ActionColumn\createUrl()]]相同。如果该属性未设置，按钮 URL 将使用[[yii\grid\ActionColumn\createUrl()]]创建。
 
-#### Checkbox column
+#### 复选框列（类）
 
-CheckboxColumn displays a column of checkboxes.
- 
-To add a CheckboxColumn to the [[yii\grid\GridView]], add it to the [[yii\grid\GridView::$columns|columns]] configuration as follows:
- 
+复选框列显示复选框的一列。
+
+要添加复选框列到[[yii\grid\GridView]]，如下添加它到[[yii\grid\GridView::$columns|columns]]配置：
+
 ```php
 echo GridView::widget([
     'dataProvider' => $dataProvider,
@@ -151,47 +140,42 @@ echo GridView::widget([
         // ...
         [
             'class' => 'yii\grid\CheckboxColumn',
-            // you may configure additional properties here
+            // 在此配置其他属性
         ],
     ],
 ```
 
-Users may click on the checkboxes to select rows of the grid. The selected rows may be obtained by calling the following
-JavaScript code:
+用户可以点击复选框来选择网格的行。被选中的行可调用以下 JavaScript 代码获取：
 
 ```javascript
 var keys = $('#grid').yiiGridView('getSelectedRows');
-// keys is an array consisting of the keys associated with the selected rows
+// keys 是键名关联到选中行的数组
 ```
 
-#### Serial column
+#### 有序列（类）
 
-Serial column renders row numbers starting with `1` and going forward.
+有序列渲染行的序号以 `1` 开始逐个排序。
 
-Usage is as simple as the following:
+用法如下，很简单：
 
 ```php
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'columns' => [
-        ['class' => 'yii\grid\SerialColumn'], // <-- here
+        ['class' => 'yii\grid\SerialColumn'], // <-- 这里
 ```
 
-Sorting data
+数据排序
 ------------
 
 - https://github.com/yiisoft/yii2/issues/1576
 
-Filtering data
+数据筛选
 --------------
 
-For filtering data the GridView needs a [model](model.md) that takes the input from the filtering
-form and adjusts the query of the dataprovider to respect the search criteria.
-A common practice when using [active records](active-record.md) is to create a search Model class
-that extends from the active record class. This class then defines the validation rules for the search
-and provides a `search()` method that will return the data provider.
+要筛选数据，网格视图需要一个 [模型](model.md)从过滤的表单取得输入数据，并调整 dataprovider 的查询语句到期望的搜索条件。使用[active records](active-record.md)的惯例是建立一个搜索模型类继承活动记录类。然后用这个类定义搜索的验证规则和提供 `search()` 方法来返回 data provider 。
 
-To add search capability for the `Post` model we can create `PostSearch` like in the following example:
+要给 `Post` 模型添加搜索能力，可以创建 `PostSearch` ，如下所示：
 
 ```php
 <?php
@@ -206,7 +190,7 @@ class PostSearch extends Post
 {
     public function rules()
     {
-        // only fields in rules() are searchable
+        // 只有在 rules() 的字段才能被搜索
         return [
             [['id'], 'integer'],
             [['title', 'creation_date'], 'safe'],
@@ -215,7 +199,7 @@ class PostSearch extends Post
 
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
+        // bypass 父类实现的scenarios()
         return Model::scenarios();
     }
 
@@ -227,12 +211,12 @@ class PostSearch extends Post
             'query' => $query,
         ]);
 
-        // load the seach form data and validate
+        // 加载搜索表单数据并验证
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
-        // adjust the query by adding the filters
+        // 通过添加过滤器来调整查询语句
         $query->andFilterWhere(['id' => $this->id]);
         $query->andFilterWhere(['like', 'title', $this->name])
               ->andFilterWhere(['like', 'creation_date', $this->creation_date]);
@@ -243,7 +227,7 @@ class PostSearch extends Post
 
 ```
 
-You can use this function in the controller to get the dataProvider for the GridView:
+你可以在控制器使用这个方法来为网格视图获取 dataProvider ：
 
 ```php
 $searchModel = new PostSearch();
@@ -255,7 +239,7 @@ return $this->render('myview', [
 ]);
 ```
 
-And in the view you then assign the `$dataProvider` and `$searchModel` to the GridView:
+然后在视图将 `$dataProvider` 和 `$searchModel` 赋值给网格视图：
 
 ```php
 echo GridView::widget([
@@ -265,7 +249,7 @@ echo GridView::widget([
 ```
 
 
-Working with model relations
+与模型关联关系合作Working with model relations
 ----------------------------
 
 When displaying active records in a GridView you might encounter the case where you display values of related
@@ -316,5 +300,5 @@ public function rules()
 
 In `search()` you then just add another filter condition with `$query->andFilterWhere(['LIKE', 'author.name', $this->getAttribute('author.name')]);`.
 
-> Info: For more information on `joinWith` and the queries performed in the background, check the
-> [active record docs on eager and lazy loading](active-record.md#lazy-and-eager-loading).
+> 须知：更多有关 `joinWith` 和后台执行查询的相关信息请参考
+> [活动记录的预先加载和延迟加载](active-record.md#lazy-and-eager-loading).
