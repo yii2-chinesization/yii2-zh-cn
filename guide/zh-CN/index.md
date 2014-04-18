@@ -72,21 +72,21 @@ Yii 2.0 权威指南 （20140415统计翻译情况）
 - 【需更新】[概述](data-overview.md)
 - 【已翻译】[数据供应器](data-providers.md)（2014-03-30）
 - 【需更新】[数据小部件](data-widgets.md)
-- 【翻译中】[栅格部件(Grid)](data-grid.md)（14-04-12）
+- 【未校对】[栅格部件(Grid)](data-grid.md)（14-04-12）
 
 高级专题
 ---------------
 
 - 【翻译中】[资源文件管理](assets.md)（2014-4-16）
-- 【已翻译】[表单使用](form.md)（2014-03-24）
+- 【未校对】[表单使用](form.md)（2014-03-24）
 - 【未校对】[Bootstrap小部件](bootstrap-widgets.md)- 使用[twitter bootstrap](http://getbootstrap.com/)（2014-04-13）
 - 【需更新】[主题](theming.md)
 - 【未校对】[缓存](caching.md) - 数据缓存、页面片段和HTTP请求（2014-04-13）
-- 【待翻译】[国际化](i18n.md) - 消息翻译和格式化
+- 【翻译中】[国际化](i18n.md) - 消息翻译和格式化
 - 【未校对】[URL管理](url.md) - 路由、自定义 Url 及搜索引擎优化（2014-04-05）
 - 【未校对】[控制台](console.md)（2014-03-24）
 - 【待翻译】[性能优化](performance.md)
-- 【待翻译】[测试](testing.md)（2013-12-23）
+- 【未完成】[测试](testing.md)（2013-12-23）
 
 参考推荐
 ----------
@@ -98,7 +98,7 @@ Yii 2.0 权威指南 （20140415统计翻译情况）
 本索引没列入的文档
 ----------
 
-【待翻译】console-fixture.md
+【待翻译】console-fixture.md // todo: this tutorial may be merged into test-fixture.md
 【翻译中|需更新】rest.md
 【待翻译】test-fixture.md
 【已翻译】title.md（2014-02-24）
