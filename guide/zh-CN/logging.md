@@ -7,7 +7,7 @@ Yii 提供了一个灵活可扩展的日志功能，可以基于不同的日志�
 基础
 --------------
 
-最基本的日志记录就像调用一个方法一样简单：
+最基本的日志记录就像普通调用一个方法一样简单：
 
 ```php
 \Yii::info('你好，我是一条日志消息，么么哒！');
@@ -32,8 +32,8 @@ Yii 提供了一个灵活可扩展的日志功能，可以基于不同的日志�
 日志目的地（Log targets）
 -----------
 
-当一个日志记录方法被调用时，消息被传递到了 [[yii\log\Logger]] （日志记录器）组件，也可以这样访问 `Yii::$app->log`。
-Logger 在内存中积攒消息，并在累积足够多的消息时，或 request （访问请求）结束后，再把他们一起存入不同的日志“目的地”
+当一个日志记录方法被调用时，消息被传递到了 [[yii\log\Logger]] （日志记录器）组件。可以这样访问：`Yii::getLogger()`。
+Logger 在内存中积攒消息，并在累积足够多的消息时，或 request （访问请求）结束后，再把他们一起存入不同的“日志目的地”
 ，比如文件或邮件。
 
 你可以在应用配置中设置这些目的地，比如这样：
@@ -63,45 +63,43 @@ Logger 在内存中积攒消息，并在累积足够多的消息时，或 reques
 ```
 
 在上面的配置中，我们定义了两个目的地：[[yii\log\FileTarget|file]] 和 [[yii\log\EmailTarget|email]]。
-In both cases we are filtering messages handles by these targets by severity. In case of file target we're
-additionally filter by category. `yii\*` means all categories starting with `yii\`.
+这两者都把信息按照严格级别分别过滤分类到了他们的目的地。同时在“文件“目的地那里，我们还增加了“按类别分类“。
+`yii\*` 指所有以 `yii\` 开头的类别.
 
-Each log target can have a name and can be referenced via the [[yii\log\Logger::targets|targets]] property as follows:
+每一个日志目的地都可以拥有一个名字，并可以被通过 [[yii\log\Logger::targets|targets]] 属性来引用，比如：
 
 ```php
 Yii::$app->log->targets['file']->enabled = false;
 ```
 
-When the application ends or [[yii\log\Logger::flushInterval|flushInterval]] is reached, Logger will call
-[[yii\log\Logger::flush()|flush()]] to send logged messages to different log targets, such as file, email, web.
+当应用结束，或者 [[yii\log\Logger::flushInterval|flushInterval]] 方法被访问时，Logger 会调用 [[yii\log\Logger::flush()|flush()]] （原意指冲厕所的”冲“。根据英汉双解计算机词典的说法，flush 指将所有 I/O 缓冲器的内容写入一个文件中的一种记录操作。）方法
+发送记录下来的消息到不同的日志目的地，比如文件，email，web等。
 
 
-性能分析（Profiling）
+性能剖析（Profiling）
 ---------
 
-Performance profiling is a special type of message logging that can be used to measure the time needed for the
-specified code blocks to execute and find out what the performance bottleneck is.
+性能剖析类消息是一种特殊的日志消息，它被用于测量某段代码块执行所需的时间，并试图寻找当前的性能瓶颈是什么。
 
-To use it we need to identify which code blocks need to be profiled. Then we mark the beginning and the end of each code
-block by inserting the following methods:
+要使用它，我们需要定位那些代码块是需要被剖析的。然后我们需要标记出每段代码块的起始和终止位置，通过插入以下两句方法实现：
 
 ```php
-\Yii::beginProfile('myBenchmark');
-...code block being profiled...
-\Yii::endProfile('myBenchmark');
+\Yii::beginProfile('俺的跑分');
+...正被测速的代码块...
+\Yii::endProfile('俺的跑分');
 ```
 
-where `myBenchmark` uniquely identifies the code block.
+`俺的跑分`标记，唯一地标识着该代码块。（译者注：就是代码块的标示符，名字随便起，别重复。）
 
-Note, code blocks need to be nested properly such as
+注意，多重代码块应该像这样被合理地嵌套：
 
 ```php
 \Yii::beginProfile('block1');
-	// some code to be profiled
+	// 一些用于分析的测试代码
 	\Yii::beginProfile('block2');
-		// some other code to be profiled
+		// 另外一些用于分析的测试代码
 	\Yii::endProfile('block2');
 \Yii::endProfile('block1');
 ```
 
-Profiling results [可以在 debugger 中显示出来](module-debug.md)。
+剖析结果 [可以在 debugger 中显示出来](module-debug.md)。
