@@ -1,4 +1,4 @@
-Active Record（活动记录）
+Active Record
 =============
 
 [Active Record](http://zh.wikipedia.org/wiki/Active_Record) （活动记录，以下简称AR）提供了一个面向对象的接口，
@@ -94,7 +94,7 @@ $customer->save();
 ----------------------
 
 AR 用一个 [[yii\db\Connection|DB connection]] 对象与数据库交换数据。
-它使用 `db` 组件作为其连接对象。详见[数据库基础](database-basics.md)章节，
+默认的，它使用 `db` 组件作为其连接对象。详见[数据库基础](database-basics.md)章节，
 你可以在应用程序配置文件中设置下 `db` 组件，就像这样，
 
 
@@ -222,7 +222,8 @@ foreach (Customer::find()->with('orders')->each() as $customer) {
 ```
 
 
-### 操作数据
+操作数据
+-----------------------------
 
 AR 提供以下方法插入、更新和删除与 AR 对象关联的那张表中的某一行：
 
@@ -306,7 +307,9 @@ $customer->loadDefaultValues();
 ```
 
 
-### Active Record的生命周期
+AR的生命周期
+-----------------------------
+
 理解AR的生命周期对于你操作数据库非常重要。生命周期通常都会有些典型的事件存在。对于开发AR的behaviors来说非常有用。
 
 当你实例化一个新的AR对象时，我们将获得如下的生命周期：
@@ -335,132 +338,9 @@ $customer->loadDefaultValues();
 3. [[yii\db\ActiveRecord::afterDelete()|afterDelete()]]: 会触发一个 [[yii\db\ActiveRecord::EVENT_AFTER_DELETE|EVENT_AFTER_DELETE]] 事件
 
 
-### 操作关联数据
-ActiveRecord 提供了下面两个方法用来建立和解除两个关联对象之间的关系：
-
-* [[yii\db\ActiveRecord::link()|link()]]
-* [[yii\db\ActiveRecord::unlink()|unlink()]]
-
-例如，给定一个customer和order对象，我们可以通过下面的代码使得customer对象拥有order对象：
-
-```php
-$customer = Customer::findOne(1);
-$order = new Order();
-$order->subtotal = 100;
-$customer->link('orders', $order);
-```
-
-[[yii\db\ActiveRecord::link()|link()]] 调用上述将设置 customer_id 的顺序是 $customer 的主键值，然后调用 [[yii\db\ActiveRecord::save()|save()]] 要将顺序保存到数据库中。
-
-
-### 作用域
-
-当你调用[[yii\db\ActiveRecord::find()|find()]] 或 [[yii\db\ActiveRecord::findBySql()|findBySql()]]方法时，将会返回一个[[yii\db\ActiveQuery|ActiveQuery]]实例。之后，你可以调用其他查询方法，如 [[yii\db\ActiveQuery::where()|where()]]，[[yii\db\ActiveQuery::orderBy()|orderBy()]], 进一步的指定查询条件。
-
-有时候你可能需要在不同的地方使用相同的查询方法。如果出现这种情况，你应该考虑定义所谓的作用域。作用域是本质上要求一组的查询方法来修改查询对象的自定义查询类中定义的方法。 之后你就可以像使用普通方法一样使用作用域。
-
-只需两步即可定义一个作用域。首先给你的model创建一个自定义的查询类，在此类中定义的所需的范围方法。例如，给Comment模型创建一个 CommentQuery类，然后在CommentQuery类中定义一个active()的方法为作用域，像下面的代码：
-
-```php
-namespace app\models;
-
-use yii\db\ActiveQuery;
-
-class CommentQuery extends ActiveQuery
-{
-    public function active($state = true)
-    {
-        $this->andWhere(['active' => $state]);
-        return $this;
-    }
-}
-```
-
-重点:
-
-1. 类必须继承 yii\db\ActiveQuery (或者是其他的 ActiveQuery ，比如 yii\mongodb\ActiveQuery)。
-2. 必须是一个public的方法且必须返回 $this 实现链式查询。作用域方法可以传入参数。
-3. 检查 [[yii\db\ActiveQuery]] 对于修改查询条件是非常有用的方法。
-
-其次，覆盖[[yii\db\ActiveRecord::find()]] 方法使其返回自定义的查询对象而不是常规的[[yii\db\ActiveQuery|ActiveQuery]]。对于上述例子，你需要编写如下代码：
-
-```php
-namespace app\models;
-
-use yii\db\ActiveRecord;
-
-class Comment extends ActiveRecord
-{
-    /**
-     * @inheritdoc
-     * @return CommentQuery
-     */
-    public static function find()
-    {
-        return new CommentQuery(get_called_class());
-    }
-}
-```
-
-就这样，现在你可以使用自定义的作用域方法了：
-
-```php
-$comments = Comment::find()->active()->all();
-$inactiveComments = Comment::find()->active(false)->all();
-```
-
-你也能在定义的关联里使用作用域方法，比如：
-
-```php
-class Post extends \yii\db\ActiveRecord
-{
-    public function getActiveComments()
-    {
-        return $this->hasMany(Comment::className(), ['post_id' => 'id'])->active();
-
-    }
-}
-```
-
-或者在执行关联查询的时候使用（on-the-fly 是啥？）：
-
-```php
-$posts = Post::find()->with([
-    'comments' => function($q) {
-        $q->active();
-    }
-])->all();
-```
-
-### 默认作用域
-
-如果你之前用过 Yii 1.1 就应该知道默认作用域的概念。一个默认的作用域可以作用于所有查询。你可以很容易的通过重写[[yii\db\ActiveRecord::find()]]方法来定义一个默认作用域，例如：
-
-```php
-public static function find()
-{
-    return parent::find()->where(['deleted' => false]);
-}
-```
-
-注意，你之后所有的查询都不能用 [[yii\db\ActiveQuery::where()|where()]]，但是可以用 [[yii\db\ActiveQuery::andWhere()|andWhere()]] 和 [[yii\db\ActiveQuery::orWhere()|orWhere()]]，他们不会覆盖掉默认作用域。（译者注：如果你要使用默认作用域，就不能在 xxx::find()后使用where()方法，你必须使用andXXX()或者orXXX()系的方法，否则默认作用域不会起效果，至于原因，打开where()方法的代码一看便知）
-
-
-
-
-
-
-
-数据输入和有效性验证
--------------------------
-
-AR 继承了 [[yii\base\Model]] 的数据有效性验证和数据输入能力。有效性验证的方法会在数据保存时被调用。
-数据的有效性验证会在 `save()` 方法执行时自动完成，如果验证失败，数据保存操作将取消。
-
-更多细节请参看本指南的 [Model](model.md) 部分。
-
 查询关联的数据
-------------------------
+-----------------------------
+
 使用 AR 方法也可以查询数据表的关联数据（如，选出表A的数据可以拉出表B的关联数据）。
 有了 AR，
 返回的关联数据连接就像连接关联主表的 AR 对象的属性一样。
@@ -471,19 +351,21 @@ AR 继承了 [[yii\base\Model]] 的数据有效性验证和数据输入能力。
 定义关联关系使用一个可以返回 [[yii\db\ActiveQuery]] 对象的 getter 方法，
 [[yii\db\ActiveQuery]]对象有关联上下文的相关信息，因此可以只查询关联数据。
 
+例如：
+
 ```php
 class Customer extends \yii\db\ActiveRecord
 {
     public function getOrders()
     {
-        // 客户和订单通过 Order.customer_id -> id 关联的一对多关系
+        // 客户和订单通过 Order.customer_id -> id 关联建立一对多关系
         return $this->hasMany(Order::className(), ['customer_id' => 'id']);
     }
 }
 
 class Order extends \yii\db\ActiveRecord
 {
-    // 订单和客户通过 Customer.id -> customer_id 关联的一对一关系
+    // 订单和客户通过 Customer.id -> customer_id 关联建立一对一关系
     public function getCustomer()
     {
         return $this->hasOne(Customer::className(), ['id' => 'customer_id']);
@@ -507,7 +389,7 @@ class Order extends \yii\db\ActiveRecord
 
 ```php
 // 取得客户的订单
-$customer = Customer::find(1);
+$customer = Customer::findOne(1);
 $orders = $customer->orders; // $orders 是 Order 对象数组
 ```
 
@@ -556,22 +438,12 @@ $orders = $customer->getBigOrders(200)->all();
 （如果查询结果为空则返回空数组）。
 
 
-中间表关联
---------------------------
+中间关联表
+-----------------
 
-有时，两个表通过中间表关联，定义这样的关联关系，
-可以通过调用 [[yii\db\ActiveQuery::via()|via()]] 方法或 [[yii\db\ActiveQuery::viaTable()|viaTable()]] 方法来定制 [[yii\db\ActiveQuery]] 对象
-。
+有时，两个表通过中间表关联，定义这样的关联关系， 可以通过调用 [[yii\db\ActiveQuery::via()|via()]] 方法或 [[yii\db\ActiveQuery::viaTable()|viaTable()]] 方法来定制 [[yii\db\ActiveQuery]] 对象 。
 
-举例而言，如果 `order` 表和 `item`  表通过中间表 `order_item`关联起来，
-可以在 `Order` 类声明 `items` 关联关系取代中间表：
-
-《《《待处理标识符：上面两句狗屁不通的话需要参照原文修订下。
-
-
-
-
-
+举例而言，如果 order 表和 item 表通过中间表 order_item关联起来， 可以在 Order 类声明 items 关联关系取代中间表：
 
 ```php
 class Order extends \yii\db\ActiveRecord
@@ -584,9 +456,7 @@ class Order extends \yii\db\ActiveRecord
 }
 ```
 
-两个方法是相似的，除了
-[[yii\db\ActiveQuery::via()|via()]] 方法的第一个参数是使用 AR 类中定义的关联名。
-以上方法取代了中间表，等价于：
+两个方法是相似的，除了 [[yii\db\ActiveQuery::via()|via()]] 方法的第一个参数是使用 AR 类中定义的关联名。 以上方法取代了中间表，等价于：
 
 ```php
 class Order extends \yii\db\ActiveRecord
@@ -604,19 +474,14 @@ class Order extends \yii\db\ActiveRecord
 }
 ```
 
-[pivot table]: http://en.wikipedia.org/wiki/Pivot_table "Pivot table（既中间表，英文，维基百科）"
-
-
 延迟加载和即时加载（又称惰性加载与贪婪加载）
-----------------------
+-----------------
 
-如前所述，当你第一次连接关联对象时， AR 将执行一个数据库查询
-来检索请求数据并填充到关联对象的相应属性。
-如果再次连接相同的关联对象，不再执行任何查询语句，这种数据库查询的执行方法称为“延迟加载”。如：
+如前所述，当你第一次连接关联对象时， AR 将执行一个数据库查询 来检索请求数据并填充到关联对象的相应属性。 如果再次连接相同的关联对象，不再执行任何查询语句，这种数据库查询的执行方法称为“延迟加载”。如：
 
 ```php
 // SQL executed: SELECT * FROM customer WHERE id=1
-$customer = Customer::find(1);
+$customer = Customer::findOne(1);
 // SQL executed: SELECT * FROM order WHERE customer_id=1
 $orders = $customer->orders;
 // 没有 SQL 语句被执行
@@ -636,11 +501,9 @@ foreach ($customers as $customer) {
 }
 ```
 
-假设数据库查出的客户超过100个，以上代码将执行多少条 SQL 语句？
-101 条！第一条 SQL 查询语句取回100个客户，然后，
-每个客户要执行一条 SQL 查询语句以取回该客户的所有订单。
+假设数据库查出的客户超过100个，以上代码将执行多少条 SQL 语句？ 101 条！第一条 SQL 查询语句取回100个客户，然后， 每个客户要执行一条 SQL 查询语句以取回该客户的所有订单。
 
-为解决以上性能问题，可以通过调用 [[yii\db\ActiveQuery::with()]] 方法使用*即时加载*解决。
+为解决以上性能问题，可以通过调用 [[yii\db\ActiveQuery::with()]] 方法使用即时加载解决。
 
 ```php
 // SQL executed: SELECT * FROM customer LIMIT 100;
@@ -656,13 +519,8 @@ foreach ($customers as $customer) {
 ```
 
 如你所见，同样的任务只需要两个 SQL 语句。
-
-> 须知：通常，即时加载 N 个关联关系而通过 `via()` 或者 `viaTable()` 定义了 M 个关联关系，
-将有 1+M+N 条 SQL 查询语句被执行：一个查询取回主表行数，
-一个查询给每一个 (M) 中间表，一个查询给每个 (N) 关联表。
-
-> 注意:当用即时加载定制 `select()` 时，确保连接
-到关联模型的列都被包括了，否则，关联模型不会载入。如：
+>须知：通常，即时加载 N 个关联关系而通过 via() 或者 viaTable() 定义了 M 个关联关系， 将有 1+M+N 条 SQL 查询语句被执行：一个查询取回主表行数， 一个查询给每一个 (M) 中间表，一个查询给每个 (N) 关联表。
+注意:当用即时加载定制 select() 时，确保连接 到关联模型的列都被包括了，否则，关联模型不会载入。如：
 
 ```php
 $orders = Order::find()->select(['id', 'amount'])->with('customer')->all();
@@ -670,16 +528,15 @@ $orders = Order::find()->select(['id', 'amount'])->with('customer')->all();
 $orders = Order::find()->select(['id', 'amount', 'customer_id'])->with('customer')->all();
 ```
 
-有时候，你想自由的自定义关联查询，
-延迟加载和即时加载都可以实现，如：
+有时候，你想自由的自定义关联查询，延迟加载和即时加载都可以实现，如：
 
 ```php
-$customer = Customer::find(1);
-// lazy loading: SELECT * FROM order WHERE customer_id=1 AND subtotal>100
+$customer = Customer::findOne(1);
+// 延迟加载: SELECT * FROM order WHERE customer_id=1 AND subtotal>100
 $orders = $customer->getOrders()->where('subtotal>100')->all();
 
-// eager loading: SELECT * FROM customer LIMIT 100
-//                SELECT * FROM order WHERE customer_id IN (1,2,...) AND subtotal>100
+// 即时加载: SELECT * FROM customer LIMIT 100
+//          SELECT * FROM order WHERE customer_id IN (1,2,...) AND subtotal>100
 $customers = Customer::find()->limit(100)->with([
     'orders' => function($query) {
         $query->andWhere('subtotal>100');
@@ -687,12 +544,10 @@ $customers = Customer::find()->limit(100)->with([
 ])->all();
 ```
 
-
 逆关系
 -----------------
 
-关联关系通常成对定义，如， `Customer` 可以有个名为 `orders` 关联项，
-而 `Order` 也有个名为`customer` 的关联项：
+关联关系通常成对定义，如：Customer 可以有个名为 orders 关联项， 而 Order 也有个名为customer 的关联项：
 
 ```php
 class Customer extends ActiveRecord
@@ -714,25 +569,22 @@ class Order extends ActiveRecord
 }
 ```
 
-如果我们执行以下查询，可以发现订单的 `customer` 和 
-找到这些订单的客户对象并不是同一个。连接 `customer->orders` 将触发一条 SQL 语句
-而连接一个订单的 `customer` 将触发另一条 SQL 语句。
+如果我们执行以下查询，可以发现订单的 customer 和 找到这些订单的客户对象并不是同一个。连接 customer->orders 将触发一条 SQL 语句 而连接一个订单的 customer 将触发另一条 SQL 语句。
 
 ```php
 // SELECT * FROM customer WHERE id=1
-$customer = Customer::find(1);
-// echoes "not equal"
+$customer = Customer::findOne(1);
+// 输出 "不相同"
 // SELECT * FROM order WHERE customer_id=1
 // SELECT * FROM customer WHERE id=1
 if ($customer->orders[0]->customer === $customer) {
-    echo 'equal';
+    echo '相同';
 } else {
-    echo 'not equal';
+    echo '不相同';
 }
 ```
 
-为避免多余执行的后一条语句，我们可以为 `customer`或 `orders` 关联关系定义相反的关联关系，
-通过调用 [[yii\db\ActiveQuery::inverseOf()|inverseOf()]] 方法可以实现。
+为避免多余执行的后一条语句，我们可以为 customer或 orders 关联关系定义相反的关联关系，通过调用 [[yii\db\ActiveQuery::inverseOf()|inverseOf()]] 方法可以实现。
 
 ```php
 class Customer extends ActiveRecord
@@ -749,18 +601,17 @@ class Customer extends ActiveRecord
 
 ```php
 // SELECT * FROM customer WHERE id=1
-$customer = Customer::find(1);
+$customer = Customer::findOne(1);
 // 输出相同
 // SELECT * FROM order WHERE customer_id=1
 if ($customer->orders[0]->customer === $customer) {
-    echo 'equal';
+    echo '相同';
 } else {
-    echo 'not equal';
+    echo '不相同';
 }
 ```
 
-以上我们展示了如何在延迟加载中使用相对关联关系，
-相对关系也可以用在即时加载中：
+以上我们展示了如何在延迟加载中使用相对关联关系， 相对关系也可以用在即时加载中：
 
 ```php
 // SELECT * FROM customer
@@ -768,15 +619,13 @@ if ($customer->orders[0]->customer === $customer) {
 $customers = Customer::find()->with('orders')->all();
 // 输出相同
 if ($customers[0]->orders[0]->customer === $customers[0]) {
-    echo 'equal';
+    echo '相同';
 } else {
-    echo 'not equal';
+    echo '不相同';
 }
 ```
 
-> 注意:相对关系不能在包含中间表的关联关系中定义。
-> 即是，如果你的关系是通过[[yii\db\ActiveQuery::via()|via()]] 或 [[yii\db\ActiveQuery::viaTable()|viaTable()]]方法定义的，
-> 就不能调用[[yii\db\ActiveQuery::inverseOf()]]方法了。
+>注意:相对关系不能在包含中间表的关联关系中定义。 即是，如果你的关系是通过[[yii\db\ActiveQuery::via()|via()]] 或 [[yii\db\ActiveQuery::viaTable()|viaTable()]]方法定义的， 就不能调用[[yii\db\ActiveQuery::inverseOf()]]方法了。
 
 
  JOIN 类型关联查询
@@ -795,7 +644,6 @@ $orders = Order::find()->innerJoinWith('books')->all();
 ```
 
 以上，方法 [[yii\db\ActiveQuery::innerJoinWith()|innerJoinWith()]] 是访问 `INNER JOIN` 类型的  [[yii\db\ActiveQuery::joinWith()|joinWith()]] 的快捷方式。
-。
 
 可以连接一个或多个关联关系，可以自由使用查询条件到关联查询，
 也可以嵌套连接关联查询。如：
@@ -877,50 +725,40 @@ $users = User::find()->joinWith('books')->all();
 
 ```php
 // SELECT * FROM user WHERE id=10
-$user = User::find(10);
+$user = User::findOne(10);
 // SELECT * FROM item WHERE owner_id=10 AND category_id=1
 $books = $user->books;
 ```
 
 
 关联表操作
---------------------------
+-----------------
 
-ActiveRecord 提供下列两个方法来建立或移除
-两个 ActiveRecord 对象之间的关系。
+AR 提供了下面两个方法用来建立和解除两个关联对象之间的关系：
 
-- [[yii\db\ActiveRecord::link()|link()]]
-- [[yii\db\ActiveRecord::unlink()|unlink()]]
+* [[yii\db\ActiveRecord::link()|link()]]
+* [[yii\db\ActiveRecord::unlink()|unlink()]]
 
-如，给定一个客户和一个新订单，我们可以使用以下代码
-把订单和客户关联起来：
+例如，给定一个customer和order对象，我们可以通过下面的代码使得customer对象拥有order对象：
 
 ```php
-$customer = Customer::find(1);
+$customer = Customer::findOne(1);
 $order = new Order();
 $order->subtotal = 100;
 $customer->link('orders', $order);
 ```
 
-上面调用的 [[yii\db\ActiveRecord::link()|link()]] 会设置 order 的 `customer_id` 为主键
-$customer 的值，然后调用  [[yii\db\ActiveRecord::save()|save()]]  方法保存订单到数据库。
+[[yii\db\ActiveRecord::link()|link()]] 调用上述将设置 customer_id 的顺序是 $customer 的主键值，然后调用 [[yii\db\ActiveRecord::save()|save()]] 要将顺序保存到数据库中。
 
 
 作用域
-------
+--------------
 
-当调用[[yii\db\ActiveRecord::find()|find()]]或[[yii\db\ActiveRecord::findBySql()|findBySql()]]方法，
-将返回[[yii\db\ActiveQuery|ActiveQuery]] 实例。
-你也可以调用其他方法，如 [[yii\db\ActiveQuery::where()|where()]], [[yii\db\ActiveQuery::orderBy()|orderBy()]],
-以更细化查询条件。
+当你调用[[yii\db\ActiveRecord::find()|find()]] 或 [[yii\db\ActiveRecord::findBySql()|findBySql()]]方法时，将会返回一个[[yii\db\ActiveQuery|ActiveQuery]]实例。之后，你可以调用其他查询方法，如 [[yii\db\ActiveQuery::where()|where()]]，[[yii\db\ActiveQuery::orderBy()|orderBy()]], 进一步的指定查询条件。
 
-有可能需要不同地方多次调用同一个查询方法集合，这种情况，
-可以考虑定义一个所谓的作用域（*scopes*），作用域本质上也是一个方法，定义在一个自定的查询类中，这个类
-调用了一系列的查询方法来修正查询对象，使用作用域方法如同调用一个普通查询方法一样。
+有时候你可能需要在不同的地方使用相同的查询方法。如果出现这种情况，你应该考虑定义所谓的作用域。作用域是本质上要求一组的查询方法来修改查询对象的自定义查询类中定义的方法。 之后你就可以像使用普通方法一样使用作用域。
 
-定义一个作用域方法需要两个步骤，首先为模型创建一个自定的查询类并在此类定义必须的作用域方法。
-如，为 `Comment` 模型创建 `CommentQuery` 类，
- 定义`active()`作用域方法如下：
+只需两步即可定义一个作用域。首先给你的model创建一个自定义的查询类，在此类中定义的所需的范围方法。例如，给Comment模型创建一个 CommentQuery类，然后在CommentQuery类中定义一个active()的方法为作用域，像下面的代码：
 
 ```php
 namespace app\models;
@@ -937,14 +775,13 @@ class CommentQuery extends ActiveQuery
 }
 ```
 
-重点是：
+重点:
 
-1. 类必须继承自 `yii\db\ActiveQuery`或其子类。
-2.方法必须是公开的并返回 `$this` 以便方法链成立。可以接收参数。
-3.确认 [[yii\db\ActiveQuery]] 方法对修改查询条件非常有用。
+1. 类必须继承 yii\db\ActiveQuery (或者是其他的 ActiveQuery ，比如 yii\mongodb\ActiveQuery)。
+2. 必须是一个public类型的方法且必须返回 $this 实现链式操作。可以传入参数。
+3. 检查 [[yii\db\ActiveQuery]] 对于修改查询条件是非常有用的方法。
 
-其次，覆写 [[yii\db\ActiveRecord::createQuery()]] 方法以便可以使用自定的查询类而不是默认的 [[yii\db\ActiveQuery|ActiveQuery]] 类。
-以下是示例：
+其次，覆盖[[yii\db\ActiveRecord::find()]] 方法使其返回自定义的查询对象而不是常规的[[yii\db\ActiveQuery|ActiveQuery]]。对于上述例子，你需要编写如下代码：
 
 ```php
 namespace app\models;
@@ -953,22 +790,25 @@ use yii\db\ActiveRecord;
 
 class Comment extends ActiveRecord
 {
-    public static function createQuery($config = [])
+    /**
+     * @inheritdoc
+     * @return CommentQuery
+     */
+    public static function find()
     {
-        $config['modelClass'] = get_called_class();
-        return new CommentQuery($config);
+        return new CommentQuery(get_called_class());
     }
 }
 ```
 
-就这样。现在你可以使用自定的作用域方法了：
+就这样，现在你可以使用自定义的作用域方法了：
 
 ```php
 $comments = Comment::find()->active()->all();
 $inactiveComments = Comment::find()->active(false)->all();
 ```
 
-当定义关联关系时也可以使用作用域，如：
+你也能在定义的关联里使用作用域方法，比如：
 
 ```php
 class Post extends \yii\db\ActiveRecord
@@ -981,7 +821,7 @@ class Post extends \yii\db\ActiveRecord
 }
 ```
 
-或当执行关联查询时使用作用域传输：
+或者在执行关联查询的时候使用（on-the-fly 是啥？）：
 
 ```php
 $posts = Post::find()->with([
@@ -991,66 +831,30 @@ $posts = Post::find()->with([
 ])->all();
 ```
 
-
-### 让 IDE 更好地支持
-
-为了让现代 IDE 自动完成更智能，你需要为一些模型和查询方法覆写返回类型，
-如下：
-
-```php
-/**
- * @method \app\models\CommentQuery|static|null find($q = null) static
- * @method \app\models\CommentQuery findBySql($sql, $params = []) static
- */
-class Comment extends ActiveRecord
-{
-    // ...
-}
-```
-
-```php
-/**
- * @method \app\models\Comment|array|null one($db = null)
- * @method \app\models\Comment[]|array all($db = null)
- */
-class CommentQuery extends ActiveQuery
-{
-    // ...
-}
-```
-
 ### 默认作用域
 
- 如果你以前曾用过 Yii 1.1,你已经了解一个缺省作用域的概念。缺省作用域就是对所有的数据库查询生效的作用域。
- 你可以通过覆写 [[yii\db\ActiveRecord::createQuery()]] 方法来自定义缺省作用域，如
+如果你之前用过 Yii 1.1 就应该知道默认作用域的概念。一个默认的作用域可以作用于所有查询。你可以很容易的通过重写[[yii\db\ActiveRecord::find()]]方法来定义一个默认作用域，例如：
 
 ```php
-public static function createQuery($config = [])
+public static function find()
 {
-    $config['modelClass'] = get_called_class();
-    return (new ActiveQuery($config))->where(['deleted' => false]);
+    return parent::find()->where(['deleted' => false]);
 }
 ```
 
-注意现在你的所有查询都不能使用[[yii\db\ActiveQuery::where()|where()]]方法，
-只能使用[[yii\db\ActiveQuery::where()|where()]]和[[yii\db\ActiveQuery::orWhere()|orWhere()]]方法，
-以避免覆写了缺省条件。
+注意，你之后所有的查询都不能用 [[yii\db\ActiveQuery::where()|where()]]，但是可以用 [[yii\db\ActiveQuery::andWhere()|andWhere()]] 和 [[yii\db\ActiveQuery::orWhere()|orWhere()]]，他们不会覆盖掉默认作用域。（译者注：如果你要使用默认作用域，就不能在 xxx::find()后使用where()方法，你必须使用andXXX()或者orXXX()系的方法，否则默认作用域不会起效果，至于原因，打开where()方法的代码一看便知）
 
 
-事务处理
-------------------------
+事物操作
+------------------
 
-当一些 DB 操作是相关的且被同时执行
+当执行几个相关联的数据库操作的时候
 
-TODO: FIXME: WIP, TBD, https://github.com/yiisoft/yii2/issues/226
+TODO: FIXME: WIP, TBD, [https://github.com/yiisoft/yii2/issues/226](https://github.com/yiisoft/yii2/issues/226)
 
-,
-[[yii\db\ActiveRecord::afterSave()|afterSave()]], [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]] 和 [[yii\db\ActiveRecord::afterDelete()|afterDelete()]]生命周期方法. 
-开发者的解决方案是通过数据库事务包覆写[[yii\db\ActiveRecord::save()|save()]]方法
-甚至在控制器功能方法中使用事务，这个解决方式严格来说不是最佳实践
-(违背了 “小控制器大模型”的基本规则）。
+, [[yii\db\ActiveRecord::afterSave()|afterSave()]], [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]] and/or [[yii\db\ActiveRecord::afterDelete()|afterDelete()]] 生命周期周期方法(life cycle methods 我觉得这句翻译成“模板方法”会不会更好点？)。开发者可以通过重写[[yii\db\ActiveRecord::save()|save()]]方法然后在控制器里使用事物操作，严格地说是似乎不是一个好的做法 （召回"瘦控制器 / 肥模型"基本规则）。
 
-以下就是这些方式（**不要** 使用，除非你确定你真的需要这么做）。模型：
+这些方法在这里(如果你不明白自己实际在干什么，请不要使用他们)，Models：
 
 ```php
 class Feature extends \yii\db\ActiveRecord
@@ -1074,20 +878,7 @@ class Product extends \yii\db\ActiveRecord
 }
 ```
 
-重写 [[yii\db\ActiveRecord::save()|save()]] 方法：
-
-```php
-
-class ProductController extends \yii\web\Controller
-{
-    public function actionCreate()
-    {
-        // FIXME: TODO: WIP, TBD
-    }
-}
-```
-
-控制器层面使用事务处理
+重写 [[yii\db\ActiveRecord::save()|save()]] 方法:
 
 ```php
 class ProductController extends \yii\web\Controller
@@ -1098,8 +889,21 @@ class ProductController extends \yii\web\Controller
     }
 }
 ```
+(译者注：我觉得上面应该是原手册里的bug)
 
-代替以上弱相关的方法，可以使用原子级场景和操作特性。
+在控制器层使用事物：
+
+```php
+class ProductController extends \yii\web\Controller
+{
+    public function actionCreate()
+    {
+        // FIXME: TODO: WIP, TBD
+    }
+}
+```
+
+作为这些脆弱方法的替代，你应该使用原子操作方案特性。
 
 ```php
 class Feature extends \yii\db\ActiveRecord
@@ -1157,6 +961,18 @@ class Product extends \yii\db\ActiveRecord
 }
 ```
 
+Controller里的代码将变得很简洁：
+
+```php
+class ProductController extends \yii\web\Controller
+{
+    public function actionCreate()
+    {
+        // FIXME: TODO: WIP, TBD
+    }
+}
+```
+
 控制器非常简洁：
 
 ```php
@@ -1170,17 +986,17 @@ class ProductController extends \yii\web\Controller
 ```
 
 乐观锁（Optimistic Locks）
-----------------
+-------------------
 
 TODO
 
 被污染属性
-----------------
+-------------------
 
 TODO
 
 另见
---------
+-------------------
 
 - [模型（Model）](model.md)
 - [[yii\db\ActiveRecord]]
