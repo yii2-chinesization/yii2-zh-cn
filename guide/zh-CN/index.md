@@ -53,8 +53,8 @@ Yii 2.0 权威指南 （20140419统计翻译情况）
 扩展和第三方库
 ----------------------------------
 
-- 【未校对】[Composer依赖管理器](composer.md) - 如何通过 Composer 管理应用的依赖关系（2014-03-18）
-- 【未校对】[ Yii 的扩展](extensions.md)（2014-04-13）
+- 【未校对】[Composer 依赖管理器](composer.md) - 如何通过 Composer 管理应用的依赖关系（2014-03-18）
+- 【未校对】[Yii 的扩展](extensions.md)（2014-04-13）
 - 【未校对】[模板引擎](template.md) - 使用模板引擎，如 Smarty 和 Twig
 - 【未校对】[整合第三方库](using-3rd-party-libraries.md) - 在第三方系统中使用 Yii 及 Yii 1 和 2 混合使用（2014-04-13）
 
@@ -79,11 +79,11 @@ Yii 2.0 权威指南 （20140419统计翻译情况）
 
 - 【翻译中】[资源文件管理](assets.md)（2014-4-16）
 - 【未校对】[表单使用](form.md)（2014-03-24）
-- 【未校对】[Bootstrap小部件](bootstrap-widgets.md)- 使用[twitter bootstrap](http://getbootstrap.com/)（2014-04-13）
+- 【未校对】[Bootstrap 小部件](bootstrap-widgets.md)- 使用[twitter bootstrap](http://getbootstrap.com/)（2014-04-13）
 - 【需更新】[主题](theming.md)
 - 【未校对】[缓存](caching.md) - 数据缓存、页面片段和HTTP请求（2014-04-13）
 - 【翻译中】[国际化](i18n.md) - 消息翻译和格式化
-- 【未校对】[URL管理](url.md) - 路由、自定义 Url 及搜索引擎优化（2014-04-05）
+- 【未校对】[URL 管理](url.md) - 路由、自定义 Url 及搜索引擎优化（2014-04-05）
 - 【未校对】[控制台](console.md)（2014-03-24）
 - 【待翻译】[性能优化](performance.md)
 - 【未完成】[测试](testing.md)（2013-12-23）
@@ -92,13 +92,13 @@ Yii 2.0 权威指南 （20140419统计翻译情况）
 ----------
 
 - 【待翻译】[模型验证](validation.md)
-- [Composer官方文档](http://getcomposer.org)
+- 【英文官网】[Composer 官方文档](http://getcomposer.org) | [Composer 中文指南](https://github.com/5-say/composer-doc-cn)
 
 
 本索引没列入的文档
 ----------
 
-【待翻译】console-fixture.md // todo: this tutorial may be merged into test-fixture.md
-【翻译中|需更新】rest.md
-【待翻译】test-fixture.md
-【已翻译】title.md（2014-02-24）
+- 【待翻译】[console-fixture.md](console-fixture.md) // todo: this tutorial may be merged into test-fixture.md
+- 【翻译中|需更新】[RestFul API](rest.md)
+- 【待翻译】[test-fixture.md](test-fixture.md)
+- 【已翻译】[指南开头，版权信息](title.md)（2014-02-24）
