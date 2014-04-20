@@ -3,6 +3,7 @@
 
 该模板适用于大型项目开发，分离前后台使应用可以分别安装到多个服务器。该应用模板还提供了一些令人喜爱的特性、必不可少的数据库、非常棒的注册和密码存储。
 
+
 安装
 ------------
 
@@ -26,12 +27,12 @@ php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-
 
 安装应用后，必须执行以下步骤来初始化应用，只需做一次：
 
-1. 执行 `init` 命令并选择 `dev` 环境。
+1. 执行 `init` 命令并依据你的情况选择 `dev` or `prod`环境。
 
    ```
    php /path/to/yii-application/init
    ```
-2. 创建新的数据库并在 `common/config/main-local.php` 相应地调整 `components.db` 配置。
+2. 创建新的数据库并在 `common/config/main-local.php` 相应地调整 `components db` 配置。
 3. 以控制台命令 `yii migrate` 运行数据库合并。
 4. 设置 web 服务器的文件根目录：
 
@@ -44,10 +45,11 @@ php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-
 根目录包括以下子目录：
 
 - `backend` - web 应用后台
+- `frontend` - web 应用前台
 - `common` - 所有应用共享文件
 - `console` - 控制台应用
 - `environments` - 环境配置
-- `frontend` - web 应用前台
+
 
 根目录还包括以下文件：
 
