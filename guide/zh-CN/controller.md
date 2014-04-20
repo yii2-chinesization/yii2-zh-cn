@@ -1,16 +1,16 @@
 控制器
 ==========
 
-控制器是应用的关键部分。它决定如何处理输入请求并创建响应。
+控制器是应用的重要部分。它决定处理如何输入请求并创建响应。
 
-通常控制器接收 HTTP 数据请求，返回 HTML、JSON 或 XML 作为响应。
+通常控制器接收 HTTP 数据请求，返回 HTML、JSON 或 XML 格式的数据，响应请求。
 
 基础
 ------
 
-控制器位于应用的 `controllers` 目录并像 `SiteController.php`这样命名， `Site` 部分包括一系列动作。
+控制器位于应用的 `controllers` 目录，命名规范为 `SiteController.php`(控制器名+Controller)， `Site` 部分包括一系列动作。
 
-基本的 web 控制器是继承自[[yii\web\Controller]]且可以非常简单：
+基本的 web 控制器通常继承自[[yii\web\Controller]]：
 
 ```php
 namespace app\controllers;
@@ -33,9 +33,9 @@ class SiteController extends Controller
 }
 ```
 
-如你所见，控制器通常包括一些动作，这些动作是公开的类方法，以`actionSomething` 形式命名。
-动作的输出就是这些方法返回的结果：可以是字符串或[[yii\web\Response]]的实例，[示例](#custom-response-class)。
-返回值将被 `response` 应用组件处理，该组件可以把输出转变为不同格式，如 JSON。默认行为是输出原始的值（不改变输出值）。
+如你所见，控制器通常包括一系列动作，这些动作是公开的类方法，以`actionSomething`(action+动作名) 形式命名。
+动作的输出结果，就是这些方法返回的结果：可以是字符串或[[yii\web\Response]]的实例，[示例](#custom-response-class)。
+返回值将被 `response` 应用组件处理，该组件可以把输出转变为不同格式，如 JSON,XML。默认行为是输出原始的值（不改变输出值）。
 
 
 路由（路径）
@@ -59,7 +59,7 @@ class SiteController extends Controller
 
 如用户未指定任何路由，如使用 `http://example.com/` 这样的 URL ，Yii 将启用默认路径。默认路径由[[yii\web\Application::defaultRoute]]方法定义，且 `site` 即 `SiteController` 将默认加载。
 
-控制器有默认动作。当用户请求未指明执行的动作，如使用 `http://example.com/?r=site` 这样的 URL ，则默认动作将执行。当前预设的默认动作是 `index` 。
+控制器有默认执行的动作。当用户请求未指明需要执行的动作时，如使用 `http://example.com/?r=site` 这样的 URL ，则默认的动作将被执行。当前预设的默认动作是 `index` 。
 设置[[yii\base\Controller::defaultAction]]属性可以改变预设动作。
 
 动作参数
@@ -99,9 +99,8 @@ class BlogController extends Controller
 
 ### 从请求获取数据
 
-If your action is working with data from HTTP POST or has too many GET parameters you can rely on request object that
-is accessible via `\Yii::$app->request`:
-如果动作工作的数据来自 HTTP POST 或有太多 GET 参数，可以依靠 request 对象以 `\Yii::$app->request` 的方式来访问：
+
+如果动作运行的数据来自 HTTP请求的POST 或有太多的GET 参数，可以依靠 request 对象以 `\Yii::$app->request` 的方式来访问：
 ```php
 namespace app\controllers;
 
