@@ -13,7 +13,7 @@ Response,响应,,Noun
 Vendor,依赖库,,Noun
 alias,路径别名,,Noun
 application,应用主体,"此应用非手机应用，指的是我们开发的项目的应用程序主体。",Noun
-attribute,数据属性,"Yii1时代叫特性，$model->attributes 模型类(对象)的属性",Noun
+attribute,数据属性,"【待定】Yii1时代叫特性，$model->attributes 模型类(对象)的属性",Noun
 bundle,包,,Noun
 class ,类,,Noun
 column,字段,,Noun
@@ -23,7 +23,7 @@ database ,数据库,,Noun
 design pattern,设计模式,,Noun
 eager loading,贪婪加载,,Noun
 extension,扩展,,Noun
-Fixtures,定制器,,Noun
+Fixtures,定制器,"【待定】非常难翻译的概念",Noun
 framework,框架,,Noun
 fullstack,全栈,"所有的层次，前端到后端，从表现到数据",Noun
 generator,生成器,,Noun
