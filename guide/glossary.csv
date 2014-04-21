@@ -23,6 +23,7 @@ database ,数据库,,Noun
 design pattern,设计模式,,Noun
 eager loading,贪婪加载,,Noun
 extension,扩展,,Noun
+Fixtures,定制器,,Noun
 framework,框架,,Noun
 fullstack,全栈,"所有的层次，前端到后端，从表现到数据",Noun
 generator,生成器,,Noun
