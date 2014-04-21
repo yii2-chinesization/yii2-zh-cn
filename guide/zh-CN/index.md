@@ -1,4 +1,4 @@
-Yii 2.0 权威指南 （20140419统计翻译情况）
+Yii 2.0 权威指南 （20140421统计翻译情况）
 ===============================
 
 本教程遵循[ Yii 使用许可](http://www.yiiframework.com/doc/terms/)。
@@ -100,5 +100,5 @@ Yii 2.0 权威指南 （20140419统计翻译情况）
 
 - 【待翻译】[console-fixture.md](console-fixture.md) // todo: this tutorial may be merged into test-fixture.md
 - 【翻译中|需更新】[RestFul API](rest.md)
-- 【待翻译】[test-fixture.md](test-fixture.md)
+- 【已翻译】[test-fixture.md](test-fixture.md)（2014-03-30）
 - 【已翻译】[指南开头，版权信息](title.md)（2014-02-24）
