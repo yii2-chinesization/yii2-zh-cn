@@ -77,7 +77,7 @@ Yii 2.0 权威指南 （20140422统计翻译情况）
 高级专题
 ---------------
 
-- 【翻译中】[资源文件管理](assets.md)（2014-4-16）
+- 【翻译中】[资源文件管理](assets.md)（2014-4-18）
 - 【未校对】[表单使用](form.md)（2014-03-24）
 - 【未校对】[Bootstrap 小部件](bootstrap-widgets.md)- 使用[twitter bootstrap](http://getbootstrap.com/)（2014-04-13）
 - 【需更新】[主题](theming.md)
