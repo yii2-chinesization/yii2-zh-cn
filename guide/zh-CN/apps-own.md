@@ -41,11 +41,11 @@ Next actually modify the structure of the future application as you like and upd
 Create git repository and push your files there. If you're going to make it open source github is the best way to host it.
 If it should remain private, any git repository would do.
 
-然后，你需要去注册你的包，公开的包需要在packagist](https://packagist.org/). 注册。
+然后，你需要去注册你的包，公开的包需要在[packagist](https://packagist.org/). 注册。
 
-Then you need to register your package. For public templates it should be registered at [packagist](https://packagist.org/).
+Then you need to register your package. For public templates it should be registered at[packagist](https://packagist.org/).
 
-私有的包是比较狡猾的(尼玛这个要怎么翻译的好。。。)，他的注册方式在[Composer documentation](https://getcomposer.org/doc/05-repositories.md#hosting-your-own).有很好的解释
+私有的包是狡猾狡猾的(尼玛这个要怎么翻译的好。。。)，他的注册方式在[Composer documentation](https://getcomposer.org/doc/05-repositories.md#hosting-your-own).有很好的解释
 For private ones it is a bit more tricky but well defined in
 [Composer documentation](https://getcomposer.org/doc/05-repositories.md#hosting-your-own).
 
