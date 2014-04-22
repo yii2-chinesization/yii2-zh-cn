@@ -80,7 +80,8 @@ Yii 2.0 权威指南 （20140422统计翻译情况）
 
 - 【翻译中】[前端资源文件管理](assets.md)（2014-4-18）
 - 【未校对】[表单的使用](form.md)（2014-03-24）
-- 【未校对】[Bootstrap 小部件](bootstrap-widgets.md)- 使用[twitter bootstrap](http://getbootstrap.com/)（[中文站](http://www.bootcss.com/)）（2014-04-13）
+- 【翻译中|需更新】[实现 RESTful 风格的 Web 服务 API](rest.md)
+- 【未校对】[Bootstrap 小部件](bootstrap-widgets.md)- 使用[twitter bootstrap](http://getbootstrap.com/)（[Bootstrap中文站](http://www.bootcss.com/)）（2014-04-13）
 - 【需更新】[主题](theming.md)
 - 【未校对】[缓存](caching.md) - 数据缓存、页面片段和 HTTP 请求（2014-04-13）
 - 【翻译中】[国际化](i18n.md) - 消息翻译和格式化
@@ -88,6 +89,7 @@ Yii 2.0 权威指南 （20140422统计翻译情况）
 - 【未校对】[控制台](console.md)（2014-03-24）
 - 【待翻译】[性能调整](performance.md)
 - 【未完成】[测试](testing.md)（2013-12-23）
+- 【已翻译】[测试定制器的管理](test-fixture.md)（2014-03-30）
 - 【翻译中】[服务定位器与依赖注入](di.md)（2014-04-20）//新增的
 
 参考推荐
@@ -101,7 +103,5 @@ Yii 2.0 权威指南 （20140422统计翻译情况）
 ----------
 
 - 【已翻译】[必读（文件夹介绍及如何添加文档）](README.md)（2014-04-19）
-- 【待翻译】[console-fixture.md](console-fixture.md) // todo: this tutorial may be merged into test-fixture.md
-- 【翻译中|需更新】[RestFul API](rest.md)
-- 【已翻译】[test-fixture.md](test-fixture.md)（2014-03-30）
 - 【已翻译】[指南开头，版权信息](title.md)（2014-02-24）
+- 【不翻译】[console-fixture.md](console-fixture.md) // 官方: this tutorial may be merged into test-fixture.md
