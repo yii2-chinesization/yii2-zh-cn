@@ -41,7 +41,7 @@ Next actually modify the structure of the future application as you like and upd
 Create git repository and push your files there. If you're going to make it open source github is the best way to host it.
 If it should remain private, any git repository would do.
 
-然后，你需要去注册你的包，公开的包需要在packagist](https://packagist.org/).注册。
+然后，你需要去注册你的包，公开的包需要在packagist](https://packagist.org/). 注册。
 
 Then you need to register your package. For public templates it should be registered at [packagist](https://packagist.org/).
 
