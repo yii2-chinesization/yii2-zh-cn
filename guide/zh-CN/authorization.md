@@ -171,7 +171,7 @@ A role represents a collection of *permissions* (e.g. viewing reports, creating 
 to one or multiple users. To check if a user has a specified permission, we may check if the user is assigned
 with a role that contains that permission.
 
-
+每个角色或权限可能与一个*规则*关关联。一个规则即是一段代码，它将在访问过程中执行，用来检查当前用户相应的角色或权限。例如，“更新报告”的权限，可能有一个规则用来检查当前用户是不是报告的创建者。在访问检查过程中，如果用户不是报告的创建者，他/她会被认为没有“更新报告”权限。
 Associated with each role or permission, there may be a *rule*. A rule represents a piece of code that will be
 executed during access check to determine if the corresponding role or permission applies to the current user.
 For example, the "update report" permission may have a rule that checks if the current user is the report creator.
@@ -184,12 +184,14 @@ more special *tree* hierarchy. While a role can contain a permission, it is not 
 
 ### 配置 RBAC 管理器
 
+在我们准备定义授权数据和执行访问检查前，我们需要配置 [yii\base\Application::authManager|authManager]] 应用组件。 Yii提供两种类型的授权管理器：[[yii\rbac\PhpManager]] 和 [[yii\rbac\DbManager]]。前者使用一个PHP脚本文件来存储授权数据，后者在数据库中存储授权数据。如果你的应用程序并不需要非常动态的角色和权限管理，你可以考虑使用前者。
 Before we set off to define authorization data and perform access checking, we need to configure the
 [[yii\base\Application::authManager|authManager]] application component. Yii provides two types of authorization managers: 
 [[yii\rbac\PhpManager]] and [[yii\rbac\DbManager]]. The former uses a PHP script file to store authorization
 data, while the latter stores authorization data in database. You may consider using the former if your application
 does not require very dynamic role and permission management.
 
+下面的代码显示了在应用程序配置中如何配置`authManager`：
 The following code shows how to configure `authManager` in the application configuration:
 
 ```php
@@ -204,6 +206,7 @@ return [
 ];
 ```
 
+`authManager` 现在可以通过 `\Yii::$app->authManager` 来访问。
 The `authManager` can now be accessed via `\Yii::$app->authManager`.
 
 
