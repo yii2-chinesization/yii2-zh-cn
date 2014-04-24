@@ -142,27 +142,35 @@ class SiteController extends Controller
 ```
 
 
-Role based access control (RBAC)
+基于角色的访问控制（RBAC）
 --------------------------------
 
-Role-Based Access Control (RBAC) provides a simple yet powerful centralized access control. Please refer to
-the [Wiki article](http://en.wikipedia.org/wiki/Role-based_access_control) for details about comparing RBAC
-with other more traditional access control schemes.
+基于角色的访问控制（Role-Based Access Control，简称 RBAC）
+提供一个简单且强大的集中式访问控制。请参考这篇[维基百科文章](http://en.wikipedia.org/wiki/Role-based_access_control)
+来了解 RBAC 相较于其他一些更传统的访问控制策略有何具体的不同之处。
+（英文，抱歉没有找到合适的中文资料，wiki本身有一篇简化版的[中文释义](https://zh.wikipedia.org/zh-cn/%E4%BB%A5%E8%A7%92%E8%89%B2%E7%82%BA%E5%9F%BA%E7%A4%8E%E7%9A%84%E5%AD%98%E5%8F%96%E6%8E%A7%E5%88%B6)
+，略现学术，请姑且一看。国内百毒百科等，不是胡扯就是资料太老）
 
-Yii implements a General Hierarchical RBAC, following the [NIST RBAC model](http://csrc.nist.gov/rbac/sandhu-ferraiolo-kuhn-00.pdf).
-It provides the RBAC functionality through the [[yii\rbac\ManagerInterface|authManager]] application component.
+Yii 实现了一个通用的层级 RBAC，依据的是[美国国家标准局做的 NIST RBAC 模型](http://csrc.nist.gov/rbac/sandhu-ferraiolo-kuhn-00.pdf)
+（英文，且无翻译，只找到[另一篇中文的翻译文章](http://williamou.iteye.com/blog/248660)）。
+它通过 [[yii\rbac\ManagerInterface|authManager]] 应用组件，提供 RBAC 系统的基本功能。
 
+使用 RBAC 主要涉及两部分工作。第一部分是构建 RBAC 授权所用数据。
+另一部分是用这些授权数据，在需要的地方执行访问许可检查。
 Using RBAC involves two parts of work. The first part is to build up the RBAC authorization data, and the second
 part is to use the authorization data to perform access check in places where it is needed.
 
-To facilitate our description next, we will first introduce some basic RBAC concepts.
+为了帮助我们更好地描述接下来的内容，我们会首先介绍一些基本的 RBAC 概念。
 
 
-### Basic Concepts
+### 基本概念
 
+一个角色对应一个包含许多具体*权限*（例如：查看报告，创建报告等等）的集合。一个角色可以被指定给一个或若干个用户。
+为了检查用户是否拥有特定的权限，我们可以检查该用户是否被分配有一个包含该权限的角色。
 A role represents a collection of *permissions* (e.g. viewing reports, creating reports). A role may be assigned
 to one or multiple users. To check if a user has a specified permission, we may check if the user is assigned
 with a role that contains that permission.
+
 
 Associated with each role or permission, there may be a *rule*. A rule represents a piece of code that will be
 executed during access check to determine if the corresponding role or permission applies to the current user.
@@ -174,7 +182,7 @@ and a permission may consist of other permissions. Yii implements a *partial ord
 more special *tree* hierarchy. While a role can contain a permission, it is not true vice versa.
 
 
-### Configuring RBAC Manager
+### 配置 RBAC 管理器
 
 Before we set off to define authorization data and perform access checking, we need to configure the
 [[yii\base\Application::authManager|authManager]] application component. Yii provides two types of authorization managers: 
@@ -199,7 +207,7 @@ return [
 The `authManager` can now be accessed via `\Yii::$app->authManager`.
 
 
-### Building Authorization Data
+### 构建授权数据（Authorization Data）
 
 Building authorization data is all about the following tasks:
 
@@ -303,7 +311,7 @@ For applications that require complex access control with dynamically updated au
   Sometimes when you want to make some minor changes to the RBAC data, you may directly edit this file.
 
 
-### Using Rules
+### 使用规则（Rules）
 
 As aforementioned, rules add additional constraint to roles and permissions. A rule is a class extending
 from [[yii\rbac\Rule]]. It must implement the [[yii\rbac\Rule::execute()|execute()]] method. Below is
@@ -353,7 +361,7 @@ $auth->addChild($author, $updateOwnPost);
 ```
 
 
-### Access Check
+### 访问检查（Access Check）
 
 With the authorization data ready, access check is as simple as a call to the [[yii\rbac\ManagerInterface::checkAccess()]]
 method. Because most access check is about the current user, for convenience Yii provides a shortcut method
@@ -374,7 +382,7 @@ if (\Yii::$app->user->can('updatePost', ['post' => $post])) {
 ```
 
 
-### Using Default Roles
+### 使用默认角色（Roles）
 
 A default role is a role that is *implicitly* assigned to *all* users. The call to [[yii\rbac\ManagerInterface::assign()]]
 is not needed, and the authorization data does not contain its assignment information.
