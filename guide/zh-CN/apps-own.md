@@ -1,6 +1,7 @@
 创建自己的应用结构
 =======================================
 
+基础[basic](apps-basic.md)与 [advanced](apps-advanced.md)应用模版已经可以满足你的大部分需要了，你也许会想要创建你自己的应用模板来开始你的项目。
 While [basic](apps-basic.md) and [advanced](apps-advanced.md) application templates are great for most of your needs
 you may want to create your own application template to start your projects with.
 
