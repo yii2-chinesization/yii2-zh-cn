@@ -184,7 +184,7 @@ more special *tree* hierarchy. While a role can contain a permission, it is not 
 
 ### 配置 RBAC 管理器
 
-在我们准备定义授权数据和执行访问检查前，我们需要配置 [yii\base\Application::authManager|authManager]] 应用组件。 Yii提供两种类型的授权管理器：[[yii\rbac\PhpManager]] 和 [[yii\rbac\DbManager]]。前者使用一个PHP脚本文件来存储授权数据，后者在数据库中存储授权数据。如果你的应用程序并不需要非常动态的角色和权限管理，你可以考虑使用前者。
+在我们准备定义授权数据和执行访问检查前，我们需要配置 [[yii\base\Application::authManager|authManager]] 应用组件。 Yii提供两种类型的授权管理器：[[yii\rbac\PhpManager]] 和 [[yii\rbac\DbManager]]。前者使用一个PHP脚本文件来存储授权数据，后者在数据库中存储授权数据。如果你的应用程序并不需要非常动态的角色和权限管理，你可以考虑使用前者。
 Before we set off to define authorization data and perform access checking, we need to configure the
 [[yii\base\Application::authManager|authManager]] application component. Yii provides two types of authorization managers: 
 [[yii\rbac\PhpManager]] and [[yii\rbac\DbManager]]. The former uses a PHP script file to store authorization
