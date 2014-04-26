@@ -1,11 +1,87 @@
 事件（Events）
 ======
 
-事件是一种向某些地方的现有代码里"注入"自定义代码的方式。例如，
-当用户添加一条评论时，一个评论对象可以触发一个“添加”事件。我们可以编写自定义的代码，并把它与事件绑定，
-这样当事件被触发（比如，添加了评论），我们自定义的代码就会被执行
+Yii 以“事件”的形式，在程序运行的特定时间点上向已有的代码中“注入”部分自定义的代码。比如，一个评论对象，
+可以在用户在某篇博文下添加一条评论时，就触发一个“add”事件。
 
-事件在提高组件灵活性和挂钩框架或扩展的工作流程方面非常有用。
+事件因以下两种理由特别有用：其一，它们可以让你的组件变得更加灵活。
+其二，你可以把你自己的代码挂载到框架或正在使用的扩展程序的常规流程里去。
+
+绑定事件处理器
+------------------------
+
+可以向一个事件绑定一个或多个名为 *event handlers（事件处理器）*的 PHP 回调函数。当事件被触发，
+所有绑定它的事件处理器就会被自动引入。
+
+这里有两个主要的绑定事件处理器的方法。一个是通过行内代码，一个是通过应用设置。
+
+> 小贴士：要想获得框架或扩展中当下全部的事件列表，你可以在框架代码中搜索 `->trigger`。
+
+### 通过代码绑定
+
+你可以通过一个组件对象的 `on` 方法来在你的代码中指定它的事件触发器，这个方法的第一个参数是它要绑定的事件的名字；
+第二个参数是当事件发生时，需要回调的 handler（处理器对象，例如，一个函数）：
+
+```php
+$component->on($eventName, $handler);
+```
+
+这个处理器必须是一个合法的 PHP 回调类型（Callback，译者： [仅供参考](http://www.php.net/manual/zh/language.types.callable.php)）。
+它可以是一下几个之一：
+
+- 一个全局函数的名字。
+- 一个包含模型名称和方法名的数组。
+- 一个包含一个对象和方法名的数组。
+- 一个[匿名函数](http://www.php.net/manual/zh/functions.anonymous.php).
+
+```php
+// 全局函数：
+$component->on($eventName, 'functionName');
+
+// 模型与方法的名字：
+$component->on($eventName, ['Modelname', 'functionName']);
+
+// 对象与方法名：
+$component->on($eventName, [$obj, 'functionName']);
+
+// 匿名函数：
+$component->on($eventName, function ($event) {
+	// 使用 $event。
+});
+```
+
+在匿名函数的示例中所示，这样，事件处理函数必须被定义，这样它才能作为一个参数被引入。
+它会是一个 [[yii\base\Event]] 对象
+
+为了向处理器中传入外部数据，你可以在 `on` 方法的第三个参数中提供这些数据。
+这之后，就可以用 `$event->data` 的方式，在处理器内部访问到它们：
+
+```php
+$component->on($eventName, function ($event) {
+	// 这些外部数据可以这样来访问 $event->data
+}, $extraData);
+```
+
+### 通过配置来绑定
+
+你还可以在你的应用配置文件中绑定事件处理器。
+为此，你需要在你需要绑定事件处理器的组件的配置文本里添加一个元素。语法是 `"on <event>" => handler`：
+
+```php
+return [
+	// ...
+	'components' => [
+		'db' => [
+			// ...
+			'on afterOpen' => function ($event) {
+				// 与数据库建立连接后立刻搞一些事情
+			}
+		],
+	],
+];
+```
+
+当使用这种方法绑定事件触发器是，触发器必须是一个匿名函数。
 
 触发事件
 -----------------
@@ -36,77 +112,6 @@ class Mailer extends Component
 		$this->trigger(self::EVENT_SEND_EMAIL);
 	}
 }
-```
-
-绑定事件处理器
-------------------------
-
-可以向一个事件绑定一个或多个名为 *event handlers（事件处理器）*的 PHP 回调函数。当事件被触发，
-所有绑定它的事件处理器就会被自动引入。
-
-这里有两个主要的绑定事件处理器的方法。一个是通过代码，一个是通过应用设置。
-
-> 小贴士：要想获得框架或扩展中全部最新的事件列表，你可以搜索代码 `->trigger`。
-
-### 通过代码绑定
-
-你可以通过一个组件对象的 `on` 方法来分配它的事件触发器，这个方法的第一个参数是它要绑定的事件的名字；
-第二个参数是当事件发生时，需要回调的handler（处理器）：
-
-```php
-$component->on($eventName, $handler);
-```
-
-这个处理器必须是一个合法的PHP 回调类型（译者： [仅供参考](http://www.php.net/manual/zh/language.types.callable.php)）。它可以是：
-
-- 一个全局函数的名字。
-- 一个包含模型名称和方法名的数组。
-- 一个包含一个对象和方法名的数组。
-- 一个[匿名函数](http://www.php.net/manual/zh/functions.anonymous.php).
-
-```php
-// 全局函数：
-$component->on($eventName, 'functionName');
-
-// 模型与方法的名字：
-$component->on($eventName, ['Modelname', 'functionName']);
-
-// 对象与方法名：
-$component->on($eventName, [$obj, 'functionName']);
-
-// 匿名函数：
-$component->on($eventName, function ($event) {
-	// 使用 $event。
-});
-```
-
-在匿名函数的示例中所示，这样，事件处理函数必须被定义，这样它才能作为一个参数被引入。
-它会是一个 [[yii\base\Event]] 对象
-
-还可以通过第三个参数来提供其他的外部数据：
-
-```php
-$component->on($eventName, function ($event) {
-	// 这些外部数据可以这样来访问 $event->data
-}, $extraData);
-```
-
-### 通过配置来绑定
-
-通过引用程序的配置文件绑定处理器也是可行的：
-
-```php
-return [
-	// ...
-	'components' => [
-		'db' => [
-			// ...
-			'on afterOpen' => function ($event) {
-				// 与数据库建立连接后立刻搞一些事情
-			}
-		],
-	],
-];
 ```
 
 移除事件处理器
