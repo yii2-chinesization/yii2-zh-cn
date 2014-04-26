@@ -108,7 +108,7 @@ if (YII_ENV_DEV)
 若文件已经存在，gii 同样会提供一个 diff （英文difference的简写）视图显示了已存在的文件和即将生成的文件的代码对比。
 这种状况下，你就可以很方便地选择那些文件会被覆盖，而哪些不会。
 
-> 小贴士：当在数据库被修改之后使用Model Generator重新生成模型的时候，你可以从 Gii 的预览中复制那些代码，
+> 小技巧：当在数据库被修改之后使用Model Generator重新生成模型的时候，你可以从 Gii 的预览中复制那些代码，
   并把这些改变与你已有的代码融合。你可以用 IDE 的一些功能来实现这一点，比如PHPStorms所提供的
   [compare with clipboard（英文，与剪贴板作对比）](http://www.jetbrains.com/phpstorm/webhelp/comparing-files.html)。
   他可以帮助你把相关修改合并起来，并把那些可能回滚你原来代码的那些改变跳过。（译者注：相比较PHPStorm强大的功能，其个人许可的费用算是很便宜了。靠PHP吃饭的各位有条件的话应该入正）

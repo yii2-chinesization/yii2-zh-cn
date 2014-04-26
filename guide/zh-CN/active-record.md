@@ -164,7 +164,7 @@ $sql = 'SELECT * FROM customer';
 $customers = Customer::findBySql($sql)->all();
 ```
 
-> 小贴士：在上面的代码中，`Customer::STATUS_ACTIVE` 是一个在 `Customer` 类里定义的常量。（译者注：这种常量的值一般都是tinyint）相较于直接在代码中写死字符串或数字，使用一个更有意义的常量名称是一种更好的编程习惯。
+> 小技巧：在上面的代码中，`Customer::STATUS_ACTIVE` 是一个在 `Customer` 类里定义的常量。（译者注：这种常量的值一般都是tinyint）相较于直接在代码中写死字符串或数字，使用一个更有意义的常量名称是一种更好的编程习惯。
 
 有两个快捷方法：`findOne` 和 `findAll()` 用来返回一个或者一组`ActiveRecord`实例。前者返回第一个匹配到的实例，后者返回所有。
 例如：
