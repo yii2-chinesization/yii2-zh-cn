@@ -260,6 +260,9 @@ $customer->save();  // 等同于 $customer->update();
 $customer = Customer::findOne($id);
 $customer->delete();
 
+// 删除多个年龄大于20，性别为男（Male）的客户记录
+Customer::deleteAll('age > :age AND gender = :gender', [':age' => 20, ':gender' => 'M']);
+
 // 所有客户的age（年龄）字段加1：
 Customer::updateAllCounters(['age' => 1]);
 ```
@@ -443,7 +446,7 @@ $orders = $customer->getBigOrders(200)->all();
 
 有时，两个表通过中间表关联，定义这样的关联关系， 可以通过调用 [[yii\db\ActiveQuery::via()|via()]] 方法或 [[yii\db\ActiveQuery::viaTable()|viaTable()]] 方法来定制 [[yii\db\ActiveQuery]] 对象 。
 
-举例而言，如果 order 表和 item 表通过中间表 order_item关联起来， 可以在 Order 类声明 items 关联关系取代中间表：
+举例而言，如果 `order` 表和 `item` 表通过中间表 `order_item` 关联起来， 可以在 `Order` 类声明 `items` 关联关系取代中间表：
 
 ```php
 class Order extends \yii\db\ActiveRecord
@@ -845,14 +848,14 @@ public static function find()
 注意，你之后所有的查询都不能用 [[yii\db\ActiveQuery::where()|where()]]，但是可以用 [[yii\db\ActiveQuery::andWhere()|andWhere()]] 和 [[yii\db\ActiveQuery::orWhere()|orWhere()]]，他们不会覆盖掉默认作用域。（译者注：如果你要使用默认作用域，就不能在 xxx::find()后使用where()方法，你必须使用andXXX()或者orXXX()系的方法，否则默认作用域不会起效果，至于原因，打开where()方法的代码一看便知）
 
 
-事物操作
+事务操作
 ------------------
 
 当执行几个相关联的数据库操作的时候
 
 TODO: FIXME: WIP, TBD, [https://github.com/yiisoft/yii2/issues/226](https://github.com/yiisoft/yii2/issues/226)
 
-, [[yii\db\ActiveRecord::afterSave()|afterSave()]], [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]] and/or [[yii\db\ActiveRecord::afterDelete()|afterDelete()]] 生命周期周期方法(life cycle methods 我觉得这句翻译成“模板方法”会不会更好点？)。开发者可以通过重写[[yii\db\ActiveRecord::save()|save()]]方法然后在控制器里使用事物操作，严格地说是似乎不是一个好的做法 （召回"瘦控制器 / 肥模型"基本规则）。
+, [[yii\db\ActiveRecord::afterSave()|afterSave()]], [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]] and/or [[yii\db\ActiveRecord::afterDelete()|afterDelete()]] 生命周期周期方法(life cycle methods 我觉得这句翻译成“模板方法”会不会更好点？)。开发者可以通过重写[[yii\db\ActiveRecord::save()|save()]]方法然后在控制器里使用事务操作，严格地说是似乎不是一个好的做法 （召回"瘦控制器 / 肥模型"基本规则）。
 
 这些方法在这里(如果你不明白自己实际在干什么，请不要使用他们)，Models：
 
@@ -878,7 +881,7 @@ class Product extends \yii\db\ActiveRecord
 }
 ```
 
-重写 [[yii\db\ActiveRecord::save()|save()]] 方法:
+重写 [[yii\db\ActiveRecord::save()|save()]] 方法：
 
 ```php
 class ProductController extends \yii\web\Controller
@@ -891,7 +894,7 @@ class ProductController extends \yii\web\Controller
 ```
 (译者注：我觉得上面应该是原手册里的bug)
 
-在控制器层使用事物：
+在控制器层使用事务：
 
 ```php
 class ProductController extends \yii\web\Controller
