@@ -93,7 +93,7 @@ $query->select('u.*, p.*')->from(['user u', 'post p']);
 当表以数组形式指明，可以使用数组键作为表别名（如果表不需要别名，不要使用字符串形式的键）。如：
 
 ```php
-$query->select('u.*, p.*')->from(['u' => 'user u', 'p' => 'post']);
+$query->select('u.*, p.*')->from(['u' => 'user', 'p' => 'post']);
 ```
 
 使用 `Query` 对象指定子查询。这种情况，相应的数组键将用作子查询的别名：
