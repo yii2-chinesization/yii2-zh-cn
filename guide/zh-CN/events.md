@@ -86,7 +86,9 @@ return [
 触发事件
 -----------------
 
-任何组件都可以通过 `trigger` 方法来触发事件：
+大多数的事件将会在正常工作流程里被触发。比如，`beforeSave` 事件就会在 Active Record 模型保存前被触发。
+
+但你仍可以通过 `trigger` 方法，手动触发一个事件，在组件上调用事件处理器：
 
 ```php
 $this->trigger('myEvent');
@@ -94,12 +96,12 @@ $this->trigger('myEvent');
 // 或者
 
 $event = new CreateUserEvent(); // 扩展自 yii\base\Event
-$event->userName = 'Alexander';
+$event->userName = '犀利哥';
 $this->trigger('createUserEvent', $event);
 ```
 
-事件名在定义它的类中应该是唯一的。同时，它也是*case-sensitive（区分大小写）*的。
-用类的常量来定义事件名会是一个不错的办法：
+事件名在定义它的类中应该是唯一的。同时，它也是 *case-sensitive（区分大小写）*的。
+把事件名定义为一个类的常量也不失为一个不错的办法：
 
 ```php
 class Mailer extends Component
@@ -123,29 +125,31 @@ class Mailer extends Component
 $component->off($eventName);
 ```
 
-Yii 支持将多个处理程序关联的同一事件的能力。如以上所述，使用 `off` 时
+Yii 支持将多个处理器关联到同一事件上。在此情况下，使用 `off` 时，
 每一个处理器都会被移除。这样，若你需要只移除一个处理器，你需要给`off` 方法提供第二个参数，就像这样：
 
 ```php
 $component->off($eventName, $handler);
 ```
 
-同样，`$handler` 在 `off` 方法中的形式，应该与它在 `on` 方法中一样。
+同样，`$handler` 在 `off` 方法中的形式，应该与它在 `on` 方法中被注册时的一样。
+
+> 小技巧：若你之后可能需要移除它，那你最好别用匿名函数的形式注册它。
 
 全局事件
 -------------
 
-你可以用 ”global“ events 给应用的所有组件上一个全局事件，而不用每一个组件都来一遍。触发一个全局事件，需要用应用的实例对象，
-而不是某一个组件的：
-
-```php
-Yii::$app->trigger($eventName);
-```
-
-这样绑定处理器：
+你可以用 “global（全局）” 事件给应用的所有组件上一个全局事件，替换掉各个组件各自的。全局事件可以发生在任意组件类型上。
+为了给一个全局事件绑定处理器，需要在应用实例上直接调用 `on` 方法：
 
 ```php
 Yii::$app->on($eventName, $handler);
+```
+
+全局事件在整个应用实例而不是某个具体的组件上被触发：
+
+```php
+Yii::$app->trigger($eventName);
 ```
 
 类事件
