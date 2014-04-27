@@ -82,15 +82,16 @@ URL 捷径 Shortcuts
 * cebe （Carsten Brandt 德国）Yii 2主要开发者之一，负责开发了api-doc系统，对于文档系统的规范化进行了很多设定。官方文档的完全体样貌可以在[stuff.cebe.cc/yii2docs](http://stuff.cebe.cc/yii2docs)略窥一斑。
 
 ###项目组织：
-* qiansen1386（钱森，昵称：东方孤思子）旅居新加坡的中国留学生，特长卖萌，学习能力强于动手能力，强迫症晚期患者，已弃疗。
-* aliciamiao（，昵称：miao）
-* fmalee（，昵称：远方·轮回）
+* qiansen1386（钱森，昵称：东方孤思子 项目策划）旅居新加坡的中国留学生，特长卖萌，学习能力强于动手能力，强迫症晚期患者，已弃疗。
 * AbrahamGreyson（，昵称：Abraham）
-* SuperPuppet（阙俊榕 昵称: 无敌木木）特长卖萌，精神病晚期患者
+* aliciamiao（，昵称：miao）
 * dronjh
+* fmalee（，昵称：远方·轮回）
 * qufo
 * Simon
-* 更多请参考 Contributor，以及 Transifex 的组织成员。请所有曾经付出贡献的童鞋，自觉地把你的名字列在鸣谢表中，坦白从严，抗拒更严。
+* SuperPuppet（阙俊榕 昵称: 无敌木木）特长卖萌，精神病晚期患者
+* yzxh24
+* 更多请参考 Contributor，以及 Transifex 的组织成员。请所有曾经付出贡献的童鞋，请自觉地把你的名字列在鸣谢表中，坦白从严，抗拒更严。
 
 ###特别鸣谢：
 * ~~Transifex 提供的免费开源项目仓库~~

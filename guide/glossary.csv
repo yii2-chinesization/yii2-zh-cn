@@ -1,7 +1,7 @@
 term,translation_zh_CN,comment_zh_CN,pos
 > Info:,> 须知：,,Noun
 > note:,> 注意：,,Noun
-> tip:,> 小贴士：,,Noun
+> tip:,> 小技巧：,,Noun
 Action,动作,,Noun
 Active Record,"活动记录,简称 AR",其实可以不翻译,Noun
 Composer,Composer,,Noun

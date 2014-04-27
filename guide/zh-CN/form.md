@@ -87,20 +87,8 @@ use yii\widgets\ActiveForm;
 <?= $form->field($model, 'username')->textInput()->hint('Please enter your name')->label('Name') ?>
 ```
 
-以上代码将根据表单字段定义的模板创建所有 `<label>`, `<input>` 和其他标签。要自己填写这些标签可以使用 `Html` 助手类。以下代码等价于以上代码：
-
-```php
-<?= Html::activeLabel($model, 'password') ?>
-<?= Html::activePasswordInput($model, 'password') ?>
-<?= Html::error($model, 'password') ?>
-
-或
-
-<?= Html::activeLabel($model, 'username', ['label' => 'name']) ?>
-<?= Html::activeTextInput($model, 'username') ?>
-<div class="hint-block">Please enter your name</div>
-<?= Html::error($model, 'username') ?>
-```
+以上代码将根据表单字段定义的模板创建所有 `<label>`, `<input>` 和其他标签。
+要自己填写这些标签可以使用 `Html` 助手类。
 
 如果想使用 HTML5 字段，可以直接定义输入类型如下：
 
