@@ -34,42 +34,27 @@ class AppAsset extends AssetBundle
 
 以上 `$basePath` 指定资源从哪个可网络访问的目录提供服务。这是相对`$css` 和 `$js` 路径的根目录，如 `@webroot/css/site.css` 指向 `css/site.css` 。这里的 `@webroot` 是指向应用 `web` 目录的别名。
 
-`$baseUrl` is used to specify base URL for the same relative `$css` and `$js` i.e. `@web/css/site.css` where `@web`
-is an [alias][] that corresponds to your website base URL such as `http://example.com/`.
-`$baseUrl` 用来指定刚才的 `$css` 和 `$js` 相对的根路径
+`$baseUrl` 用来指定刚才的 `$css` 和 `$js` 相对的根 URL ，如 `@web/css/site.css` 中的 `@web` 是一个 [别名]，对应你的网站根 URL 如 `http://example.com/` 。
 
-In case you have asset files under a non web accessible directory, that is the case for any extension, you need
-to specify `$sourcePath` instead of `$basePath` and `$baseUrl`. **All files** from the source path will be copied
-or symlinked to the `web/assets` directory of your application prior to being registered.
-In this case `$basePath` and `$baseUrl` are generated automatically at the time of publishing the asset bundle.
-This is the way to work with assets when you want to publish the whole directory no matter what's in be it images,
-webfonts etc.
+如果你的资源文件放在网络无法访问的目录，Yii 扩展正是如此，这样你必须指定 `$sourcePath` 而不是 `$basePath` and `$baseUrl` 。原始路径的**所有文件**在注册前将被复制或符号链接（symlink）到你应用的 `web/assets` 目录。这种情况下 `$basePath` 和 `$baseUrl` 将在发布资源包时自动生成。这是发布完整目录的资源工作方式，目录内可以包括图片、前端文件等。
 
-> **Note:** do not use the `web/assets` path to put your own files in it. It is meant to be used only for asset publishing.
-> When you create files that are already in web accessable directory put them in folders like `web/css` or `web/js`.
+> **注意：** 不要使用d `web/assets` 目录放你自己的文件。它只用于资源发布。
+> 当你创建网络可访问目录内的文件时，把它们放在类似 `web/css` 或 `web/js` 的文件夹内。
 
-Dependencies on other asset bundles are specified via `$depends` property. It is an array that contains fully qualified
-class names of bundle classes that should be published in order for this bundle to work properly.
-Javascript and CSS files for `AppAsset` are added to the header after the files of [[yii\web\YiiAsset]] and
-[[yii\bootstrap\BootstrapAsset]] in this example.
+和其他资源包的依赖关系用 `$depends` 属性指定。这是个包括资源包完整合格类名的数组，资源包内的这些类应发布以便该资源包能正常工作。此例中， `AppAsset` 的Javascript 和 CSS 文件添加到 header 的[[yii\web\YiiAsset]]和[[yii\bootstrap\BootstrapAsset]]之后。
 
-Here [[yii\web\YiiAsset]] adds Yii's JavaScript library while [[yii\bootstrap\BootstrapAsset]] includes
-[Bootstrap](http://getbootstrap.com) frontend framework.
+这里的[[yii\web\YiiAsset]]添加 Yii 的 JavaScript库，而[[yii\bootstrap\BootstrapAsset]]包括[Bootstrap](http://getbootstrap.com)前端框架。
 
-Asset bundles are regular classes so if you need to define another one, just create alike class with unique name. This
-class can be placed anywhere but the convention for it is to be under `assets` directory of the application.
+资源包是常规类，所以如需定义更多资源包，以唯一名创建同样的类即可。新建的类可以放到任何地方，但惯例是放到应用的 `assets` 目录。
 
-Additionally you may specify `$jsOptions`, `$cssOptions` and `$publishOptions` that will be passed to
-[[yii\web\View::registerJsFile()]], [[yii\web\View::registerCssFile()]] and [[yii\web\AssetManager::publish()]]
-respectively during registering and publising an asset.
+此外，可以在注册和发布资源时指定 `$jsOptions`, `$cssOptions` 和 `$publishOptions` 参数分别传递到[[yii\web\View::registerJsFile()]], [[yii\web\View::registerCssFile()]] 和 [[yii\web\AssetManager::publish()]]。
 
-[alias]: basics.md#path-aliases "Yii Path alias"
+[别名]( basics.md#path-aliases) "Yii 的路径别名"
 
 
-### Language-specific asset bundle
+### 特定语言的资源包
 
-If you need to define an asset bundle that includes JavaScript file depending on the language you can do it the
-following way:
+如需定义包括基于语言的 JavaScript 文件的资源包，需要这样写：
 
 ```php
 class LanguageAsset extends AssetBundle
@@ -88,44 +73,37 @@ class LanguageAsset extends AssetBundle
 }
 ```
 
-In order to set language use the following code when registering an asset bundle in a view:
+当注册资源包到视图时使用以下代码设置语言：
 
 ```php
 LanguageAsset::register($this)->language = $language;
 ```
 
 
-Registering asset bundle
+注册资源包
 ------------------------
 
-Asset bundle classes are typically registered in view files or [widgets](view.md#widgets) that depend on the css or
-javascript files for providing its functionality. An exception to this is the `AppAsset` class defined above which is
-added in the applications main layout file to be registered on any page of the application.
-Registering an asset bundle is as simple as calling the [[yii\web\AssetBundle::register()|register()]] method:
+资源包类通常要注册到视图文件或[小部件](view.md#widgets)，以 css 和 javascript 文件来提供功能。
+特例是以上定义的 `AppAsset` 类， `AppAsset` 类添加到应用的主布局文件并注册到该应用的任何页面。注册资源包简单到调用[[yii\web\AssetBundle::register()|register()]]方法即可实现：
 
 ```php
 use app\assets\AppAsset;
 AppAsset::register($this);
 ```
 
-Since we're in a view context `$this` refers to `View` class.
-To register an asset inside of a widget, the view instance is available as `$this->view`:
+现在视图这个语境中， `$this` 就指向 `View` 类。注册资源到小部件视图，视图实例用 `$this->view` ：
 
 ```php
 AppAsset::register($this->view);
 ```
 
-> Note: If there is a need to modify third party asset bundles it is recommended to create your own bundles depending
-  on third party ones and use CSS and JavaScript features to modify behavior instead of editing files directly or
-  copying them over.
+> 注意：如需修改第三方资源包，推荐基于第三方资源包建立你自己的资源包并使用 CSS 和 JavaScript 的功能来修改行为（behaviors），不要直接修改或覆盖原文件。
 
 
-Overriding asset bundles
+覆写资源包
 ------------------------
 
-Sometimes you need to override some asset bundles application wide. A good example is loading jQuery from CDN instead
-of your own server. In order to do it we need to configure `assetManager` application component via config file. In case
-of basic application it is `config/web.php`:
+有时需要覆写整个应用范围内的某些资源包。这种情况的例子有从 CDN 而不是你自己的服务器加载 jQuery 。配置 `assetManager` 应用组件来实现，基础应用模板是在 `config/web.php` 配置：
 
 ```php
 return [
@@ -143,20 +121,14 @@ return [
 ];
 ```
 
-In the above we're adding asset bundle definitions to the [[yii\web\AssetManager::bundles|bundles]] property of asset manager. Keys are fully
-qualified class names to asset bundle classes we want to override while values are key-value arrays of class properties
-and corresponding values to set.
+以上添加了资源包定义到[[yii\web\AssetManager::bundles|bundles]]资源管理器属性，数组键是拟覆写的资源包类的合格完整类名，而数组值是拟设置的类属性及对应值数组。
 
-Setting `sourcePath` to `null` tells asset manager not to copy anything while `js` overrides local files with a link
-to CDN.
+ `sourcePath` 设置为 `null` 是告诉资源管理器在 `js` 以 CDN 链接来覆写本地文件时不要复制。
 
+启动符号链接（symlinks）
+----------------------
 
-Enabling symlinks
------------------
-
-Asset manager is able to use symlinks instead of copying files. It is turned off by default since symlinks are often
-disabled on shared hosting. If your hosting environment supports symlinks you certainly should enable the feature via
-application config:
+资源管理器能使用符号链接，不用复制文件。符号链接默认是关闭的，因为它在虚拟主机通常无法使用。如果你的主机环境支持符号链接，就肯定能通过应用配置启用这个功能：
 
 ```php
 return [
@@ -169,45 +141,41 @@ return [
 ];
 ```
 
-There are two main benefits in enabling it. First it is faster since no copying is required and second is that assets
-will always be up to date with source files.
+启用符号链接有两个好处，第一是无须复制所以更快，第二是资源会链接源文件保持最新。
 
-
-Compressing and combining assets
+压缩和合并资源
 --------------------------------
 
-To improve application performance you can compress and then combine several CSS or JS files into lesser number of files
-therefore reducing number of HTTP requests and overall download size needed to load a web page.  Yii provides a console
-command that allows you to do both.
+要改进应用性能可以压缩和合并多个 CSS 或 JS 文件到更少的文件以便减少 HTTP 请求次数和页面加载所需下载量。Yii 提供了一个控制台命令使你能一次完成压缩和合并。
 
-### Preparing configuration
+### 准备配置
 
-In order to use `asset` command you should prepare a configuration first. A template for it can be generated using
+要使用 `asset` 命令需先准备配置文件，可使用以下命令生成内置模板的配置文件：
 
 ```
 yii asset/template /path/to/myapp/config.php
 ```
 
-The template itself looks like the following:
+模板如下：
 
 ```php
 <?php
 /**
- * Configuration file for the "yii asset" console command.
- * Note that in the console environment, some path aliases like '@webroot' and '@web' may not exist.
- * Please define these missing path aliases.
+ * "yii asset" 控制台命令的配置文件
+ * 注意控制台环境下有些路径别名可能不存在，如 '@webroot' 和 '@web'
+ * 请先定义找不到的路径别名
  */
 return [
-    // Adjust command/callback for JavaScript files compressing:
+    // 为 JavaScript 文件压缩调整 command/callback 命令：
     'jsCompressor' => 'java -jar compiler.jar --js {from} --js_output_file {to}',
-    // Adjust command/callback for CSS files compressing:
+    // 为 CSS 文件压缩调整 command/callback 命令：
     'cssCompressor' => 'java -jar yuicompressor.jar --type css {from} -o {to}',
-    // The list of asset bundles to compress:
+    // 要压缩的资源包列表：
     'bundles' => [
         // 'yii\web\YiiAsset',
         // 'yii\web\JqueryAsset',
     ],
-    // Asset bundle for compression output:
+    // 输出的已压缩资源包：
     'targets' => [
         'app\config\AllAsset' => [
             'basePath' => 'path/to/web',
@@ -216,7 +184,7 @@ return [
             'css' => 'css/all-{ts}.css',
         ],
     ],
-    // Asset manager configuration:
+    // 资源管理器配置：
     'assetManager' => [
         'basePath' => __DIR__,
         'baseUrl' => '',
@@ -227,6 +195,7 @@ return [
 In the above keys are `properties` of `AssetController`. `bundles` list contains bundles that should be compressed. These are typically what's used by application.
 `targets` contains a list of bundles that define how resulting files will be written. In our case we're writing
 everything to `path/to/web` that can be accessed like `http://example.com/` i.e. it is website root directory.
+以上数值键是 `AssetController` 的 `properties` 。该资源控制器的属性之一 `bundles`  列示所包括的拟压缩资源包。
 
 > Note: in the console environment some path aliases like '@webroot' and '@web' may not exist,
   so corresponding paths inside the configuration should be specified directly.
