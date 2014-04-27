@@ -101,7 +101,7 @@ $this->trigger('createUserEvent', $event);
 ```
 
 事件名在定义它的类中应该是唯一的。同时，它也是 *case-sensitive（区分大小写）*的。
-把事件名定义为一个类的常量也不失为一个不错的办法：
+用类的常量定义事件名也不失为一个不错的办法：
 
 ```php
 class Mailer extends Component
