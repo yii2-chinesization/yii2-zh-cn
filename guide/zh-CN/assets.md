@@ -192,42 +192,27 @@ return [
 ];
 ```
 
-In the above keys are `properties` of `AssetController`. `bundles` list contains bundles that should be compressed. These are typically what's used by application.
-`targets` contains a list of bundles that define how resulting files will be written. In our case we're writing
-everything to `path/to/web` that can be accessed like `http://example.com/` i.e. it is website root directory.
-以上数值键是 `AssetController` 的 `properties` 。该资源控制器的属性之一 `bundles`  列示所包括的拟压缩资源包。
+以上数值键是 `AssetController` 的 `properties` 。该资源控制器的属性之一 `bundles`  列表包括拟压缩资源包，通常被应用程序使用。`targets` 包括定义文件编写方式的输出资源包列表。我们的例子中编写所有文件到 `path/to/web` ，以 `http://example.com/` 来访问，这是个网站根目录。
 
-> Note: in the console environment some path aliases like '@webroot' and '@web' may not exist,
-  so corresponding paths inside the configuration should be specified directly.
+> 注意：控制台环境有些路径别名不存在，如 '@webroot' 和 '@web' ，所以在配置文件中的相应路径要直接指定。
 
-JavaScript files are combined, compressed and written to `js/all-{ts}.js` where {ts} is replaced with current UNIX
-timestamp.
 
-`jsCompressor` and `cssCompressor` are console commands or PHP callbacks, which should perform JavaScript and CSS files
-compression correspondingly. You should adjust these values according to your environment.
-By default Yii relies on [Closure Compiler](https://developers.google.com/closure/compiler/) for JavaScript file compression,
-and on [YUI Compressor](https://github.com/yui/yuicompressor/). You should install this utilities manually, if you wish to use them.
+JavaScript 文件将压缩合并写入 `js/all-{ts}.js` ，其中 {ts} 将替换为当前的 UNIX 时间戳。
 
-### Providing compression tools
+`jsCompressor` 和 `cssCompressor` 是控制台命令或 PHP 回调函数，它们分别执行 JavaScript 和 CSS 文件压缩。你可以根据你的环境调整这些值。默认情况下，Yii 依靠[Closure Compiler](https://developers.google.com/closure/compiler/)来压缩 JavaScript 文件，依赖[YUI Compressor](https://github.com/yui/yuicompressor/)压缩 CSS 文件。如果你想使用它们请手动安装这些实用程序。
 
-The command relies on external compression tools that are not bundled with Yii so you need to provide CSS and JS
-compressors which are correspondingly specified via `cssCompressor` and `jsCompression` properties. If compressor is
-specified as a string it is treated as a shell command template which should contain two placeholders: `{from}` that
-is replaced by source file name and `{to}` that is replaced by output file name. Another way to specify compressor is
-to use any valid PHP callback.
 
-By default for JavaScript compression Yii tries to use
-[Google Closure compiler](https://developers.google.com/closure/compiler/) that is expected to be in a file named
-`compiler.jar`.
+### 提供压缩工具
 
-For CSS compression Yii assumes that [YUI Compressor](https://github.com/yui/yuicompressor/) is looked up in a file
-named `yuicompressor.jar`.
+命令依靠未绑定到Yii 的外部压缩工具，所以你需要指定 `cssCompressor` 和 `jsCompression` 属性来分别提供 CSS 和 JS 的压缩工具。如果压缩工具指定为字符串将视为 shell 命令模板，该模板包括两个占位符： `{from}` 将用源文件名替换，而 `{to}` 将用输出的文件名替换。另一个指定压缩工具的方法是使用有效的 PHP 回调函数。
 
-In order to compress both JavaScript and CSS, you need to download both tools and place them under the directory
-containing your `yii` console bootstrap file. You also need to install JRE in order to run these tools.
+Yii 压缩 JavaScript 默认使用名为 `compiler.jar` 的[Google Closure compiler](https://developers.google.com/closure/compiler/) 压缩工具。
 
-You may customize the compression commands (e.g. changing the location of the jar files) in the `config.php` file
-like the following,
+Yii 压缩 CSS 使用名为 `yuicompressor.jar` 的[YUI Compressor](https://github.com/yui/yuicompressor/)压缩工具。
+
+要同时压缩 JavaScript 和 CSS ，需要下载以上两个工具并放在和 `yii` 控制台引导文件同一个目录下，并须安装 JRE 来运行这些工具。
+
+要自定义压缩命令（如更改 jar 文件位置），请在 `config.php` 中如下设置：
 
 ```php
 return [
@@ -236,20 +221,18 @@ return [
 ];
 ```
 
-where `{from}` and `{to}` are tokens that will be replaced with the actual source and target file paths, respectively,
-when the `asset` command is compressing every file.
+其中 `{from}` 和 `{to}`  `asset` 是占位符，将在命令压缩文件时分别被真实的源文件路径和目标文件路径替换。
 
 
-### Performing compression
+### 执行压缩
 
-After configuration is adjusted you can run the `compress` action, using created config:
+配置调整完成后可以运行 `compress` 动作，使用已创建的配置：
 
 ```
 yii asset /path/to/myapp/config.php /path/to/myapp/config/assets_compressed.php
 ```
 
-Now processing takes some time and finally finished. You need to adjust your web application config to use compressed
-assets file like the following:
+现在进程将占用一点时间并最终完成。你需要调整你的 web 应用配置来使用已压缩的资源文件，如下：
 
 ```php
 'components' => [
@@ -260,15 +243,12 @@ assets file like the following:
 ],
 ```
 
-Using asset converter
+使用资源转换器
 ---------------------
 
-Instead of using CSS and JavaScript directly often developers are using their improved versions such as LESS or SCSS
-for CSS or Microsoft TypeScript for JavaScript. Using these with Yii is easy.
+通常开发人员不直接使用 CSS 和 JavaScript 而是使用改进版本如 CSS 的 LESS 或 SCSS 和 JavaScript 的微软出品 TypeScript 。在 Yii 中使用它们是非常简单的。
 
-First of all, corresponding compression tools should be installed and should be available from where `yii` console
-bootstrap file is. The following lists file extensions and their corresponding conversion tool names that Yii converter
-recognizes:
+首先，相应的压缩工具已经安装在 `yii` 控制台引导程序同目录下且可用。以下列示了文件扩展和相应的 Yii 转换器能识别的转换工具名。
 
 - LESS: `less` - `lessc`
 - SCSS: `scss`, `sass` - `sass`
@@ -276,7 +256,7 @@ recognizes:
 - CoffeeScript: `coffee` - `coffee`
 - TypeScript: `ts` - `tsc`
 
-So if the corresponding tool is installed you can specify any of these in asset bundle:
+如果相应的工具已安装，就可以在资源包指定它们：
 
 ```php
 class AppAsset extends AssetBundle
@@ -296,7 +276,7 @@ class AppAsset extends AssetBundle
 }
 ```
 
-In order to adjust conversion tool call parameters or add new ones you can use application config:
+要调整转换工具调用参数或添加新的调用参数，可以使用应用配置：
 
 ```php
 // ...
@@ -313,7 +293,4 @@ In order to adjust conversion tool call parameters or add new ones you can use a
 ],
 ```
 
-In the above we've left two types of extra file extensions. First one is `less` that can be specified in `css` part
-of an asset bundle. Conversion is performed via running `lessc {from} {to} --no-color` where `{from}` is replaced with
-LESS file path while `{to}` is replaced with target CSS file path. Second one is `ts` that can be specified in `js` part
-of an asset bundle. The command that is run during conversion is in the same format that is used for `less`.
+以上列示了两种外部文件扩展，第一个是 `less` ，指定在资源包的 `css` 部分。转换通过运行 `lessc {from} {to} --no-color` 来执行，其中`{from}` 以 LESS 文件路径替换而 `{to}` 用目标 CSS 文件路径替换。第二个文件扩展是 `ts` ，指定在资源包的 `js` 部分。这个命令在转换时运行，格式同 `less`。
