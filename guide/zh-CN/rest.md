@@ -40,8 +40,7 @@ class UserController extends ActiveController
 }
 ```
 
-Then, modify the configuration about the `urlManager` component in your application configuration:
-然后，修改 
+然后，修改配置文件中的 `urlManager` 如下：
 
 ```php
 'urlManager' => [
@@ -138,14 +137,13 @@ Content-Type: application/xml
 </response>
 ```
 
-> Tip: You may also access your APIs via Web browser by entering the URL `http://localhost/users`.
+> 小技巧：可以直接通过浏览器键入 URL `http://localhost/users` 访问 APIs 接口。
 
-As you can see, in the response headers, there are information about the total count, page count, etc.
-There are also links that allow you to navigate to other pages of data. For example, `http://localhost/users?page=2`
-would give you the next page of the user data.
+你可以看到，在返回的头部信息中，有总数，页面总数等等。
+其中还包含了连接使你可以访问到其他页面，比如，`http://localhost/users?page=2` 可以访问到下一页的user 数据。
 
-Using the `fields` and `expand` parameters, you may also request to return a subset of the fields in the result.
-For example, the URL `http://localhost/users?fields=id,email` will only return the `id` and `email` fields in the result:
+使用 `fields` 和 `expand` 参数, 你可以通过使用 `fields` 来筛选需要返回的数据结果。
+比如，URL `http://localhost/users?fields=id,email` 只会返回 包含 `id` 和 `email` 的数据结果：
 
 
 > Info: You may have noticed that the result of `http://localhost/users` includes some sensitive fields,
