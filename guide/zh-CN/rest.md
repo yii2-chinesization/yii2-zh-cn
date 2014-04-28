@@ -57,23 +57,23 @@ Then, modify the configuration about the `urlManager` component in your applicat
 通过上面步骤的配置，你已经完成了创建 RESTful APIs 访问 user 数据的接口。
 创建完成的 APIs 接口包括：
 
-* `GET /users`: list all users page by page;
+* `GET /users`: list all users page by page;列出所有 users 数据;
 * `HEAD /users`: show the overview information of user listing;
-* `POST /users`: create a new user;
-* `GET /users/123`: return the details of the user 123;
+* `POST /users`: 创建一个新 user;
+* `GET /users/123`: 返回 user 123 的详细数据;
 * `HEAD /users/123`: show the overview information of user 123;
-* `PATCH /users/123` and `PUT /users/123`: update the user 123;
-* `DELETE /users/123`: delete the user 123;
+* `PATCH /users/123` and `PUT /users/123`: 更新 user 123 的数据;
+* `DELETE /users/123`: 删除 user 123;
 * `OPTIONS /users`: show the supported verbs regarding endpoint `/users`;
 * `OPTIONS /users/123`: show the supported verbs regarding endpoint `/users/123`.
 
-You may access your APIs with the `curl` command like the following,
+你可以访问你的 APIs 接口通过 `curl` 命令如下，
 
 ```
 curl -i -H "Accept:application/json" "http://localhost/users"
 ```
 
-which may give the following output:
+输出的信息如下：
 
 ```
 HTTP/1.1 200 OK
@@ -103,8 +103,7 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-Try changing the acceptable content type to be `application/xml`, and you will see the result
-is returned in XML format:
+尝试改变 content type 为 `application/xml`, 你可以看到返回结果是 XML 数据格式。
 
 ```
 curl -i -H "Accept:application/xml" "http://localhost/users"
