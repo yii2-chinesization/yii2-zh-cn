@@ -172,9 +172,7 @@ your Web front end and back end.
 创建资源类（Creating Resource Classes）
 -------------------------
 
-RESTful APIs are all about accessing and manipulating resources. In Yii, a resource can be an object of any class.
-However, if your resource classes extend from [[yii\base\Model]] or its child classes (e.g. [[yii\db\ActiveRecord]]),
-you may enjoy the following benefits:
+RESTful APIs 都是关于访问和操作资源的，在 Yii 中的，资源可以是人一个类的对象，然而，如果你创建的资源类是从 [[yii\base\Model]] 或者其子类 （如：[[yii\db\ActiveRecord]]），你可以获得以下好处：
 
 * Input data validation;
 * Query, create, update and delete data, if extending from [[yii\db\ActiveRecord]];
