@@ -85,7 +85,7 @@ URL 捷径 Shortcuts
 * qiansen1386（钱森，昵称：东方孤思子 项目策划）旅居新加坡的中国留学生，特长卖萌，学习能力强于动手能力，强迫症晚期患者，已弃疗。
 * AbrahamGreyson（，昵称：Abraham）
 * aliciamiao（，昵称：miao）
-* dronjh
+* drogjh（，上面那个已弃疗的居然能把我写错。活该弃疗）
 * fmalee（，昵称：远方·轮回）
 * qufo
 * Simon
