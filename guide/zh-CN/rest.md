@@ -24,10 +24,10 @@ Yii 提供了一整套的工具来大幅简化有关生成 RESTful Web Service A
 ---------------
 
 让我们用一个简单的例子来展示如何使用 Yii 建立 RESTful APIs。
-Assume you want to expose the user data via RESTful APIs. The user data are stored in the user DB table,
-and you have already created the ActiveRecord class `app\models\User` to access the user data.
+如果你想通过 RESTful APIs 来输出 user 数据，user 数据必须在数据库 user 表中存在，
+并且已经建立好 ActiveRecord class(数据模型类) `app\models\User` 供程序访问 user 中的数据。
 
-First, create a controller class `app\controllers\UserController` as follows,
+第一，创建 controller class(控制器类) `app\controllers\UserController` 如下，
 
 ```php
 namespace app\controllers;
@@ -40,7 +40,7 @@ class UserController extends ActiveController
 }
 ```
 
-Then, modify the configuration about the `urlManager` component in your application configuration:
+然后，修改配置文件中的 `urlManager` 如下：
 
 ```php
 'urlManager' => [
@@ -53,26 +53,26 @@ Then, modify the configuration about the `urlManager` component in your applicat
 ]
 ```
 
-With the above minimal amount of effort, you have already finished your task of creating the RESTful APIs
-for accessing the user data. The APIs you have created include:
+通过上面步骤的配置，你已经完成了创建 RESTful APIs 访问 user 数据的接口。
+创建完成的 APIs 接口包括：
 
-* `GET /users`: list all users page by page;
+* `GET /users`: list all users page by page;列出所有 users 数据；
 * `HEAD /users`: show the overview information of user listing;
-* `POST /users`: create a new user;
-* `GET /users/123`: return the details of the user 123;
+* `POST /users`: 创建一个新 user；
+* `GET /users/123`: 返回 user 123 的详细数据；
 * `HEAD /users/123`: show the overview information of user 123;
-* `PATCH /users/123` and `PUT /users/123`: update the user 123;
-* `DELETE /users/123`: delete the user 123;
+* `PATCH /users/123` and `PUT /users/123`: 更新 user 123 的数据；
+* `DELETE /users/123`: 删除 user 123；
 * `OPTIONS /users`: show the supported verbs regarding endpoint `/users`;
 * `OPTIONS /users/123`: show the supported verbs regarding endpoint `/users/123`.
 
-You may access your APIs with the `curl` command like the following,
+你可以访问你的 APIs 接口通过 `curl` 命令如下，
 
 ```
 curl -i -H "Accept:application/json" "http://localhost/users"
 ```
 
-which may give the following output:
+输出的信息如下：
 
 ```
 HTTP/1.1 200 OK
@@ -102,8 +102,7 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-Try changing the acceptable content type to be `application/xml`, and you will see the result
-is returned in XML format:
+尝试改变 content type 为 `application/xml`, 你可以看到返回结果是 XML 数据格式。
 
 ```
 curl -i -H "Accept:application/xml" "http://localhost/users"
@@ -138,29 +137,28 @@ Content-Type: application/xml
 </response>
 ```
 
-> Tip: You may also access your APIs via Web browser by entering the URL `http://localhost/users`.
+> 小技巧：可以直接通过浏览器键入 URL `http://localhost/users` 访问 APIs 接口。
 
-As you can see, in the response headers, there are information about the total count, page count, etc.
-There are also links that allow you to navigate to other pages of data. For example, `http://localhost/users?page=2`
-would give you the next page of the user data.
+你可以看到，在返回的头部信息中，有总数，页面总数等等。
+其中还包含了连接使你可以访问到其他页面，比如，`http://localhost/users?page=2` 可以访问到下一页的user 数据。
 
-Using the `fields` and `expand` parameters, you may also request to return a subset of the fields in the result.
-For example, the URL `http://localhost/users?fields=id,email` will only return the `id` and `email` fields in the result:
-
-
-> Info: You may have noticed that the result of `http://localhost/users` includes some sensitive fields,
-> such as `password_hash`, `auth_key`. You certainly do not want these to appear in your API result.
-> You can/should filter out these fields as described in the following sections.
+使用 `fields` 和 `expand` 参数, 你可以通过使用 `fields` 来筛选需要返回的数据结果。
+比如，URL `http://localhost/users?fields=id,email` 只会返回 包含 `id` 和 `email` 的数据结果：
 
 
-In the following sections, we will explain in more details about implementing RESTful APIs.
+> 须知：你可能注意到通过 `http://localhost/users` 返回的数据中包含了部分敏感字段，
+> 如 `password_hash`, `auth_key`。你肯定不希望这些出现在你的 API 返回数据中。
+> 你可以通过过滤这部分的字段来达到目的，这部分会在后面的章节阐述。
 
 
-General Architecture
+在后面的章节中，我们为讲述更多关于实现 RESTful APIs 的细节。
+
+总体结构（General Architecture）
 --------------------
 
-Using the Yii RESTful API framework, you implement an API endpoint in terms of a controller action, and you use
-a controller to organize the actions that implement the endpoints for a single type of resource.
+Using the Yii RESTful API framework, 
+you implement an API endpoint in terms of a controller action, 
+and you use a controller to organize the actions that implement the endpoints for a single type of resource.
 
 Resources are represented as data models which extend from the [[yii\base\Model]] class.
 If you are working with databases (relational or NoSQL), it is recommended you use ActiveRecord to represent resources.
@@ -171,31 +169,29 @@ While not required, it is recommended that you develop your RESTful APIs as an a
 your Web front end and back end.
 
 
-Creating Resource Classes
+创建资源类（Creating Resource Classes）
 -------------------------
 
-RESTful APIs are all about accessing and manipulating resources. In Yii, a resource can be an object of any class.
-However, if your resource classes extend from [[yii\base\Model]] or its child classes (e.g. [[yii\db\ActiveRecord]]),
-you may enjoy the following benefits:
+RESTful APIs 都是关于访问和操作资源的，在 Yii 中的，资源可以是人一个类的对象，然而，如果你创建的资源类是从 [[yii\base\Model]] 或者其子类 （如：[[yii\db\ActiveRecord]]），你可以获得以下好处：
 
-* Input data validation;
-* Query, create, update and delete data, if extending from [[yii\db\ActiveRecord]];
-* Customizable data formatting (to be explained in the next section).
+* 输入数据验证；
+* 查询，创建，修改，和删除数据，前提是你的了类继承自 [[yii\db\ActiveRecord]]；
+* 可定制的数据格式（会在下一节中讲到）。
 
 
-Formatting Response Data
+格式化响应数据（Formatting Response Data）
 ------------------------
 
-By default, Yii supports two response formats for RESTful APIs: JSON and XML. If you want to support
-other formats, you should configure [[yii\rest\Controller::supportedFormats]] and also [[yii\web\Response::formatters]].
+默认情况下，Yii 的RESTful APIs 支持两种响应数据格式：JSON 和 XML。
+如果你想使用其他格式，你应该修改 [[yii\rest\Controller::supportedFormats]] 和 [[yii\web\Response::formatters]]。
 
-Formatting response data in general involves two steps:
+格式化响应数据一般包含两个步骤：
 
-1. The objects (including embedded objects) in the response data are converted into arrays by [[yii\rest\Serializer]];
-2. The array data are converted into different formats (e.g. JSON, XML) by [[yii\web\ResponseFormatterInterface|response formatters]].
+1. 要返回给用户的对象（包括嵌入的对象）通过 [[yii\rest\Serializer]] 转换成数组格式。
+2. 数组数据通过 [[yii\web\ResponseFormatterInterface|response formatters]] 转换成要返回的数据格式（例如：JSON，XML）
 
-Step 2 is usually a very mechanical data conversion process and can be well handled by the built-in response formatters.
-Step 1 involves some major development effort as explained below.
+步骤2 通常是非常机械化的数据转换处理，可以通过内置的格式化处理方式很好地进行处理。
+步骤1 涉及到一些比较重要的开发环节，主要详情如下，
 
 When the [[yii\rest\Serializer|serializer]] converts an object into an array, it will call the `toArray()` method
 of the object if it implements [[yii\base\Arrayable]]. If an object does not implement this interface,
