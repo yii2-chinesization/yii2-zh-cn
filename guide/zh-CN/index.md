@@ -84,10 +84,10 @@ Yii 2.0 权威指南 （20140427统计翻译情况）
 - 【未校对】[Bootstrap 小部件](bootstrap-widgets.md)- 使用[twitter bootstrap](http://getbootstrap.com/)（[Bootstrap中文站](http://www.bootcss.com/)）（2014-04-13）
 - 【需更新】[主题](theming.md)
 - 【未校对】[缓存](caching.md) - 数据缓存、页面片段和 HTTP 请求（2014-04-13）
-- 【翻译中】[国际化](i18n.md) - 消息翻译和格式化
+- 【未校对】[国际化](i18n.md) - 消息翻译和格式化（2014-04-19）
 - 【未校对】[URL 管理](url.md) - 路由、自定义 Url 及 SEO 搜索引擎优化（2014-04-05）
 - 【已更新|未校对】[控制台](console.md)（2014-04-27）
-- 【待翻译】[性能调整](performance.md)
+- 【翻译中】[性能调整](performance.md)（2014-04-05）
 - 【未完成】[测试](testing.md)（2013-12-23）
 - 【已翻译】[测试定制器的管理](test-fixture.md)（2014-03-30）
 - 【翻译中】[服务定位器与依赖注入](di.md)（2014-04-20）//新增的
