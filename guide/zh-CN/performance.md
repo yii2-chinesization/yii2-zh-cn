@@ -1,31 +1,27 @@
-Performance Tuning
+性能优化
 ==================
 
-The performance of your web application is based upon two parts. First is the framework performance
-and the second is the application itself. Yii has a pretty low performance impact
-on your application out of the box and can be fine-tuned further for production
-environment. As for the application, we'll provide some of the best practices
-along with examples on how to apply them to Yii.
 
-Preparing environment
+你的 web 应用的性能取决于两方面。首先是框架性能，其次是应用本身的性能。Yii 框架在你应用上的性能损耗非常小并能为生产环境进一步优化。而针对应用本身的性能，我们提供一些如何在 Yii 使用的最佳实践例子。
+
+准备环境
 ---------------------
 
-A well configured environment to run PHP application really matters. In order to get maximum performance:
+配置良好的环境来运行 PHP 应用是真正重要的。要获得最高性能：
 
-- Always use latest stable PHP version. Each major release brings significant performance improvements and reduced
-  memory usage.
-- Use [APC](http://ru2.php.net/apc) for PHP 5.4 and less or [Opcache](http://php.net/opcache) for PHP 5.5 and more. It
-  gives a very good performance boost.
+- 总是使用 PHP 最新的稳定版本。PHP 的每个主要版本的发布都带来显著的性能改进和降低内存消耗。
+- 在 PHP 5.4 以下使用 [APC](http://ru2.php.net/apc)而在 PHP 5.5 以上使用[Opcache](http://php.net/opcache)，它提供了非常好的性能提升。
 
-Preparing framework for production
+准备生产环境框架
 ----------------------------------
 
-### Disabling Debug Mode
+### 禁用调试模式
 
 First thing you should do before deploying your application to production environment
 is to disable debug mode. A Yii application runs in debug mode if the constant
 `YII_DEBUG` is defined as `true` in `index.php` so to disable debug the following
 should be in your `index.php`:
+
 
 ```php
 defined('YII_DEBUG') or define('YII_DEBUG', false);
@@ -35,7 +31,7 @@ Debug mode is very useful during development stage, but it would impact performa
 because some components cause extra burden in debug mode. For example, the message
 logger may record additional debug information for every message being logged.
 
-### Enabling PHP opcode cache
+### 启用 PHP 操作码缓存（opcode cache）
 
 Enabling the PHP opcode cache improves any PHP application performance and lowers
 memory usage significantly. Yii is no exception. It was tested with both
@@ -231,6 +227,6 @@ TBD
 If nothing helps, never assume what may fix performance problem. Always profile your code instead before changing
 anything. The following tools may be helpful:
 
-- [Yii debug toolbar and debugger](module-debug.md)
+- [Yii 调试工具栏和调试器](module-debug.md)
 - [XDebug profiler](http://xdebug.org/docs/profiler)
 - [XHProf](http://www.php.net/manual/en/book.xhprof.php)
