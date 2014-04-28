@@ -156,8 +156,9 @@ Content-Type: application/xml
 总体结构（General Architecture）
 --------------------
 
-Using the Yii RESTful API framework, you implement an API endpoint in terms of a controller action, and you use
-a controller to organize the actions that implement the endpoints for a single type of resource.
+Using the Yii RESTful API framework, 
+you implement an API endpoint in terms of a controller action, 
+and you use a controller to organize the actions that implement the endpoints for a single type of resource.
 
 Resources are represented as data models which extend from the [[yii\base\Model]] class.
 If you are working with databases (relational or NoSQL), it is recommended you use ActiveRecord to represent resources.
@@ -168,7 +169,7 @@ While not required, it is recommended that you develop your RESTful APIs as an a
 your Web front end and back end.
 
 
-Creating Resource Classes
+创建资源类（Creating Resource Classes）
 -------------------------
 
 RESTful APIs are all about accessing and manipulating resources. In Yii, a resource can be an object of any class.
@@ -180,7 +181,7 @@ you may enjoy the following benefits:
 * Customizable data formatting (to be explained in the next section).
 
 
-Formatting Response Data
+格式化响应数据（Formatting Response Data）
 ------------------------
 
 By default, Yii supports two response formats for RESTful APIs: JSON and XML. If you want to support
