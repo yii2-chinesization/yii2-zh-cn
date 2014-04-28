@@ -190,8 +190,8 @@ RESTful APIs 都是关于访问和操作资源的，在 Yii 中的，资源可�
 1. 要返回给用户的对象（包括嵌入的对象）通过 [[yii\rest\Serializer]] 转换成数组格式。
 2. 数组数据通过 [[yii\web\ResponseFormatterInterface|response formatters]] 转换成要返回的数据格式（例如：JSON，XML）
 
-Step 2 is usually a very mechanical data conversion process and can be well handled by the built-in response formatters.
-Step 1 involves some major development effort as explained below.
+步骤2 通常是非常机械化的数据转换处理，可以通过内置的格式化处理方式很好地进行处理。
+步骤1 涉及到一些比较重要的开发环节，主要详情如下，
 
 When the [[yii\rest\Serializer|serializer]] converts an object into an array, it will call the `toArray()` method
 of the object if it implements [[yii\base\Arrayable]]. If an object does not implement this interface,
