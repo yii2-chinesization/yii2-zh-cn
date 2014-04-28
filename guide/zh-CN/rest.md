@@ -24,11 +24,10 @@ Yii 提供了一整套的工具来大幅简化有关生成 RESTful Web Service A
 ---------------
 
 让我们用一个简单的例子来展示如何使用 Yii 建立 RESTful APIs。
-如果你想通过 RESTful APIs 来输出 user 数据，
-user 数据必须在数据库 user 表中存在，
+如果你想通过 RESTful APIs 来输出 user 数据，user 数据必须在数据库 user 表中存在，
 并且已经建立好 ActiveRecord class(数据模型类) `app\models\User` 供程序访问 user 中的数据。
 
-First, create a controller class `app\controllers\UserController` as follows,
+第一，创建 controller class(控制器类) `app\controllers\UserController` 如下，
 
 ```php
 namespace app\controllers;
@@ -42,6 +41,7 @@ class UserController extends ActiveController
 ```
 
 Then, modify the configuration about the `urlManager` component in your application configuration:
+然后，修改 
 
 ```php
 'urlManager' => [
@@ -54,8 +54,8 @@ Then, modify the configuration about the `urlManager` component in your applicat
 ]
 ```
 
-With the above minimal amount of effort, you have already finished your task of creating the RESTful APIs
-for accessing the user data. The APIs you have created include:
+通过上面步骤的配置，你已经完成了创建 RESTful APIs 访问 user 数据的接口。
+创建完成的 APIs 接口包括：
 
 * `GET /users`: list all users page by page;
 * `HEAD /users`: show the overview information of user listing;
