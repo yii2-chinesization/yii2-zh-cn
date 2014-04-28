@@ -182,10 +182,10 @@ RESTful APIs 都是关于访问和操作资源的，在 Yii 中的，资源可�
 格式化响应数据（Formatting Response Data）
 ------------------------
 
-By default, Yii supports two response formats for RESTful APIs: JSON and XML. If you want to support
-other formats, you should configure [[yii\rest\Controller::supportedFormats]] and also [[yii\web\Response::formatters]].
+默认情况下，Yii 的RESTful APIs 支持两种响应数据格式：JSON 和 XML。
+如果你想使用其他格式，你应该修改 [[yii\rest\Controller::supportedFormats]] 和 [[yii\web\Response::formatters]]。
 
-Formatting response data in general involves two steps:
+格式化响应数据一般包含两个步骤：
 
 1. The objects (including embedded objects) in the response data are converted into arrays by [[yii\rest\Serializer]];
 2. The array data are converted into different formats (e.g. JSON, XML) by [[yii\web\ResponseFormatterInterface|response formatters]].
