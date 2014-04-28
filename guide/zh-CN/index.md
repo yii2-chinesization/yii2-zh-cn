@@ -78,9 +78,9 @@ Yii 2.0 权威指南 （20140427统计翻译情况）
 高级专题
 ---------------
 
-- 【翻译中】[前端资源文件管理](assets.md)（2014-4-18）
+- 【未校对】[前端资源文件管理](assets.md)（2014-4-18）
 - 【未校对】[表单的使用](form.md)（2014-03-24）
-- 【翻译中|需更新】[实现 RESTful 风格的 Web 服务 API](rest.md)
+- 【翻译中|更新中】[实现 RESTful 风格的 Web 服务 API](rest.md)
 - 【未校对】[Bootstrap 小部件](bootstrap-widgets.md)- 使用[twitter bootstrap](http://getbootstrap.com/)（[Bootstrap中文站](http://www.bootcss.com/)）（2014-04-13）
 - 【需更新】[主题](theming.md)
 - 【未校对】[缓存](caching.md) - 数据缓存、页面片段和 HTTP 请求（2014-04-13）
