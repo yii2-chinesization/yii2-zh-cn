@@ -151,10 +151,9 @@ Content-Type: application/xml
 > 你可以通过过滤这部分的字段来达到目的，这部分会在后面的章节阐述。
 
 
-In the following sections, we will explain in more details about implementing RESTful APIs.
+在后面的章节中，我们为讲述更多关于实现 RESTful APIs 的细节。
 
-
-General Architecture
+总体结构（General Architecture）
 --------------------
 
 Using the Yii RESTful API framework, you implement an API endpoint in terms of a controller action, and you use
