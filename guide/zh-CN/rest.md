@@ -174,9 +174,9 @@ your Web front end and back end.
 
 RESTful APIs 都是关于访问和操作资源的，在 Yii 中的，资源可以是人一个类的对象，然而，如果你创建的资源类是从 [[yii\base\Model]] 或者其子类 （如：[[yii\db\ActiveRecord]]），你可以获得以下好处：
 
-* Input data validation;
-* Query, create, update and delete data, if extending from [[yii\db\ActiveRecord]];
-* Customizable data formatting (to be explained in the next section).
+* 输入数据验证；
+* 查询，创建，修改，和删除数据，前提是你的了类继承自 [[yii\db\ActiveRecord]]；
+* 可定制的数据格式（会在下一节中讲到）。
 
 
 格式化响应数据（Formatting Response Data）
