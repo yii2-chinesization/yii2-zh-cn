@@ -24,8 +24,9 @@ Yii 提供了一整套的工具来大幅简化有关生成 RESTful Web Service A
 ---------------
 
 让我们用一个简单的例子来展示如何使用 Yii 建立 RESTful APIs。
-Assume you want to expose the user data via RESTful APIs. The user data are stored in the user DB table,
-and you have already created the ActiveRecord class `app\models\User` to access the user data.
+如果你想通过 RESTful APIs 来输出 user 数据，
+user 数据必须在数据库 user 表中存在，
+并且已经建立好 ActiveRecord class(数据模型类) `app\models\User` 供程序访问 user 中的数据。
 
 First, create a controller class `app\controllers\UserController` as follows,
 
