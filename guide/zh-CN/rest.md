@@ -187,8 +187,8 @@ RESTful APIs 都是关于访问和操作资源的，在 Yii 中的，资源可�
 
 格式化响应数据一般包含两个步骤：
 
-1. The objects (including embedded objects) in the response data are converted into arrays by [[yii\rest\Serializer]];
-2. The array data are converted into different formats (e.g. JSON, XML) by [[yii\web\ResponseFormatterInterface|response formatters]].
+1. 要返回给用户的对象（包括嵌入的对象）通过 [[yii\rest\Serializer]] 转换成数组格式。
+2. 数组数据通过 [[yii\web\ResponseFormatterInterface|response formatters]] 转换成要返回的数据格式（例如：JSON，XML）
 
 Step 2 is usually a very mechanical data conversion process and can be well handled by the built-in response formatters.
 Step 1 involves some major development effort as explained below.
