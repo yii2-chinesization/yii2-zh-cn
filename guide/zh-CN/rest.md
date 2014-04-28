@@ -56,13 +56,13 @@ class UserController extends ActiveController
 通过上面步骤的配置，你已经完成了创建 RESTful APIs 访问 user 数据的接口。
 创建完成的 APIs 接口包括：
 
-* `GET /users`: list all users page by page;列出所有 users 数据;
+* `GET /users`: list all users page by page;列出所有 users 数据；
 * `HEAD /users`: show the overview information of user listing;
-* `POST /users`: 创建一个新 user;
-* `GET /users/123`: 返回 user 123 的详细数据;
+* `POST /users`: 创建一个新 user；
+* `GET /users/123`: 返回 user 123 的详细数据；
 * `HEAD /users/123`: show the overview information of user 123;
-* `PATCH /users/123` and `PUT /users/123`: 更新 user 123 的数据;
-* `DELETE /users/123`: 删除 user 123;
+* `PATCH /users/123` and `PUT /users/123`: 更新 user 123 的数据；
+* `DELETE /users/123`: 删除 user 123；
 * `OPTIONS /users`: show the supported verbs regarding endpoint `/users`;
 * `OPTIONS /users/123`: show the supported verbs regarding endpoint `/users/123`.
 
@@ -146,9 +146,9 @@ Content-Type: application/xml
 比如，URL `http://localhost/users?fields=id,email` 只会返回 包含 `id` 和 `email` 的数据结果：
 
 
-> Info: You may have noticed that the result of `http://localhost/users` includes some sensitive fields,
-> such as `password_hash`, `auth_key`. You certainly do not want these to appear in your API result.
-> You can/should filter out these fields as described in the following sections.
+> 须知：你可能注意到通过 `http://localhost/users` 返回的数据中包含了部分敏感字段，
+> 如 `password_hash`, `auth_key`。你肯定不希望这些出现在你的 API 返回数据中。
+> 你可以通过过滤这部分的字段来达到目的，这部分会在后面的章节阐述。
 
 
 In the following sections, we will explain in more details about implementing RESTful APIs.
