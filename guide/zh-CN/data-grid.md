@@ -10,7 +10,7 @@
 使用 GridView 的最少代码示例如下：
 
 ```php
-use yii\data\GridView;
+use yii\grid\GridView;
 use yii\data\ActiveDataProvider;
 
 $dataProvider = new ActiveDataProvider([
@@ -125,7 +125,7 @@ function ($url, $model) {
 
 以上代码中的 `$url` 是为创建按钮的列类的 URL ， `$model` 是被渲染的当前行的模型对象。
 
-- `urlCreator` 是使用指定模型信息建立按钮 URL 的回调函数。回调签名应该和[[yii\grid\ActionColumn\createUrl()]]相同。如果该属性未设置，按钮 URL 将使用[[yii\grid\ActionColumn\createUrl()]]创建。
+- `urlCreator` 是使用指定模型信息建立按钮 URL 的回调函数。回调签名应该和[[yii\grid\ActionColumn::createUrl()]]相同。如果该属性未设置，按钮 URL 将使用[[yii\grid\ActionColumn::createUrl()]]创建。
 
 #### 复选框列（类）
 
@@ -173,7 +173,7 @@ echo GridView::widget([
 数据筛选
 --------------
 
-要筛选数据，网格视图需要一个 [模型](model.md)从过滤的表单取得输入数据，并调整 dataprovider 的查询语句到期望的搜索条件。使用[active records](active-record.md)的惯例是建立一个搜索模型类继承活动记录类。然后用这个类定义搜索的验证规则和提供 `search()` 方法来返回 data provider 。
+要筛选数据，网格视图需要一个[模型](model.md)从过滤的表单取得输入数据，并调整 dataprovider 的查询语句到期望的搜索条件。使用[active records](active-record.md)的惯例是建立一个搜索模型类继承活动记录类。然后用这个类定义搜索的验证规则和提供 `search()` 方法来返回 data provider 。
 
 要给 `Post` 模型添加搜索能力，可以创建 `PostSearch` ，如下所示：
 

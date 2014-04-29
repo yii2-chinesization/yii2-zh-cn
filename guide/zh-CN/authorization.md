@@ -94,7 +94,7 @@ class SiteController extends Controller
 使用其他用户角色（组）需要 RBAC 的支持（会在下个板块详述），且会调用 [[yii\web\User::can()]] 方法。
 若该选项为空或未设置，则意味着该选项应用于所有用户角色（组）。
 
- * [[yii\filters\AccessRule::ips|ips]]：指定该规则匹配哪些 [[yii\web\Request::Request::userIP|client IP addresses]] （客户端 IP 地址）
+ * [[yii\filters\AccessRule::ips|ips]]：指定该规则匹配哪些 [[yii\web\Request::userIP|client IP addresses]] （客户端 IP 地址）
  一个 IP地址可以在结尾处包含一个通配符 `*` ，这样它可以匹配所有有相同前缀的 IP 地址。
  比如说，'192.168.*' 匹配所有前缀为 '192.168.' 的 IP 地址。
  若该选项为空或未设置，则该规则匹配所有 IP 地址。
