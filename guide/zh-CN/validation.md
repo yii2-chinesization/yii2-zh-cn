@@ -1,66 +1,65 @@
-Model validation reference
+模型验证参考
 ==========================
 
-As a model both represents data and defines the business rules to which that data must adhere, comprehending data validation is key to using Yii. In order to learn model validation basics, please refer to [Model, Validation subsection](model.md#Validation).
+既然模型即代表数据又定义了数据依附的业务规则，那么理解数据验证就是使用 Yii 的钥匙。要学习模型验证基础知识，请参考[模型, 验证部分](model.md#Validation)
 
-This guide describes all of Yii's validators and their parameters.
+本指南描述了 Yii 所有的验证器及其参数。
 
-
-Standard Yii validators
+标准的 Yii 验证器（validators）
 -----------------------
 
-The standard Yii validators are defined in many Yii classes, found primarily within the `yii\validators` namespace. But you do not need to specify the full namespace for the standard Yii validators as Yii can recognize them from defined aliases. 
+标准的 Yii 验证器定义在许多类中，主要在 `yii\validators` 命名空间。但你不必为 Yii 标准验证器指定完整命名空间，因为 Yii 能从已定义的路径别名识别它们。
 
-Here's the list of all validators bundled with the Yii framework, including  their most useful properties. The default value for each property is indicated in parentheses. Note that this does not present an exhaustive list of each validator's properties.  
+这里是绑定到 Yii 框架的所有验证器列表，包括它们最有用的属性。每个属性的缺省值是标示在小括号内。注意这里并没有介绍所有验证器的完整属性列表。
 
-### `boolean`: [[yii\validators\BooleanValidator|BooleanValidator]]
+### `boolean`: [[yii\validators\BooleanValidator|BooleanValidator]]（布尔值验证器）
 
-Checks if the attribute value is a boolean value.
+核对属性赋值是否为布尔值。
 
-- `trueValue`, the value representing true status. _(1)_
-- `falseValue`, the value representing false status. _(0)_
-- `strict`, whether to also compare the type of the value and `trueValue`/`falseValue`. _(false)_
+- `trueValue`, 此值表示真. _(1)_
+- `falseValue`, 此值表示假. _(0)_
+- `strict`, 除了比对值是否还比对数据类型并输出 `trueValue`/`falseValue`. _(false)_
 
-### `captcha`: [[yii\captcha\CaptchaValidator|CaptchaValidator]]
+### `captcha`: [[yii\captcha\CaptchaValidator|CaptchaValidator]]（验证码验证器）
 
-Validates that the attribute value is the same as the verification code displayed in the CAPTCHA. Should be used together
-with [[yii\captcha\CaptchaAction]].
+验证属性赋值等同于显示在验证码框的验证码，应和[[yii\captcha\CaptchaAction]]一起使用。
 
-- `caseSensitive`, whether the comparison is case sensitive. _(false)_
-- `captchaAction`, the route of the controller action that renders the CAPTCHA image. _('site/captcha')_
+- `caseSensitive`, 比对是否区分大小写. _(false)_
+- `captchaAction`, 渲染验证码图片的控制器动作路径. _('site/captcha')_
 
-### `compare`: [[yii\validators\CompareValidator|CompareValidator]]
+### `compare`: [[yii\validators\CompareValidator|CompareValidator]]（对比验证器）
 
-Compares the specified attribute value with another value and validates if they are equal.
+比对指定的属性赋值和其他值并验证它们是否相等。
 
-- `compareAttribute`, the name of the attribute to be compared with. _(currentAttributeName&#95;repeat)_
-- `compareValue`, a constant value to be compared with.
-- `operator`, the operator for the comparison. _('==')_
+- `compareAttribute`, 拟对比的属性名. _(currentAttributeName&#95;repeat)_
+- `compareValue`, 拟对比的常量值.
+- `operator`, 对比操作符. _('==')_
 
-### `date`: [[yii\validators\DateValidator|DateValidator]]
+### `date`: [[yii\validators\DateValidator|DateValidator]]（日期验证器）
 
-Verifies if the attribute represents a date, time, or datetime in a proper format.
+验证属性是否以适当格式代表日期、时间和日期时间。
 
-- `format`, the date format that the value being validated should follow according to
-  [PHP date_create_from_format](http://www.php.net/manual/en/datetime.createfromformat.php). _('Y-m-d')_
-- `timestampAttribute`, the name of the attribute that should receive the parsed result.
+- `format`, 要验证值的日期格式应遵循[PHP date_create_from_format](http://www.php.net/manual/en/datetime.createfromformat.php). _('Y-m-d')_
+- `timestampAttribute`, 接收解析结果的属性名.
 
-### `default`: [[yii\validators\DefaultValueValidator|DefaultValueValidator]]
+### `default`: [[yii\validators\DefaultValueValidator|DefaultValueValidator]]（缺省值验证器）
 
-Sets the attribute to be the specified default value.
+验证属性是否设置为指定缺省值。
 
-- `value`, the default value to be assigned.
+- `value`, 拟分配的缺省值.
 
-### `double`: [[yii\validators\NumberValidator|NumberValidator]]
+### `double`: [[yii\validators\NumberValidator|NumberValidator]]（精度验证器）
 
 Validates that the attribute value is a number, integer or decimal.
+验证属性赋值是数值、整型还是浮点型。
 
-- `max`, the upper limit of the number (inclusive). _(null)_
-- `min`, the lower limit of the number (inclusive). _(null)_
+- `max`, 数值上限（含）. _(null)_
+- `min`, 数值下限（含）. _(null)_
 
-### `email`: [[yii\validators\EmailValidator|EmailValidator]]
+### `email`: [[yii\validators\EmailValidator|EmailValidator]]（电邮验证器）
 
 Validates that the attribute value is a valid email address. By default, this validator checks if the attribute value is a syntactical valid email address, but the validator can be configured to check the address's domain for the address's existence.
+验证属性赋值是否有效的电子邮箱地址。默认该验证器验证属性值是否
 
 - `allowName`, whether to allow the name in the email address (e.g. `John Smith <john.smith@example.com>`). _(false)_.
 - `checkMX`, whether to check the MX record for the email address. _(false)_
