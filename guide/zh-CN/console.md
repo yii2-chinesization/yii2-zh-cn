@@ -27,7 +27,7 @@ yii migrate/create --migrationTable=my_migration
 ------------
 
 入口脚本之于控制台应用，一如 `index.php` 引导文件之于 Web 应用。
-控制台入口脚本一般被称为 `yii`， 它通常被放置于应用的根目录中（比如，`web`）。
+控制台入口脚本一般被称为 `yii`， 它通常被放置于应用的根目录中。
 控制台应用入口脚本所包含的代码主体如下：
 
 ```php
@@ -35,10 +35,6 @@ yii migrate/create --migrationTable=my_migration
 <?php
 /**
  * Yii console bootstrap file.
- *
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
  */
 
 defined('YII_DEBUG') or define('YII_DEBUG', true);
