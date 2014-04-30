@@ -187,7 +187,7 @@ Yii 2.0 主题的工作原理完全不同于 Yii 1.1。现在主题基于路径�
 
 因此也不再使用 `CThemeManager` ，而是用 `theme` 作为 "view" 应用组件的一个可配置属性。
 
-更多细节请参考[主题化](tutorial-theming.md)章节。
+更多细节请参考[主题](tutorial-theming.md)章节。
 
 
 控制台应用
