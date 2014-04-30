@@ -63,7 +63,20 @@ Yii 2.0 权威指南
 * **TBD** [过滤器](runtime-filtering.md)
 
 
-收集输入数据
+数据库使用
+---------------------
+
+* [数据访问对象（DAO）](db-dao.md) - 数据库连接、基本查询、事务和模式操作
+* [查询生成器（Query Builder）](db-query-builder.md) - 使用简单抽象层查询数据库
+* [活动记录（Active Record）](db-active-record.md) - 活动记录对象关系映射（ORM），检索和操作记录、定义关联关系
+* [数据库迁移](db-migrations.md)
+* **TBD** [Sphinx](db-sphinx.md)
+* **TBD** [Redis](db-redis.md)
+* **TBD** [MongoDB](db-mongodb.md)
+* **TBD** [ElasticSearch](db-elastic-search.md)
+
+
+收集数据
 -----------------
 
 * [创建表单](input-forms.md)
@@ -81,19 +94,6 @@ Yii 2.0 权威指南
 * [数据来源](output-data-providers.md)
 * [数据小部件](output-data-widgets.md)
 * [资源管理](output-assets.md)
-
-
-使用数据库
----------------------
-
-* [数据访问对象（DAO）](db-dao.md) - 数据库连接、基本查询、事务和模式操作
-* [查询生成器（Query Builder）](db-query-builder.md) - 使用简单抽象层查询数据库
-* [活动记录（Active Record）](db-active-record.md) - 活动记录对象关系映射（ORM），检索和操作记录、定义关联关系
-* [数据库迁移](db-migrations.md)
-* **TBD** [Sphinx](db-sphinx.md)
-* **TBD** [Redis](db-redis.md)
-* **TBD** [MongoDB](db-mongodb.md)
-* **TBD** [ElasticSearch](db-elastic-search.md)
 
 
 安全
@@ -130,6 +130,14 @@ RESTful 风格的 Web 服务
 * **TBD** [测试](rest-testing.md)
 
 
+开发工具
+-----------------
+
+* [调试工具栏和调试器](tool-debugger.md)
+* [使用 Gii 生成代码](tool-gii.md)
+* **TBD** [生成 API 文档](tool-api-doc.md)
+
+
 测试
 -------
 
@@ -149,14 +157,6 @@ RESTful 风格的 Web 服务
 * **TBD** [在第三方系统使用 Yii](extend-embedding-in-others.md)
 * **TBD** [混合使用 Yii 1.1 和 2.0](extend-using-v1-v2.md)
 * [使用包管理器 Composer](extend-using-composer.md)
-
-
-开发工具
------------------
-
-* [调试工具栏和调试器](tool-debugger.md)
-* [使用 Gii 生成代码](tool-gii.md)
-* **TBD** [生成 API 文档](tool-api-doc.md)
 
 
 高级专题
@@ -192,6 +192,7 @@ RESTful 风格的 Web 服务
 助手类
 -------
 
+* [概述](helper-overview.md)
 * **TBD** [ArrayHelper](helper-array.md)
 * **TBD** [Html](helper-html.md)
 * **TBD** [Url](helper-url.md)
