@@ -193,9 +193,9 @@ RESTful APIs 都是关于访问和操作资源的，在 Yii 中的，资源可�
 步骤2 通常是非常机械化的数据转换处理，可以通过内置的格式化处理方式很好地进行处理。
 步骤1 涉及到一些比较重要的开发环节，主要详情如下，
 
-When the [[yii\rest\Serializer|serializer]] converts an object into an array, it will call the `toArray()` method
-of the object if it implements [[yii\base\Arrayable]]. If an object does not implement this interface,
-its public properties will be returned instead.
+使用 [[yii\rest\Serializer|serializer]] 将对象转换成数组时，
+如果要进行转换的对象实现了 [[yii\base\Arrayable]] 接口，那么它会调用 `toArray()` 这个方法，
+如果对象未实现此接口，那么其公共属性将会被返回进行替换。
 
 For classes extending from [[yii\base\Model]] or [[yii\db\ActiveRecord]], besides directly overriding `toArray()`,
 you may also override the `fields()` method and/or the `extraFields()` method to customize the data being returned.
