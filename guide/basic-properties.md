@@ -1,132 +1,58 @@
-Yii 的基本概念
-=====================
+属性
+=========
 
-
-Component and Object（组件和对象）
---------------------
-
-Yii框架的类通常扩展自两个基类 [[yii\base\Object]] 和 [[yii\base\Component]] 中的一个。
-这些类提供的有用特性都会自动被扩展自他们的子类所继承。
-
-[[yii\base\Object|Object]] 类提供[配置与 *property* 功能](../api/base/Object.md)。
-而[[yii\base\Component|Component]]类则扩展自[[yii\base\Object|Object]]类，并添加了
-[事件处理](events.md) 和 [行为](behaviors.md)特性.
-
-[[yii\base\Object|Object]]类通常用于表示基础数据结构
-而[[yii\base\Component|Component]]类则是应用程序组件或实现其他更高逻辑的类。
-
-
-对象的配置
---------------------
-
-[[yii\base\Object|Object]]类引入了一个统一的配置对象的方式。
-任何[[yii\base\Object|Object]]的子类（扩展类）应该覆盖它的构造函数（如果需要的话），
-以使它可以被正确配置：
+PHP 中，类的成员变量亦称为*属性*。它们是类定义的一部分并用来表现类实例的状态。实践中，你经常想要在属性被读取或修改时做些特殊处理。例如，当字符串被赋值给`label` 属性时，你想要去掉字符串前后空格，可以使用以下代码完成这个任务：
 
 ```php
-class MyClass extends \yii\base\Object
-{
-    public function __construct($param1, $param2, $config = [])
-    {
-        // ... 在配置生效前的初始化
+$object->label = trim($label);
+```
 
-        parent::__construct($config);
+以上代码的缺点是无论何时何地修改 `label` 属性都必须调用`trim()` 函数。如果将来对 `label` 属性提出新要求，如首字母转换成大写字母，你就必须修改所有这些地方——这是你最希望规避的实践。
+
+要解决这个问题，Yii 引进了名为[[yii\base\Object]]的基类来支持基于 *getter* 和 *setter* 类方法的属性定义。如果一个类需要这样的支持就应该继承[[yii\base\Object]]或其子类。
+
+> 资讯：Yii 框架的核心类几乎都继承自[[yii\base\Object]]或其子类。即无论何时在核心类见到 getter 或 setter 方法，都可以像属性一样使用它。
+
+getter 方法是方法名以`get` 开头的方法，而 setter 方法名以 `set` 开头。方法名中 `get` 或 `set` 前缀后的部分定义了属性名。如， getter 方法 `getLabel()` 和 setter 方法 `setLabel()` 定义了一个名为 `label` 的属性，如下所示：
+
+```php
+namespace app\components;
+
+use yii\base\Object;
+
+class Foo extend Object
+{
+    private $_label;
+
+    public function getLabel()
+    {
+        return $this->_label;
     }
 
-    public function init()
+    public function setLabel($value)
     {
-        parent::init();
-
-        // ... 在配置生效后初始化
+        $this->_label = trim($value);
     }
 }
 ```
 
-在上面的例子中，构造函数的最后一个参数
-必须是一个包含相应键值对的数组，来初始化构造函数最后面的属性。
-在配置生效后，仍可以通过覆盖`init()`方法，来进行初始化工作
-。
-
-根据该约定，
-你可以使用下面的配置数组(configuration array)来创建和配置一个新的对象：
+ getters/setters 定义的属性能像类成员变量那样使用。两者主要的区别是这种属性被读取时，对应的 getter 方法将被调用；而当属性被赋值时，对应的 setter 方法就调用。如：
 
 ```php
-$object = Yii::createObject([
-    'class' => 'MyClass',
-    'property1' => 'abc',
-    'property2' => 'cde',
-], [$param1, $param2]);
+// 等同于 $label = $object->getLabel();
+$label = $object->label;
+
+// 等价于 $object->setLabel('abc');
+$object->label = 'abc';
 ```
 
+只有 getter 方法没有 setter 方法定义的属性是*只读属性*。尝试赋值给这样的属性将导致[[yii\base\InvalidCallException|InvalidCallException]]无效调用异常。类似的，只有 setter 方法而没有 getter 方法定义的属性是*只写属性*，尝试读取这种属性也会触发异常。但只写属性不常见。
 
-路径别名（Path Aliases）
-------------
+基于 getter 和 setter 定义属性有很多专门的规则或限制：
 
-Yii 2.0扩展了路径别名的用法，以同时应用于文件/目录的路径和 URL。
-一个别名必须以`@`字符开始，以便区别于传统的文件/目录路径或URL。
-举个栗子，别名`@yii`指的是Yii的安装目录，而`@web`表示的是当前运行app的base URL。
-几乎所有的 Yii 核心代码内部都支持路径别名。例如，
-`FileCache::cachePath`可以采取两种参数，路径别名或正常的目录路径都可以。
+* 这类属性取名是*不区分大小写的*。如， `$object->label` 和 `$object->Label` 是同一个属性。因为 PHP 方法名是不区分大小写的。
+* 如果此类属性名和类成员变量相同，后者将有优先权。例如，假设以上 `Foo` 类有个 `label` 成员变量，然后给 `$object->label = 'abc'` 赋值，将赋给成员变量而不是 setter `setLabel()` 方法。
+* 这类属性不支持可见性（访问限制）。定义属性的 getter 和 setter 方法是公有、受保护还是私有的对属性的可见性没有区别。
+* 这类属性只能被*非静态* getter 和 setter 方法定义，静态方法不计。
 
-路径别名和类的命名空间也是密切相关的。
-建议将每一个根命名空间定义为路径别名，这让你可以使用Yii的类文件自动加载器
-而不需要进行任何配置。例如，由于 `@yii` 指向 Yii 的安装目录，像 `yii\web\Request` 这样的类便可以通过 Yii 自动导入
-如果需要用到，如 Zend Framework 这样的第三方类库，
-你可以定义一个`@Zend`路径别名，将它指向其安装目录，
-这样Yii就能自动导入这个类库中的任何类。
-
-我们的核心框架已经预定义了以下几个路径别名：
-
-- `@yii` - 框架目录。
-- `@app` - 当前运行的应用主体的路径（base path）。
-- `@runtime` - runtime（运行环境）目录。
-- `@vendor` - Composer 的 vendor 文件夹。
-- `@webroot` - 当前运行应用的 web 根目录。
-- `@web` - 当前运行应用的 base URL（根URL）。
-
-自动加载（Autoloading）
------------
-
-所有的类、接口和traits（特质）都会在使用它们的时候自动加载。而不需要使用
-`include` or `require`。那是因为 Composer 和 Yii 的扩展特性在起作用。
-
-Autoloader (自动加载器)需要遵守 [PSR-4](https://github.com/php-fig/fig-standards/blob/master/proposed/psr-4-autoloader/psr-4-autoloader.md)标准。
-这意味，一个命名空间、类、接口以及 trait (特质)的别名的定义，应该对应于其文件系统路径。
-除了根命名空间，根命名空间是通过路径别名定义的。
-
-例如，如果标准别名`@app`指向`/var/www/example.com/`，那么`\app\models\User`将从
-`/var/www/example.com/app/models/User.php`载入。
-
-要自定义别名，可以使用下面的代码来配置：
-
-```php
-Yii::setAlias('@shared', realpath('~/src/shared'));
-```
-
-要附加自动加载功能，可以使用标准的PHP`spl_autoload_register`注册。
-
-助手类（Helper Classes）
---------------
-
-助手类通常只包括（并使用）一些静态的方法，比如下面的用法：
-
-```php
-use \yii\helpers\Html;
-echo Html::encode('Test > test');
-```
-
-这里是框架提供的几个助手类：
-
-- ArrayHelper
-- Console
-- FileHelper
-- Html
-- HtmlPurifier
-- Image
-- Inflector
-- Json
-- Markdown
-- Security
-- StringHelper
-- Url
-- VarDumper
+回到一开始提到的问题，取代处处要调用 `trim()` 函数，我们只在 setter `setLabel()` 方法内调用一次。如果 label 首字母变成大写的新要求来了，我们只需要修改`setLabel()` 方法，而无须接触任何其它代码。
