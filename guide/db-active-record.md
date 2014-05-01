@@ -1,6 +1,8 @@
 Active Record
 =============
 
+> 注意：该章节还在开发中。
+
 [Active Record](http://zh.wikipedia.org/wiki/Active_Record) （活动记录，以下简称AR）提供了一个面向对象的接口，
 用以访问数据库中的数据。一个 AR 类关联一张数据表，
 每个 AR 对象对应表中的一行，对象的属性（即 AR 的特性Attribute）映射到数据行的对应列。
