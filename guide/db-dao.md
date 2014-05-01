@@ -1,6 +1,8 @@
 数据库基础
 ===============
 
+【未校对-20140501|官方还在更新】
+
 Yii 基于 PHP's [PDO](http://www.php.net/manual/en/book.pdo.php)建立了一个成熟的数据库访问层。它提供统一的 API 并解决了一些不同 DBMS 产生的使用不利。 Yii 默认支持以下 DBMS ：
 
 - [MySQL](http://www.mysql.com/)
