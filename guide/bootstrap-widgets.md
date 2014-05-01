@@ -1,7 +1,7 @@
 Bootstrap Widgets
 =================
 
-> Note: This chapter is under development.
+> 注意：该章节还在开发中。
 
 Out of the box, Yii includes support for the [Bootstrap 3](http://getbootstrap.com/) markup and components framework
 (also known as "Twitter Bootstrap"). Bootstrap is an excellent, responsive framework that can greatly speed up the
@@ -12,7 +12,7 @@ The core of Bootstrap is represented by two parts:
 - CSS basics, such as a grid layout system, typography, helper classes, and responsive utilities.
 - Ready to use components, such as forms, menus, pagination, modal boxes, tabs etc.
 
-Basics
+基础
 ------
 
 Yii doesn't wrap the bootstrap basics into PHP code since HTML is very simple by itself in this case. You can find details
@@ -31,7 +31,7 @@ public $depends = [
 Using bootstrap through Yii asset manager allows you to minimize its resources and combine with your own resources when
 needed.
 
-Yii widgets
+Yii 小部件
 -----------
 
 Most complex bootstrap components are wrapped into Yii widgets to allow more robust syntax and integrate with
