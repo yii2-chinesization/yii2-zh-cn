@@ -215,7 +215,7 @@ URL `http://admin.example.com/en/profile` 可以解析为 GET 参数`user=admin`
 如，应用位于 `http://www.example.com/sandbox/blog` ，
 那么仍然使用上面相同的规则，而不需要加上  `sandbox/blog` 。
 
-### URL 假后缀
+### URL 伪后缀
 
 ```php
 <?php
@@ -326,7 +326,7 @@ class CarUrlRule extends UrlRule
 
 除了上述用法，自定义 URL 规则类还可以实现许多目的。
 如，我们可以写规则类来记录 URL 解析和创建请求的日志。
-开发阶段这是非常有用的。
+开发阶段这是非常有用处的。
 我们也可以写规则类来显示特定的 404 错误类以防止所有其他 URL 规则
 解析当前请求失败。注意这种情况，特定类的规则
 必须定义在最后一条规则。
