@@ -1,14 +1,91 @@
-事件（Events）
+事件
 ======
 
-Yii 以“事件”的形式，在程序运行的特定时间点上向已有的代码中“注入”部分自定义的代码。比如，一个评论对象，
-可以在用户在某篇博文下添加一条评论时，就触发一个“add”事件。
+事件允许在特定执行点“注入”自定义代码到现存代码中。可以附加自定义代码到事件，当这个事件被触发时，这些代码将自动执行。例如，邮件程序对象成功发出消息时可触发 `messageSent` 事件。如想保持追踪成功发送的消息，可以附加这个追踪代码到 `messageSent` 事件。
 
-事件因以下两种理由特别有用：其一，它们可以让你的组件变得更加灵活。
-其二，你可以把你自己的代码挂载到框架或正在使用的扩展程序的常规流程里去。
+Yii 引入了名为[[yii\base\Component]]的基类以支持事件。如果一个类需要触发事件就应该继承[[yii\base\Component]]或其子类。
 
-绑定事件处理器
-------------------------
+
+触发事件
+----------
+
+事件通过调用[[yii\base\Component::trigger()]]方法触发，此方法须传递*事件名*和描述参数可选的事件对象到事件处理器。如：
+
+```php
+namespace app\components;
+
+use yii\base\Component;
+use yii\base\Event;
+
+class Foo extends Component
+{
+    const EVENT_HELLO = 'hello';
+
+    public function bar()
+    {
+        $this->trigger(self::EVENT_HELLO);
+    }
+}
+```
+
+以上代码当调用 `bar()` ，它将触发名为 `hello` 的事件。
+
+> 提示：推荐使用类常量来表示事件名。上例中，常量 `EVENT_HELLO` 用来表示 `hello` 。这有两个好处。第一，它可以防止拼写错误并支持 IDE 的自动完成。第二，只要简单检查常量声明就能了解一个类支持哪些事件。
+
+有时想要在触发事件时同时传递一些额外信息到事件处理器。例如，邮件程序要传递消息信息到 `messageSent` 事件的处理器以便处理器了解哪些消息被发送了。为此，可以提供一个事件对象作为[[yii\base\Component::trigger()]]方法的第二个参数。这个事件对象必须是[[yii\base\Event]]类或其子类的实例。如：
+
+```php
+namespace app\components;
+
+use yii\base\Component;
+use yii\base\Event;
+
+class MessageEvent extends Event
+{
+    public $message;
+}
+
+class Mailer extends Component
+{
+    const EVENT_MESSAGE_SENT = 'messageSent';
+
+    public function send($message)
+    {
+        // ...sending $message...
+
+        $event = new MessageEvent;
+        $event->message = $message;
+        $this->trigger(self::EVENT_MESSAGE_SENT, $event);
+    }
+}
+```
+
+当[[yii\base\Component::trigger()]]方法被调用时，它将调用附加到命名事件（named event）的事件处理器。
+
+
+事件处理器
+--------------
+
+事件处理器是一个[PHP 回调函数](http://www.php.net/manual/en/language.types.callable.php)，当它所附加到的事件被触发时它就会执行。可以使用以下回调函数之一：
+
+- 字符串形式指定的 PHP 全局函数，如 `trim()` ；
+- 对象名和方法名数组形式指定的对象方法，如 `[$object, $method]` ；
+- 类名和方法名数组形式指定的静态类方法，如 `[$class, $method]` ；
+- 匿名函数，如 `function ($event) { ... }` 。
+
+事件处理器的格式是：
+
+```php
+function ($event) {
+    // $event 是 yii\base\Event 或其子类的对象
+}
+```
+
+通过 `$event` 参数，事件处理器就
+
+
+
+
 
 可以向一个事件绑定一个或多个名为 *event handlers（事件处理器）*的 PHP 回调函数。当事件被触发，
 所有绑定它的事件处理器就会被自动引入。
