@@ -63,7 +63,7 @@ class Mailer extends Component
 当[[yii\base\Component::trigger()]]方法被调用时，它将调用附加到命名事件（named event）的事件处理器。
 
 
-事件处理器
+事件处理器（Event Handlers 又称为事件处理句柄）
 --------------
 
 事件处理器是一个[PHP 回调函数](http://www.php.net/manual/en/language.types.callable.php)，当它所附加到的事件被触发时它就会执行。可以使用以下回调函数之一：
@@ -81,8 +81,53 @@ function ($event) {
 }
 ```
 
-通过 `$event` 参数，事件处理器就
+通过 `$event` 参数，事件处理器就获得了以下有关事件的信息：
 
+- [[yii\base\Event::name|event name]]
+- [[yii\base\Event::sender|event sender]]：哪个对象的 `trigger()` 方法被调用
+- [[yii\base\Event::data|custom data]]：当附加事件处理器（简单地说）时提供的数据
+
+
+附加事件处理器
+----------------
+
+调用[[yii\base\Component::on()]]方法来附加处理器到事件上。如：
+
+```php
+$foo = new Foo;
+
+// 处理器是全局函数
+$foo->on(Foo::EVENT_HELLO, 'function_name');
+
+// 处理器是对象方法
+$foo->on(Foo::EVENT_HELLO, [$object, 'methodName']);
+
+// 处理器是静态类方法
+$foo->on(Foo::EVENT_HELLO, ['app\components\Bar', 'methodName']);
+
+// 处理器是匿名函数
+$foo->on(Foo::EVENT_HELLO, function ($event) {
+    //事件处理逻辑
+});
+```
+
+附加事件处理器时可以提供额外数据作为[[yii\base\Component::on()]]方法的第三个参数。数据在事件被触发和处理器被调用时能被处理器使用。如：
+
+```php
+// 当事件被触发时以下代码显示 "abc"
+// 因为 $event->data 包括被传递到 "on" 方法的数据
+$foo->on(Foo::EVENT_HELLO, function ($event) {
+    echo $event->data;
+}, 'abc');
+```
+
+可以附加一个或多个处理器到一个事件。当事件被触发，已附加的处理器将按附加次序依次调用。如果某个处理器必须停止其后的处理器调用，它可以设置 `$event` 参数的[yii\base\Event::handled]]属性为真，如下：
+
+```php
+$foo->on(Foo::EVENT_HELLO, function ($event) {
+    $event->handled = true;
+});
+```
 
 
 
