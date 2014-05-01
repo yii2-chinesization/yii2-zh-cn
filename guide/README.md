@@ -19,9 +19,9 @@ Yii 2.0 权威指南
 ---------------
 
 * **TBD** [概述](start-overview.md) - 从哪开始？
-* 【已校对-20140501|官方还要更新】[从基础 App 开始](start-basic.md) - 适用于开发者个人开发单层应用
-* 【已校对-20140501|官方还要更新】[从高级 App 开始](start-advanced.md) - 适用于开发团队开发企业应用
-* 【已校对-20140501|官方还要更新】[从新建 App 开始](start-scratch.md) - 学习按步骤从头建立一个 Yii 应用的深入细节
+* 【已校对-20140501|官方还在更新】[从基础 App 开始](start-basic.md) - 适用于开发者个人开发单层应用
+* 【已校对-20140501|官方还在更新】[从高级 App 开始](start-advanced.md) - 适用于开发团队开发企业应用
+* 【已校对-20140501|官方还在更新】[从新建 App 开始](start-scratch.md) - 学习按步骤从头建立一个 Yii 应用的深入细节
 
 基本概念
 --------------
@@ -29,9 +29,9 @@ Yii 2.0 权威指南
 * 【粗翻未校对-20140501】[对象属性](basic-properties.md)
 * 【粗翻未校对-20140501】[事件](basic-events.md)
 * 【粗翻未校对-20140501】[行为](basic-behaviors.md)
-* 【粗翻新增未翻译部分-20140501|未校对|官方还要更新】[对象配置](basic-configs.md)
-* [类自动加载](basic-autoloading.md)
-* [别名](basic-alias.md)
+* 【粗翻新增未翻译部分-20140501|未校对|官方还在更新】[对象配置](basic-configs.md)
+* 【粗翻未校对-20140501|官方还在更新】[类自动加载](basic-autoloading.md)
+* 【粗翻未校对-20140501|官方还在更新】[别名](basic-alias.md)
 * **TBD** [扩展](basic-extensions.md)
 * [服务定位器](basic-service-locator.md)
 * [依赖注入容器](basic-di-container.md)
