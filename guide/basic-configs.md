@@ -1,6 +1,48 @@
 配置
 =============
 
+> 注意：本章节还在开发中。
+
+对象配置
+---------
+
+[[yii\base\Object|Object]]类引进了一个配置对象的统一方式。[[yii\base\Object|Object]]的任何继承类都要如下声明它的构造函数（如需要），以便它能被正确配置：
+
+```php
+class MyClass extends \yii\base\Object
+{
+    public function __construct($param1, $param2, $config = [])
+    {
+        // ... 配置生效前在此初始化
+
+        parent::__construct($config);
+    }
+
+    public function init()
+    {
+        parent::init();
+
+        // ... 配置生效后在此初始化
+    }
+}
+```
+
+以上示例，构造函数的最后一个参数必须是配置数组，用于构造函数结束时初始化对象属性。
+
+覆写 `init()` 方法可以在配置生效后继续做初始化工作。
+
+遵守上述约定就能够如下这样用配置数组来创建和配置新对象：
+
+``php
+$object = Yii::createObject([
+    'class' => 'MyClass',
+    'property1' => 'abc',
+    'property2' => 'cde',
+], [$param1, $param2]);
+```
+
+
+
 Yii 应用依靠组件来执行大多数常见任务，如连接数据库、路由浏览器请求和处理会话。这些常备的组件都可以通过 *配置* Yii 应用来调整其表现。
 多数组件缺省设置是合理的，不一定需要你做非常多的配置。但仍有一些必要的配置需要你完成，如数据库连接。
 应用如何配置取决于使用的应用模板，但有一些共同原则适用于所有 Yii 应用。
