@@ -1,7 +1,9 @@
 高级应用模板
 =============================
 
-该模板适用于大型项目开发，分离前后台使应用可以分别安装到多个服务器。该应用模板还提供了一些令人喜爱的特性、必不可少的数据库、非常棒的注册和密码存储。
+> 注意：该章节还在开发中。
+
+该模板适用于团队开发大型项目，其中前后台分离使应用可以分别部署到不同服务器。此应用模板的功能也更多，还提供了必不可少的数据库、开箱即用的注册和密码恢复功能。
 
 
 安装
@@ -9,25 +11,25 @@
 
 ### 用 Composer 安装
 
-Yii 应用安装需要使用[Composer](http://getcomposer.org/)。如你的系统还没有 Composer ，请到
+如果你还没有 Composer ，请到
 [http://getcomposer.org/](http://getcomposer.org/)下载, 或在 Linux/Unix/MacOS 运行以下命令:
 
 ~~~
 curl -s http://getcomposer.org/installer | php
 ~~~
 
-然后使用以下命令创建 Yii 高级应用：
+然后使用以下命令安装 Yii 高级应用：
 
 ~~~
 php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-advanced /path/to/yii-application
 ~~~
 
-开始
+入门
 ---------------
 
 安装应用后，必须执行以下步骤来初始化应用，只需做一次：
 
-1. 执行 `init` 命令并依据你的情况选择 `dev` or `prod`环境。
+1. 执行 `init` 命令并选择 `dev` 环境。
 
    ```
    php /path/to/yii-application/init
@@ -45,17 +47,17 @@ php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-
 根目录包括以下子目录：
 
 - `backend` - web 应用后台
-- `frontend` - web 应用前台
-- `common` - 所有应用共享文件
+- `common` - 所有应用共享的文件
 - `console` - 控制台应用
 - `environments` - 环境配置
+- `frontend` - web 应用前台
 
 
-根目录还包括以下文件：
+根目录还包括以下一组文件：
 
-- `.gitignore` 包括要被 GIT 版本控制系统忽略的目录清单。有些文档不需要上传到源码库，就在该文件列明。
-- `composer.json` - 细节在下面描述的 Composer 配置
-- `init` - 初始化脚本，并描述在 "细节在下面描述的 Composer 配置"
+- `.gitignore` 包括 GIT 版本控制系统忽略的目录清单。有些文档不需要上传到源码版本库，就列入该文件。
+- `composer.json` - Composer 配置，细节描述在下面
+- `init` - 初始化脚本，和 Composer 配置在下面一起介绍
 - `init.bat` - Windows 下的初始化脚本
 - `LICENSE.md` - 版权文件，在此放你的项目许可，特别是开源项目
 - `README.md` - 安装模板的基础信息，可以用你的项目及安装相关信息来替换
@@ -63,30 +65,46 @@ php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-
 - `yii` - 控制台应用引导文件
 - `yii.bat` - Windows 下的控制台应用引导文件
 
+
+预定义的路径别名
+----------------
+
+- @yii - 框架目录
+- @app - 当前运行应用的根路径
+- @common - 通用目录
+- @frontend - web 应用前台目录
+- @backend -  web 应用后台目录
+- @console - 控制台目录
+- @runtime - 当前运行 web 应用的运行期目录
+- @vendor - Composer 包目录
+- @web - 当前运行 web 应用的 URL
+- @webroot - 当前运行 web 应用的 web 入口目录
+
+
 应用
 ------------
 
-高级模板有三个应用：前台、后台和控制台。前台通常面向终端用户，项目自身。后台是管理平台，诸如数据分析等功能。控制台通常用于守护程序和底层服务器管理，也用于应用部署、合并及资源处理。
+高级模板有三个应用：前台、后台和控制台。前台通常面向终端用户，项目自身。后台是管理平台，有数据分析等功能。控制台通常用于守护作业和底层服务器管理，也用于应用部署、数据库迁移和资源管理。
 
 还有个 `common` 目录，包括的文件在不止一个应用中使用。如，`User` 模型。
 
-前台和后台都是 web 应用，都包括 `web` 目录，该目录是设置服务器指向的根目录。
+前台和后台都是 web 应用，都包括 `web` 目录，这是设置服务器指向的 web 入口目录。
 
 每个应用有其自己的命名空间和对应的路径别名，也适用于通用目录。
 
 配置和环境
 --------------
 
-直接配置应用会产生很多问题：
+用通常的做法来配置高级应用会产生很多问题：
 
-- 每个应用成员都有自己的配置选项，直接配置会影响其他应用成员.
-- 生产环境的数据库密码和 API keys 不应该出现在版本库里。
-- 考虑有很多服务器：开发服务器、测试服务器、发布服务器。每个都应该有其单独的配置。
-- 为每个状况定义所有的配置选项是重复的，也需要太多时间维护。
+- 每个应用成员都有自己的配置选项，提交这样的配置会影响其他成员（应用）.
+- 生产环境的数据库密码和 API 密钥不应该出现在版本库里。
+- 有很多服务器环境：开发、测试、发布。每个都应该有其单独的配置。
+- 定义每个情况的所有配置选项是重复的，也需要太多时间维护。
 
-Yii 使用环境概念解决以上问题就非常简单。每个环境用`environments` 目录下的一系列文件表示。用 `init` 命令来变换环境，它所做的其实是复制环境目录的所有文件来替换所有应用所在根目录文件。
+为解决这些问题， Yii 引入了简单的环境概念。每个环境用`environments` 目录下的一组文件表示。 `init` 命令用来切换环境，它所做的其实是从环境目录复制所有文件到全部应用所在的根目录。
 
-通常环境包括应用的引导文件如 `index.php` 和后缀名为`-local.php` 的配置文件。这些要添加到 `.gitignore` ，不要提交到源码库。
+典型的环境包括应用引导文件如 `index.php` 和后缀名为`-local.php` 的配置文件。这些要添加到 `.gitignore` ，不要提交到源码版本库。
 
 为避免重复，配置可相互覆写。如，前台按以下顺序读取配置：
 
@@ -95,7 +113,7 @@ Yii 使用环境概念解决以上问题就非常简单。每个环境用`enviro
 - `frontend/config/main.php`
 - `frontend/config/main-local.php`
 
-参数按以下顺序读取配置：
+参数按以下顺序读取：
 
 - `common/config/params.php`
 - `common/config/params-local.php`
@@ -105,14 +123,14 @@ Yii 使用环境概念解决以上问题就非常简单。每个环境用`enviro
 
 后面的配置文件会覆写前面的配置文件。
 
-以下是完整配置顺序：
+以下是完整配置方案：
 
 ![高级应用配置](images/advanced-app-configs.png)
 
 配置 Composer
 --------------------
 
-应用模板安装后，调整默认的 `composer.json` 是好的做法，该文件在根目录下：
+应用模板安装后，调整缺省的 `composer.json` 是好的做法，该文件在根目录下：
 
 ```json
 {
@@ -158,16 +176,16 @@ Yii 使用环境概念解决以上问题就非常简单。每个环境用`enviro
 }
 ```
 
-首先升级基础信息，修改 `name`, `description`, `keywords`, `homepage` 和 `support` 以匹配你的项目。
+首先升级基本信息，修改 `name`, `description`, `keywords`, `homepage` 和 `support` 以匹配你的项目。
 
-现在是有趣的部分，在 `require` 部分添加更多你的项目需要引入的包。所有的包都来自[packagist.org](https://packagist.org/)，请到该网站自由的浏览有用的代码。
+现在是有趣的部分，可以添加更多项目所需的包到 `require` 部分。所有的包都来自[packagist.org](https://packagist.org/)，请到该网站自由浏览有用的代码。
 
-修改了 `composer.json` 后运行 `php composer.phar update --prefer-dist` 将下载包，完成后安装即可使用包了。类会自动加载。
+修改完 `composer.json` ，运行 `php composer.phar update --prefer-dist` 将下载包，完成后安装即可使用包了。Yii 会自动处理类的加载。
 
 创建后台到前台的链接
 ------------------------
 
-经常需要创建后台应用到前台应用的链接。前台应用已经有其单独的 URL 管理器规则，你需要给后台应用复制 URL 管理器并重新命名以区分：
+经常要求创建后台应用到前台应用的链接。既然前台应用已经有其独立的 URL 管理器规则，你需要给后台应用复制 URL 管理器并重新命名以区分：
 
 ```php
 return [
@@ -183,7 +201,7 @@ return [
 ];
 ```
 
-配置完成就可以使用以下代码获得指向前台的 URL：
+配置完成即可使用以下代码获得指向前台的 URL：
 
 ```php
 echo Yii::$app->urlManagerFrontend->createUrl(...);
