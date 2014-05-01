@@ -19,7 +19,7 @@ Yii 2.0 权威指南
 ---------------
 
 * **TBD** [概述](start-overview.md) - 从哪开始？
-* [从基础 App 开始](start-basic.md) - 适用于开发者个人开发单层应用
+* 【已校对-20140501|但官方要更新】[从基础 App 开始](start-basic.md) - 适用于开发者个人开发单层应用
 * [从高级 App 开始](start-advanced.md) - 适用于开发团队开发企业应用
 * [从新建 App 开始](start-scratch.md) - 学习按步骤从头建立一个 Yii 应用的深入细节
 
@@ -30,11 +30,11 @@ Yii 2.0 权威指南
 * [事件](basic-events.md)
 * [行为](basic-behaviors.md)
 * [对象配置](basic-configs.md)
-* **TBD** [类自动加载](basic-autoloading.md)
-* **TBD** [路径别名](basic-alias.md)
+* [类自动加载](basic-autoloading.md)
+* [别名](basic-alias.md)
 * **TBD** [扩展](basic-extensions.md)
 * [服务定位器](basic-service-locator.md)
-* **TBD** [依赖注入容器](basic-di-container.md)
+* [依赖注入容器](basic-di-container.md)
 
 
 基本结构
@@ -80,7 +80,7 @@ Yii 2.0 权威指南
 -----------------
 
 * [创建表单](input-forms.md)
-* [输入数据验证](input-validation.md)
+* [输入验证](input-validation.md)
 * **TBD** [文件上传](input-file-uploading.md)
 * **TBD** [输入多模型](input-multiple-models.md)
 
@@ -101,7 +101,7 @@ Yii 2.0 权威指南
 
 * [认证](security-authentication.md)
 * [授权](security-authorization.md)
-* [使用密码](security-passwords.md)
+* [密码](security-passwords.md)
 * **TBD** [验证客户](security-auth-clients.md)
 * **TBD** [最佳实践](security-best-practices.md)
 
