@@ -64,7 +64,7 @@ php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-
 - `web.php` - web 应用的配置文件
 - `web-test.php` - 运行功能测试时的web 应用配置文件
 
-以上这些文件都是返回用于配置应用相应属性的数组，更多细节请参考本指南[配置](configuration.md)【译者注：没有这个文件了，不知道对应哪个新文件】部分。
+以上这些文件都是返回用于配置应用相应属性的数组，更多细节请参考本指南[配置](basic-configs.md)章节。
 
 ### 视图
 
