@@ -1,6 +1,8 @@
 数据供应器(Data provider)
 ==============
 
+> 注意：该章节还在开发中。
+
 数据供应器通过 [[yii\data\DataProviderInterface]] 接口抽象了数据集（Data Set）用以处理分页及排序。
 它可以被 [grids](data-grid.md)，[lists 或其他数据小部件](data-widgets.md)使用。
 
