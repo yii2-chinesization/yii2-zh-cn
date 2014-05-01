@@ -26,7 +26,7 @@ Yii 2.0 权威指南
 基本概念
 --------------
 
-* [对象属性](basic-properties.md)
+* 【粗翻未校对-20140501】[对象属性](basic-properties.md)
 * [事件](basic-events.md)
 * [行为](basic-behaviors.md)
 * [对象配置](basic-configs.md)
