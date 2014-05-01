@@ -20,7 +20,7 @@ Yii 提供了一整套的工具来大幅简化有关生成 RESTful Web Service A
 * 自动生成的 API 文档： 待定...
 
 
-简明案例：
+快速入门：
 ---------------
 
 让我们用一个简单的例子来展示如何使用 Yii 建立 RESTful APIs。
@@ -407,7 +407,7 @@ to the user, for example,
 ```
 
 
-Creating Controllers and Actions
+创建控制器和动作
 --------------------------------
 
 So you have the resource data and you have specified how the resource data should be formatted, the next thing
@@ -491,7 +491,7 @@ The following list summarizes the built-in actions supported by [[yii\rest\Activ
 * [[yii\rest\OptionsAction|options]]: return the supported HTTP methods.
 
 
-Routing
+路由
 -------
 
 With resource and controller classes ready, you can access the resources using the URL like
@@ -649,10 +649,12 @@ If authentication fails, a response with HTTP status 401 will be sent back toget
 Authorization
 -------------
 
+当一个用户经过验证后，你可能想要确认他是否有请求某个动作的权限，这个过程被称作 *authorization* ，它在[Authorization chapter](authorization.md).有详细介绍
 After a user is authenticated, you probably want to check if he has the permission to perform the requested
 action for the requested resource. This process is called *authorization* which is covered in detail in
 the [Authorization chapter](authorization.md).
 
+你可以需要使用RBAC组件去实现权限控制。
 You may use the Role-Based Access Control (RBAC) component to implementation authorization.
 
 To simplify the authorization check, you may also override the [[yii\rest\Controller::checkAccess()]] method
@@ -711,7 +713,7 @@ the current rate limiting information:
 * `X-Rate-Limit-Reset`: The number of seconds to wait in order to get the maximum number of allowed requests.
 
 
-Error Handling
+错误处理
 --------------
 
 When handling a RESTful API request, if there is an error in the user request or if something unexpected
@@ -817,7 +819,7 @@ api/
                 Post.php
 ```
 
-Your application configuration would look like:
+你的应用配置将会像如下这样
 
 ```php
 return [
