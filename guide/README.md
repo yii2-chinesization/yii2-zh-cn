@@ -179,7 +179,6 @@ RESTful 风格的 Web 服务
 * **待定中** [验收测试](test-acceptance.md)
 * **编撰中** 【未校对-20140502】[定制器](test-fixtures.md)
 
-
 扩展 Yii
 -------------
 
@@ -187,8 +186,8 @@ RESTful 风格的 Web 服务
 * **编撰中** 【未校对-20140502】[定制核心代码](extend-customizing-core.md)
 * **编撰中** 【未校对-20140502】[使用第三方库](extend-using-libs.md)
 * **待定中** [在第三方系统使用 Yii](extend-embedding-in-others.md)
-* **待定中** [Yii 1.1和2.0共用](extend-using-v1-v2.md)
-* **编撰中** 【未校对-20140502】[使用包管理器 Composer](extend-using-composer.md)
+* **待定中** [Yii 1.1 和 2.0 共用](extend-using-v1-v2.md)
+* **编撰中** 【未校对-20140502】[使用依赖包管理器 Composer](extend-using-composer.md)
 
 
 高级专题
@@ -199,7 +198,7 @@ RESTful 风格的 Web 服务
 * **编撰中** 【未校对-20140502】[错误处理](tutorial-handling-errors.md)
 * **编撰中** 【未校对-20140502】[国际化](tutorial-i18n.md)
 * **编撰中** 【未校对-20140502】[日志](tutorial-logging.md)
-* **待定中** [邮件收发](tutorial-mailing.md)
+* **待定中** [收发邮件](tutorial-mailing.md)
 * **编撰中** 【未校对-20140502】[性能优化](tutorial-performance-tuning.md)
 * **编撰中** 【未校对-20140502】[模板引擎](tutorial-template-engines.md)
 * **编撰中** 【未校对-20140502】[主题](tutorial-theming.md)

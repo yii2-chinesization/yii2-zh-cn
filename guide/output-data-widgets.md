@@ -32,14 +32,14 @@ echo DetailView::widget([
 ]);
 ```
 
-栅格视图（GridView）
+表格视图（GridView）
 --------
 
-数据栅格或栅格视图是 Yii 最强大的小部件之一。如需快速建立系统的管理后台部分，栅格视图特别有用。栅格视图从[数据源](data-providers.md)获取数据并渲染每行，每行的列展现数据表的表单数据。
+数据表格或表格视图是 Yii 最强大的小部件之一。如需快速建立系统的管理后台部分，表格视图特别有用。表格视图从[数据源](data-providers.md)获取数据并渲染每行，每行的列展现数据表的表单数据。
 
 数据表的一行代表单个数据项的数据，一列通常表示数据项的一个特性（有些列会对应特性或静态文本的复杂表达式）。
 
-栅格视图支持数据项的排序和分页。排序和分页能以 AJAX 模式或标准页面请求两种方式实现。使用栅格视图类（GridView）的好处之一是用户禁止 JavaScript 时，排序和分页能自动降级到标准页面请求且功能还能符合期望值。
+表格视图支持数据项的排序和分页。排序和分页能以 AJAX 模式或标准页面请求两种方式实现。使用表格视图类（GridView）的好处之一是用户禁止 JavaScript 时，排序和分页能自动降级到标准页面请求且功能还能符合期望值。
 
 使用 GridView 的最少代码示例如下：
 
@@ -206,7 +206,7 @@ echo GridView::widget([
 数据筛选
 --------------
 
-要筛选数据，栅格视图需要一个[模型](model.md)从过滤的表单取得输入数据，并调整 dataprovider 的查询语句到期望的搜索条件。使用[active records](active-record.md)的惯例是建立一个搜索模型类继承活动记录类。然后用这个类定义搜索的验证规则和提供 `search()` 方法来返回 data provider 。
+要筛选数据，表格视图需要一个[模型](model.md)从过滤的表单取得输入数据，并调整 dataprovider 的查询语句到期望的搜索条件。使用[active records](active-record.md)的惯例是建立一个搜索模型类继承活动记录类。然后用这个类定义搜索的验证规则和提供 `search()` 方法来返回 data provider 。
 
 要给 `Post` 模型添加搜索能力，可以创建 `PostSearch` ，如下所示：
 
@@ -260,7 +260,7 @@ class PostSearch extends Post
 
 ```
 
-你可以在控制器使用这个方法来为栅格视图获取 dataProvider ：
+你可以在控制器使用这个方法来为表格视图获取 dataProvider ：
 
 ```php
 $searchModel = new PostSearch();
@@ -272,7 +272,7 @@ return $this->render('myview', [
 ]);
 ```
 
-然后在视图将 `$dataProvider` 和 `$searchModel` 赋值给栅格视图：
+然后在视图将 `$dataProvider` 和 `$searchModel` 赋值给表格视图：
 
 ```php
 echo GridView::widget([
@@ -285,7 +285,7 @@ echo GridView::widget([
 和关联模型一起使用
 ----------------------------
 
-在栅格视图显示活动记录将会遇到何处显示关联列值的情况，如显示 post 的作者名而不是 `id` 。当 `Post` 模型有名为 `author` 的关联关系且 author 模型有 `name` 特性时，可以通过定义列中的特性名如 `author.name` 完成。栅格视图将显示作者名但默认排序和筛选未启用。你可以调整将在本章最后一节介绍的 `PostSearch` 模型来添加该功能。
+在表格视图显示活动记录将会遇到何处显示关联列值的情况，如显示 post 的作者名而不是 `id` 。当 `Post` 模型有名为 `author` 的关联关系且 author 模型有 `name` 特性时，可以通过定义列中的特性名如 `author.name` 完成。表格视图将显示作者名但默认排序和筛选未启用。你可以调整将在本章最后一节介绍的 `PostSearch` 模型来添加该功能。
 
 要在关联列排序，必须连接关联表并添加排序规则到 data provider 的 Sort 组件：
 
