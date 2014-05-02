@@ -13,16 +13,17 @@ Yii2官方：[yii2.cn](http://yii2.cn)
 结构与传送门 Structure and Shortcuts
 ----------------
 ***************************
-/ root
-  ├──/ guide-old 上一版本的手册文件
-  ├──/ guide 手册
-  │    ├──[英文原文请跳转：doc.yii2.cn](http://doc.yii2.cn)
-  │    └──翻译好的文档。
-  ├──/ [internal](internal/) 翻译的官方内部文档，包括如何向Yii官方贡献代码，如何创建新的文档等
-  ├──/ [news](news/) 值得注意的新闻翻译，如。
-  ├──/ [messages](messages/) Yii框架本身的国际化文件，比如错误反馈的国际化，有关中文在zh-CN文件夹
-  ├──/ [api-doc:apidoc.yii2.cn](http://apidoc.yii2.cn)
-  └── Root根目录下放置说明，授权，翻译必读，术语表等各种文件。
+/ root  
+  ├──/ guide-old 上一版本的手册文件  
+  ├──/ guide 手册  
+  │    ├──[英文原文请跳转：doc.yii2.cn](http://doc.yii2.cn)  
+  │    └──翻译好的文档  
+  ├──/ [internal](internal/) 翻译的官方内部文档，包括如何向Yii官方贡献代码，如何创建新的文档等  
+  ├──/ [news](news/) 值得注意的新闻翻译，如：发行注记等……  
+  ├──/ [messages](messages/) Yii 框架本身的国际化文件，比如错误反馈的国际化，有关中文在zh-CN文件夹  
+  ├──/ [framework](framework/)  
+  ├──/ [api-doc:apidoc.yii2.cn](http://apidoc.yii2.cn)  
+  └── Root根目录下放置说明，授权，翻译必读，术语表等各种文件。  
 ***************************
 
 加入我们 How to contribute
