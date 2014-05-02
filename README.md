@@ -8,22 +8,22 @@ Yii2官方：[yii2.cn](http://yii2.cn)
 简介 Introduction
 ----------------
 
-进行Yii2的官方文档，官方扩展的说明文件，源码注释等文档的汉化工作。目前，主要是翻译Yii2的官方文档。
+进行Yii2的官方文档，官方扩展的说明文件，源码注释等文档的汉化工作。目前，主要是翻译Yii2的权威指南。
 
 结构与传送门 Structure and Shortcuts
 ----------------
 ***************************
-/ root  
-  ├──/ guide-old 上一版本的手册文件  
-  ├──/ guide 手册  
+/ root
+  ├──/ guide 权威指南
   │    ├──[英文原文请跳转：doc.yii2.cn](http://doc.yii2.cn)  
-  │    └──翻译好的文档  
-  ├──/ [internal](internal/) 翻译的官方内部文档，包括如何向Yii官方贡献代码，如何创建新的文档等  
+  │    └──[文档列表](guide/README.md)
+  ├──/ guide-old 上一版本的权威指南文件
+  ├──/ [internals](internals/) 翻译的官方内部文档，包括如何向Yii官方贡献代码，如何创建新的文档等
   ├──/ [news](news/) 值得注意的新闻翻译，如：发行注记等……  
   ├──/ [messages](messages/) Yii 框架本身的国际化文件，比如错误反馈的国际化，有关中文在zh-CN文件夹  
-  ├──/ [framework](framework/)  
+  ├──/ [framework](framework/) 框架文件，翻译注释文本
   ├──/ [api-doc:apidoc.yii2.cn](http://apidoc.yii2.cn)  
-  └── Root根目录下放置说明，授权，翻译必读，术语表等各种文件。  
+  └── Root根目录下放置[说明](README.md)，[授权]()，翻译必读，术语表等各种文件。
 ***************************
 
 加入我们 How to contribute
