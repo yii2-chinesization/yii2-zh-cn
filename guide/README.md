@@ -41,7 +41,7 @@ Yii 2.0 权威指南
 ------------
 
 * 【已校对-20140430】[关于 Yii](intro-yii.md) - Yii 是什么，擅长做什么？
-* 【需更新-20140502】[从 Yii 1.1 升级](intro-upgrade-from-v1.md)
+* 【已更新未校对-20140502】[从 Yii 1.1 升级](intro-upgrade-from-v1.md)
 
 
 入门
