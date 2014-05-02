@@ -14,15 +14,15 @@ use yii\log\Logger;
 use yii\di\Container;
 
 /**
- * Gets the application start timestamp.
+ * 获得应用启动时间戳
  */
 defined('YII_BEGIN_TIME') or define('YII_BEGIN_TIME', microtime(true));
 /**
- * This constant defines the framework installation directory.
+ * 该常量定义框架安装目录
  */
 defined('YII_PATH') or define('YII_PATH', __DIR__);
 /**
- * This constant defines whether the application should be in debug mode or not. Defaults to false.
+ * 该常量定义应用是否用调试模式，默认为 false 。
  */
 defined('YII_DEBUG') or define('YII_DEBUG', false);
 /**
