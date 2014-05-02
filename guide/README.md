@@ -27,10 +27,7 @@ Yii 2.0 权威指南
 >     * 【已更新|未校对】更新且汉化完成
 >     * 【已更新|翻译中】更新大量内容，尚未完全汉化
 > - 【已校对】校对完毕更新为该状态，文档需要更新时更改标签为【需更新】
-> 
-> #### 其他说明：
-> 标示未校对或已校对等有校对字样的文档表示在之前的官方文档基础上汉化了但有的没有校对，因为现在没有校对必要，官方很可能会重新> 编写文档。
-> 翻译中的文件是未汉化完全，可以继续汉化。有些新内容可能重新编排但还是一样的。
+>
 > **************************
 
 本教程的发布遵循[ Yii 文档使用许可](http://www.yiiframework.com/doc/terms/).
@@ -43,26 +40,27 @@ Yii 2.0 权威指南
 ------------
 
 * 【已校对-20140430】[关于 Yii](intro-yii.md) - Yii 是什么，擅长做什么？
-* 【已校对-20140430】[从 Yii 1.1 升级](intro-upgrade-from-v1.md)
+* 【需更新-20140502】[从 Yii 1.1 升级](intro-upgrade-from-v1.md)
 
 
 入门
 ---------------
 
 * **TBD** [概述](start-overview.md) - 从哪开始？
-* 【已校对-20140501|官方还在更新】[从基础 App 开始](start-basic.md) - 适用于开发者个人开发单层应用
-* 【已校对-20140501|官方还在更新】[从高级 App 开始](start-advanced.md) - 适用于开发团队开发企业应用
-* 【已校对-20140501|官方还在更新】[从新建 App 开始](start-scratch.md) - 学习按步骤从头建立一个 Yii 应用的深入细节
+* 【已校对-20140501】【官方更新中】[从基础 App 开始](start-basic.md) - 适用于开发者个人开发单层应用
+* 【已校对-20140501】【官方更新中】[从高级 App 开始](start-advanced.md) - 适用于开发团队开发企业应用
+* 【已校对-20140501】【官方更新中】[从新建 App 开始](start-scratch.md) - 学习按步骤从头建立一个 Yii 应用的深入细节
 
 基本概念
 --------------
 
-* 【粗翻未校对-20140501】[对象属性](basic-properties.md)
-* 【粗翻未校对-20140501】[事件](basic-events.md)
-* 【粗翻未校对-20140501】[行为](basic-behaviors.md)
-* 【粗翻新增未翻译部分-20140501|未校对|官方还在更新】[对象配置](basic-configs.md)
-* 【粗翻未校对-20140501|官方还在更新】[类自动加载](basic-autoloading.md)
-* 【粗翻未校对-20140501|官方还在更新】[别名](basic-alias.md)
+* [组件](basic-components.md)
+* 【未校对-20140501】[对象属性](basic-properties.md)
+* 【未校对-20140501】[事件](basic-events.md)
+* 【未校对-20140501】[行为](basic-behaviors.md)
+* 【需更新-20140502】【官方已完成】[对象配置](basic-configs.md)
+* 【未校对-20140501】【官方更新中】[类自动加载](basic-autoloading.md)
+* 【未校对-20140501】【官方更新中】[别名](basic-alias.md)
 * **TBD** [扩展](basic-extensions.md)
 * 【翻译中-20140501】[服务定位器](basic-service-locator.md)
 * 【翻译中-20140501】[依赖注入容器](basic-di-container.md)
@@ -71,12 +69,12 @@ Yii 2.0 权威指南
 基本结构
 ---------------
 
-* 【未校对-20140501|官方还在更新】[MVC 概述](structure-mvc.md)
-* **TBD** [入口脚本](structure-entry-scripts.md)
+* 【未校对-20140501】【官方更新中】[MVC 概述](structure-mvc.md)
+* 【】【官方更新中】[入口脚本](structure-entry-scripts.md)
 * **TBD** [应用](structure-applications.md)
-* 【未校对-20140501|官方还在更新】[控制器和动作](structure-controllers.md)
-* 【未校对-20140501|官方还在更新】[视图](structure-views.md)
-* 【未校对-20140501|官方还在更新】[模型](structure-models.md)
+* 【未校对-20140501】【官方更新中】[控制器和动作](structure-controllers.md)
+* 【未校对-20140501】【官方更新中】[视图](structure-views.md)
+* 【未校对-20140501】【官方更新中】[模型](structure-models.md)
 * **TBD** [小部件](structure-widgets.md)
 * **TBD** [模块](structure-modules.md)
 
@@ -90,17 +88,17 @@ Yii 2.0 权威指南
 * **TBD** [请求](runtime-requests.md)
 * **TBD** [响应](runtime-responses.md)
 * **TBD** [Sessions（会话）和 Cookies](runtime-sessions-cookies.md)
-* 【未校对-20140501|官方还在更新】[URL 解析和生成](runtime-url-handling.md)
+* 【未校对-20140501】【官方更新中】[URL 解析和生成](runtime-url-handling.md)
 * **TBD** [过滤器](runtime-filtering.md)
 
 
 数据库使用
 ---------------------
 
-* 【未校对-20140501|官方还在更新】[数据访问对象（DAO）](db-dao.md) - 数据库连接、基本查询、事务和模式操作
-* 【未校对-20140501|官方还在更新】[查询生成器（Query Builder）](db-query-builder.md) - 使用简单抽象层查询数据库
-* 【未校对-20140501|官方还在更新】[活动记录（Active Record）](db-active-record.md) - 活动记录对象关系映射（ORM），检索和操作记录、定义关联关系
-* 【未校对-20140501|官方还在更新】[数据库迁移](db-migrations.md)
+* 【未校对-20140501】【官方更新中】[数据访问对象（DAO）](db-dao.md) - 数据库连接、基本查询、事务和模式操作
+* 【未校对-20140501】【官方更新中】[查询生成器（Query Builder）](db-query-builder.md) - 使用简单抽象层查询数据库
+* 【未校对-20140501】【官方更新中】[活动记录（Active Record）](db-active-record.md) - 活动记录对象关系映射（ORM），检索和操作记录、定义关联关系
+* 【未校对-20140501】【官方更新中】[数据库迁移](db-migrations.md)
 * **TBD** [Sphinx](db-sphinx.md)
 * **TBD** [Redis](db-redis.md)
 * **TBD** [MongoDB](db-mongodb.md)
@@ -110,7 +108,7 @@ Yii 2.0 权威指南
 收集数据
 -----------------
 
-* 【未校对-20140501|官方还在更新】[创建表单](input-forms.md)
+* 【未校对-20140501】【官方更新中】[创建表单](input-forms.md)
 * 【翻译中-20140501】[输入验证](input-validation.md)
 * **TBD** [文件上传](input-file-uploading.md)
 * **TBD** [输入多模型](input-multiple-models.md)
@@ -122,17 +120,17 @@ Yii 2.0 权威指南
 * **TBD** [格式化输出数据](output-formatting.md)
 * **TBD** [分页](output-pagination.md)
 * **TBD** [排序](output-sorting.md)
-* 【未校对-20140501|官方还在更新】[数据来源](output-data-providers.md)
+* 【未校对-20140501】【官方更新中】[数据来源](output-data-providers.md)
 * 【翻译中-20140501】[数据小部件](output-data-widgets.md)
-* 【未校对-20140501|官方还在更新】[资源管理](output-assets.md)
+* 【未校对-20140501】【官方更新中】[资源管理](output-assets.md)
 
 
 安全
 --------
 
-* 【未校对-20140501|官方还在更新】[认证](security-authentication.md)
+* 【未校对-20140501】【官方更新中】[认证](security-authentication.md)
 * 【翻译中-20140501】[授权](security-authorization.md)
-* 【未校对-20140501|官方还在更新】[密码](security-passwords.md)
+* 【未校对-20140501】【官方更新中】[密码](security-passwords.md)
 * **TBD** [验证客户](security-auth-clients.md)
 * **TBD** [最佳实践](security-best-practices.md)
 
@@ -140,7 +138,7 @@ Yii 2.0 权威指南
 缓存
 -------
 
-* 【未校对-20140501|官方还在更新】[概述](caching-overview.md)
+* 【未校对-20140501】【官方更新中】[概述](caching-overview.md)
 * **TBD** [数据缓存](caching-data.md)
 * **TBD** [片段和页面缓存](caching-fragment.md)
 * **TBD** [HTTP 缓存](caching-http.md)
@@ -164,7 +162,7 @@ RESTful 风格的 Web 服务
 开发工具
 -----------------
 
-* 【未校对-20140501|官方还在更新】[调试工具栏和调试器](tool-debugger.md)
+* 【未校对-20140501】【官方更新中】[调试工具栏和调试器](tool-debugger.md)
 * 【翻译中-20140501】[使用 Gii 生成代码](tool-gii.md)
 * **TBD** [生成 API 文档](tool-api-doc.md)
 
