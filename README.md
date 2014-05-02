@@ -12,7 +12,6 @@ Yii2官方：[yii2.cn](http://yii2.cn)
 
 结构与传送门 Structure and Shortcuts
 ----------------
-
 ***************************
 / root
   ├──/ guide-old 上一版本的手册文件
