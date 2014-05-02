@@ -1,6 +1,6 @@
 <?php
 /**
- * Yii bootstrap file.
+ * Yii 引导文件
  *
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -10,10 +10,10 @@
 require(__DIR__ . '/BaseYii.php');
 
 /**
- * Yii is a helper class serving common framework functionalities.
+ * Yii 是服务于框架公共功能的辅助类
  *
- * It extends from [[\yii\BaseYii]] which provides the actual implementation.
- * By writing your own Yii class, you can customize some functionalities of [[\yii\BaseYii]].
+ * 它继承自真正实现功能的[[\yii\BaseYii]]
+ * 通过编写你自己的 Yii 类，你可以定制[[\yii\BaseYii]]的一些功能
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
