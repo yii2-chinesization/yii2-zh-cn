@@ -1,19 +1,36 @@
 Yii2 开发及用户贡献文档中文本土化项目 
 ==============
-项目仓库：http://c11n.yii2.cn/ 
+项目仓库：http://c11n.yii2.cn/
 在线文档：http://apidoc.yii2.cn/
 基于原文：[Doc 2.0](http://www.yiiframework.com/doc-2.0/index.html)
+Yii2官方：[yii2.cn](http://yii2.cn)
 
 简介 Introduction
 ----------------
 
 进行Yii2的官方文档，官方扩展的说明文件，源码注释等文档的汉化工作。目前，主要是翻译Yii2的官方文档。
 
+结构与传送门 Structure and Shortcuts
+----------------
+
+***************************
+/ root
+  ├──/ guide-old 上一版本的手册文件
+  ├──/ guide 手册
+  │    ├──[英文原文请跳转：doc.yii2.cn](http://doc.yii2.cn)
+  │    └──翻译好的文档。
+  ├──/ [internal](internal/) 翻译的官方内部文档，包括如何向Yii官方贡献代码，如何创建新的文档等
+  ├──/ [news](news/) 值得注意的新闻翻译，如。
+  ├──/ [messages](messages/) Yii框架本身的国际化文件，比如错误反馈的国际化，有关中文在zh-CN文件夹
+  ├──/ [api-doc:apidoc.yii2.cn](http://apidoc.yii2.cn)
+  └── Root根目录下放置说明，授权，翻译必读，术语表等各种文件。
+***************************
+
 加入我们 How to contribute
 ----------------
 
-
-我们有一个QQ群，用于日常沟通，项目组织，翻译心得与Yii2开发的交流等。想学东西或者对自己英文有信心的同学可以先来[![加下QQ群](http://pub.idqqimg.com/wpa/images/group.png)343188481](http://url.cn/SIMfwO)。
+我们有一个QQ群，用于日常沟通，项目组织，翻译心得与Yii2开发的交流等。
+想学东西或者对自己英文有信心的同学可以先来[![加下QQ群](http://pub.idqqimg.com/wpa/images/group.png)343188481](http://url.cn/SIMfwO)。
 
 具体如何翻译呢？请参阅我们的[翻译流程指南](guide/README.md)
 
@@ -35,22 +52,6 @@ git fetch upstream
 git merge upstream/master --ff-only # fast-forwarding only.也可以不加，会使用自动合并功能，遇冲突会停止，等待手动处理冲突。
 ```
 
-
-结构与传送门 Structure and Shortcuts
-----------------
-
-***************************
-/ root
-  ├──/ guide 手册
-  │    ├──[英文原文请跳转：doc.yii2.cn](http://doc.yii2.cn)
-  │    └──翻译好的文档。
-  ├──/ [internal](internal/) 翻译的官方内部文档，包括如何向Yii官方贡献代码，如何创建新的文档等。
-  ├──/ [news](news/) 值得注意的新闻翻译。
-  ├──/ [messages](messages/) Yii框架本身的国际化文件，比如错误反馈的国际化，有关中文在zh-CN文件夹。
-  ├──/ [api-doc:apidoc.yii2.cn](http://apidoc.yii2.cn)
-  └── Root根目录下放置说明，授权，翻译必读，术语表等各种文件。
-***************************
-
 协议 Licence
 ----------------
 
@@ -68,15 +69,6 @@ git merge upstream/master --ff-only # fast-forwarding only.也可以不加，会
 * 修改
 * 再分发
 
-
-URL 捷径 Shortcuts
-----------------
-
-* 汉化仓库: [c11n.yii2.cn](http://c11n.yii2.cn)
-* ~~汉化工具Transifex: [t.yii2.cn](http://t.yii2.cn)~~
-* Yii2官方: [yii2.cn](http://yii2.cn)
-* Yii2 英文文档：[doc.yii2.cn](http://doc.yii2.cn)
-
 鸣谢 Credits
 ----------------
 
@@ -90,7 +82,7 @@ URL 捷径 Shortcuts
 * AbrahamGreyson（昵称：Abraham）
 * aliciamiao（昵称：miao）
 * drogjh
-* fmalee（，昵称：远方·轮回）
+* fmalee（昵称：远方·轮回）
 * qufo
 * Simon
 * SuperPuppet（阙俊榕 昵称: 无敌木木）特长卖萌，精神病晚期患者
