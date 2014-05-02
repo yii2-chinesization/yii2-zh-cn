@@ -6,6 +6,28 @@
 请注意 Yii 2.0引入的很多新功能未涵盖在本章总结。强烈推荐你通篇阅读本权威指南以掌握那些功能。有可能你以前须自行开发的功能现在已经成为核心代码的一部分了。
 
 
+安装
+--------
+
+Yii 2.0 完全接受[Composer](https://getcomposer.org/)，事实上的 PHP 包管理器。Yii 核心框架和扩展的安装都通过 Composer 完成。请参阅[从基础 App 开始](start-basic.md)章节来学习怎样安装 Yii 2.0。要想创建新扩展或将已有的 1.1 扩展变成 2.0 扩展，请参阅[创建扩展](extend-creating-extensions.md)章节。
+
+
+PHP 要求
+---------
+
+Yii 2.0 要求 PHP 5.4及以上版本，此版本比 Yii 1.1要求的 PHP 5.2 有了巨大的改进。因此，在语言层面也有很多差别，值得注意。以下是关于 PHP 主要变迁的总结：
+
+- [命名空间](http://php.net/manual/en/language.namespaces.php)
+- [匿名函数](http://php.net/manual/en/functions.anonymous.php)
+- 数组短语法 `[...元素...]` 用于取代 `array(...元素...)`
+-  echo 短标签 `<?=` 用于视图文件，从 PHP 5.4开始可以安全使用
+- [SPL 类和接口](http://php.net/manual/en/book.spl.php).
+- [延迟静态绑定](http://php.net/manual/en/language.oop5.late-static-bindings.php).
+- [日期和时间](http://php.net/manual/en/book.datetime.php).
+- [特征(Traits)](http://php.net/manual/en/language.oop5.traits.php).
+- [intl](http://php.net/manual/en/book.intl.php) Yii 2.0 使用 `intl` PHP 扩展来支持国际化功能
+
+
 命名空间
 ---------
 
