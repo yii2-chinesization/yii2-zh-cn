@@ -29,23 +29,27 @@ Yii2 开发及用户贡献文档中文本土化项目
 ```shell
 git pull --rebase upstream master
 ```
+或
+```shell
+git fetch upstream
+git merge upstream/master --ff-only # fast-forwarding only.也可以不加，会使用自动合并功能，遇冲突会停止，等待手动处理冲突。
+```
 
 
-项目目录结构 Structure
+结构与传送门 Structure and Shortcuts
 ----------------
 
-```
+***************************
 / root
   ├──/ guide 手册
-  │    ├──/en 子模块，嵌入的是官方的doc文档，等同于doc.yii2.cn
-  │    ├──/zh-CN 翻译好的文档
-  │    └──其他文件包括，翻译必读，术语表等重要指导性文件。
-  ├──/ internal 翻译的官方内部文档，包括如何向Yii官方贡献代码，如何创建新的文档等。
-  ├──/ news 值得注意的新闻翻译。
-  ├──/ api-doc 子模块的源文件，嵌入的是cebe的api-doc系统，具体演示在 http://www.yiiframework.com/doc-2.0/
-  ├──/ messages Yii框架本身的国际化文件，比如错误反馈的国际化，有关中文在zh-CN文件夹。
-  └── Root根目录下放置说明，授权等文件。
-```
+  │    ├──[英文原文请跳转：doc.yii2.cn](http://doc.yii2.cn)
+  │    └──翻译好的文档。
+  ├──/ [internal](internal/) 翻译的官方内部文档，包括如何向Yii官方贡献代码，如何创建新的文档等。
+  ├──/ [news](news/) 值得注意的新闻翻译。
+  ├──/ [messages](messages/) Yii框架本身的国际化文件，比如错误反馈的国际化，有关中文在zh-CN文件夹。
+  ├──/ [api-doc:apidoc.yii2.cn](http://apidoc.yii2.cn)
+  └── Root根目录下放置说明，授权，翻译必读，术语表等各种文件。
+***************************
 
 协议 Licence
 ----------------
@@ -81,11 +85,11 @@ URL 捷径 Shortcuts
 * Samdark（Alexander Makarov 俄罗斯）Yii 2主要开发者之一，对于国际化及手册贡献良多。
 * cebe （Carsten Brandt 德国）Yii 2主要开发者之一，负责开发了api-doc系统，对于文档系统的规范化进行了很多设定。官方文档的完全体样貌可以在[stuff.cebe.cc/yii2docs](http://stuff.cebe.cc/yii2docs)略窥一斑。
 
-###项目组织：
-* qiansen1386（钱森，昵称：东方孤思子 项目策划）旅居新加坡的中国留学生，特长卖萌，学习能力强于动手能力，强迫症晚期患者，已弃疗。
-* AbrahamGreyson（，昵称：Abraham）
-* aliciamiao（，昵称：miao）
-* drogjh（，上面那个已弃疗的居然能把我写错。活该弃疗）
+###项目组织：（除某不要脸的项目策划外均为字母顺序排列）
+* qiansen1386（钱森，昵称：东方孤思子 项目策划）旅居新加坡的中国留学生。
+* AbrahamGreyson（昵称：Abraham）
+* aliciamiao（昵称：miao）
+* drogjh
 * fmalee（，昵称：远方·轮回）
 * qufo
 * Simon
