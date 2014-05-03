@@ -1,5 +1,5 @@
 /**
- * Yii JavaScript module.
+ * Yii JavaScript 模块.
  *
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -9,17 +9,23 @@
  */
 
 /**
+ * Yii 是 Yii 的JavaScript 模块的根模块。
  * yii is the root module for all Yii JavaScript modules.
+ * 他通过 "yii.initModule()" 函数实现了以模块形式组织 JavaScript 代码的机理。
  * It implements a mechanism of organizing JavaScript code in modules through the function "yii.initModule()".
  *
+ * 每一个模块都应该命名为 "x.y.z" 的形式，"x" 只跟模块（对于 Yii 核心代码而言，就是"yii"）。
  * Each module should be named as "x.y.z", where "x" stands for the root module (for the Yii core code, this is "yii").
  *
+ * 一个模块应该像下面那样组织：
  * A module may be structured as follows:
  *
  * ~~~
  * yii.sample = (function($) {
  *     var pub = {
  *         // whether this module is currently active. If false, init() will not be called for this module
+ *         // whether this module is currently active. If false, init() will not be called for this module
+ *         // it will also not be called for all its child modules. If this property is undefined, it means true.
  *         // it will also not be called for all its child modules. If this property is undefined, it means true.
  *         isActive: true,
  *         init: function() {
