@@ -23,7 +23,7 @@ Yii2官方：[yii2.cn](http://yii2.cn)
   ├──/ [messages](messages/) Yii 框架本身的国际化文件，比如错误反馈的国际化，有关中文在zh-CN文件夹  
   ├──/ [framework](framework/) 框架文件，翻译注释文本
   ├──/ [api-doc:apidoc.yii2.cn](http://apidoc.yii2.cn)  
-  └── Root根目录下放置[说明](README.md)，[授权]()，翻译必读，术语表等各种文件。
+  └── Root根目录下放置[说明](README.md)，[授权](LICENSE.md)，[翻译必读](Translation workflow.md)，[术语表](glossary.csv)等各种文件。
 ***************************
 
 加入我们 How to contribute
