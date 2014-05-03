@@ -13,17 +13,17 @@ Yii2官方：[yii2.cn](http://yii2.cn)
 结构与传送门 Structure and Shortcuts
 ----------------
 ***************************
-/ root
-  ├──/ guide 权威指南
-  │    ├──[英文原文请跳转：doc.yii2.cn](http://doc.yii2.cn)  
-  │    └──[文档列表](guide/README.md)
-  ├──/ guide-old 上一版本的权威指南文件
-  ├──/ [internals](internals/) 翻译的官方内部文档，包括如何向Yii官方贡献代码，如何创建新的文档等
-  ├──/ [news](news/) 值得注意的新闻翻译，如：发行注记等……  
-  ├──/ [messages](messages/) Yii 框架本身的国际化文件，比如错误反馈的国际化，有关中文在zh-CN文件夹  
-  ├──/ [framework](framework/) 框架文件，翻译注释文本
-  ├──/ [api-doc:apidoc.yii2.cn](http://apidoc.yii2.cn)  
-  └── Root根目录下放置[说明](README.md)，[授权](LICENSE.md)，[翻译必读](Translation workflow.md)，[术语表](glossary.csv)等各种文件。
+/ root  
+  ├──/ guide 权威指南  
+  │    ├──[英文原文请跳转：doc.yii2.cn](http://doc.yii2.cn)   
+  │    └──[文档列表](guide/README.md)  
+  ├──/ guide-old 上一版本的权威指南文件  
+  ├──/ [internals](internals/) 翻译的官方内部文档，包括如何向Yii官方贡献代码，如何创建新的文档等  
+  ├──/ [news](news/) 值得注意的新闻翻译，如：发行注记等……    
+  ├──/ [messages](messages/) Yii 框架本身的国际化文件，比如错误反馈的国际化，有关中文在zh-CN文件夹    
+  ├──/ [framework](framework/) 框架文件，翻译注释文本   
+  ├──/ [api-doc:apidoc.yii2.cn](http://apidoc.yii2.cn)   
+  └── Root根目录下放置[说明](README.md)，[授权](LICENSE.md)，[翻译必读](Translation workflow.md)，[术语表](glossary.csv)等各种文件。 
 ***************************
 
 加入我们 How to contribute
@@ -78,7 +78,7 @@ git merge upstream/master --ff-only # fast-forwarding only.也可以不加，会
 * cebe （Carsten Brandt 德国）Yii 2主要开发者之一，负责开发了api-doc系统，对于文档系统的规范化进行了很多设定。官方文档的完全体样貌可以在[stuff.cebe.cc/yii2docs](http://stuff.cebe.cc/yii2docs)略窥一斑。
 
 ###项目组织：（除某不要脸的项目策划外均为字母顺序排列）
-* qiansen1386（钱森，昵称：东方孤思子 项目策划）旅居新加坡的中国留学生。
+* qiansen1386（钱森，昵称：东方孤思子 项目策划）特长卖萌，强迫症晚期患者，旅居新加坡的中国留学生。
 * AbrahamGreyson（昵称：Abraham）
 * aliciamiao（昵称：miao）
 * drogjh
