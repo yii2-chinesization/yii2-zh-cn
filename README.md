@@ -49,7 +49,8 @@ git pull --rebase upstream master
 或
 ```shell
 git fetch upstream
-git merge upstream/master --ff-only # fast-forwarding only.也可以不加，会使用自动合并功能，遇冲突会停止，等待手动处理冲突。
+git merge upstream/master --ff-only # fast-forwarding only.也可以不加，会使用自动合并功能，  
+遇冲突会停止，等待手动处理冲突。
 ```
 
 协议 Licence
