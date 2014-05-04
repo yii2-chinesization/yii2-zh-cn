@@ -99,34 +99,33 @@ class BaseYii
      * 翻译根据以下流程完成：
      *
      * 1. 如果给定别名没有以'@'开头，就原样返回；
-     * 2. Otherwise, look for the longest registered alias that matches the beginning part
-     *    of the given alias. If it exists, replace the matching part of the given alias with
-     *    the corresponding registered path.
-     * 3. Throw an exception or return false, depending on the `$throwException` parameter.
+     * 2. 否则，查找已注册最长的别名来匹配给定别名的开始部分。
+     * 如果存在，把给定别名的匹配部分替换为相应的已注册路径。
+     * 3. 根据`$throwException` 参数抛出异常或返回 false 。
      *
-     * For example, by default '@yii' is registered as the alias to the Yii framework directory,
-     * say '/path/to/yii'. The alias '@yii/web' would then be translated into '/path/to/yii/web'.
+     * 例如：默认'@yii'是注册为 Yii 框架目录的别名，即'/path/to/yii'，
+     * 那么别名'@yii/web'就翻译为'/path/to/yii/web'。
      *
-     * If you have registered two aliases '@foo' and '@foo/bar'. Then translating '@foo/bar/config'
-     * would replace the part '@foo/bar' (instead of '@foo') with the corresponding registered path.
-     * This is because the longest alias takes precedence.
+     * 如果你已经注册了两个别名'@foo' 和 '@foo/bar'，然后'@foo/bar/config'
+     * 将把'@foo/bar'部分 (而不是'@foo')替换为相应的已注册路径。
+     * 因为长别名有优先权。
      *
-     * However, if the alias to be translated is '@foo/barbar/config', then '@foo' will be replaced
-     * instead of '@foo/bar', because '/' serves as the boundary character.
+     * 然而，如果拟翻译别名是'@foo/barbar/config'，那么将用'@foo'而不是'@foo/bar'来替换，
+     * 因为'/'才是边界符。
      *
-     * Note, this method does not check if the returned path exists or not.
+     * 注意，本方法不检查返回的路径是否存在。
      *
-     * @param string $alias the alias to be translated.
-     * @param boolean $throwException whether to throw an exception if the given alias is invalid.
-     * If this is false and an invalid alias is given, false will be returned by this method.
-     * @return string|boolean the path corresponding to the alias, false if the root alias is not previously registered.
-     * @throws InvalidParamException if the alias is invalid while $throwException is true.
+     * @param string $alias 要被翻译的别名
+     * @param boolean $throwException 如果给定别名是无效的，是否抛出异常。
+     * 如果是 false 且给的是无效别名，本方法将返回 false 。
+     * @return string|boolean 别名相应的路径，如果根别名之前没有注册就返回 false 。
+     * @throws InvalidParamException 当 $throwException 为 true 时如果别名无效就抛出异常。
      * @see setAlias()
      */
     public static function getAlias($alias, $throwException = true)
     {
         if (strncmp($alias, '@', 1)) {
-            // not an alias
+            // 不是别名
             return $alias;
         }
 
@@ -153,11 +152,11 @@ class BaseYii
     }
 
     /**
-     * Returns the root alias part of a given alias.
-     * A root alias is an alias that has been registered via [[setAlias()]] previously.
-     * If a given alias matches multiple root aliases, the longest one will be returned.
-     * @param string $alias the alias
-     * @return string|boolean the root alias, or false if no root alias is found
+     * 返回给定别名的根别名部分。
+     * 根别名之前已通过[[setAlias()]]注册。
+     * 如果给定别名匹配多个根别名，将返回最长的那个。
+     * @param string $alias 别名
+     * @return string|boolean 根别名，如果没有找到根别名返回 false 。
      */
     public static function getRootAlias($alias)
     {
@@ -180,31 +179,27 @@ class BaseYii
     }
 
     /**
-     * Registers a path alias.
+     * 注册路径别名
      *
-     * A path alias is a short name representing a long path (a file path, a URL, etc.)
-     * For example, we use '@yii' as the alias of the path to the Yii framework directory.
+     * 路径别名是表示长路径（文件路径、 URL 等）的简称。
+     * 例如，我们使用'@yii'作为 Yii 框架目录的路径别名。
      *
-     * A path alias must start with the character '@' so that it can be easily differentiated
-     * from non-alias paths.
+     * 路径别名必须以'@'开头，以便它能容易地和非别名路径容易区分。
      *
-     * Note that this method does not check if the given path exists or not. All it does is
-     * to associate the alias with the path.
+     * 注意本方法不检查给定路径是否存在，它所做的只是将别名和路径关联起来。
      *
-     * Any trailing '/' and '\' characters in the given path will be trimmed.
+     * 给定路径末尾的任何一个 '/' and '\' 都会去掉。
      *
-     * @param string $alias the alias name (e.g. "@yii"). It must start with a '@' character.
-     * It may contain the forward slash '/' which serves as boundary character when performing
-     * alias translation by [[getAlias()]].
-     * @param string $path the path corresponding to the alias. If this is null, the alias will
-     * be removed. Trailing '/' and '\' characters will be trimmed. This can be
+     * @param string $alias 别名 (如"@yii")，以'@'开头
+     * 当[[getAlias()]]执行别名翻译时可以包括正斜杠作为边界符。
+     * @param string $path 别名对应的路径，如果是 null，别名将会删除，
+     * 末尾的'/'和'\'将剪掉。路径可以是：
      *
-     * - a directory or a file path (e.g. `/tmp`, `/tmp/main.txt`)
-     * - a URL (e.g. `http://www.yiiframework.com`)
-     * - a path alias (e.g. `@yii/base`). In this case, the path alias will be converted into the
-     *   actual path first by calling [[getAlias()]].
+     * - 目录或文件路径(如`/tmp`, `/tmp/main.txt`)
+     * -  URL (如`http://www.yiiframework.com`)
+     * - 路径别名(如`@yii/base`)，这种情况下将先调用[[getAlias()]]把路径别名转为实际的路径。
      *
-     * @throws InvalidParamException if $path is an invalid alias.
+     * @throws InvalidParamException 如果 $path 是无效别名
      * @see getAlias()
      */
     public static function setAlias($alias, $path)
