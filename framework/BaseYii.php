@@ -14,7 +14,7 @@ use yii\log\Logger;
 use yii\di\Container;
 
 /**
- * 获得应用启动时间戳
+ * 定义应用启动时间戳
  */
 defined('YII_BEGIN_TIME') or define('YII_BEGIN_TIME', microtime(true));
 /**
@@ -22,37 +22,36 @@ defined('YII_BEGIN_TIME') or define('YII_BEGIN_TIME', microtime(true));
  */
 defined('YII_PATH') or define('YII_PATH', __DIR__);
 /**
- * 该常量定义应用是否用调试模式，默认为 false 。
+ * 该常量定义应用是否用调试模式，默认为 false
  */
 defined('YII_DEBUG') or define('YII_DEBUG', false);
 /**
- * This constant defines in which environment the application is running. Defaults to 'prod', meaning production environment.
- * You may define this constant in the bootstrap script. The value could be 'prod' (production), 'dev' (development), 'test', 'staging', etc.
+ * 该常量定义了应用运行在哪个环境。缺省为'prod'，即生产环境。
+ * 你可以在引导脚本定义这个常量，值可以是'prod' (生产), 'dev' (开发), 'test', 'staging', 等。
  */
 defined('YII_ENV') or define('YII_ENV', 'prod');
 /**
- * Whether the the application is running in production environment
+ * 应用是否运行在生产环境
  */
 defined('YII_ENV_PROD') or define('YII_ENV_PROD', YII_ENV === 'prod');
 /**
- * Whether the the application is running in development environment
+ * 应用是否运行在开发环境
  */
 defined('YII_ENV_DEV') or define('YII_ENV_DEV', YII_ENV === 'dev');
 /**
- * Whether the the application is running in testing environment
+ * 应用是否运行在测试环境
  */
 defined('YII_ENV_TEST') or define('YII_ENV_TEST', YII_ENV === 'test');
 
 /**
- * This constant defines whether error handling should be enabled. Defaults to true.
+ * 此常量定义错误处理是否启用，缺省为 true 。
  */
 defined('YII_ENABLE_ERROR_HANDLER') or define('YII_ENABLE_ERROR_HANDLER', true);
 
 /**
- * BaseYii is the core helper class for the Yii framework.
+ * BaseYii 是 Yii 框架的核心辅助类
  *
- * Do not use BaseYii directly. Instead, use its child class [[\Yii]] which you can replace to
- * customize methods of BaseYii.
+ * 不要直接使用 BaseYii ，而是使用它的子类[[\Yii]]，可以在这个子类自定义 BaseYii 的方法。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -60,27 +59,25 @@ defined('YII_ENABLE_ERROR_HANDLER') or define('YII_ENABLE_ERROR_HANDLER', true);
 class BaseYii
 {
     /**
-     * @var array class map used by the Yii autoloading mechanism.
-     * The array keys are the class names (without leading backslashes), and the array values
-     * are the corresponding class file paths (or path aliases). This property mainly affects
-     * how [[autoload()]] works.
+     * @var array 类图，被 Yii 自动加载机制所使用
+     * 数组键是类名（没有前面的反斜线），数组值是相应的类文件路径（或路径别名）
+     * 本属性主要影响[[autoload()]]如何工作
      * @see autoload()
      */
     public static $classMap = [];
     /**
-     * @var \yii\console\Application|\yii\web\Application the application instance
+     * @var \yii\console\Application|\yii\web\Application 应用实例
      */
     public static $app;
     /**
-     * @var array registered path aliases
+     * @var array 已注册的路径别名
      * @see getAlias()
      * @see setAlias()
      */
     public static $aliases = ['@yii' => __DIR__];
     /**
-     * @var Container the dependency injection (DI) container used by [[createObject()]].
-     * You may use [[Container::set()]] to set up the needed dependencies of classes and
-     * their initial property values.
+     * @var Container 依赖注入容器，用于[[createObject()]]
+     * 你可以参阅[[Container::set()]]来设置类必须的依赖和同名的初始属性值
      * @see createObject()
      * @see Container
      */
@@ -88,8 +85,8 @@ class BaseYii
 
 
     /**
-     * Returns a string representing the current version of the Yii framework.
-     * @return string the version of Yii framework
+     * 返回代表 Yii 框架当前版本的字符串
+     * @return string  Yii 框架当前版本
      */
     public static function getVersion()
     {
@@ -97,11 +94,11 @@ class BaseYii
     }
 
     /**
-     * Translates a path alias into an actual path.
+     * 翻译路径别名到真实路径
      *
-     * The translation is done according to the following procedure:
+     * 翻译根据以下流程完成：
      *
-     * 1. If the given alias does not start with '@', it is returned back without change;
+     * 1. 如果给定别名没有以'@'开头，就原样返回；
      * 2. Otherwise, look for the longest registered alias that matches the beginning part
      *    of the given alias. If it exists, replace the matching part of the given alias with
      *    the corresponding registered path.
