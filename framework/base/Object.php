@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140505
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -10,10 +14,10 @@ namespace yii\base;
 use Yii;
 
 /**
- * Object is the base class that implements the *property* feature.
+ * 对象是实现*属性*功能的基类
  *
- * A property is defined by a getter method (e.g. `getLabel`), and/or a setter method (e.g. `setLabel`). For example,
- * the following getter and setter methods define a property named `label`:
+ * 属性由 getter 方法 (如`getLabel`)，和/或 setter 方法 (如`setLabel`)定义。
+ * 如，以下 getter 和 setter 方法定义了一个名为`label`的属性：
  *
  * ~~~
  * private $_label;
@@ -29,36 +33,34 @@ use Yii;
  * }
  * ~~~
  *
- * Property names are *case-insensitive*.
+ * 属性名是*不区分大小写的*。
  *
- * A property can be accessed like a member variable of an object. Reading or writing a property will cause the invocation
- * of the corresponding getter or setter method. For example,
+ * 属性可以像对象的成员变量一样访问，读取或写入一个属性将导致相应 getter 或 setter 方法的调用。
+ * 如：
  *
  * ~~~
- * // equivalent to $label = $object->getLabel();
+ * // 等价于 $label = $object->getLabel();
  * $label = $object->label;
- * // equivalent to $object->setLabel('abc');
+ * // 等价于 $object->setLabel('abc');
  * $object->label = 'abc';
  * ~~~
  *
- * If a property has only a getter method and has no setter method, it is considered as *read-only*. In this case, trying
- * to modify the property value will cause an exception.
+ * 如果属性只有 getter 方法，没有 setter 方法，则认为它是*只读的*。
+ * 这种情况下，尝试修改属性值将导致一个异常。
  *
- * One can call [[hasProperty()]], [[canGetProperty()]] and/or [[canSetProperty()]] to check the existence of a property.
+ * 可以调用[[hasProperty()]], [[canGetProperty()]] 和 [[canSetProperty()]] 来检查属性是否存在。
  *
- * Besides the property feature, Object also introduces an important object initialization life cycle. In particular,
- * creating an new instance of Object or its derived class will involve the following life cycles sequentially:
+ * 除了属性功能，对象还引入了重要的对象初始化生命周期。
+ * 尤其是，创建对象或其子类的新实例将按顺序牵涉以下生命周期：
  *
- * 1. the class constructor is invoked;
- * 2. object properties are initialized according to the given configuration;
- * 3. the `init()` method is invoked.
+ * 1. 类的构造函数被调用；
+ * 2. 对象属性根据给定配置初始化；
+ * 3. `init()` 方法被调用。
  *
- * In the above, both Step 2 and 3 occur at the end of the class constructor. It is recommended that
- * you perform object initialization in the `init()` method because at that stage, the object configuration
- * is already applied.
+ * 以上的步骤 2 和 3 都发生在类的构造函数结束时。推荐你在`init()` 方法执行对象初始化，
+ * 因为这个阶段的对象配置已经被应用了。
  *
- * In order to ensure the above life cycles, if a child class of Object needs to override the constructor,
- * it should be done like the following:
+ * 为了确保以上生命周期，如果对象的子类需要覆写构造函数，必须如下这样写：
  *
  * ~~~
  * public function __construct($param1, $param2, ..., $config = [])
@@ -68,8 +70,8 @@ use Yii;
  * }
  * ~~~
  *
- * That is, a `$config` parameter (defaults to `[]`) should be declared as the last parameter
- * of the constructor, and the parent implementation should be called at the end of the constructor.
+ * 即，`$config` 参数 (缺省为`[]`) 要声明为构造函数的最后一个参数，
+ * 且要在构造函数结束时调用父类的构造函数。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
