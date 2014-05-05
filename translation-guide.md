@@ -39,9 +39,13 @@
 ###Git 工作流程###
 有关Git的使用，请参阅Yii2官方的内部文档[git-workflow.md](https://github.com/yii2-chinesization/yii2-zh-cn/blob/translating/internals/git-workflow.md)
 我们的工作流程跟他很像，也有点像SVN的工作方式：
+####第零步：保存远端服务器（Remote）
+把 `https://github.com/yii2-chinesization/yii2-zh-cn.git` 保存为 `upstream` 远端。
 
-1. 我们需要先fetch再merge确保我们在翻译同一个文档库，省的有人翻译了一遍某某文章，某人又翻译了一遍，由于翻译地不一样合并的时候还有冲突。
-特别注意：在官方进行重大调整的时候，我们有可能会临时更改默认分支，请注意把master对应更换成新的默认分支。
+####第一步：我们需要先fetch再merge确保我们在翻译同一个文档库。
+省的有人翻译了一遍某某文章，某人又翻译了一遍，由于翻译地不一样合并的时候还有冲突。
+> 特别注意：在官方进行重大调整的时候，我们有可能会临时更改默认分支，请注意把master对应更换成新的默认分支。
+
 ```shell
 git pull --rebase upstream master
 ```
@@ -50,10 +54,11 @@ git pull --rebase upstream master
 git fetch upstream
 git merge upstream/master --ff-only # fast-forwarding only.也可以不加，会使用自动合并功能，遇冲突会停止，等待手动处理冲突。
 ```
-2. 然后翻译完commit再push。
+####然后翻译完，先commit再push。
 如果没有直接修改权限，你可以创建PullRequest简称，PR。最好可以把相关PR都挂在同一个issue之下，便于交流。
 如果你翻译地较多，在群里吱一声，就可以提升为写权限，这样就可以直接 push 了，不过千万要保证每次提交的质量啊。
-3. 最后，别忘了更改[README里文件的状态](guide/README.md)，参考 [README](#README) 章节。
+
+####最后，别忘了更改[README里文件的状态](guide/README.md)，参考 [README](#README) 章节。
 
 ###翻译小循环###
 ####最好表直接在原文上修改
