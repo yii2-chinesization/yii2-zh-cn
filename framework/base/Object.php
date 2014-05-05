@@ -79,7 +79,7 @@ use Yii;
 class Object
 {
     /**
-     * @return string the fully qualified name of this class.
+     * @return string 类的完全限定名
      */
     public static function className()
     {
@@ -87,18 +87,18 @@ class Object
     }
 
     /**
-     * Constructor.
-     * The default implementation does two things:
+     * 构造函数
+     * 默认执行两件事：
      *
-     * - Initializes the object with the given configuration `$config`.
-     * - Call [[init()]].
+     * - 用给定的配置`$config`初始化对象
+     * - 调用[[init()]]
      *
-     * If this method is overridden in a child class, it is recommended that
+     * 如果本方法被子类覆写，建议：
      *
-     * - the last parameter of the constructor is a configuration array, like `$config` here.
-     * - call the parent implementation at the end of the constructor.
+     * - 构造函数的最后一个参数是配置数组，如这里的`$config`
+     * - 在构造函数结束时调用父类执行
      *
-     * @param array $config name-value pairs that will be used to initialize the object properties
+     * @param array $config 名值对，用于初始化对象属性
      */
     public function __construct($config = [])
     {
@@ -109,23 +109,23 @@ class Object
     }
 
     /**
-     * Initializes the object.
-     * This method is invoked at the end of the constructor after the object is initialized with the
-     * given configuration.
+     * 初始化对象
+     * 本方法在对象以给定配置初始化后于构造函数结束时调用
      */
     public function init()
     {
     }
 
     /**
-     * Returns the value of an object property.
+     * 返回对象属性值
      *
-     * Do not call this method directly as it is a PHP magic method that
-     * will be implicitly called when executing `$value = $object->property;`.
-     * @param string $name the property name
-     * @return mixed the property value
-     * @throws UnknownPropertyException if the property is not defined
-     * @throws InvalidCallException if the property is write-only
+     * 不要直接调用此方法，因为它是一个 PHP 魔术方法，
+     * 当执行`$value = $object->property;`时将会隐式调用。
+     *
+     * @param string $name 属性名
+     * @return mixed 属性值
+     * @throws UnknownPropertyException 如果属性未定义
+     * @throws InvalidCallException 如果是只写属性
      * @see __set()
      */
     public function __get($name)
@@ -141,14 +141,15 @@ class Object
     }
 
     /**
-     * Sets value of an object property.
+     * 设置对象属性值
      *
-     * Do not call this method directly as it is a PHP magic method that
-     * will be implicitly called when executing `$object->property = $value;`.
-     * @param string $name the property name or the event name
-     * @param mixed $value the property value
-     * @throws UnknownPropertyException if the property is not defined
-     * @throws InvalidCallException if the property is read-only
+     * 不要直接调用此方法，因为它是一个 PHP 魔术方法，
+     * 当执行`$object->property = $value;`时将会隐式调用。
+     *
+     * @param string $name 属性名或事件名
+     * @param mixed $value 属性值
+     * @throws UnknownPropertyException 如果属性未定义
+     * @throws InvalidCallException 如果是只读属性
      * @see __get()
      */
     public function __set($name, $value)
@@ -164,14 +165,15 @@ class Object
     }
 
     /**
-     * Checks if the named property is set (not null).
+     * 检查指定属性是否设置(not null)
      *
-     * Do not call this method directly as it is a PHP magic method that
-     * will be implicitly called when executing `isset($object->property)`.
+     * 不要直接调用此方法，因为它是一个 PHP 魔术方法，
+     * 当执行`isset($object->property)`时将会隐式调用。
      *
-     * Note that if the property is not defined, false will be returned.
-     * @param string $name the property name or the event name
-     * @return boolean whether the named property is set (not null).
+     * 注意如果属性未定义，将返回 false
+     *
+     * @param string $name 属性名或事件名
+     * @return boolean 指定属性是否设置(not null)
      */
     public function __isset($name)
     {
@@ -184,15 +186,15 @@ class Object
     }
 
     /**
-     * Sets an object property to null.
+     * 设置对象属性为 null
      *
-     * Do not call this method directly as it is a PHP magic method that
-     * will be implicitly called when executing `unset($object->property)`.
+     * 不要直接调用此方法，因为它是一个 PHP 魔术方法，
+     * 当执行`unset($object->property)`时将会隐式调用。
      *
-     * Note that if the property is not defined, this method will do nothing.
-     * If the property is read-only, it will throw an exception.
-     * @param string $name the property name
-     * @throws InvalidCallException if the property is read only.
+     * 注意如果属性未定义，本方法将不做任何事。
+     * 如果属性是只读的，它将抛出异常。
+     * @param string $name 属性名
+     * @throws InvalidCallException 如果属性是只读的
      */
     public function __unset($name)
     {
@@ -205,14 +207,14 @@ class Object
     }
 
     /**
-     * Calls the named method which is not a class method.
+     * 调用指定的非类方法的方法
      *
-     * Do not call this method directly as it is a PHP magic method that
-     * will be implicitly called when an unknown method is being invoked.
-     * @param string $name the method name
-     * @param array $params method parameters
-     * @throws UnknownMethodException when calling unknown method
-     * @return mixed the method return value
+     * 不要直接调用此方法，因为它是一个 PHP 魔术方法，
+     * 当执行未知方法时将会隐式调用。
+     * @param string $name 方法名
+     * @param array $params 方法参数
+     * @throws UnknownMethodException 当调用未知方法
+     * @return mixed 方法返回值
      */
     public function __call($name, $params)
     {
@@ -220,16 +222,15 @@ class Object
     }
 
     /**
-     * Returns a value indicating whether a property is defined.
-     * A property is defined if:
+     * 返回表明属性是否已定义的值
+     * 如果以下这样说明属性已定义：
      *
-     * - the class has a getter or setter method associated with the specified name
-     *   (in this case, property name is case-insensitive);
-     * - the class has a member variable with the specified name (when `$checkVars` is true);
+     * - 类有 getter 或 setter 方法关联到指定名(这种情况下属性名不区分大小写)；
+     * - 类有指定名的成员变量(当`$checkVars` 是 true)；
      *
-     * @param string $name the property name
-     * @param boolean $checkVars whether to treat member variables as properties
-     * @return boolean whether the property is defined
+     * @param string $name 属性名
+     * @param boolean $checkVars 是否把成员变量看作属性
+     * @return boolean 该属性是否已定义
      * @see canGetProperty()
      * @see canSetProperty()
      */
@@ -239,16 +240,15 @@ class Object
     }
 
     /**
-     * Returns a value indicating whether a property can be read.
-     * A property is readable if:
+     * 返回值表明属性是否能读取
+     * 符合以下情况之一说明属性是可读的：
      *
-     * - the class has a getter method associated with the specified name
-     *   (in this case, property name is case-insensitive);
-     * - the class has a member variable with the specified name (when `$checkVars` is true);
+     * - t类有 getter 方法关联到指定名(这种情况下属性名不区分大小写)；
+     * - 类有指定名的成员变量(当`$checkVars` 是 true)；
      *
-     * @param string $name the property name
-     * @param boolean $checkVars whether to treat member variables as properties
-     * @return boolean whether the property can be read
+     * @param string $name 属性名
+     * @param boolean $checkVars 是否把成员变量看作属性
+     * @return boolean whether 属性是否可读
      * @see canSetProperty()
      */
     public function canGetProperty($name, $checkVars = true)
@@ -257,16 +257,15 @@ class Object
     }
 
     /**
-     * Returns a value indicating whether a property can be set.
-     * A property is writable if:
+     * 返回值表明属性是否能被设置
+     * 符合以下情况之一说明属性是可写的：
      *
-     * - the class has a setter method associated with the specified name
-     *   (in this case, property name is case-insensitive);
-     * - the class has a member variable with the specified name (when `$checkVars` is true);
+     * - 类有 setter 方法关联到指定名(这种情况下属性名不区分大小写)；
+     * - 类有指定名的成员变量(当`$checkVars` 是 true)；
      *
-     * @param string $name the property name
-     * @param boolean $checkVars whether to treat member variables as properties
-     * @return boolean whether the property can be written
+     * @param string $name 属性名
+     * @param boolean $checkVars 是否把成员变量看作属性
+     * @return boolean 属性是否能写入
      * @see canGetProperty()
      */
     public function canSetProperty($name, $checkVars = true)
@@ -275,12 +274,12 @@ class Object
     }
 
     /**
-     * Returns a value indicating whether a method is defined.
+     * 返回值表明方法是否已定义
      *
-     * The default implementation is a call to php function `method_exists()`.
-     * You may override this method when you implemented the php magic method `__call()`.
-     * @param string $name the property name
-     * @return boolean whether the property is defined
+     * 默认实现是调用 php 函数`method_exists()`
+     * 当你实现了 php 魔术方法`__call()`后，你可以覆写本方法
+     * @param string $name 方法名
+     * @return boolean 方法名是否已定义
      */
     public function hasMethod($name)
     {
