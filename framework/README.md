@@ -1,24 +1,25 @@
-Yii PHP Framework Version 2
+Yii PHP 框架版本2
 ===========================
+> 翻译日期：20140504
 
-This is the core framework code of [Yii 2](https://github.com/yiisoft/yii2#readme).
+本目录是[Yii 2](https://github.com/yiisoft/yii2#readme)的核心框架代码。
 
 
-Installation
+安装
 ------------
 
-The preferred way to install the Yii framework is through [composer](http://getcomposer.org/download/).
+Yii 框架的首选安装方式是[composer](http://getcomposer.org/download/)。
 
-Either run
+运行
 
 ```
 php composer.phar require --prefer-dist "yiisoft/yii2 *"
 ```
 
-or add
+或添加
 
 ```json
 "yiisoft/yii2": "*"
 ```
 
-to the require section of your composer.json.
+到你的 composer.json 文件的 require 部分。

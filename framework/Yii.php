@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140502
+ */
+
+/**
  * Yii 引导文件
  *
  * @link http://www.yiiframework.com/

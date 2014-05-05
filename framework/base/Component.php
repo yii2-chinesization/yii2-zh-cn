@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140505
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -10,9 +14,9 @@ namespace yii\base;
 use Yii;
 
 /**
- * Component is the base class that implements the *property*, *event* and *behavior* features.
+ * 组件是实现*属性*、*事件*和*行为*功能的基类
  *
- * Component provides the *event* and *behavior* features, in addition to the *property* feature which is implemented in
+ * 组件Component provides the *event* and *behavior* features, in addition to the *property* feature which is implemented in
  * its parent class [[Object]].
  *
  * Event is a way to "inject" custom code into existing code at certain places. For example, a comment object can trigger
