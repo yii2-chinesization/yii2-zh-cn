@@ -285,19 +285,18 @@ class BaseYii
     }
 
     /**
-     * Creates a new object using the given configuration.
+     * 用给定配置创建新对象
      *
-     * You may view this method as an enhanced version of the `new` operator.
-     * The method supports creating an object based on a class name, a configuration array or
-     * an anonymous function.
+     * 你可以将此方法视为`new`操作符的增强版本。
+     * 本方法支持基于类名、配置数组或匿名函数创建一个对象。
      *
-     * Below are some usage examples:
+     * 以下是一些用法示例：
      *
      * ```php
-     * // create an object using a class name
+     * // 用类名创建对象
      * $object = Yii::createObject('yii\db\Connection');
      *
-     * // create an object using a configuration array
+     * // 用配置数组创建对象
      * $object = Yii::createObject([
      *     'class' => 'yii\db\Connection',
      *     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
@@ -306,24 +305,22 @@ class BaseYii
      *     'charset' => 'utf8',
      * ]);
      *
-     * // create an object with two constructor parameters
+     * // 创建一个对象并给其构造函数传入两个参数
      * $object = \Yii::createObject('MyClass', [$param1, $param2]);
      * ```
      *
-     * Using [[\yii\di\Container|dependency injection container]], this method can also identify
-     * dependent objects, instantiate them and inject them into the newly created object.
+     * 使用[[\yii\di\Container|依赖注入容器]]，本方法还能识别依赖对象、实例化它们并注入新建对象。
      *
-     * @param string|array|callable $type the object type. This can be specified in one of the following forms:
+     * @param string|array|callable $type 对象类型，可以指定为以下形态：
      *
-     * - a string: representing the class name of the object to be created
-     * - a configuration array: the array must contain a `class` element which is treated as the object class,
-     *   and the rest of the name-value pairs will be used to initialize the corresponding object properties
-     * - a PHP callable: either an anonymous function or an array representing a class method (`[$class or $object, $method]`).
-     *   The callable should return a new instance of the object being created.
+     * - 字符串：表示拟创建对象的类名。
+     * - 配置数组：该数组必须包括一个`class` 元素来表示对象类，其他键值对将用于初始化相应的对象属性。
+     * - PHP 回调函数：匿名函数或表示类方法的数组(`[$class or $object, $method]`)，
+     *   回调函数应返回拟创建对象的实例。
      *
-     * @param array $params the constructor parameters
-     * @return object the created object
-     * @throws InvalidConfigException if the configuration is invalid.
+     * @param array $params 构造函数参数
+     * @return object 新建对象
+     * @throws InvalidConfigException 如果配置无效
      * @see \yii\di\Container
      */
     public static function createObject($type, array $params = [])
@@ -346,7 +343,7 @@ class BaseYii
     private static $_logger;
 
     /**
-     * @return Logger message logger
+     * @return Logger 消息记录器
      */
     public static function getLogger()
     {
@@ -358,8 +355,8 @@ class BaseYii
     }
 
     /**
-     * Sets the logger object.
-     * @param Logger $logger the logger object.
+     * 设置记录器对象
+     * @param Logger $logger 记录器对象
      */
     public static function setLogger($logger)
     {
@@ -367,11 +364,10 @@ class BaseYii
     }
 
     /**
-     * Logs a trace message.
-     * Trace messages are logged mainly for development purpose to see
-     * the execution work flow of some code.
-     * @param string $message the message to be logged.
-     * @param string $category the category of the message.
+     * 踪迹消息日志
+     * 踪迹消息日志主要用于开发目的以查看某些代码的执行工作流
+     * @param string $message 待记录的消息
+     * @param string $category 消息类别
      */
     public static function trace($message, $category = 'application')
     {
@@ -381,11 +377,10 @@ class BaseYii
     }
 
     /**
-     * Logs an error message.
-     * An error message is typically logged when an unrecoverable error occurs
-     * during the execution of an application.
-     * @param string $message the message to be logged.
-     * @param string $category the category of the message.
+     * 错误消息日志
+     * 错误消息通常在应用执行期不可捕获的错误发生时记录
+     * @param string $message 待记录消息
+     * @param string $category 消息类别
      */
     public static function error($message, $category = 'application')
     {
@@ -393,11 +388,10 @@ class BaseYii
     }
 
     /**
-     * Logs a warning message.
-     * A warning message is typically logged when an error occurs while the execution
-     * can still continue.
-     * @param string $message the message to be logged.
-     * @param string $category the category of the message.
+     * 警告消息日志
+     * 警告消息通常在发生错误但执行仍能继续时记录
+     * @param string $message 要记录的消息
+     * @param string $category 消息的类别
      */
     public static function warning($message, $category = 'application')
     {
@@ -499,10 +493,10 @@ class BaseYii
     }
 
     /**
-     * Configures an object with the initial property values.
-     * @param object $object the object to be configured
-     * @param array $properties the property initial values given in terms of name-value pairs.
-     * @return object the object itself
+     * 以初始化属性值配置对象
+     * @param object $object 待配置对象
+     * @param array $properties 给定的属性初始值，是名值对形式。
+     * @return object 对象本身
      */
     public static function configure($object, $properties)
     {
@@ -514,12 +508,12 @@ class BaseYii
     }
 
     /**
-     * Returns the public member variables of an object.
-     * This method is provided such that we can get the public member variables of an object.
-     * It is different from "get_object_vars()" because the latter will return private
-     * and protected variables if it is called within the object itself.
-     * @param object $object the object to be handled
-     * @return array the public member variables of the object
+     * 返回对象的公共成员变量
+     * 本方法提供给我们获取对象的公共成员变量
+     * 它不同于"get_object_vars()" ，因为后者如果在对象自己的内部调用将返回包括私有和受保护变量的
+     * 所有可访问的非静态变量。
+     * @param object $object 要处理的对象
+     * @return array 对象的公共成员变量
      */
     public static function getObjectVars($object)
     {
