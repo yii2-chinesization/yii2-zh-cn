@@ -19,3 +19,17 @@ Yii 被翻译成多种语言并被国际化应用与开发者委以重任。我�
 为保证你的的翻译是最新的你可以重新执行 `yii message/extract messages/config.php`。它将在不改变现有译文的条件下增量重新获取信息。
 
 该翻译文件中的每个数组元素代表一段信息（key）的译文（value）。 如果数组 value 为空，信息将被视作未翻译。 不再需要翻译的信息将会由一对“@@”标记闭合。信息文本可以被用作复数形式。在 [权威指南的国家化部分](../guide/i18n.md) 查看详情。
+
+文档翻译
+-------------
+
+Put documentation translations under `docs/<original>-<language>` where `<original>` is the original documentation name
+such as `guide` or `internals` and `<language>` is the language code of the language docs are translated to. For the
+Russian guide translation it is `docs/guide-ru`.
+
+After initial work is done you can get what's changed since last translation of the file using a special command from
+`build` directory:
+
+```
+build translation ../docs/guide" "../docs/guide-ru" --title="Russian guide translation report" > report-guide-ru.html
+```

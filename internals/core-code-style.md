@@ -1,22 +1,29 @@
 Yii2 核心代码风格指南
 ==============================
 
-以下代码风格指南针对于开发 Yii 2.x 核心代码和官方扩展。如果你想向核心代码 pull request，考虑遵循本指南。我们不强迫你在自己的应用中使用本代码风格，请自由决断，选你喜欢的。
+以下代码风格指南针对于开发 Yii 2.x 核心代码和官方扩展。
+如果你想向核心代码 pull request，你应该考虑遵循本指南。
+我们不强迫你在自己的应用中使用本代码风格，你可以自由选择你喜欢的。
 
 你可以在这里获取 CodeSniffer 的配置文件：https://github.com/yiisoft/yii2-coding-standards
 
 1. 概览
 -----------
 
-- 文件 `必须` 使用 `<?php` 或 `<?=` 标签。
+总体上我们采用 [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
+兼容风格，所以所有符合
+[PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
+标准的代码也符合我们的代码风格。
+
+- 文件 **必须** 使用 `<?php` 或 `<?=` 标签。
 - 文件末尾应该空一行。
-- 文件中的 PHP 代码 `必须` 使用无 BOM 的 UTF-8 字符编码。
-- 代码必须使用 tab 缩进，而不是空格。
-- 类名 `必须` 使用首字母大写的驼峰法 `StudlyCaps`。
-- 类常量的声明 `必须` 全部大写并以下划线作分隔符。
-- 方法的声明 `必须` 使用首字母小写的驼峰法 `camelCase`。
-- 属性的声明 `必须` 使用首字母为小写的驼峰法 `camelCase`。
-- 私有属性的声明 `必须` 由一个下划线开始。
+- 文件中的 PHP 代码 **必须** 使用无 BOM 的 UTF-8 字符编码。
+- 代码 **必须** 使用 4个空格缩进，而不是 tab。
+- 类名 **必须** 使用首字母大写的驼峰法 `StudlyCaps`。
+- 类常量的声明 **必须** 全部大写并以下划线作分隔符。
+- 方法的声明 **必须** 使用首字母小写的驼峰法 `camelCase`。
+- 属性的声明 **必须** 使用首字母为小写的驼峰法 `camelCase`。
+- 私有属性的声明 **必须** 由一个下划线开始。
 - 始终使用 `elseif`，而不是 `else if`。
 
 2. 文件
@@ -24,19 +31,19 @@ Yii2 核心代码风格指南
 
 ### 2.1. PHP 标签
 
-- PHP 代码 `必须` 使用 `<?php` 或 `<?=` 标签， `不可以` 使用包括 `<?` 在内的其它任何标签。
+- PHP 代码 **必须** 使用 `<?php` 或 `<?=` 标签， `不可以` 使用包括 `<?` 在内的其它任何标签。
 - 纯 PHP 代码的文件应该省略 `?>` 关闭标签。
 - 每行代码末尾 `不可以` 使用空格作为结束。
 - 任何包含 PHP 代码的文件扩展名都应该为 `.php`。
 
 ### 2.2. 字符编码
 
-PHP 代码 `必须` 且只能使用 无 `BOM` 的 `UTF-8`编码。
+PHP 代码 **必须** 且只能使用 无 `BOM` 的 `UTF-8`编码。
 
 3. 类名
 --------------
 
-类名的声明 `必须` 使用首字母为大写的驼峰法 `StudlyCaps` 声明， 例如 `Controller`， `Model`。
+类名的声明 **必须** 使用首字母为大写的驼峰法 `StudlyCaps` 声明， 例如 `Controller`， `Model`。
 
 4. 类和接口
 ----------
@@ -63,7 +70,7 @@ class MyClass extends \yii\Object implements MyInterface
 
 ### 4.1. 常量
 
-类常量的声明 `必须` 全部大写并以下划线作分隔符。
+类常量的声明 **必须**全部大写并以下划线作分隔符。
 例如：
 
 ```php
@@ -123,18 +130,17 @@ class Foo
 
 ### 4.4 文档块
 
-`@param`，`@var`,`@property` 和 `@return` `必须` 要声明类型诸如 `boolean`，`integer`，`string`，`array` 或 `null`，你还可以使用类名诸如 `Model`、 `ActiveRecord` 等。数组成员为对象时使用 `ClassName[]`。
+`@param`，`@var`,`@property` 和 `@return` **必须**要声明类型诸如 `boolean`，`integer`，`string`，`array` 或 `null`，你还可以使用类名诸如 `Model`、 `ActiveRecord` 等。数组成员为对象时使用 `ClassName[]`。
 
 ### 4.5 构造方法
 
 - 应该使用 `__construct` 而不是 PHP 4 风格的构造方法。
-- 实例化对象应该使用 `new MyObject();` 而不是 `new MyObject;`。
 
 ## 5 PHP
 
 ### 5.1 类型
 
-- 所有 PHP 内置类型和值都 `应该` 用小写。包括 `true`， `false`， `null` 和 `array`。
+- 所有 PHP 内置类型和值都 **必须** 用小写。包括 `true`， `false`， `null` 和 `array`。
 
 - 关联数组的使用应该遵循以下格式：
 
@@ -232,7 +238,7 @@ $config = [
 
 ### 5.4 控制语句
 
-- 条件控制语句的括号前后 `必须` 有一个空格。
+- 条件控制语句的括号前后 **必须**有一个空格。
 - 括号里的运算符前后都应该有一个空格。
 - 左大括号应该位于同一行。
 - 右大括号应该位于新的一行。
@@ -313,9 +319,9 @@ $mul = array_reduce($numbers, function($r, $x) use($n) {
 
 - 参考 [PHPdoc](http://phpdoc.org/) 语法。
 - 不允许没有文档注释的代码出现。
-- 所有类文件 `必须` 包含一个位于文件最上方的文件级别的文档块，以及一个位于类上方的类级别的文档块。
+- 所有类文件 **必须**包含一个位于文件最上方的文件级别的文档块，以及一个位于类上方的类级别的文档块。
 - 如果一个方法没有返回值，则没有必要使用 `@return` 。
-- Yii2 中所有继承自 `yii\base\Object` 的虚拟属性都 `应该` 在文档块中添加一个 `@property` 标签。标签的注释内容可以通过在 build 目录下运行 `./build php-doc` 从相应的 getter 和 setter 方法的 `@return` 和 `@param` 标签中自动生成。如果生成的内容与 `@return` 中不同，你可以向 getter 和 setter 方法添加 `@property` 标签去显式的指明内容。
+- Yii2 中所有继承自 `yii\base\Object` 的虚拟属性都 **必须** 在文档块中添加一个 `@property` 标签。标签的注释内容可以通过在 build 目录下运行 `./build php-doc` 从相应的 getter 和 setter 方法的 `@return` 和 `@param` 标签中自动生成。如果生成的内容与 `@return` 中不同，你可以向 getter 和 setter 方法添加 `@property` 标签去显式的指明内容。
 
 ```php
 /**
@@ -410,7 +416,7 @@ public function getEventHandlers($name)
 
 ### `=== []` . `empty()`
 
-`应该` 尽可能使用 `empty()`。
+**必须** 尽可能使用 `empty()`。
 
 ### 多重返回点
 
