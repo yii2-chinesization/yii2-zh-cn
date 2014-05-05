@@ -1,5 +1,9 @@
 <?php
 /**
+ * @since 中文版翻译日期：20140505
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -240,24 +244,22 @@ class BaseYii
     }
 
     /**
-     * Class autoload loader.
-     * This method is invoked automatically when PHP sees an unknown class.
-     * The method will attempt to include the class file according to the following procedure:
+     * 类自动加载器
+     * 本方法当 PHP 遇到未知类时会自动调用
+     * 本方法将尝试根据以下流程包含类文件：
      *
-     * 1. Search in [[classMap]];
-     * 2. If the class is namespaced (e.g. `yii\base\Component`), it will attempt
-     *    to include the file associated with the corresponding path alias
-     *    (e.g. `@yii/base/Component.php`);
+     * 1. 在[[classMap]]搜索；
+     * 2. 如果类有命名空间(如`yii\base\Component`)，本方法将尝试包含关联到相应路径别名的文件(如`@yii/base/Component.php`)；
      *
-     * This autoloader allows loading classes that follow the [PSR-4 standard](http://www.php-fig.org/psr/psr-4/)
-     * and have its top-level namespace or sub-namespaces defined as path aliases.
+     * 本自动加载器允许加载的类要求遵循[PSR-4 标准](http://www.php-fig.org/psr/psr-4/)
+     * 并用路径别名定义了最高层命名空间或子命名空间。
      *
-     * Example: When aliases `@yii` and `@yii/bootstrap` are defined, classes in the `yii\bootstrap` namespace
-     * will be loaded using the `@yii/bootstrap` alias which points to the directory where bootstrap extension
-     * files are installed and all classes from other `yii` namespaces will be loaded from the yii framework directory.
+     * 例如：当别名`@yii` 和 `@yii/bootstrap` 已定义，`yii\bootstrap`命名空间的类将使用
+     * `@yii/bootstrap` 别名加载，此别名指向的目录是 bootstrap 扩展文件安装的目录，
+     * 而其他`yii`命名空间的所有类就从 Yii 框架目录加载。
      *
-     * @param string $className the fully qualified class name without a leading backslash "\"
-     * @throws UnknownClassException if the class does not exist in the class file
+     * @param string $className 完整合格类名，没有前面的反斜线"\"。
+     * @throws UnknownClassException 如果类文件的类不存在
      */
     public static function autoload($className)
     {
