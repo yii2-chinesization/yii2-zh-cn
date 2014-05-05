@@ -399,11 +399,10 @@ class BaseYii
     }
 
     /**
-     * Logs an informative message.
-     * An informative message is typically logged by an application to keep record of
-     * something important (e.g. an administrator logs in).
-     * @param string $message the message to be logged.
-     * @param string $category the category of the message.
+     * 告知性消息日志
+     * 告知性消息通常由应用记录以保持一些重要内容的记录（如管理员登录日志）。
+     * @param string $message 要记录的消息
+     * @param string $category 消息的类别
      */
     public static function info($message, $category = 'application')
     {
@@ -411,20 +410,20 @@ class BaseYii
     }
 
     /**
-     * Marks the beginning of a code block for profiling.
-     * This has to be matched with a call to [[endProfile]] with the same category name.
-     * The begin- and end- calls must also be properly nested. For example,
+     * 为分析代码而标记代码块的开始
+     * 此方法必须配套调用一个同类别的[[endProfile]]方法。
+     * begin- 和 end- 两个方法的调用必须正确嵌套，如：
      *
      * ~~~
      * \Yii::beginProfile('block1');
-     * // some code to be profiled
+     * // 要分析的一些代码
      *     \Yii::beginProfile('block2');
-     *     // some other code to be profiled
+     *     // 要分析的另一些代码
      *     \Yii::endProfile('block2');
      * \Yii::endProfile('block1');
      * ~~~
-     * @param string $token token for the code block
-     * @param string $category the category of this log message
+     * @param string $token 代码块占位符
+     * @param string $category 此日志消息的类别
      * @see endProfile()
      */
     public static function beginProfile($token, $category = 'application')
@@ -433,10 +432,10 @@ class BaseYii
     }
 
     /**
-     * Marks the end of a code block for profiling.
-     * This has to be matched with a previous call to [[beginProfile]] with the same category name.
-     * @param string $token token for the code block
-     * @param string $category the category of this log message
+     * 为分析代码而标记代码块的结束
+     * 此方法必须和一个同类别的[[beginProfile]]方法配套调用。
+     * @param string $token 代码块占位符
+     * @param string $category 此日志消息的类别
      * @see beginProfile()
      */
     public static function endProfile($token, $category = 'application')
@@ -445,8 +444,8 @@ class BaseYii
     }
 
     /**
-     * Returns an HTML hyperlink that can be displayed on your Web page showing "Powered by Yii Framework" information.
-     * @return string an HTML hyperlink that can be displayed on your Web page showing "Powered by Yii Framework" information
+     * 返回 显示"Powered by Yii Framework" HTML 超链接信息到你的 Web 页。
+     * @return string  显示"Powered by Yii Framework" HTML 超链接信息到你的 Web 页
      */
     public static function powered()
     {
@@ -454,29 +453,29 @@ class BaseYii
     }
 
     /**
-     * Translates a message to the specified language.
+     * 翻译消息到指定语言
      *
-     * This is a shortcut method of [[\yii\i18n\I18N::translate()]].
+     * 这是[[\yii\i18n\I18N::translate()]]的快捷方法。
      *
-     * The translation will be conducted according to the message category and the target language will be used.
+     * 翻译根据消息类别和拟使用的目标语言来组织。
      *
-     * You can add parameters to a translation message that will be substituted with the corresponding value after
-     * translation. The format for this is to use curly brackets around the parameter name as you can see in the following example:
+     * 你可以添加参数到一条翻译消息，在翻译后用相应的值取代参数。参数格式是使用大括号包围参数名，
+     * 如下所示：
      *
      * ```php
      * $username = 'Alexander';
      * echo \Yii::t('app', 'Hello, {username}!', ['username' => $username]);
      * ```
      *
-     * Further formatting of message parameters is supported using the [PHP intl extensions](http://www.php.net/manual/en/intro.intl.php)
-     * message formatter. See [[\yii\i18n\I18N::translate()]] for more details.
+     * 更多消息参数的格式使用[PHP intl extensions](http://www.php.net/manual/en/intro.intl.php)
+     * 消息格式支持，更多细节请参考[[\yii\i18n\I18N::translate()]]。
      *
-     * @param string $category the message category.
-     * @param string $message the message to be translated.
-     * @param array $params the parameters that will be used to replace the corresponding placeholders in the message.
-     * @param string $language the language code (e.g. `en-US`, `en`). If this is null, the current
-     * [[\yii\base\Application::language|application language]] will be used.
-     * @return string the translated message.
+     * @param string $category 消息类别
+     * @param string $message 要翻译消息
+     * @param array $params 用于替换消息中相应占位符的参数
+     * @param string $language 语言代码(如`en-US`, `en`)，如果为 null ，将使用当前
+     * [[\yii\base\Application::language|应用语言]]。
+     * @return string 翻译后消息
      */
     public static function t($category, $message, $params = [], $language = null)
     {
