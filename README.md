@@ -16,9 +16,9 @@ Yii2官方：[yii2.cn](http://yii2.cn)
 / root  
   ├──/ guide 权威指南  
   │    ├──[英文原文请跳转：doc.yii2.cn](http://doc.yii2.cn)  
-  │    └──[目录及翻译状态](guide/README.md)  
+  │    └──[目录及翻译状态](guide-zh-CN/README.md)
   ├──/ guide-old 上一版本的权威指南文件  
-  ├──/ [internals](internals/) 翻译的官方内部文档，包括如何向Yii官方贡献代码，如何创建新的文档等  
+  ├──/ [internals-zh-CN](internals-zh-CN/) 翻译的官方内部文档，包括如何向Yii官方贡献代码，如何创建新的文档等
   ├──/ [news](news/) 值得注意的新闻翻译，如：发行注记等……  
   ├──/ [messages](messages/) Yii 框架本身的国际化文件，比如错误反馈的国际化，有关中文在zh-CN文件夹  
   ├──/ [framework](framework/) 框架文件，翻译注释文本  
@@ -32,7 +32,7 @@ Yii2官方：[yii2.cn](http://yii2.cn)
 我们有一个QQ群，用于日常沟通，项目组织，翻译心得与Yii2开发的交流等。
 想学东西或者对自己英文有信心的同学可以先来[![加下QQ群](http://pub.idqqimg.com/wpa/images/group.png)343188481](http://url.cn/SIMfwO)。
 
-具体如何翻译呢？请参阅我们的[翻译流程指南](guide/README.md)
+具体如何翻译呢？请参阅我们的[翻译流程指南](translation-guide.md)
 
 引用Golang台湾的朋友们的一句话：
 
