@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140506
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -8,12 +12,11 @@
 namespace yii\base;
 
 /**
- * Behavior is the base class for all behavior classes.
+ * 行为是所有行为类的基类
  *
- * A behavior can be used to enhance the functionality of an existing component without modifying its code.
- * In particular, it can "inject" its own methods and properties into the component
- * and make them directly accessible via the component. It can also respond to the events triggered in the component
- * and thus intercept the normal code execution.
+ * 行为可用来增强现有组件的功能而无需修改组件代码。
+ * 尤其是，行为能"注入"它自己的方法和属性到组件并让它们能通过组件直接访问。
+ * 行为也能响应在组件中被触发的事件来拦截正常的代码执行。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -21,28 +24,26 @@ namespace yii\base;
 class Behavior extends \yii\base\Object
 {
     /**
-     * @var Component the owner of this behavior
+     * @var Component 拥有行为的组件
      */
     public $owner;
 
     /**
-     * Declares event handlers for the [[owner]]'s events.
+     * 为[[owner]]组件的事件声明事件处理器
      *
-     * Child classes may override this method to declare what PHP callbacks should
-     * be attached to the events of the [[owner]] component.
+     * 子类可以覆写此方法以声明什么样的 PHP 回调函数才能附加到[[owner]]组件的事件。
      *
-     * The callbacks will be attached to the [[owner]]'s events when the behavior is
-     * attached to the owner; and they will be detached from the events when
-     * the behavior is detached from the component.
+     * 当行为附加到拥有它的组件时，回调函数也被附加到[[owner]]组件的事件；
+     * 当行为从组件移除时，它们也被分离出事件。
      *
-     * The callbacks can be any of the followings:
+     * 回调函数可以是以下之一：
      *
-     * - method in this behavior: `'handleClick'`, equivalent to `[$this, 'handleClick']`
-     * - object method: `[$object, 'handleClick']`
-     * - static method: `['Page', 'handleClick']`
-     * - anonymous function: `function ($event) { ... }`
+     * - 此行为的方法：`'handleClick'`, 等价于`[$this, 'handleClick']`
+     * - 对象方法：`[$object, 'handleClick']`
+     * - 静态方法：`['Page', 'handleClick']`
+     * - 匿名函数：`function ($event) { ... }`
      *
-     * The following is an example:
+     * 以下是示例：
      *
      * ~~~
      * [
@@ -51,7 +52,7 @@ class Behavior extends \yii\base\Object
      * ]
      * ~~~
      *
-     * @return array events (array keys) and the corresponding event handler methods (array values).
+     * @return array 事件(数组键)和对应的事件处理器方法(数组值)
      */
     public function events()
     {
@@ -59,11 +60,10 @@ class Behavior extends \yii\base\Object
     }
 
     /**
-     * Attaches the behavior object to the component.
-     * The default implementation will set the [[owner]] property
-     * and attach event handlers as declared in [[events]].
-     * Make sure you call the parent implementation if you override this method.
-     * @param Component $owner the component that this behavior is to be attached to.
+     * 附加行为对象到组件
+     * 默认实现将设置[[owner]]属性并附加[[events]]声明的事件处理器
+     * 如果你覆写此方法请确保你调用了父类的实现
+     * @param Component $owner 此行为要附加的目标组件
      */
     public function attach($owner)
     {
@@ -74,10 +74,9 @@ class Behavior extends \yii\base\Object
     }
 
     /**
-     * Detaches the behavior object from the component.
-     * The default implementation will unset the [[owner]] property
-     * and detach event handlers declared in [[events]].
-     * Make sure you call the parent implementation if you override this method.
+     * 从组件移除行为对象
+     * 默认的实现将 unset [[owner]]属性并移除在[[events]]声明的所有事件处理器
+     * 如果你要覆写此方法请确保你调用了父类实现
      */
     public function detach()
     {
