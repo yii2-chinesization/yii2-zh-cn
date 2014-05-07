@@ -14,12 +14,12 @@ Yii2官方：[yii2.cn](http://yii2.cn)
 ----------------
 ***************************
 / root  
-  ├──/ guide 权威指南  
+  ├──/ guide-zh-CN 权威指南  
   │    ├──[英文原文请跳转：doc.yii2.cn](http://doc.yii2.cn)  
-  │    └──[目录及翻译状态](guide-zh-CN/README.md)
+  │    └──[目录及翻译状态](guide-zh-CN/README.md)  
   ├──/ guide-old 上一版本的权威指南文件  
-  ├──/ [internals-zh-CN](internals-zh-CN/) 翻译的官方内部文档，包括如何向Yii官方贡献代码，如何创建新的文档等
-  ├──/ [news](news/) 值得注意的新闻翻译，如：发行注记等……  
+  ├──/ [internals-zh-CN](internals-zh-CN/) 翻译的官方内部文档，包括如何向Yii官方贡献代码，如何创建新的文档等  
+  ├──/ [news](news/) 值得注意的新闻翻译，如：发行注记等  
   ├──/ [messages](messages/) Yii 框架本身的国际化文件，比如错误反馈的国际化，有关中文在zh-CN文件夹  
   ├──/ [framework](framework/) 框架文件，翻译注释文本  
   ├──/ [api-doc:http://apidoc.yii2.cn](http://apidoc.yii2.cn)  
@@ -44,12 +44,12 @@ Yii2官方：[yii2.cn](http://yii2.cn)
 
 另外，友情小提示：翻译前请善用rebase功能
 ```shell
-git pull --rebase upstream master
+git pull --rebase upstream master # rebase参数代指“变基”，在只更新不提交时很好用
 ```
 或
 ```shell
 git fetch upstream
-git merge upstream/master --ff-only # fast-forwarding only.也可以不加，会使用自动合并功能，遇冲突会停止，等待手动处理冲突。
+git merge upstream/master --ff-only # fast-forwarding-only 可选，不加则进行合并操作，若失败需手动处理冲突。
 ```
 
 协议 Licence
@@ -73,11 +73,13 @@ git merge upstream/master --ff-only # fast-forwarding only.也可以不加，会
 ----------------
 
 ###官方：
+
 * Qiang（薛强 中国） Yii 1/Yii 2项目的领导人，同时为旅美中国大陆人，与中国的 Yii 开发者关系密切，有困难可以找强哥。
 * Samdark（Alexander Makarov 俄罗斯）Yii 2主要开发者之一，对于国际化及手册贡献良多。
 * cebe （Carsten Brandt 德国）Yii 2主要开发者之一，负责开发了api-doc系统，对于文档系统的规范化进行了很多设定。官方文档的完全体样貌可以在[stuff.cebe.cc/yii2docs](http://stuff.cebe.cc/yii2docs)略窥一斑。
 
 ###项目组织：（除某不要脸的项目策划外均为字母顺序排列）
+
 * qiansen1386（钱森，昵称：东方孤思子 项目策划）旅居新加坡的中国留学生。
 * AbrahamGreyson（昵称：Abraham）
 * aliciamiao（昵称：miao）
@@ -90,6 +92,7 @@ git merge upstream/master --ff-only # fast-forwarding only.也可以不加，会
 * 更多请参考 Contributor，以及 Transifex 的组织成员。请所有曾经付出贡献的童鞋，请自觉地把你的名字列在鸣谢表中，坦白从严，抗拒更严。
 
 ###特别鸣谢：
+
 * ~~Transifex 提供的免费开源项目仓库~~
 * GitHub 提供好用的在线平台
 * 东方孤思子同学**花大价钱买的域名** (其实也就几十块美元。。。)

@@ -1,6 +1,6 @@
 <?php
 /**
- * 翻译日期：20140505
+ * 翻译日期：20140506
  */
 
 /**
@@ -16,45 +16,42 @@ use Yii;
 /**
  * 组件是实现*属性*、*事件*和*行为*功能的基类
  *
- * 组件Component provides the *event* and *behavior* features, in addition to the *property* feature which is implemented in
- * its parent class [[Object]].
+ * 组件除了其父类[[Object]]实现了的*属性*功能外，还提供了*事件*和*行为*功能。
  *
- * Event is a way to "inject" custom code into existing code at certain places. For example, a comment object can trigger
- * an "add" event when the user adds a comment. We can write custom code and attach it to this event so that when the event
- * is triggered (i.e. comment will be added), our custom code will be executed.
+ * 事件是"注入"自定义代码到已有代码某个位置的方法。如，评论对象在用户添加评论时可以触发"add"事件。
+ * 我们可以编写自定义代码并把它附加到"add"事件，以便事件被触发时（如 评论将被添加），
+ * 我们的自定义代码就被执行。
  *
- * An event is identified by a name that should be unique within the class it is defined at. Event names are *case-sensitive*.
+ * 事件以名称区分，在定义它的类内部应该唯一，事件名是*区分大小写的*。
  *
- * One or multiple PHP callbacks, called *event handlers*, can be attached to an event. You can call [[trigger()]] to
- * raise an event. When an event is raised, the event handlers will be invoked automatically in the order they were
- * attached.
+ * 一个或多个 PHP 回调函数，称为*事件处理器（事件句柄）*，可以附加到事件上。
+ * 你可以调用[[trigger()]]来引发事件。当事件被引发，事件处理器附加后就自动调用。
  *
- * To attach an event handler to an event, call [[on()]]:
+ * 附加事件处理器到事件，请调用[[on()]]：
  *
  * ~~~
  * $post->on('update', function ($event) {
- *     // send email notification
+ *     // 发送电邮通知
  * });
  * ~~~
  *
- * In the above, an anonymous function is attached to the "update" event of the post. You may attach
- * the following types of event handlers:
+ * 以上，一个匿名函数被附加到 $post 的"update"事件，你可以附加以下类型的事件处理器：
  *
- * - anonymous function: `function ($event) { ... }`
- * - object method: `[$object, 'handleAdd']`
- * - static class method: `['Page', 'handleAdd']`
- * - global function: `'handleAdd'`
+ * - 匿名函数：`function ($event) { ... }`
+ * - 对象方法：`[$object, 'handleAdd']`
+ * - 静态类方法：`['Page', 'handleAdd']`
+ * - 全局函数：`'handleAdd'`
  *
- * The signature of an event handler should be like the following:
+ * 事件处理器的识别标志如下：
  *
  * ~~~
  * function foo($event)
  * ~~~
  *
- * where `$event` is an [[Event]] object which includes parameters associated with the event.
+ * 其中`$event` 是[[Event]]对象，包括了关联到事件的参数。
  *
- * You can also attach a handler to an event when configuring a component with a configuration array.
- * The syntax is like the following:
+ * 你也可以在配置组件时附加处理器到事件。
+ * 语法如下：
  *
  * ~~~
  * [
@@ -62,26 +59,24 @@ use Yii;
  * ]
  * ~~~
  *
- * where `on add` stands for attaching an event to the `add` event.
+ * 其中`on add`代表附加事件处理器到`add`事件。
  *
- * Sometimes, you may want to associate extra data with an event handler when you attach it to an event
- * and then access it when the handler is invoked. You may do so by
+ * 有时，你想在附加处理器到事件时关联额外数据到事件处理器并在处理器被调用时访问这些数据。你可以这样做：
  *
  * ~~~
  * $post->on('update', function ($event) {
- *     // the data can be accessed via $event->data
+ *     // 数据可以通过 $event->data 访问
  * }, $data);
  * ~~~
  *
- * A behavior is an instance of [[Behavior]] or its child class. A component can be attached with one or multiple
- * behaviors. When a behavior is attached to a component, its public properties and methods can be accessed via the
- * component directly, as if the component owns those properties and methods.
+ * 行为是[[Behavior]]或其子类的实例。组件可以附加一个或多个行为。
+ * 当行为被附加到组件时，它的公共属性和方法就能直接通过组件访问，如同组件拥有这些属性和方法似的。
  *
- * To attach a behavior to a component, declare it in [[behaviors()]], or explicitly call [[attachBehavior]]. Behaviors
- * declared in [[behaviors()]] are automatically attached to the corresponding component.
  *
- * One can also attach a behavior to a component when configuring it with a configuration array. The syntax is like the
- * following:
+ * 附加行为到组件，可以在[[behaviors()]]声明它，或显式调用[[attachBehavior]]。
+ * 在[[behaviors()]]声明的行为会自动附加到对应的组件。
+ *
+ * 也可以在配置组件时附加行为，语法如下：
  *
  * ~~~
  * [
@@ -91,10 +86,9 @@ use Yii;
  * ]
  * ~~~
  *
- * where `as tree` stands for attaching a behavior named `tree`, and the array will be passed to [[\Yii::createObject()]]
- * to create the behavior object.
+ * 其中`as tree`代表附加名为`tree`的行为，该数组将被传递给[[\Yii::createObject()]]以创建行为对象。
  *
- * @property Behavior[] $behaviors List of behaviors attached to this component. This property is read-only.
+ * @property Behavior[] $behaviors 附加到本组件的行为列表，本属性是只读的。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -102,27 +96,26 @@ use Yii;
 class Component extends Object
 {
     /**
-     * @var array the attached event handlers (event name => handlers)
+     * @var array 已附加的行为处理器(event name => handlers)
      */
     private $_events = [];
     /**
-     * @var Behavior[] the attached behaviors (behavior name => behavior)
+     * @var Behavior[] 已附加的行为(behavior name => behavior)
      */
     private $_behaviors;
 
     /**
-     * Returns the value of a component property.
-     * This method will check in the following order and act accordingly:
+     * 返回组件属性值
+     * 本方法将按以下顺序检查并采取相应行动：
      *
-     *  - a property defined by a getter: return the getter result
-     *  - a property of a behavior: return the behavior property value
+     *  - getter 定义属性：返回 getter 方法的结果
+     *  - 行为的属性：返回行为属性值
      *
-     * Do not call this method directly as it is a PHP magic method that
-     * will be implicitly called when executing `$value = $component->property;`.
-     * @param string $name the property name
-     * @return mixed the property value or the value of a behavior's property
-     * @throws UnknownPropertyException if the property is not defined
-     * @throws InvalidCallException if the property is write-only.
+     * 不要直接调用本方法，因为它是 PHP 魔术方法，当执行`$value = $component->property;`时会隐式调用。
+     * @param string $name 属性名
+     * @return mixed 属性值或行为的属性值
+     * @throws UnknownPropertyException 如果属性未定义
+     * @throws InvalidCallException 如果属性只能写入。
      * @see __set()
      */
     public function __get($name)
@@ -148,20 +141,19 @@ class Component extends Object
     }
 
     /**
-     * Sets the value of a component property.
-     * This method will check in the following order and act accordingly:
+     * 设置组件的属性值
+     * 本方法将按以下顺序检查并采取相应行动：
      *
-     *  - a property defined by a setter: set the property value
-     *  - an event in the format of "on xyz": attach the handler to the event "xyz"
-     *  - a behavior in the format of "as xyz": attach the behavior named as "xyz"
-     *  - a property of a behavior: set the behavior property value
+     *  -  setter 定义属性：设置属性值
+     *  - "on xyz"格式的事件：附加处理器到事件"xyz"
+     *  - "as xyz"格式的行为：附加名为"xyz"的行为到组件
+     *  - 行为属性：设置行为的属性值
      *
-     * Do not call this method directly as it is a PHP magic method that
-     * will be implicitly called when executing `$component->property = $value;`.
-     * @param string $name the property name or the event name
-     * @param mixed $value the property value
-     * @throws UnknownPropertyException if the property is not defined
-     * @throws InvalidCallException if the property is read-only.
+     * 不要直接调用本方法，因为它是 PHP 魔术方法，当执行`$component->property = $value;`时会隐式调用。
+     * @param string $name 属性名或事件名
+     * @param mixed $value 属性值
+     * @throws UnknownPropertyException 如果属性未定义
+     * @throws InvalidCallException 如果属性只能读取
      * @see __get()
      */
     public function __set($name, $value)
@@ -202,16 +194,15 @@ class Component extends Object
     }
 
     /**
-     * Checks if a property value is null.
-     * This method will check in the following order and act accordingly:
+     * 检查属性值是否为 null
+     * 本方法将按以下顺序检查并采取相应行动：
      *
-     *  - a property defined by a setter: return whether the property value is null
-     *  - a property of a behavior: return whether the property value is null
+     *  - setter 定义的属性：返回属性值是否为 null
+     *  - 行为的属性：返回属性值是否为 null
      *
-     * Do not call this method directly as it is a PHP magic method that
-     * will be implicitly called when executing `isset($component->property)`.
-     * @param string $name the property name or the event name
-     * @return boolean whether the named property is null
+     * 不要直接调用本方法，因为它是 PHP 魔术方法，当执行`isset($component->property);`时会隐式调用。
+     * @param string $name 属性名或事件名
+     * @return boolean 指定属性是否为 null
      */
     public function __isset($name)
     {
@@ -232,16 +223,15 @@ class Component extends Object
     }
 
     /**
-     * Sets a component property to be null.
-     * This method will check in the following order and act accordingly:
+     * 设置组件属性为 null
+     * 本方法将按以下顺序检查并采取相应行动：
      *
-     *  - a property defined by a setter: set the property value to be null
-     *  - a property of a behavior: set the property value to be null
+     *  -  setter 定义的属性：设置属性值为 null
+     *  - 行为的属性：设置属性值为 null
      *
-     * Do not call this method directly as it is a PHP magic method that
-     * will be implicitly called when executing `unset($component->property)`.
-     * @param string $name the property name
-     * @throws InvalidCallException if the property is read only.
+     * 不要直接调用本方法，因为它是 PHP 魔术方法，当执行`unset($component->property);`时会隐式调用。
+     * @param string $name 属性名
+     * @throws InvalidCallException 如果属性是只读的
      */
     public function __unset($name)
     {
@@ -265,17 +255,15 @@ class Component extends Object
     }
 
     /**
-     * Calls the named method which is not a class method.
+     * 调用非类方法的指定方法
      *
-     * This method will check if any attached behavior has
-     * the named method and will execute it if available.
+     * 此方法将检查任何已附加行为是否有指定方法，且如果是可用的就执行它。
      *
-     * Do not call this method directly as it is a PHP magic method that
-     * will be implicitly called when an unknown method is being invoked.
-     * @param string $name the method name
-     * @param array $params method parameters
-     * @return mixed the method return value
-     * @throws UnknownMethodException when calling unknown method
+     * 不要直接调用本方法，因为它是 PHP 魔术方法，当调用未知方法时会隐式调用。
+     * @param string $name 方法名
+     * @param array $params 方法参数
+     * @return mixed 方法的返回值
+     * @throws UnknownMethodException 调用未知方法时
      */
     public function __call($name, $params)
     {
@@ -290,8 +278,8 @@ class Component extends Object
     }
 
     /**
-     * This method is called after the object is created by cloning an existing one.
-     * It removes all behaviors because they are attached to the old object.
+     * 通过克隆已有对象来创建对象后，本方法将被调用。
+     * 它移除了所有行为，因为行为是附加到旧对象的。
      */
     public function __clone()
     {
@@ -300,18 +288,17 @@ class Component extends Object
     }
 
     /**
-     * Returns a value indicating whether a property is defined for this component.
-     * A property is defined if:
+     * 返回一个值，指示该组件的属性是否已定义。
+     * 以下情况说明属性已定义：
      *
-     * - the class has a getter or setter method associated with the specified name
-     *   (in this case, property name is case-insensitive);
-     * - the class has a member variable with the specified name (when `$checkVars` is true);
-     * - an attached behavior has a property of the given name (when `$checkBehaviors` is true).
+     * - 类有 getter 或 setter 方法关联到特定名(这种情况，属性名是不区分大小写的)；
+     * - 类有符合特定名的成员变量(当`$checkVars`为 true)；
+     * - 已附加的行为有给定名的属性(当`$checkBehaviors`为 true)。
      *
-     * @param string $name the property name
-     * @param boolean $checkVars whether to treat member variables as properties
-     * @param boolean $checkBehaviors whether to treat behaviors' properties as properties of this component
-     * @return boolean whether the property is defined
+     * @param string $name 属性名
+     * @param boolean $checkVars 是否将成员变量视为属性
+     * @param boolean $checkBehaviors 是否将行为属性视为组件属性
+     * @return boolean 该属性是否已定义
      * @see canGetProperty()
      * @see canSetProperty()
      */
@@ -321,18 +308,17 @@ class Component extends Object
     }
 
     /**
-     * Returns a value indicating whether a property can be read.
-     * A property can be read if:
+     * 返回一个值，指示属性是否可读
+     * 一个属性可读，如果：
      *
-     * - the class has a getter method associated with the specified name
-     *   (in this case, property name is case-insensitive);
-     * - the class has a member variable with the specified name (when `$checkVars` is true);
-     * - an attached behavior has a readable property of the given name (when `$checkBehaviors` is true).
+     * - 类有 getter 方法关联到特定名(这种情况，属性名是不区分大小写的)；
+     * - 类有符合特定名的成员变量(当`$checkVars`为 true)；
+     * - 已附加的行为有给定名的可读属性(当`$checkBehaviors`为 true)。
      *
-     * @param string $name the property name
-     * @param boolean $checkVars whether to treat member variables as properties
-     * @param boolean $checkBehaviors whether to treat behaviors' properties as properties of this component
-     * @return boolean whether the property can be read
+     * @param string $name 属性名
+     * @param boolean $checkVars 是否把成员变量视为属性
+     * @param boolean $checkBehaviors 是否把行为属性视为组件属性
+     * @return boolean 该属性是否可读
      * @see canSetProperty()
      */
     public function canGetProperty($name, $checkVars = true, $checkBehaviors = true)
@@ -352,18 +338,17 @@ class Component extends Object
     }
 
     /**
-     * Returns a value indicating whether a property can be set.
-     * A property can be written if:
+     * 返回一个值，表明属性是否能设置
+     * 属性可写，如果：
      *
-     * - the class has a setter method associated with the specified name
-     *   (in this case, property name is case-insensitive);
-     * - the class has a member variable with the specified name (when `$checkVars` is true);
-     * - an attached behavior has a writable property of the given name (when `$checkBehaviors` is true).
+     * - 类有 setter 方法关联到特定名(这种情况，属性名是不区分大小写的)；
+     * - 类有符合特定名的成员变量(当`$checkVars`为 true)；
+     * - 已附加的行为有给定名的可写属性(当`$checkBehaviors`为 true)。
      *
-     * @param string $name the property name
-     * @param boolean $checkVars whether to treat member variables as properties
-     * @param boolean $checkBehaviors whether to treat behaviors' properties as properties of this component
-     * @return boolean whether the property can be written
+     * @param string $name 属性名
+     * @param boolean $checkVars 是否把成员变量视为属性
+     * @param boolean $checkBehaviors 是否把行为属性视为组件属性
+     * @return boolean 该属性是否可写
      * @see canGetProperty()
      */
     public function canSetProperty($name, $checkVars = true, $checkBehaviors = true)
@@ -383,15 +368,15 @@ class Component extends Object
     }
 
     /**
-     * Returns a value indicating whether a method is defined.
-     * A method is defined if:
+     * 返回一个值，表明方法是否已定义
+     * 方法被定义，如果：
      *
-     * - the class has a method with the specified name
-     * - an attached behavior has a method with the given name (when `$checkBehaviors` is true).
+     * - 该类有一个具有指定名称的方法；
+     * - 一个附加行为具有给定名称的方法(当`$checkBehaviors`为 true)。
      *
-     * @param string $name the property name
-     * @param boolean $checkBehaviors whether to treat behaviors' methods as methods of this component
-     * @return boolean whether the property is defined
+     * @param string $name 方法名
+     * @param boolean $checkBehaviors 是否把行为的方法视为此组件的方法
+     * @return boolean 方法是否已定义
      */
     public function hasMethod($name, $checkBehaviors = true)
     {
@@ -410,13 +395,12 @@ class Component extends Object
     }
 
     /**
-     * Returns a list of behaviors that this component should behave as.
+     * 返回组件要使用的行为列表
      *
-     * Child classes may override this method to specify the behaviors they want to behave as.
+     * 子类可以覆写此方法以指定它们想要使用的行为。
      *
-     * The return value of this method should be an array of behavior objects or configurations
-     * indexed by behavior names. A behavior configuration can be either a string specifying
-     * the behavior class or an array of the following structure:
+     * 本方法的返回值应该是行为对象数组或以行为名索引的配置数组。
+     * 行为配置可以是指定行为类的字符串或以下结构的数组：
      *
      * ~~~
      * 'behaviorName' => [
@@ -426,14 +410,12 @@ class Component extends Object
      * ]
      * ~~~
      *
-     * Note that a behavior class must extend from [[Behavior]]. Behavior names can be strings
-     * or integers. If the former, they uniquely identify the behaviors. If the latter, the corresponding
-     * behaviors are anonymous and their properties and methods will NOT be made available via the component
-     * (however, the behaviors can still respond to the component's events).
+     * 注意行为类必须继承自[[Behavior]]，行为名可以是字符串或整型，如果是前者，它们标识了唯一的行为，
+     * 如果是后者，相应的行为是匿名的且它们的属性和方法通过组件*不可访问*(然而行为仍能响应组件的事件)。
      *
-     * Behaviors declared in this method will be attached to the component automatically (on demand).
+     * 此方法声明的行为将自动附加到组件(按需附加)。
      *
-     * @return array the behavior configurations.
+     * @return array 行为配置
      */
     public function behaviors()
     {
@@ -441,9 +423,9 @@ class Component extends Object
     }
 
     /**
-     * Returns a value indicating whether there is any handler attached to the named event.
-     * @param string $name the event name
-     * @return boolean whether there is any handler attached to the event.
+     * 返回一个值，表明是否有处理器被附加到指定的事件上
+     * @param string $name 事件名
+     * @return boolean 是否有任何处理器附加到事件上
      */
     public function hasEventHandlers($name)
     {
@@ -453,33 +435,31 @@ class Component extends Object
     }
 
     /**
-     * Attaches an event handler to an event.
+     * 附加事件处理器到事件
      *
-     * The event handler must be a valid PHP callback. The followings are
-     * some examples:
+     * 事件处理器必须是有效的 PHP 回调函数，以下是一些示例：
      *
      * ~~~
-     * function ($event) { ... }         // anonymous function
+     * function ($event) { ... }         // 匿名函数
      * [$object, 'handleClick']          // $object->handleClick()
      * ['Page', 'handleClick']           // Page::handleClick()
-     * 'handleClick'                     // global function handleClick()
+     * 'handleClick'                     // handleClick()全局函数
      * ~~~
      *
-     * The event handler must be defined with the following signature,
+     * 事件处理器必须的定义必须用以下标识符：
      *
      * ~~~
      * function ($event)
      * ~~~
      *
-     * where `$event` is an [[Event]] object which includes parameters associated with the event.
+     * 其中`$event` 是[[Event]]对象，包括了关联到事件的参数
      *
-     * @param string $name the event name
-     * @param callable $handler the event handler
-     * @param mixed $data the data to be passed to the event handler when the event is triggered.
-     * When the event handler is invoked, this data can be accessed via [[Event::data]].
-     * @param boolean $append whether to append new event handler to the end of the existing
-     * handler list. If false, the new handler will be inserted at the beginning of the existing
-     * handler list.
+     * @param string $name 事件名
+     * @param callable $handler 事件处理器
+     * @param mixed $data 当事件被触发时传递到事件处理器的数据
+     * 当事件处理器被调用时，此数据可用[[Event::data]]访问。
+     * @param boolean $append 是否追加新的事件处理器到已有处理器列表的末尾，
+     * 如果为 false ，新处理器将插入已存在处理器列表的开头。
      * @see off()
      */
     public function on($name, $handler, $data = null, $append = true)
@@ -493,12 +473,12 @@ class Component extends Object
     }
 
     /**
-     * Detaches an existing event handler from this component.
-     * This method is the opposite of [[on()]].
-     * @param string $name event name
-     * @param callable $handler the event handler to be removed.
-     * If it is null, all handlers attached to the named event will be removed.
-     * @return boolean if a handler is found and detached
+     * 从组件移除一个现有的事件处理器
+     * 此方法和[[on()]]是相反的
+     * @param string $name 事件名
+     * @param callable $handler 拟移除事件处理器
+     * 如果是 null ，所有附加到指定事件的处理器全部移除
+     * @return boolean 如果找到并移除一个处理器
      * @see on()
      */
     public function off($name, $handler = null)
@@ -527,11 +507,10 @@ class Component extends Object
     }
 
     /**
-     * Triggers an event.
-     * This method represents the happening of an event. It invokes
-     * all attached handlers for the event including class-level handlers.
-     * @param string $name the event name
-     * @param Event $event the event parameter. If not set, a default [[Event]] object will be created.
+     * 触发事件
+     * 该方法代表着一个事件的发生，它为事件调用所有已附加的处理器，包括类级处理器。
+     * @param string $name 事件名
+     * @param Event $event 事件参数，如果未设置，缺省[[Event]]对象将被创建
      */
     public function trigger($name, Event $event = null)
     {
@@ -559,9 +538,9 @@ class Component extends Object
     }
 
     /**
-     * Returns the named behavior object.
-     * @param string $name the behavior name
-     * @return Behavior the behavior object, or null if the behavior does not exist
+     * 返回指定行为对象
+     * @param string $name 行为名
+     * @return Behavior 行为对象，如果行为不存在返回 null
      */
     public function getBehavior($name)
     {
@@ -571,8 +550,8 @@ class Component extends Object
     }
 
     /**
-     * Returns all behaviors attached to this component.
-     * @return Behavior[] list of behaviors attached to this component
+     * 返回组件已附加的所有行为
+     * @return Behavior[] 已附加到该组件的行为列表
      */
     public function getBehaviors()
     {
@@ -582,18 +561,16 @@ class Component extends Object
     }
 
     /**
-     * Attaches a behavior to this component.
-     * This method will create the behavior object based on the given
-     * configuration. After that, the behavior object will be attached to
-     * this component by calling the [[Behavior::attach()]] method.
-     * @param string $name the name of the behavior.
-     * @param string|array|Behavior $behavior the behavior configuration. This can be one of the following:
+     * 附加一个行为到此组件
+     * 此方法将基于给定配置创建行为对象，然后，行为对象将通过调用[[Behavior::attach()]]方法附加到这个组件
+     * @param string $name 行为名
+     * @param string|array|Behavior $behavior 行为配置，可以是以下之一：
      *
-     *  - a [[Behavior]] object
-     *  - a string specifying the behavior class
-     *  - an object configuration array that will be passed to [[Yii::createObject()]] to create the behavior object.
+     *  - [[Behavior]]对象
+     *  - 指定行为类的字符串
+     *  - 对象配置数组，传递到[[Yii::createObject()]]以创建行为对象
      *
-     * @return Behavior the behavior object
+     * @return Behavior 行为对象
      * @see detachBehavior()
      */
     public function attachBehavior($name, $behavior)
@@ -604,10 +581,9 @@ class Component extends Object
     }
 
     /**
-     * Attaches a list of behaviors to the component.
-     * Each behavior is indexed by its name and should be a [[Behavior]] object,
-     * a string specifying the behavior class, or an configuration array for creating the behavior.
-     * @param array $behaviors list of behaviors to be attached to the component
+     * 附加行为列表到组件
+     * 每个行为由其名称索引，是[[Behavior]]对象、指明行为类的字符串或用于创建行为的配置数组。
+     * @param array $behaviors 要附加到组件的行为列表
      * @see attachBehavior()
      */
     public function attachBehaviors($behaviors)
@@ -619,10 +595,10 @@ class Component extends Object
     }
 
     /**
-     * Detaches a behavior from the component.
-     * The behavior's [[Behavior::detach()]] method will be invoked.
-     * @param string $name the behavior's name.
-     * @return Behavior the detached behavior. Null if the behavior does not exist.
+     * 从组件移除一个行为
+     * 行为的[[Behavior::detach()]]方法将被调用
+     * @param string $name 行为名
+     * @return Behavior 被移除的行为，如果行为不存在返回 Null
      */
     public function detachBehavior($name)
     {
@@ -639,7 +615,7 @@ class Component extends Object
     }
 
     /**
-     * Detaches all behaviors from the component.
+     * 从组件移除全部行为
      */
     public function detachBehaviors()
     {
@@ -650,7 +626,7 @@ class Component extends Object
     }
 
     /**
-     * Makes sure that the behaviors declared in [[behaviors()]] are attached to this component.
+     * 确保声明在[[behaviors()]]的行为被附加到组件了
      */
     public function ensureBehaviors()
     {
@@ -663,10 +639,10 @@ class Component extends Object
     }
 
     /**
-     * Attaches a behavior to this component.
-     * @param string $name the name of the behavior.
-     * @param string|array|Behavior $behavior the behavior to be attached
-     * @return Behavior the attached behavior.
+     * 附加行为到组件
+     * @param string $name 行为名
+     * @param string|array|Behavior $behavior 要附加的行为
+     * @return Behavior 已附加的行为
      */
     private function attachBehaviorInternal($name, $behavior)
     {

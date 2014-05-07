@@ -7,7 +7,7 @@
  * Yii 核心类图
  *
  * 本文件由 "build" 文件夹下的 "build classmap" 命令自动生成
- * 不要直接修改该文件Do not modify it directly.
+ * 不要直接修改该文件。
  *
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
