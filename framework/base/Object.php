@@ -14,7 +14,7 @@ namespace yii\base;
 use Yii;
 
 /**
- * 对象是实现*属性*功能的基类
+ * Object（对象）是实现*属性*功能的基类
  *
  * 属性由 getter 方法 (如`getLabel`)，和/或 setter 方法 (如`setLabel`)定义。
  * 如，以下 getter 和 setter 方法定义了一个名为`label`的属性：

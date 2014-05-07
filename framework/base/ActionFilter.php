@@ -12,7 +12,7 @@
 namespace yii\base;
 
 /**
- * 动作过滤器是所有动作过滤器的基类
+ * ActionFilter（动作过滤器）是所有动作过滤器的基类
  *
  * 动作过滤器通过响应被模块或控制器触发的`beforeAction` 和 `afterAction` 事件来参与动作执行流程
  *
