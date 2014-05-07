@@ -50,11 +50,23 @@ Yii 2.0 权威指南
 入门
 -----
 
+老规划：
+
 * **编撰中**[准备开发环境](start-environment.md)
 * **编撰中**[创建你的首个 Yii 应用](start-basic.md)
 * **编撰中**[应用结构](start-structure.md)
 * **编撰中**[请求生命周期（Request Lifecycle）](start-lifecycle.md)
 * **待定中** [下一步](start-next-steps.md)
+
+新规划：
+
+* [安装 Yii](start-installation.md)
+* [运行应用](start-workflow.md)
+* [说 "Hello World"](start-hello-world.md)
+* [使用 Forms](start-forms.md)
+* [使用 Databases](start-databases.md)
+* [用 Gii 生成代码](start-gii.md)
+* [更上一层楼](start-looking-head.md)
 
 应用结构
 --------
