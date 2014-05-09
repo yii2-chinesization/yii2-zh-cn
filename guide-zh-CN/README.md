@@ -52,7 +52,7 @@ Yii 2.0 权威指南
 
 * [安装 Yii](start-installation.md)
 * [运行应用](start-workflow.md)
-* [说 "Hello World"](start-hello-world.md)
+* [第一次问候](start-hello.md)
 * [使用 Forms](start-forms.md)
 * [玩转 Databases](start-databases.md)
 * [用 Gii 生成代码](start-gii.md)
