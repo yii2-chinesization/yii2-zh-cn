@@ -10,17 +10,13 @@ namespace yii\base;
 use Yii;
 
 /**
- * Controller is the base class for classes containing controller logic.
+ * Controller（控制器）是所有包括控制器逻辑的类的基类
  *
- * @property Module[] $modules All ancestor modules that this controller is located within. This property is
- * read-only.
- * @property string $route The route (module ID, controller ID and action ID) of the current request. This
- * property is read-only.
- * @property string $uniqueId The controller ID that is prefixed with the module ID (if any). This property is
- * read-only.
- * @property View|\yii\web\View $view The view object that can be used to render views or view files.
- * @property string $viewPath The directory containing the view files for this controller. This property is
- * read-only.
+ * @property Module[] $modules 此控制器所在的模块及所有父模块，本属性是只读的。
+ * @property string $route 当前请求的路由(模块 ID, 控制器 ID 和动作 ID)，本属性是只读的。
+ * @property string $uniqueId 控制器 ID ，前缀是模块 ID (如果有)，本属性是只读的。
+ * @property View|\yii\web\View $view 视图对象，用于渲染视图和视图文件。
+ * @property string $viewPath 包括本控制器所有的视图文件的目录，本属性是只读的。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -28,48 +24,44 @@ use Yii;
 class Controller extends Component implements ViewContextInterface
 {
     /**
-     * @event ActionEvent an event raised right before executing a controller action.
-     * You may set [[ActionEvent::isValid]] to be false to cancel the action execution.
+     * @event ActionEvent 正好在执行控制器动作前引发的事件
+     * 你可以设置[[ActionEvent::isValid]]为 false 来取消动作的执行。
      */
     const EVENT_BEFORE_ACTION = 'beforeAction';
     /**
-     * @event ActionEvent an event raised right after executing a controller action.
+     * @event ActionEvent 正好在执行控制器动作后引发的事件
      */
     const EVENT_AFTER_ACTION = 'afterAction';
     /**
-     * @var string the ID of this controller.
+     * @var string 控制器 ID
      */
     public $id;
     /**
-     * @var Module $module the module that this controller belongs to.
+     * @var Module $module 该控制器所处的模块
      */
     public $module;
     /**
-     * @var string the ID of the action that is used when the action ID is not specified
-     * in the request. Defaults to 'index'.
+     * @var string 动作 ID ，当动作 ID 在请求中未指定时所使用的动作 ID ，缺省为 'index' 。
      */
     public $defaultAction = 'index';
     /**
-     * @var string|boolean the name of the layout to be applied to this controller's views.
-     * This property mainly affects the behavior of [[render()]].
-     * Defaults to null, meaning the actual layout value should inherit that from [[module]]'s layout value.
-     * If false, no layout will be applied.
+     * @var string|boolean 要运用到本控制器视图的布局名，此属性主要作用于[[render()]]的行为。
+     * 缺省为 null ，即真正的布局值要继承[[module]]的布局值。如果是 false ，没有布局被使用。
      */
     public $layout;
     /**
-     * @var Action the action that is currently being executed. This property will be set
-     * by [[run()]] when it is called by [[Application]] to run an action.
+     * @var Action 当前被请求的动作，此属性当[[Application]]调用[[run()]]来运行动作时可由[[run()]]设置。
      */
     public $action;
     /**
-     * @var View the view object that can be used to render views or view files.
+     * @var View 视图对象，可用来渲染视图或视图文件。
      */
     private $_view;
 
     /**
-     * @param string $id the ID of this controller.
-     * @param Module $module the module that this controller belongs to.
-     * @param array $config name-value pairs that will be used to initialize the object properties.
+     * @param string $id 控制器 ID
+     * @param Module $module 该控制器所属的模块
+     * @param array $config 用于初始化对象属性的名值对
      */
     public function __construct($id, $module, $config = [])
     {
@@ -79,10 +71,9 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * Declares external actions for the controller.
-     * This method is meant to be overwritten to declare external actions for the controller.
-     * It should return an array, with array keys being action IDs, and array values the corresponding
-     * action class names or action configuration arrays. For example,
+     * 为控制器声明外部动作
+     * 此方法的目的是用来覆写以为控制器声明外部动作，它应返回一个数组，
+     * 其中数组键是动作 ID ，而数组值是对应的动作类名或动作配置数组，如：
      *
      * ~~~
      * return [
@@ -95,8 +86,7 @@ class Controller extends Component implements ViewContextInterface
      * ];
      * ~~~
      *
-     * [[\Yii::createObject()]] will be used later to create the requested action
-     * using the configuration provided here.
+     * 稍后[[\Yii::createObject()]]方法将使用这里提供的配置来创建被请求动作对象
      */
     public function actions()
     {
@@ -104,12 +94,12 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * Runs an action within this controller with the specified action ID and parameters.
-     * If the action ID is empty, the method will use [[defaultAction]].
-     * @param string $id the ID of the action to be executed.
-     * @param array $params the parameters (name-value pairs) to be passed to the action.
-     * @return mixed the result of the action.
-     * @throws InvalidRouteException if the requested action ID cannot be resolved into an action successfully.
+     * 以指定动作 ID 和参数来运行此控制器内的动作
+     * 如果动作 ID 为空，本方法将使用[[defaultAction]]。
+     * @param string $id 要执行的动作 ID
+     * @param array $params 要传递到此动作的参数(名值对)
+     * @return mixed 动作运行结果
+     * @throws InvalidRouteException 如果被请求的动作 ID 不能成功解析到某个动作
      * @see createAction()
      */
     public function runAction($id, $params = [])
@@ -160,13 +150,12 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * Runs a request specified in terms of a route.
-     * The route can be either an ID of an action within this controller or a complete route consisting
-     * of module IDs, controller ID and action ID. If the route starts with a slash '/', the parsing of
-     * the route will start from the application; otherwise, it will start from the parent module of this controller.
-     * @param string $route the route to be handled, e.g., 'view', 'comment/view', '/admin/comment/view'.
-     * @param array $params the parameters to be passed to the action.
-     * @return mixed the result of the action.
+     * 运行以路由形式指定的请求
+     * 路由可以是此控制器内部的动作 ID ，也可以是由模块 ID 、控制器 ID 和动作 ID 组成的完整路由。
+     * 如果路由以斜线'/'开头，此路由的解析将从应用开始；否则，解析从此控制器的父模块开始。
+     * @param string $route 要处理的路由，如'view', 'comment/view', '/admin/comment/view' 。
+     * @param array $params 要传递给动作的参数
+     * @return mixed 动作运行结果
      * @see runAction()
      */
     public function run($route, $params = [])
@@ -182,11 +171,11 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * Binds the parameters to the action.
-     * This method is invoked by [[Action]] when it begins to run with the given parameters.
-     * @param Action $action the action to be bound with parameters.
-     * @param array $params the parameters to be bound to the action.
-     * @return array the valid parameters that the action can run with.
+     * 绑定参数到动作
+     * 当动作以给定参数运行时，此方法由[[Action]]调用
+     * @param Action $action 要绑定参数的动作
+     * @param array $params 要绑定到动作的参数
+     * @return array 传入动作可以运行的有效参数
      */
     public function bindActionParams($action, $params)
     {
@@ -194,14 +183,12 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * Creates an action based on the given action ID.
-     * The method first checks if the action ID has been declared in [[actions()]]. If so,
-     * it will use the configuration declared there to create the action object.
-     * If not, it will look for a controller method whose name is in the format of `actionXyz`
-     * where `Xyz` stands for the action ID. If found, an [[InlineAction]] representing that
-     * method will be created and returned.
-     * @param string $id the action ID.
-     * @return Action the newly created action instance. Null if the ID doesn't resolve into any action.
+     * 基于给定动作 ID 创建动作
+     * 此方法首先检查动作 ID 是否在[[actions()]]已声明，如果是，它将使用那里声明的配置数组来创建动作对象。
+     * 否则，此方法将查找名称格式是`actionXyz`的控制器方法，其中`Xyz`表示动作 ID 。
+     * 如果找到，代表那个控制器方法的[[InlineAction]]将创建并返回。
+     * @param string $id 动作 ID
+     * @return Action 新创建的动作实例，如果 ID 没有解析到任何动作将返回 Null 。
      */
     public function createAction($id)
     {
@@ -226,27 +213,26 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * This method is invoked right before an action is executed.
+     * 此方法正好在动作执行前调用
      *
-     * The method will trigger the [[EVENT_BEFORE_ACTION]] event. The return value of the method
-     * will determine whether the action should continue to run.
+     * 本方法将触发[[EVENT_BEFORE_ACTION]] 事件，本方法的返回值将决定是否继续运行传入动作。
      *
-     * If you override this method, your code should look like the following:
+     * 如果你要覆写本方法，你的代码应该像这样：
      *
      * ```php
      * public function beforeAction($action)
      * {
      *     if (parent::beforeAction($action)) {
-     *         // your custom code here
-     *         return true;  // or false if needed
+     *         // 你的自定义代码
+     *         return true;  // 或 false 如果需要
      *     } else {
      *         return false;
      *     }
      * }
      * ```
      *
-     * @param Action $action the action to be executed.
-     * @return boolean whether the action should continue to run.
+     * @param Action $action 要执行的动作
+     * @return boolean 动作是否继续运行
      */
     public function beforeAction($action)
     {
@@ -256,25 +242,24 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * This method is invoked right after an action is executed.
+     * 此方法正好在动作执行后调用
      *
-     * The method will trigger the [[EVENT_AFTER_ACTION]] event. The return value of the method
-     * will be used as the action return value.
+     * 本方法将触发[[EVENT_AFTER_ACTION]] 事件，该方法的返回值将用作传入动作的返回值。
      *
-     * If you override this method, your code should look like the following:
+     * 如果你要覆写本方法，你的代码应该像这样：
      *
      * ```php
      * public function afterAction($action, $result)
      * {
      *     $result = parent::afterAction($action, $result);
-     *     // your custom code here
+     *     // 你的自定义代码
      *     return $result;
      * }
      * ```
      *
-     * @param Action $action the action just executed.
-     * @param mixed $result the action return result.
-     * @return mixed the processed action result.
+     * @param Action $action 刚执行完的动作
+     * @param mixed $result 动作返回结果
+     * @return mixed 处理后的动作结果
      */
     public function afterAction($action, $result)
     {
@@ -285,10 +270,9 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * Returns all ancestor modules of this controller.
-     * The first module in the array is the outermost one (i.e., the application instance),
-     * while the last is the innermost one.
-     * @return Module[] all ancestor modules that this controller is located within.
+     * 返回此控制器的所有祖先模块
+     * 数组的第一个模块是最外层的那个(如，应用实例)，而最后一个是最里层的那个。
+     * @return Module[] 此控制器所处的模块及所有祖先模块
      */
     public function getModules()
     {
@@ -302,7 +286,7 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * @return string the controller ID that is prefixed with the module ID (if any).
+     * @return string 以模块 ID (如果有)为前缀的控制器 ID
      */
     public function getUniqueId()
     {
@@ -310,8 +294,8 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * Returns the route of the current request.
-     * @return string the route (module ID, controller ID and action ID) of the current request.
+     * 返回当前请求的路由
+     * @return string 当前请求的路由(模块 ID, 控制器 ID 和动作 ID)
      */
     public function getRoute()
     {
@@ -319,43 +303,39 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * Renders a view and applies layout if available.
+     * 渲染视图并应用可用的布局
      *
-     * The view to be rendered can be specified in one of the following formats:
+     * 要渲染的视图可指定为以下格式：
      *
-     * - path alias (e.g. "@app/views/site/index");
-     * - absolute path within application (e.g. "//site/index"): the view name starts with double slashes.
-     *   The actual view file will be looked for under the [[Application::viewPath|view path]] of the application.
-     * - absolute path within module (e.g. "/site/index"): the view name starts with a single slash.
-     *   The actual view file will be looked for under the [[Module::viewPath|view path]] of [[module]].
-     * - relative path (e.g. "index"): the actual view file will be looked for under [[viewPath]].
+     * - 路径别名(如"@app/views/site/index")；
+     * - 应用内的绝对路径(如"//site/index")：以双斜线开头的视图名；
+     *   真正的视图文件将在应用的[[Application::viewPath|view path]]下查找。
+     * - 模块内的绝对路径(如"/site/index")：以单斜线开头的视图名；
+     *   真正的视图文件将在[[module]]内的[[Module::viewPath|view path]]查找。
+     * - 相对路径(如"index")：真正的视图文件将在[[viewPath]]下查找。
      *
-     * To determine which layout should be applied, the following two steps are conducted:
+     * 应用哪个布局，由以下两步骤确定：
      *
-     * 1. In the first step, it determines the layout name and the context module:
+     * 1. 第一步，确定布局名和所处模块：
      *
-     * - If [[layout]] is specified as a string, use it as the layout name and [[module]] as the context module;
-     * - If [[layout]] is null, search through all ancestor modules of this controller and find the first
-     *   module whose [[Module::layout|layout]] is not null. The layout and the corresponding module
-     *   are used as the layout name and the context module, respectively. If such a module is not found
-     *   or the corresponding layout is not a string, it will return false, meaning no applicable layout.
+     * - 如果[[layout]]指定为字符串，把它用作布局名，而[[module]]用作当前模块；
+     * - 如果[[layout]] 为 null ，搜索本控制器的所有祖先模块并找到[[Module::layout|layout]]非 null 的
+     * 第一个模块，此布局和相应的模块就分别用作布局名和当前模块。
+     * 如果这样的模块找不到或对应的布局是一个字符串，它将返回 false ，即没有可用布局。
      *
-     * 2. In the second step, it determines the actual layout file according to the previously found layout name
-     *    and context module. The layout name can be:
+     * 2.第二步，根据前面找到的布局名和当前模块确定真正的布局文件。布局名可以是：
      *
-     * - a path alias (e.g. "@app/views/layouts/main");
-     * - an absolute path (e.g. "/main"): the layout name starts with a slash. The actual layout file will be
-     *   looked for under the [[Application::layoutPath|layout path]] of the application;
-     * - a relative path (e.g. "main"): the actual layout layout file will be looked for under the
-     *   [[Module::layoutPath|layout path]] of the context module.
+     * - 路径别名(如"@app/views/layouts/main")；
+     * - 绝对路径(如"/main")：以斜线开头的布局名，真正的布局文件在此应用的[[Application::layoutPath|layout path]]下查找；
+     * - 相对路径(如"main")：真正的布局文件在当前模块的[[Module::layoutPath|layout path]]下查找。
      *
-     * If the layout name does not contain a file extension, it will use the default one `.php`.
+     * 如果布局名不包括文件扩展名，它将使用缺省的`.php`。
      *
-     * @param string $view the view name.
-     * @param array $params the parameters (name-value pairs) that should be made available in the view.
-     * These parameters will not be available in the layout.
-     * @return string the rendering result.
-     * @throws InvalidParamException if the view file or the layout file does not exist.
+     * @param string $view 视图名
+     * @param array $params 视图内可用的参数(名值对)
+     * 这些参数在布局不可用。
+     * @return string 渲染结果
+     * @throws InvalidParamException 如果视图文件或布局文件不存在
      */
     public function render($view, $params = [])
     {
@@ -369,12 +349,12 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * Renders a view.
-     * This method differs from [[render()]] in that it does not apply any layout.
-     * @param string $view the view name. Please refer to [[render()]] on how to specify a view name.
-     * @param array $params the parameters (name-value pairs) that should be made available in the view.
-     * @return string the rendering result.
-     * @throws InvalidParamException if the view file does not exist.
+     * 渲染视图
+     * 此方法和[[render()]]不同的是它不应用任何布局
+     * @param string $view 视图名，请参考[[render()]]来了解如何指定视图名
+     * @param array $params 视图可用参数(名值对)
+     * @return string 渲染结果
+     * @throws InvalidParamException 如果视图文件不存在
      */
     public function renderPartial($view, $params = [])
     {
@@ -382,11 +362,11 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * Renders a view file.
-     * @param string $file the view file to be rendered. This can be either a file path or a path alias.
-     * @param array $params the parameters (name-value pairs) that should be made available in the view.
-     * @return string the rendering result.
-     * @throws InvalidParamException if the view file does not exist.
+     * 渲染视图文件
+     * @param string $file 要渲染的视图文件，可用是文件路径或路径别名
+     * @param array $params 视图可用的参数(名值对)
+     * @return string 渲染结果
+     * @throws InvalidParamException 如果视图文件不存在
      */
     public function renderFile($file, $params = [])
     {
@@ -394,11 +374,10 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * Returns the view object that can be used to render views or view files.
-     * The [[render()]], [[renderPartial()]] and [[renderFile()]] methods will use
-     * this view object to implement the actual view rendering.
-     * If not set, it will default to the "view" application component.
-     * @return View|\yii\web\View the view object that can be used to render views or view files.
+     * 返回用于渲染视图或视图文件的视图对象
+     * [[render()]], [[renderPartial()]] 和 [[renderFile()]] 方法将使用此视图对象来实现真正的视图渲染。
+     * 如果未设置，默认是"view" 应用组件。
+     * @return View|\yii\web\View 用于渲染视图或视图文件的视图对象
      */
     public function getView()
     {
@@ -409,8 +388,8 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * Sets the view object to be used by this controller.
-     * @param View|\yii\web\View $view the view object that can be used to render views or view files.
+     * 设置此控制器使用的视图对象
+     * @param View|\yii\web\View $view 用于渲染视图或视图文件的视图对象
      */
     public function setView($view)
     {
@@ -418,10 +397,9 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * Returns the directory containing view files for this controller.
-     * The default implementation returns the directory named as controller [[id]] under the [[module]]'s
-     * [[viewPath]] directory.
-     * @return string the directory containing the view files for this controller.
+     * 返回包括此控制器的视图文件的目录
+     * 默认实现返回[[module]]内[[viewPath]]目录下名为控制器[[id]]的目录。
+     * @return string 该目录包括此控制器的视图文件
      */
     public function getViewPath()
     {
@@ -429,11 +407,11 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * Finds the applicable layout file.
-     * @param View $view the view object to render the layout file.
-     * @return string|boolean the layout file path, or false if layout is not needed.
-     * Please refer to [[render()]] on how to specify this parameter.
-     * @throws InvalidParamException if an invalid path alias is used to specify the layout.
+     * 找到适用的布局文件
+     * @param View $view 要渲染布局文件的视图对象
+     * @return string|boolean 布局文件路径，如果布局不需要返回 false
+     * 请参考[[render()]]了解如何指定此参数
+     * @throws InvalidParamException 如果用于指定布局的路径别名是无效的
      */
     protected function findLayoutFile($view)
     {
