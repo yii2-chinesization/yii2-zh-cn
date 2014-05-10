@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140510
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -8,14 +12,14 @@
 namespace yii\base;
 
 /**
- * BootstrapInterface is the interface that should be implemented by classes who want to participate in the application bootstrap process.
+ * BootstrapInterface（引导接口）是想要参与应用引导过程的那些类必须实现的接口
  *
- * The main method [[bootstrap()]] will be invoked by an application at the beginning of its `init()` method.
+ * 主要方法[[bootstrap()]]将在应用实例的`init()` 方法开始时被调用 。
  *
- * Bootstrap classes can be registered in two approaches.
+ * Bootstrap 类可以用两个方法注册
  *
- * The first approach is mainly used by extensions and is managed by the Composer installation process.
- * You mainly need to list the bootstrap class of your extension in the `composer.json` file like following,
+ * 第一个方法主要是被扩展使用，并由 composer 安装流程所管理。
+ * 你要做的主要是将你的扩展的引导类列入`composer.json`文件，如下所示：
  *
  * ```json
  * {
@@ -26,10 +30,9 @@ namespace yii\base;
  * }
  * ```
  *
- * If the extension is installed, the bootstrap information will be saved in [[Application::extensions]].
+ * 如果该扩展已安装，引导信息将保存在[[Application::extensions]]。
  *
- * The second approach is used by application code which needs to register some code to be run during
- * the bootstrap process. This is done by configuring the [[Application::bootstrap]] property:
+ * 第二个方法是某些应用代码使用的，这些应用代码必须在引导过程注册并运行，这通过配置[[Application::bootstrap]]属性来完成：
  *
  * ```php
  * return [
@@ -45,7 +48,7 @@ namespace yii\base;
  * ];
  * ```
  *
- * As you can see, you can register a bootstrap class in terms of either a class name or a configuration class.
+ * 如你所见，你可以注册一个引导类，无论是类名或配置文件的形式均可。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -53,8 +56,8 @@ namespace yii\base;
 interface BootstrapInterface
 {
     /**
-     * Bootstrap method to be called during application bootstrap stage.
-     * @param Application $app the application currently running
+     * 在应用引导阶段要调用的引导方法
+     * @param Application $app 当前运行的应用实例
      */
     public function bootstrap($app);
 }

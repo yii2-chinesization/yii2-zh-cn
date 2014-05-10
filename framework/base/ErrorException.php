@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140510
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -10,7 +14,7 @@ namespace yii\base;
 use Yii;
 
 /**
- * ErrorException represents a PHP error.
+ * ErrorException（错误异常）代表一个 PHP 错误
  *
  * @author Alexander Makarov <sam@rmcreative.ru>
  * @since 2.0
@@ -18,14 +22,14 @@ use Yii;
 class ErrorException extends \ErrorException
 {
     /**
-     * Constructs the exception.
+     * 异常的构造函数
      * @link http://php.net/manual/en/errorexception.construct.php
-     * @param $message [optional]
-     * @param $code [optional]
-     * @param $severity [optional]
-     * @param $filename [optional]
-     * @param $lineno [optional]
-     * @param $previous [optional]
+     * @param $message [optional] 可选项
+     * @param $code [optional] 可选项
+     * @param $severity [optional] 可选项
+     * @param $filename [optional] 可选项
+     * @param $lineno [optional] 可选项
+     * @param $previous [optional] 可选项
      */
     public function __construct($message = '', $code = 0, $severity = 1, $filename = __FILE__, $lineno = __LINE__, \Exception $previous = null)
     {
@@ -58,10 +62,10 @@ class ErrorException extends \ErrorException
     }
 
     /**
-     * Returns if error is one of fatal type.
+     * 返回是否致命类型错误
      *
-     * @param array $error error got from error_get_last()
-     * @return boolean if error is one of fatal type
+     * @param array $error 从error_get_last()获取的错误
+     * @return boolean 是否致命类型错误
      */
     public static function isFatalError($error)
     {
@@ -69,7 +73,7 @@ class ErrorException extends \ErrorException
     }
 
     /**
-     * @return string the user-friendly name of this exception
+     * @return string 人性化的异常名
      */
     public function getName()
     {

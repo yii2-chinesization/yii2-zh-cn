@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140509
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -10,10 +14,9 @@ namespace yii\base;
 use Yii;
 
 /**
- * InlineAction represents an action that is defined as a controller method.
+ * InlineAction 表示动作以控制器方法来定义
  *
- * The name of the controller method is available via [[actionMethod]] which
- * is set by the [[controller]] who creates this action.
+ * 控制器方法名可通过创建该动作的[[controller]]所设置的[[actionMethod]]使用
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -21,15 +24,15 @@ use Yii;
 class InlineAction extends Action
 {
     /**
-     * @var string the controller method that this inline action is associated with
+     * @var string 此内联动作关联的控制器方法
      */
     public $actionMethod;
 
     /**
-     * @param string $id the ID of this action
-     * @param Controller $controller the controller that owns this action
-     * @param string $actionMethod the controller method that this inline action is associated with
-     * @param array $config name-value pairs that will be used to initialize the object properties
+     * @param string $id 动作 ID
+     * @param Controller $controller 拥有该动作的控制器
+     * @param string $actionMethod 此内联动作关联的控制器方法
+     * @param array $config 用于初始化对象属性的名值对数组
      */
     public function __construct($id, $controller, $actionMethod, $config = [])
     {
@@ -38,10 +41,10 @@ class InlineAction extends Action
     }
 
     /**
-     * Runs this action with the specified parameters.
-     * This method is mainly invoked by the controller.
-     * @param array $params action parameters
-     * @return mixed the result of the action
+     * 以指定参数运行此动作
+     * 本方法主要由控制器调用
+     * @param array $params 动作参数
+     * @return mixed 动作执行结果
      */
     public function runWithParams($params)
     {

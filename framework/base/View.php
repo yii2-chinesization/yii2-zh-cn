@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140509
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -14,12 +18,11 @@ use yii\widgets\ContentDecorator;
 use yii\widgets\FragmentCache;
 
 /**
- * View represents a view object in the MVC pattern.
+ * View（视图类）表示 MVC 模式中的视图对象
  *
- * View provides a set of methods (e.g. [[render()]]) for rendering purpose.
+ * View 为渲染目的提供了一系列方法(如[[render()]])
  *
- * @property string|boolean $viewFile The view file currently being rendered. False if no view file is being
- * rendered. This property is read-only.
+ * @property string|boolean $viewFile 当前要渲染的视图文件，如果没有视图文件被渲染就用 false ，这是只读属性。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -27,34 +30,34 @@ use yii\widgets\FragmentCache;
 class View extends Component
 {
     /**
-     * @event Event an event that is triggered by [[beginPage()]].
+     * @event Event 由[[beginPage()]]触发的事件
      */
     const EVENT_BEGIN_PAGE = 'beginPage';
     /**
-     * @event Event an event that is triggered by [[endPage()]].
+     * @event Event 由[[endPage()]]触发的事件
      */
     const EVENT_END_PAGE = 'endPage';
     /**
-     * @event ViewEvent an event that is triggered by [[renderFile()]] right before it renders a view file.
+     * @event ViewEvent 由[[renderFile()]]恰好在它渲染视图文件前触发的事件
      */
     const EVENT_BEFORE_RENDER = 'beforeRender';
     /**
-     * @event ViewEvent an event that is triggered by [[renderFile()]] right after it renders a view file.
+     * @event ViewEvent [[renderFile()]]恰好在它渲染了视图文件后触发的事件
      */
     const EVENT_AFTER_RENDER = 'afterRender';
 
     /**
-     * @var ViewContextInterface the context under which the [[renderFile()]] method is being invoked.
+     * @var ViewContextInterface [[renderFile()]]方法被调用的上下文
      */
     public $context;
     /**
-     * @var mixed custom parameters that are shared among view templates.
+     * @var mixed 视图模板共享的自定义参数
      */
     public $params = [];
     /**
-     * @var array a list of available renderers indexed by their corresponding supported file extensions.
-     * Each renderer may be a view renderer object or the configuration for creating the renderer object.
-     * For example, the following configuration enables both Smarty and Twig view renderers:
+     * @var array 以支持的对应文件扩展名为索引的适用渲染器列表
+     * 每个渲染器可以是视图渲染器对象或创建渲染器对象的配置
+     * 例如，以下配置都启用了 Smarty 和 Twig 视图渲染器：
      *
      * ~~~
      * [
@@ -63,48 +66,43 @@ class View extends Component
      * ]
      * ~~~
      *
-     * If no renderer is available for the given view file, the view file will be treated as a normal PHP
-     * and rendered via [[renderPhpFile()]].
+     * 如果给定的视图文件没有适用的渲染器，视图文件将视作普通 PHP 文件并由[[renderPhpFile()]]渲染。
      */
     public $renderers;
     /**
-     * @var string the default view file extension. This will be appended to view file names if they don't have file extensions.
+     * @var string 视图文件缺省扩展名，如果视图文件没有扩展名，此变量将被追加到视图文件名后。
      */
     public $defaultExtension = 'php';
     /**
-     * @var Theme|array|string the theme object or the configuration for creating the theme object.
-     * If not set, it means theming is not enabled.
+     * @var Theme|array|string 主题对象或创建主题对象的配置，如果未设置，意味着主题未启用。
      */
     public $theme;
     /**
-     * @var array a list of named output blocks. The keys are the block names and the values
-     * are the corresponding block content. You can call [[beginBlock()]] and [[endBlock()]]
-     * to capture small fragments of a view. They can be later accessed somewhere else
-     * through this property.
+     * @var array 指定输出块列表，数组键是块名而值是相应的块内容。
+     * 可以调用[[beginBlock()]]和[[endBlock()]]来捕获视图的小片段。
+     * 之后这些块内容可以在别处通过此属性访问。
      */
     public $blocks;
     /**
-     * @var array a list of currently active fragment cache widgets. This property
-     * is used internally to implement the content caching feature. Do not modify it directly.
+     * @var array 当前活动片段缓存小部件的列表，此属性用于内部实现内容缓存功能。不要直接使用它。
      * @internal
      */
     public $cacheStack = [];
     /**
-     * @var array a list of placeholders for embedding dynamic contents. This property
-     * is used internally to implement the content caching feature. Do not modify it directly.
+     * @var array 为嵌入动态内容的占位符的列表，本属性用于内部实现内容缓存功能，不要直接使用它。
      * @internal
      */
     public $dynamicPlaceholders = [];
 
     /**
-     * @var array the view files currently being rendered. There may be multiple view files being
-     * rendered at a moment because one view may be rendered within another.
+     * @var array 当前正被渲染的视图文件，可能同时有多个视图文件被渲染，
+     * 因为一个视图可以在另一个视图内被渲染。
      */
     private $_viewFiles = [];
 
 
     /**
-     * Initializes the view component.
+     * 初始化视图组件
      */
     public function init()
     {
@@ -120,27 +118,26 @@ class View extends Component
     }
 
     /**
-     * Renders a view.
+     * 渲染视图
      *
-     * The view to be rendered can be specified in one of the following formats:
+     * 要渲染的视图可指定为以下格式：
      *
-     * - path alias (e.g. "@app/views/site/index");
-     * - absolute path within application (e.g. "//site/index"): the view name starts with double slashes.
-     *   The actual view file will be looked for under the [[Application::viewPath|view path]] of the application.
-     * - absolute path within current module (e.g. "/site/index"): the view name starts with a single slash.
-     *   The actual view file will be looked for under the [[Module::viewPath|view path]] of the [[Controller::module|current module]].
-     * - relative view (e.g. "index"): the view name does not start with `@` or `/`. The corresponding view file will be
-     *   looked for under the [[ViewContextInterface::getViewPath()|view path]] of the view `$context`.
-     *   If `$context` is not given, it will be looked for under the directory containing the view currently
-     *   being rendered (i.e., this happens when rendering a view within another view).
+     * - 路径别名(如"@app/views/site/index")；
+     * - 应用内的绝对路径(如"//site/index")：以双斜线开头的视图名，
+     *   真正的视图文件将在当前应用的[[Application::viewPath|view path]]下查找。
+     * - 当前模块内的绝对路径(如"/site/index")：以单斜线开头的视图名，
+     *   真正的视图文件将在[[Controller::module|current module]]的[[Module::viewPath|view path]]查找。
+     * - 相对路径(如"index")：不以`@`或`/`开头的视图名，
+     *   相应的视图文件将在视图的`$context`属性的[[ViewContextInterface::getViewPath()|view path]]下查找。
+     *   如果`$context` 未给出，它将在包括当前正被渲染视图的目录下查找
+     *   (如，当在一个视图内渲染另一个视图时就会发生这个)。
      *
-     * @param string $view the view name.
-     * @param array $params the parameters (name-value pairs) that will be extracted and made available in the view file.
-     * @param object $context the context to be assigned to the view and can later be accessed via [[context]]
-     * in the view. If the context implements [[ViewContextInterface]], it may also be used to locate
-     * the view file corresponding to a relative view name.
-     * @return string the rendering result
-     * @throws InvalidParamException if the view cannot be resolved or the view file does not exist.
+     * @param string $view 视图名
+     * @param array $params 提取到视图文件且可用的参数（名值对）
+     * @param object $context 被分配到视图的上下文，稍后可通过视图的[[context]]访问。
+     * 如果上下文执行[[ViewContextInterface]]，它也能用于根据相应的相对视图名定位视图文件。
+     * @return string 渲染结果
+     * @throws InvalidParamException 如果视图不能解析或视图文件不存在
      * @see renderFile()
      */
     public function render($view, $params = [], $context = null)
@@ -150,15 +147,12 @@ class View extends Component
     }
 
     /**
-     * Finds the view file based on the given view name.
-     * @param string $view the view name or the path alias of the view file. Please refer to [[render()]]
-     * on how to specify this parameter.
-     * @param object $context the context to be assigned to the view and can later be accessed via [[context]]
-     * in the view. If the context implements [[ViewContextInterface]], it may also be used to locate
-     * the view file corresponding to a relative view name.
-     * @return string the view file path. Note that the file may not exist.
-     * @throws InvalidCallException if a relative view name is given while there is no active context to
-     * determine the corresponding view file.
+     * 基于给定视图名查找视图文件
+     * @param string $view 视图名或视图文件的路径别名，请参考[[render()]]了解如何指定此参数
+     * @param object $context 赋给视图的上下文，稍后通过视图中的[[context]]访问。
+     * 如果上下文实现了[[ViewContextInterface]]，它也可以用于根据相对视图名定位视图文件。
+     * @return string 视图文件路径，注意此文件可能不存在
+     * @throws InvalidCallException 如果相对视图名已给定，而没有活动上下文确定相应的视图文件
      */
     protected function findViewFile($view, $context = null)
     {
@@ -195,23 +189,19 @@ class View extends Component
     }
 
     /**
-     * Renders a view file.
+     * 渲染视图文件
      *
-     * If [[theme]] is enabled (not null), it will try to render the themed version of the view file as long
-     * as it is available.
+     * 如果[[theme]]已启用(不是 null)，它将尝试渲染视图文件的主题版本，只要它是可用的。
      *
-     * The method will call [[FileHelper::localize()]] to localize the view file.
+     * 本方法将调用[[FileHelper::localize()]]来定位视图文件
      *
-     * If [[renderers|renderer]] is enabled (not null), the method will use it to render the view file.
-     * Otherwise, it will simply include the view file as a normal PHP file, capture its output and
-     * return it as a string.
+     * 如果[[renderers|renderer]]已启用(不是 null)，本方法将用它来渲染该视图文件，否则，它将简单引入视图文件作为普通 PHP 文件，并捕获它的输出作为字符串返回。
      *
-     * @param string $viewFile the view file. This can be either a file path or a path alias.
-     * @param array $params the parameters (name-value pairs) that will be extracted and made available in the view file.
-     * @param object $context the context that the view should use for rendering the view. If null,
-     * existing [[context]] will be used.
-     * @return string the rendering result
-     * @throws InvalidParamException if the view file does not exist
+     * @param string $viewFile 要渲染的视图文件，文件路径或路径别名
+     * @param array $params 提取到视图文件的可用参数(名值对)
+     * @param object $context 视图要使用来渲染此视图的上下文，如果是 null ，已有的[[context]]将被使用
+     * @return string 渲染结果
+     * @throws InvalidParamException 如果视图文件不存在
      */
     public function renderFile($viewFile, $params = [], $context = null)
     {
@@ -256,7 +246,7 @@ class View extends Component
     }
 
     /**
-     * @return string|boolean the view file currently being rendered. False if no view file is being rendered.
+     * @return string|boolean 当前被渲染的视图文件，如果没有正被渲染的视图文件就返回 false
      */
     public function getViewFile()
     {
@@ -264,10 +254,10 @@ class View extends Component
     }
 
     /**
-     * This method is invoked right before [[renderFile()]] renders a view file.
-     * The default implementation will trigger the [[EVENT_BEFORE_RENDER]] event.
-     * If you override this method, make sure you call the parent implementation first.
-     * @return boolean whether to continue rendering the view file.
+     * 本方法在[[renderFile()]]渲染视图文件前调用
+     * 默认实现将触发[[EVENT_BEFORE_RENDER]]事件
+     * 如果要覆写该方法，确保首先调用了父类实现
+     * @return boolean 是否继续渲染视图文件
      */
     public function beforeRender()
     {
@@ -278,11 +268,10 @@ class View extends Component
     }
 
     /**
-     * This method is invoked right after [[renderFile()]] renders a view file.
-     * The default implementation will trigger the [[EVENT_AFTER_RENDER]] event.
-     * If you override this method, make sure you call the parent implementation first.
-     * @param string $output the rendering result of the view file. Updates to this parameter
-     * will be passed back and returned by [[renderFile()]].
+     * 本方法在[[renderFile()]]渲染视图文件后调用
+     * 默认实现将触发[[EVENT_AFTER_RENDER]]事件
+     * 如果要覆写该方法，确保首先调用了父类实现
+     * @param string $output 视图文件的渲染结果，此参数的更新将被[[renderFile()]]传递回来并返回
      */
     public function afterRender(&$output)
     {
@@ -297,14 +286,13 @@ class View extends Component
     /**
      * Renders a view file as a PHP script.
      *
-     * This method treats the view file as a PHP script and includes the file.
-     * It extracts the given parameters and makes them available in the view file.
-     * The method captures the output of the included view file and returns it as a string.
+     * 此方法将视图文件视为 PHP 脚本并引入该文件，它提取给定参数并令它们在视图文件中可用。
+     * 此方法捕获引入视图文件的输出并作为字符串返回。
      *
-     * This method should mainly be called by view renderer or [[renderFile()]].
+     * 此方法主要由视图渲染器或[[renderFile()]]调用
      *
-     * @param string $_file_ the view file.
-     * @param array $_params_ the parameters (name-value pairs) that will be extracted and made available in the view file.
+     * @param string $_file_ 视图文件
+     * @param array $_params_ 提取到视图文件并可被视图使用的参数(名值对) that will be extracted and made available in the view file.
      * @return string the rendering result
      */
     public function renderPhpFile($_file_, $_params_ = [])
@@ -318,13 +306,11 @@ class View extends Component
     }
 
     /**
-     * Renders dynamic content returned by the given PHP statements.
-     * This method is mainly used together with content caching (fragment caching and page caching)
-     * when some portions of the content (called *dynamic content*) should not be cached.
-     * The dynamic content must be returned by some PHP statements.
-     * @param string $statements the PHP statements for generating the dynamic content.
-     * @return string the placeholder of the dynamic content, or the dynamic content if there is no
-     * active content cache currently.
+     * 渲染由给定 PHP 表达式返回的动态内容
+     * 此方法主要在一些内容部分（称为*动态内容*）不应该被缓存时和内容缓存（片段缓存和页面缓存）一起使用。
+     * 动态内容必须是由一些 PHP 表达式返回。
+     * @param string $statements 生成动态内容的 PHP 表达式
+     * @return string 动态内容占位符，如果没有当前活动的内容缓存就返回动态内容
      */
     public function renderDynamic($statements)
     {
@@ -340,10 +326,10 @@ class View extends Component
     }
 
     /**
-     * Adds a placeholder for dynamic content.
-     * This method is internally used.
-     * @param string $placeholder the placeholder name
-     * @param string $statements the PHP statements for generating the dynamic content
+     * 为动态内容添加占位符
+     * 此方法是在内部使用
+     * @param string $placeholder 占位符名
+     * @param string $statements 为生成动态内容的 PHP 表达式
      */
     public function addDynamicPlaceholder($placeholder, $statements)
     {
@@ -354,10 +340,10 @@ class View extends Component
     }
 
     /**
-     * Evaluates the given PHP statements.
-     * This method is mainly used internally to implement dynamic content feature.
-     * @param string $statements the PHP statements to be evaluated.
-     * @return mixed the return value of the PHP statements.
+     * 对给定 PHP 表达式求值
+     * 此方法主要用于内部实现动态内容功能
+     * @param string $statements 要计算的 PHP 表达式
+     * @return mixed  PHP 表达式的返回值
      */
     public function evaluateDynamicContent($statements)
     {
@@ -365,12 +351,12 @@ class View extends Component
     }
 
     /**
-     * Begins recording a block.
-     * This method is a shortcut to beginning [[Block]]
-     * @param string $id the block ID.
-     * @param boolean $renderInPlace whether to render the block content in place.
-     * Defaults to false, meaning the captured block will not be displayed.
-     * @return Block the Block widget instance
+     * 开始记录块
+     * 本方法是开始[[Block]]的快捷方式
+     * @param string $id 块 ID
+     * @param boolean $renderInPlace 是否一步到位渲染块内容
+     * 缺省为 false ，即捕获的块不显示出来
+     * @return Block  "块"小部件实例
      */
     public function beginBlock($id, $renderInPlace = false)
     {
@@ -382,7 +368,7 @@ class View extends Component
     }
 
     /**
-     * Ends recording a block.
+     * 结束记录块
      */
     public function endBlock()
     {
@@ -390,20 +376,20 @@ class View extends Component
     }
 
     /**
-     * Begins the rendering of content that is to be decorated by the specified view.
-     * This method can be used to implement nested layout. For example, a layout can be embedded
-     * in another layout file specified as '@app/views/layouts/base.php' like the following:
+     * 开始渲染被指定视图装饰的内容
+     * 此方法可用于实现嵌套布局，如，一个布局可以嵌入另一个如下
+     * 指定为'@app/views/layouts/base.php'的布局文件：
      *
      * ~~~
      * <?php $this->beginContent('@app/views/layouts/base.php'); ?>
-     * ...layout content here...
+     * ...布局内容写这里...
      * <?php $this->endContent(); ?>
      * ~~~
      *
-     * @param string $viewFile the view file that will be used to decorate the content enclosed by this widget.
-     * This can be specified as either the view file path or path alias.
-     * @param array $params the variables (name => value) to be extracted and made available in the decorative view.
-     * @return ContentDecorator the ContentDecorator widget instance
+     * @param string $viewFile 视图文件，用于装饰被此小部件包裹的内容，
+     * 此参数可以指定为视图文件路径或路径别名。
+     * @param array $params 要提取的名值对参数并在装饰视图可用
+     * @return ContentDecorator "内容装饰器"小部件实例
      * @see ContentDecorator
      */
     public function beginContent($viewFile, $params = [])
@@ -416,7 +402,7 @@ class View extends Component
     }
 
     /**
-     * Ends the rendering of content.
+     * 结束内容渲染
      */
     public function endContent()
     {
@@ -424,23 +410,21 @@ class View extends Component
     }
 
     /**
-     * Begins fragment caching.
-     * This method will display cached content if it is available.
-     * If not, it will start caching and would expect an [[endCache()]]
-     * call to end the cache and save the content into cache.
-     * A typical usage of fragment caching is as follows,
+     * 开始片段缓存
+     * 此方法如果可用就现实已缓存内容，如果不可用，它就开始缓存并
+     * 期望调用[[endCache()]]来结束缓存并保存内容到缓存。
+     * 片段缓存的典型用法如下：
      *
      * ~~~
      * if ($this->beginCache($id)) {
-     *     // ...generate content here
+     *     // ...生成内容在这里
      *     $this->endCache();
      * }
      * ~~~
      *
-     * @param string $id a unique ID identifying the fragment to be cached.
-     * @param array $properties initial property values for [[FragmentCache]]
-     * @return boolean whether you should generate the content for caching.
-     * False if the cached version is available.
+     * @param string $id 标识要缓存片段的唯一 ID
+     * @param array $properties 为[[FragmentCache]]初始化属性值
+     * @return boolean 是否为缓存生成内容，如果现有缓存版本可用就返回 false
      */
     public function beginCache($id, $properties = [])
     {
@@ -458,7 +442,7 @@ class View extends Component
     }
 
     /**
-     * Ends fragment caching.
+     * 结束片段缓存
      */
     public function endCache()
     {
@@ -466,7 +450,7 @@ class View extends Component
     }
 
     /**
-     * Marks the beginning of a page.
+     * 标记页面的开始
      */
     public function beginPage()
     {
@@ -477,7 +461,7 @@ class View extends Component
     }
 
     /**
-     * Marks the ending of a page.
+     * 标记页面的结束
      */
     public function endPage()
     {

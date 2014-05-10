@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140509
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -11,13 +15,12 @@ use Yii;
 use ReflectionClass;
 
 /**
- * Widget is the base class for widgets.
+ * Widget(小部件)是所有小部件的基类
  *
- * @property string $id ID of the widget.
- * @property \yii\web\View $view The view object that can be used to render views or view files. Note that the
- * type of this property differs in getter and setter. See [[getView()]] and [[setView()]] for details.
- * @property string $viewPath The directory containing the view files for this widget. This property is
- * read-only.
+ * @property string $id 小部件 ID
+ * @property \yii\web\View $view 用于渲染视图或视图文件的视图对象，
+ * 注意此属性的类型在 getter 和 setter 不相同，细节见[[getView()]]和[[setView()]]。
+ * @property string $viewPath 包括此小部件视图文件的目录，是只读属性。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -25,50 +28,48 @@ use ReflectionClass;
 class Widget extends Component implements ViewContextInterface
 {
     /**
-     * @var integer a counter used to generate [[id]] for widgets.
+     * @var integer 用于生成小部件[[id]]的计数器
      * @internal
      */
     public static $counter = 0;
     /**
-     * @var string the prefix to the automatically generated widget IDs.
+     * @var string 自动生成小部件 ID 的前缀
      * @see getId()
      */
     public static $autoIdPrefix = 'w';
 
     /**
-     * @var Widget[] the widgets that are currently being rendered (not ended). This property
-     * is maintained by [[begin()]] and [[end()]] methods.
+     * @var Widget[] 当前正被渲染（未结束）的小部件，此属性由[[begin()]]和[[end()]]维持
      * @internal
      */
     public static $stack = [];
 
     /**
-     * Begins a widget.
-     * This method creates an instance of the calling class. It will apply the configuration
-     * to the created instance. A matching [[end()]] call should be called later.
-     * @param array $config name-value pairs that will be used to initialize the object properties
-     * @return static the newly created widget instance
+     * 小部件开始
+     * 此方法创建了一个调用类的实例，它将应用传入配置到刚创建的实例，配套的[[end()]]方法稍后必须调用。
+     * @param array $config 用于初始化对象属性的名值对
+     * @return static 新创建的小部件实例
      */
     public static function begin($config = [])
     {
         $config['class'] = get_called_class();
         /** @var Widget $widget */
         $widget = Yii::createObject($config);
-        self::$stack[] = $widget;
+        static::$stack[] = $widget;
 
         return $widget;
     }
 
     /**
-     * Ends a widget.
-     * Note that the rendering result of the widget is directly echoed out.
-     * @return static the widget instance that is ended.
-     * @throws InvalidCallException if [[begin()]] and [[end()]] calls are not properly nested
+     * 小部件结束
+     * 注意此小部件的渲染结果被直接输出了。
+     * @return static 要结束的小部件实例
+     * @throws InvalidCallException 如果[[begin()]]和[[end()]]嵌套调用不正确
      */
     public static function end()
     {
-        if (!empty(self::$stack)) {
-            $widget = array_pop(self::$stack);
+        if (!empty(static::$stack)) {
+            $widget = array_pop(static::$stack);
             if (get_class($widget) === get_called_class()) {
                 echo $widget->run();
                 return $widget;
@@ -81,10 +82,10 @@ class Widget extends Component implements ViewContextInterface
     }
 
     /**
-     * Creates a widget instance and runs it.
-     * The widget rendering result is returned by this method.
-     * @param array $config name-value pairs that will be used to initialize the object properties
-     * @return string the rendering result of the widget.
+     * 创建一个小部件实例并运行
+     * 小部件的渲染结果由此方法返回
+     * @param array $config 用来初始化对象属性的名值对
+     * @return string 小部件的渲染结果
      */
     public static function widget($config = [])
     {
@@ -101,22 +102,22 @@ class Widget extends Component implements ViewContextInterface
     private $_id;
 
     /**
-     * Returns the ID of the widget.
-     * @param boolean $autoGenerate whether to generate an ID if it is not set previously
-     * @return string ID of the widget.
+     * 返回小部件 ID
+     * @param boolean $autoGenerate 如果之前未设置是否生成一个 ID
+     * @return string 小部件 ID
      */
     public function getId($autoGenerate = true)
     {
         if ($autoGenerate && $this->_id === null) {
-            $this->_id = self::$autoIdPrefix . self::$counter++;
+            $this->_id = static::$autoIdPrefix . static::$counter++;
         }
 
         return $this->_id;
     }
 
     /**
-     * Sets the ID of the widget.
-     * @param string $value id of the widget.
+     * 设置小部件 ID
+     * @param string $value 小部件 ID
      */
     public function setId($value)
     {
@@ -126,11 +127,10 @@ class Widget extends Component implements ViewContextInterface
     private $_view;
 
     /**
-     * Returns the view object that can be used to render views or view files.
-     * The [[render()]] and [[renderFile()]] methods will use
-     * this view object to implement the actual view rendering.
-     * If not set, it will default to the "view" application component.
-     * @return \yii\web\View the view object that can be used to render views or view files.
+     * 返回可用于渲染视图或视图文件的视图对象
+     * [[render()]]和[[renderFile()]]方法将使用该视图对象实现真正的视图渲染，
+     * 如果未设置，默认是"view" 应用组件。
+     * @return \yii\web\View 可用于渲染视图或视图文件的视图对象
      */
     public function getView()
     {
@@ -142,8 +142,8 @@ class Widget extends Component implements ViewContextInterface
     }
 
     /**
-     * Sets the view object to be used by this widget.
-     * @param View $view the view object that can be used to render views or view files.
+     * 设置要被此小部件使用的视图对象
+     * @param View $view 可用于渲染视图或视图文件的视图对象
      */
     public function setView($view)
     {
@@ -151,31 +151,30 @@ class Widget extends Component implements ViewContextInterface
     }
 
     /**
-     * Executes the widget.
-     * @return string the result of widget execution to be outputted.
+     * 执行小部件
+     * @return string 小部件执行的输出结果
      */
     public function run()
     {
     }
 
     /**
-     * Renders a view.
-     * The view to be rendered can be specified in one of the following formats:
+     * 渲染视图
+     * 要渲染的视图可指定为以下格式之一：
      *
-     * - path alias (e.g. "@app/views/site/index");
-     * - absolute path within application (e.g. "//site/index"): the view name starts with double slashes.
-     *   The actual view file will be looked for under the [[Application::viewPath|view path]] of the application.
-     * - absolute path within module (e.g. "/site/index"): the view name starts with a single slash.
-     *   The actual view file will be looked for under the [[Module::viewPath|view path]] of the currently
-     *   active module.
-     * - relative path (e.g. "index"): the actual view file will be looked for under [[viewPath]].
+     * - 路径别名(如"@app/views/site/index")；
+     * - 应用内的绝对路径(如"//site/index")：以双斜线开头的视图名
+     *   真正的视图文件将在应用的[[Application::viewPath|view path]]下查找
+     * - 模块内的绝对路径(如"/site/index")：以单斜线开头的视图名
+     *   真正的视图文件将在当前活动模块的[[Module::viewPath|view path]]下查找
+     * - 相对路径(如"index")：真正的视图路径将在[[viewPath]]下查找
      *
-     * If the view name does not contain a file extension, it will use the default one `.php`.
+     * 如果视图名不包括文件扩展名，它将使用缺省的`.php` 。
      *
-     * @param string $view the view name.
-     * @param array $params the parameters (name-value pairs) that should be made available in the view.
-     * @return string the rendering result.
-     * @throws InvalidParamException if the view file does not exist.
+     * @param string $view 视图名
+     * @param array $params 视图内可用的名值对参数
+     * @return string 渲染结果
+     * @throws InvalidParamException 如果视图文件不存在
      */
     public function render($view, $params = [])
     {
@@ -183,11 +182,11 @@ class Widget extends Component implements ViewContextInterface
     }
 
     /**
-     * Renders a view file.
-     * @param string $file the view file to be rendered. This can be either a file path or a path alias.
-     * @param array $params the parameters (name-value pairs) that should be made available in the view.
-     * @return string the rendering result.
-     * @throws InvalidParamException if the view file does not exist.
+     * 渲染视图文件
+     * @param string $file 要渲染的视图文件，文件路径或路径别名
+     * @param array $params 视图文件的可用参数(名值对)
+     * @return string 渲染结果
+     * @throws InvalidParamException 如果视图文件不存在
      */
     public function renderFile($file, $params = [])
     {
@@ -195,9 +194,9 @@ class Widget extends Component implements ViewContextInterface
     }
 
     /**
-     * Returns the directory containing the view files for this widget.
-     * The default implementation returns the 'views' subdirectory under the directory containing the widget class file.
-     * @return string the directory containing the view files for this widget.
+     * 返回包括小部件视图文件的目录
+     * 默认实现返回小部件类文件目录内的'views'子目录
+     * @return string 包括小部件视图文件的目录
      */
     public function getViewPath()
     {

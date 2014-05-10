@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140509
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -11,27 +15,24 @@ use Yii;
 use yii\helpers\FileHelper;
 
 /**
- * Theme represents an application theme.
+ * Theme（主题）代表应用的主题
  *
- * When [[View]] renders a view file, it will check the [[View::theme|active theme]]
- * to see if there is a themed version of the view file exists. If so, the themed version will be rendered instead.
+ * 当[[View]]渲染视图文件时，它将检查[[View::theme|active theme]]以查看是否存在视图文件的主题版本。
+ * 如果有，就用主题版本渲染。
  *
- * A theme is a directory consisting of view files which are meant to replace their non-themed counterparts.
+ * 主题是由以一对一取代非主题视图文件为目的的视图文件组成的目录。
  *
- * Theme uses [[pathMap]] to achieve the view file replacement:
+ * 主题使用[[pathMap]]来实现视图文件替换：
  *
- * 1. It first looks for a key in [[pathMap]] that is a substring of the given view file path;
- * 2. If such a key exists, the corresponding value will be used to replace the corresponding part
- *    in the view file path;
- * 3. It will then check if the updated view file exists or not. If so, that file will be used
- *    to replace the original view file.
- * 4. If Step 2 or 3 fails, the original view file will be used.
+ * 1. 首先，它在[[pathMap]]查找数组键，那是给定视图文件路径的子字符串；
+ * 2. 如果存在这样的键，相应的值就被用来替换视图文件路径的相应部分（即数组值取代数组键）；
+ * 3. 然后它将检查更新的视图文件是否存在，如果存在，那个文件就用来取得原始的视图文件。
+ * 4. 如果步骤 2 或步骤 3 失败了，将使用原始的视图文件。
  *
- * For example, if [[pathMap]] is `['@app/views' => '@app/themes/basic']`,
- * then the themed version for a view file `@app/views/site/index.php` will be
- * `@app/themes/basic/site/index.php`.
+ * 例如，如果[[pathMap]]是`['@app/views' => '@app/themes/basic']`,
+ * 那边该视图文件`@app/views/site/index.php`的主题版本就是`@app/themes/basic/site/index.php`。
  *
- * It is possible to map a single path to multiple paths. For example,
+ * 映射一个路径到多个路径是可能的，如：
  *
  * ~~~
  * 'pathMap' => [
@@ -42,11 +43,10 @@ use yii\helpers\FileHelper;
  * ]
  * ~~~
  *
- * In this case, the themed version could be either `@app/themes/christmas/site/index.php` or
- * `@app/themes/basic/site/index.php`. The former has precedence over the latter if both files exist.
+ * 这种情况下，主题版本可以是`@app/themes/christmas/site/index.php`或`@app/themes/basic/site/index.php`
+ * 如果两个文件都存在，前者对后者有优先权。
  *
- * To use a theme, you should configure the [[View::theme|theme]] property of the "view" application
- * component like the following:
+ * 要使用视图，你应如下配置"view"应用组件的[[View::theme|theme]]属性：
  *
  * ~~~
  * 'view' => [
@@ -57,14 +57,11 @@ use yii\helpers\FileHelper;
  * ],
  * ~~~
  *
- * The above configuration specifies a theme located under the "themes/basic" directory of the Web folder
- * that contains the entry script of the application. If your theme is designed to handle modules,
- * you may configure the [[pathMap]] property like described above.
+ * 以上配置指定了一个位于 Web 文件夹内的"themes/basic"目录下的主题，在 Web 文件夹包括了应用的入口脚本。
+ * 如果你的主题设计来处理模块，你可以如上描述的配置[[pathMap]]属性。
  *
- * @property string $basePath The root path of this theme. All resources of this theme are located under this
- * directory.
- * @property string $baseUrl The base URL (without ending slash) for this theme. All resources of this theme
- * are considered to be under this base URL. This property is read-only.
+ * @property string $basePath 此主题的根路径，此主题的所有资源都位于该目录下。
+ * @property string $baseUrl 此主题的根 URL (没有末尾的斜线)，此主题的所有资源被认为位于此根 URL，这是只读属性。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -72,16 +69,16 @@ use yii\helpers\FileHelper;
 class Theme extends Component
 {
     /**
-     * @var array the mapping between view directories and their corresponding themed versions.
-     * If not set, it will be initialized as a mapping from [[Application::basePath]] to [[basePath]].
-     * This property is used by [[applyTo()]] when a view is trying to apply the theme.
-     * Path aliases can be used when specifying directories.
+     * @var array 视图目录和它们对应的主题版本的映射
+     * 如未设置，它将被初始化为[[Application::basePath]]和[[basePath]]的映射。
+     * 当视图尝试应用该主题时，本属性由[[applyTo()]]使用。
+     * 当指定了目录时，路径别名可使用
      */
     public $pathMap;
 
     /**
-     * Initializes the theme.
-     * @throws InvalidConfigException if [[basePath]] is not set.
+     * 初始化主题
+     * @throws InvalidConfigException 如[[basePath]] 未设置
      */
     public function init()
     {
@@ -98,8 +95,7 @@ class Theme extends Component
     private $_baseUrl;
 
     /**
-     * @return string the base URL (without ending slash) for this theme. All resources of this theme are considered
-     * to be under this base URL.
+     * @return string 主题的根 URL (无末尾斜线)，此主题的所有资源被认为位于本根 URL 下。
      */
     public function getBaseUrl()
     {
@@ -107,8 +103,7 @@ class Theme extends Component
     }
 
     /**
-     * @param $url string the base URL or path alias for this theme. All resources of this theme are considered
-     * to be under this base URL.
+     * @param $url string 主题的根 URL 或路径别名，此主题的所有资源被认为位于本根 URL 下。
      */
     public function setBaseUrl($url)
     {
@@ -118,7 +113,7 @@ class Theme extends Component
     private $_basePath;
 
     /**
-     * @return string the root path of this theme. All resources of this theme are located under this directory.
+     * @return string 此主题的根路径，此主题的所有资源位于该目录
      * @see pathMap
      */
     public function getBasePath()
@@ -127,8 +122,7 @@ class Theme extends Component
     }
 
     /**
-     * @param string $path the root path or path alias of this theme. All resources of this theme are located
-     * under this directory.
+     * @param string $path 此主题的根路径或路径别名，此主题的所有资源都位于该目录下
      * @see pathMap
      */
     public function setBasePath($path)
@@ -137,10 +131,10 @@ class Theme extends Component
     }
 
     /**
-     * Converts a file to a themed file if possible.
-     * If there is no corresponding themed file, the original file will be returned.
-     * @param string $path the file to be themed
-     * @return string the themed file, or the original file if the themed version is not available.
+     * 如果可能就将一根文件转换为一个主题文件
+     * 如果没有对应的主题文件，原始文件将被返回。
+     * @param string $path 要被主题文件替换的文件
+     * @return string 主题文件，如果主题版本不可用就返回原始文件
      */
     public function applyTo($path)
     {
@@ -163,10 +157,10 @@ class Theme extends Component
     }
 
     /**
-     * Converts a relative URL into an absolute URL using [[baseUrl]].
-     * @param string $url the relative URL to be converted.
-     * @return string the absolute URL
-     * @throws InvalidConfigException if [[baseUrl]] is not set
+     * 使用[[baseUrl]]把相对 URL 转换为绝对 URL
+     * @param string $url 要转换的相对 URL
+     * @return string 绝对 URL
+     * @throws InvalidConfigException 如[[baseUrl]]未设置
      */
     public function getUrl($url)
     {
@@ -178,10 +172,10 @@ class Theme extends Component
     }
 
     /**
-     * Converts a relative file path into an absolute one using [[basePath]].
-     * @param string $path the relative file path to be converted.
-     * @return string the absolute file path
-     * @throws InvalidConfigException if [[baseUrl]] is not set
+     * 使用[[basePath]]把相对文件路径转换为绝对路径
+     * @param string $path 要转换的相对文件路径
+     * @return string 绝对文件路径
+     * @throws InvalidConfigException 如[[baseUrl]]未设置
      */
     public function getPath($path)
     {

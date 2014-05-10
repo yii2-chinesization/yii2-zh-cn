@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140510
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -13,14 +17,12 @@ use yii\helpers\HtmlPurifier;
 use yii\helpers\Html;
 
 /**
- * Formatter provides a set of commonly used data formatting methods.
+ * Formatter（格式器类）提供了一组普遍使用的数据格式化方法
  *
- * The formatting methods provided by Formatter are all named in the form of `asXyz()`.
- * The behavior of some of them may be configured via the properties of Formatter. For example,
- * by configuring [[dateFormat]], one may control how [[asDate()]] formats the value into a date string.
+ * 格式器提供的格式化方法都命名为`asXyz()`形式。
+ * 某些它们的行为可通过格式器的属性配置，如，配置[[dateFormat]]，就可以控制 one may control how [[asDate()]]如何格式化值到日期字符串。
  *
- * Formatter is configured as an application component in [[\yii\base\Application]] by default.
- * You can access that instance via `Yii::$app->formatter`.
+ * 格式器默认[[\yii\base\Application]]配置为一个应用组件，可通过`Yii::$app->formatter` 访问该实例。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -28,48 +30,44 @@ use yii\helpers\Html;
 class Formatter extends Component
 {
     /**
-     * @var string the timezone to use for formatting time and date values.
-     * This can be any value that may be passed to [date_default_timezone_set()](http://www.php.net/manual/en/function.date-default-timezone-set.php)
-     * e.g. `UTC`, `Europe/Berlin` or `America/Chicago`.
-     * Refer to the [php manual](http://www.php.net/manual/en/timezones.php) for available timezones.
-     * If this property is not set, [[\yii\base\Application::timeZone]] will be used.
+     * @var string 用于格式化时间和日期的时区，可以是任何值传递给[date_default_timezone_set()](http://www.php.net/manual/en/function.date-default-timezone-set.php)
+     * 如`UTC`, `Europe/Berlin` 或`America/Chicago`
+     * 请参考[php manual](http://www.php.net/manual/en/timezones.php) 了解可用的时区
+     * 如果此属性未设置，将使用[[\yii\base\Application::timeZone]]
      */
     public $timeZone;
     /**
-     * @var string the default format string to be used to format a date using PHP date() function.
+     * @var string 默认用于格式化 PHP date() 方法输出的日期格式字符串
      */
     public $dateFormat = 'Y-m-d';
     /**
-     * @var string the default format string to be used to format a time using PHP date() function.
+     * @var string 默认用于格式化 PHP date() 方法输出的时间格式字符串
      */
     public $timeFormat = 'H:i:s';
     /**
-     * @var string the default format string to be used to format a date and time using PHP date() function.
+     * @var string 默认用于格式化 PHP date() 方法输出的日期时间格式字符串
      */
     public $datetimeFormat = 'Y-m-d H:i:s';
     /**
-     * @var string the text to be displayed when formatting a null. Defaults to '<span class="not-set">(not set)</span>'.
+     * @var string 当格式化 null 时要显示的文本，默认为'<span class="not-set">(not set)</span>'.
      */
     public $nullDisplay;
     /**
-     * @var array the text to be displayed when formatting a boolean value. The first element corresponds
-     * to the text display for false, the second element for true. Defaults to `['No', 'Yes']`.
+     * @var array 当格式化布尔值时要显示的文本，第一个元素对应 false ，第二个元素对应 ture，缺省为`['No', 'Yes']` 。
      */
     public $booleanFormat;
     /**
-     * @var string the character displayed as the decimal point when formatting a number.
-     * If not set, "." will be used.
+     * @var string 当格式化数字时字符显示为浮点型，如未设置将使用"."
      */
     public $decimalSeparator;
     /**
-     * @var string the character displayed as the thousands separator character when formatting a number.
-     * If not set, "," will be used.
+     * @var string 当格式化数字时字符以千位分隔符显示，如未设置将使用","
      */
     public $thousandSeparator;
     /**
-     * @var array the format used to format size (bytes). Three elements may be specified: "base", "decimals" and "decimalSeparator".
-     * They correspond to the base at which a kilobyte is calculated (1000 or 1024 bytes per kilobyte, defaults to 1024),
-     * the number of digits after the decimal point (defaults to 2) and the character displayed as the decimal point.
+     * @var array 用于格式化大小(bytes)的格式，指定了三个元素："base", decimals"和"decimalSeparator" 。
+     * 它们分别对应千字节计算的基数(1000或1024 bytes/kilobyte,缺省为1024)，
+     * 小数点后的位数(缺省为2)和字符显示为小数点。
      */
     public $sizeFormat = [
         'base' => 1024,
@@ -78,7 +76,7 @@ class Formatter extends Component
     ];
 
     /**
-     * Initializes the component.
+     * 初始化该组件
      */
     public function init()
     {
@@ -95,17 +93,15 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value based on the given format type.
-     * This method will call one of the "as" methods available in this class to do the formatting.
-     * For type "xyz", the method "asXyz" will be used. For example, if the format is "html",
-     * then [[asHtml()]] will be used. Format names are case insensitive.
-     * @param mixed $value the value to be formatted
-     * @param string|array $format the format of the value, e.g., "html", "text". To specify additional
-     * parameters of the formatting method, you may use an array. The first element of the array
-     * specifies the format name, while the rest of the elements will be used as the parameters to the formatting
-     * method. For example, a format of `['date', 'Y-m-d']` will cause the invocation of `asDate($value, 'Y-m-d')`.
-     * @return string the formatting result
-     * @throws InvalidParamException if the type is not supported by this class.
+     * 基于给定的格式类型格式化传入值
+     * 此方法将调用此类中适用的一个"as"方法来完成格式化
+     * 对于"xyz"类型，将使用"asXyz"方法。例如，如果格式是"html"，就使用[[asHtml()]]。格式名不区分大小写。
+     * @param mixed $value 要格式化的值
+     * @param string|array $format 值的格式，如"html", "text"。要指定此格式化方法的其他参数，请使用数组
+     * 数组的第一个元素指定格式名，而剩下的元素将用作此格式化方法的参数，
+     * 如`['date', 'Y-m-d']`格式将引起`asDate($value, 'Y-m-d')`的调用。
+     * @return string 格式化结果
+     * @throws InvalidParamException 如果是该类不支持的类型
      */
     public function format($value, $format)
     {
@@ -129,10 +125,10 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as is without any formatting.
-     * This method simply returns back the parameter without any format.
-     * @param mixed $value the value to be formatted
-     * @return string the formatted result
+     * 格式化值不带任何格式
+     * 这个方法只简单返回没有任何格式的参数
+     * @param mixed $value 要格式化的值
+     * @return string 已格式化的结果
      */
     public function asRaw($value)
     {
@@ -144,9 +140,9 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as an HTML-encoded plain text.
-     * @param mixed $value the value to be formatted
-     * @return string the formatted result
+     * 格式化值成为 HTML 编码的纯文本
+     * @param mixed $value 要格式化的值
+     * @return string 格式化结果
      */
     public function asText($value)
     {
@@ -158,9 +154,9 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as an HTML-encoded plain text with newlines converted into breaks.
-     * @param mixed $value the value to be formatted
-     * @return string the formatted result
+     * 格式化值为 HTML 编码的纯文本且换行符变成分隔符
+     * @param mixed $value 要格式化的值
+     * @return string 格式化结果
      */
     public function asNtext($value)
     {
@@ -172,11 +168,10 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as HTML-encoded text paragraphs.
-     * Each text paragraph is enclosed within a `<p>` tag.
-     * One or multiple consecutive empty lines divide two paragraphs.
-     * @param mixed $value the value to be formatted
-     * @return string the formatted result
+     * 格式化值为 HTML 编码的文本段落
+     * 每个文本段落以`<p>`标签封闭，一个或多个连续空行就分隔为两个段落
+     * @param mixed $value 要格式化的值
+     * @return string 格式化结果
      */
     public function asParagraphs($value)
     {
@@ -188,12 +183,11 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as HTML text.
-     * The value will be purified using [[HtmlPurifier]] to avoid XSS attacks.
-     * Use [[asRaw()]] if you do not want any purification of the value.
-     * @param mixed $value the value to be formatted
-     * @param array|null $config the configuration for the HTMLPurifier class.
-     * @return string the formatted result
+     * 格式化值为 HTML 文本
+     * 传入值用[[HtmlPurifier]]净化以避免 XSS 攻击，如果不想对值进行任何净化请使用[[asRaw()]]。
+     * @param mixed $value 要格式化的值
+     * @param array|null $config HTMLPurifier 类的配置
+     * @return string 格式化结果
      */
     public function asHtml($value, $config = null)
     {
@@ -205,9 +199,9 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as a mailto link.
-     * @param mixed $value the value to be formatted
-     * @return string the formatted result
+     * 格式化值成一个 mailto 链接
+     * @param mixed $value 要格式化的值
+     * @return string 格式化结果
      */
     public function asEmail($value)
     {
@@ -219,9 +213,9 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as an image tag.
-     * @param mixed $value the value to be formatted
-     * @return string the formatted result
+     * 格式化值为图像标签
+     * @param mixed $value 要格式化的值
+     * @return string 格式化结果
      */
     public function asImage($value)
     {
@@ -233,9 +227,9 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as a hyperlink.
-     * @param mixed $value the value to be formatted
-     * @return string the formatted result
+     * 格式化值成为超链接
+     * @param mixed $value 要格式化的值
+     * @return string 格式化结果
      */
     public function asUrl($value)
     {
@@ -251,9 +245,9 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as a boolean.
-     * @param mixed $value the value to be formatted
-     * @return string the formatted result
+     * 格式化值成为布尔值
+     * @param mixed $value 要格式化的值
+     * @return string 格式化结果
      * @see booleanFormat
      */
     public function asBoolean($value)
@@ -266,18 +260,17 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as a date.
-     * @param integer|string|DateTime $value the value to be formatted. The following
-     * types of value are supported:
+     * 格式化值成为日期
+     * @param integer|string|DateTime $value 要格式化的值
+     * 支持以下类型的值：
      *
-     * - an integer representing a UNIX timestamp
-     * - a string that can be parsed into a UNIX timestamp via `strtotime()`
-     * - a PHP DateTime object
+     * - 代表 UNIX 时间戳的整型
+     * - 可用`strtotime()`解析为 UNIX 时间戳的字符串
+     * - PHP DateTime 对象
      *
-     * @param string $format the format used to convert the value into a date string.
-     * If null, [[dateFormat]] will be used. The format string should be one
-     * that can be recognized by the PHP `date()` function.
-     * @return string the formatted result
+     * @param string $format 用于把值转为日期字符串的格式，如为 null ，将使用[[dateFormat]]。
+     * 这个格式字符串必须是能被 PHP `date()`函数识别的类型。
+     * @return string 格式化结果
      * @see dateFormat
      */
     public function asDate($value, $format = null)
@@ -291,18 +284,16 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as a time.
-     * @param integer|string|DateTime $value the value to be formatted. The following
-     * types of value are supported:
+     * 格式化值为事件
+     * @param integer|string|DateTime $value 要格式化的值，支持以下类型的值：
      *
-     * - an integer representing a UNIX timestamp
-     * - a string that can be parsed into a UNIX timestamp via `strtotime()`
-     * - a PHP DateTime object
+     * - 代表 UNIX 时间戳的整型
+     * - 可用`strtotime()`解析为 UNIX 时间戳的字符串
+     * - PHP DateTime 对象
      *
-     * @param string $format the format used to convert the value into a date string.
-     * If null, [[timeFormat]] will be used. The format string should be one
-     * that can be recognized by the PHP `date()` function.
-     * @return string the formatted result
+     * @param string $format 用于转变值到时间字符串的格式，如果是 null ，使用[[timeFormat]]。
+     * 格式字符串必须是能被PHP `date()` 函数识别的类型
+     * @return string 格式化的结果
      * @see timeFormat
      */
     public function asTime($value, $format = null)
@@ -316,18 +307,16 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as a datetime.
-     * @param integer|string|DateTime $value the value to be formatted. The following
-     * types of value are supported:
+     * 格式化值成为日期时间
+     * @param integer|string|DateTime $value 要格式化的值，支持以下类型的值：
      *
-     * - an integer representing a UNIX timestamp
-     * - a string that can be parsed into a UNIX timestamp via `strtotime()`
-     * - a PHP DateTime object
+     * - 代表 UNIX 时间戳的整型
+     * - 可用`strtotime()`解析为 UNIX 时间戳的字符串
+     * - PHP DateTime 对象
      *
-     * @param string $format the format used to convert the value into a date string.
-     * If null, [[datetimeFormat]] will be used. The format string should be one
-     * that can be recognized by the PHP `date()` function.
-     * @return string the formatted result
+     * @param string $format 用于将值转变为日期时间字符串的格式，如果是 null ，将使用[[datetimeFormat]]
+     * 格式字符串必须是能被 PHP `date()` 函数识别的类型
+     * @return string 格式化的结果
      * @see datetimeFormat
      */
     public function asDatetime($value, $format = null)
@@ -341,10 +330,10 @@ class Formatter extends Component
     }
 
     /**
-     * Normalizes the given datetime value as one that can be taken by various date/time formatting methods.
+     * 标准化给定的日期时间值以便各种日期/时间格式化方法都能使用
      *
-     * @param mixed $value the datetime value to be normalized.
-     * @return integer the normalized datetime value
+     * @param mixed $value 要标准化的日期时间值
+     * @return integer 标准化的日期时间值
      */
     protected function normalizeDatetimeValue($value)
     {
@@ -368,9 +357,9 @@ class Formatter extends Component
     }
 
     /**
-     * @param integer $value normalized datetime value
-     * @param string $format the format used to convert the value into a date string.
-     * @return string the formatted result
+     * @param integer $value 标准化的日期时间值
+     * @param string $format 用于转换值到日期字符串的格式
+     * @return string 格式化的结果
      */
     protected function formatTimestamp($value, $format)
     {
@@ -381,9 +370,9 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as an integer.
-     * @param mixed $value the value to be formatted
-     * @return string the formatting result.
+     * 格式化值成为整型
+     * @param mixed $value 要格式化的值
+     * @return string 格式化的结果
      */
     public function asInteger($value)
     {
@@ -400,11 +389,11 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as a double number.
-     * Property [[decimalSeparator]] will be used to represent the decimal point.
-     * @param mixed $value the value to be formatted
-     * @param integer $decimals the number of digits after the decimal point
-     * @return string the formatting result.
+     * 格式化值为双精度数字
+     * 属性[[decimalSeparator]]将用来表示小数点
+     * @param mixed $value 要格式化的值
+     * @param integer $decimals 小数点后的位数
+     * @return string 格式化的结果
      * @see decimalSeparator
      */
     public function asDouble($value, $decimals = 2)
@@ -420,11 +409,11 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as a number with decimal and thousand separators.
-     * This method calls the PHP number_format() function to do the formatting.
-     * @param mixed $value the value to be formatted
-     * @param integer $decimals the number of digits after the decimal point
-     * @return string the formatted result
+     * 格式化值为带小数和千位分隔符的数字
+     * 这个方法会调用 PHP number_format() 函数来进行格式化
+     * @param mixed $value 要格式化的值
+     * @param integer $decimals 小数点后的位数
+     * @return string 格式化的结果
      * @see decimalSeparator
      * @see thousandSeparator
      */
@@ -440,11 +429,11 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value in bytes as a size in human readable form.
-     * @param integer $value value in bytes to be formatted
-     * @param boolean $verbose if full names should be used (e.g. bytes, kilobytes, ...).
-     * Defaults to false meaning that short names will be used (e.g. B, KB, ...).
-     * @return string the formatted result
+     * 格式化字节值变为人类可读形式的大小
+     * @param integer $value 要格式化的字节值
+     * @param boolean $verbose 是否使用全名(如 bytes, kilobytes, ...).
+     * 默认为 false 即使用缩写(如 B, KB, ...).
+     * @return string 格式化结果
      * @see sizeFormat
      */
     public function asSize($value, $verbose = false)
@@ -481,18 +470,17 @@ class Formatter extends Component
     }
 
     /**
-     * Formats the value as the time interval between a date and now in human readable form.
+     * 格式化值成为人类可读的某个日期和当前日期的时间间隔
      *
-     * @param integer|string|DateTime|\DateInterval $value the value to be formatted. The following
-     * types of value are supported:
+     * @param integer|string|DateTime|\DateInterval $value 要格式化的值，支持以下格式：
      *
-     * - an integer representing a UNIX timestamp
-     * - a string that can be parsed into a UNIX timestamp via `strtotime()` or that can be passed to a DateInterval constructor.
-     * - a PHP DateTime object
-     * - a PHP DateInterval object (a positive time interval will refer to the past, a negative one to the future)
+     * - 代表 UNIX 时间戳的整型
+     * - 可通过`strtotime()`解析为 UNIX 时间戳或可传递到 DateInterval 构造函数的字符串
+     * - PHP DateTime 对象
+     * - PHP DateInterval 对象(正的时间间隔表示过去，负的时间间隔表示将来)
      *
-     * @param integer|string|DateTime|\DateInterval $referenceTime if specified the value is used instead of now
-     * @return string the formatted result
+     * @param integer|string|DateTime|\DateInterval $referenceTime 如果指定的值用来取代现在
+     * @return string 格式化的结果
      */
     public function asRelativeTime($value, $referenceTime = null)
     {

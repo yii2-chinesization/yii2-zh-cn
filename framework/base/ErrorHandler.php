@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140510
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -11,10 +15,10 @@ use Yii;
 use yii\web\HttpException;
 
 /**
- * ErrorHandler handles uncaught PHP errors and exceptions.
+ * ErrorHandler （错误处理器，又称为错误处理句柄）处理未捕获的 PHP 错误和异常
  *
- * ErrorHandler is configured as an application component in [[\yii\base\Application]] by default.
- * You can access that instance via `Yii::$app->errorHandler`.
+ * ErrorHandler 默认在[[\yii\base\Application]]配置为一个应用组件，
+ * 你可以通过`Yii::$app->errorHandler`来访问该实例。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @author Alexander Makarov <sam@rmcreative.ru>
@@ -24,29 +28,27 @@ use yii\web\HttpException;
 abstract class ErrorHandler extends Component
 {
     /**
-     * @var boolean whether to discard any existing page output before error display. Defaults to true.
+     * @var boolean 是否在错误显示前丢弃任何现有的页面输出，默认为 true
      */
     public $discardExistingOutput = true;
     /**
-     * @var integer the size of the reserved memory. A portion of memory is pre-allocated so that
-     * when an out-of-memory issue occurs, the error handler is able to handle the error with
-     * the help of this reserved memory. If you set this value to be 0, no memory will be reserved.
-     * Defaults to 256KB.
+     * @var integer 保留的内存大小，一部分内存已预先分配，这样当出现内存不足的问题时，
+     * 错误处理器才能在预留内存的帮助下处理错误。如果该值设置为 0 ，将没有内存被保留。默认为 256KB
      */
     public $memoryReserveSize = 262144;
     /**
-     * @var \Exception the exception that is being handled currently.
+     * @var \Exception 当前正在处理的异常
      */
     public $exception;
 
     /**
-     * @var string Used to reserve memory for fatal error handler.
+     * @var string 用来为致命错误处理器预留内存
      */
     private $_memoryReserve;
 
 
     /**
-     * Register this error handler
+     * 注册此错误处理器
      */
     public function register()
     {
@@ -60,11 +62,11 @@ abstract class ErrorHandler extends Component
     }
 
     /**
-     * Handles uncaught PHP exceptions.
+     * 处理未捕获的 PHP 异常
      *
-     * This method is implemented as a PHP exception handler.
+     * 此方法被实现为 PHP 异常处理器
      *
-     * @param \Exception $exception the exception that is not caught
+     * @param \Exception $exception 未捕获的异常
      */
     public function handleException($exception)
     {
@@ -107,14 +109,14 @@ abstract class ErrorHandler extends Component
     }
 
     /**
-     * Handles PHP execution errors such as warnings and notices.
+     * 处理 PHP 执行错误，如警告和注意
      *
-     * This method is used as a PHP error handler. It will simply raise an [[ErrorException]].
+     * 此方法用作 PHP 错误处理器，它将简单地引发一个[[ErrorException]].
      *
-     * @param integer $code the level of the error raised.
-     * @param string $message the error message.
-     * @param string $file the filename that the error was raised in.
-     * @param integer $line the line number the error was raised at.
+     * @param integer $code 引发的错误级别
+     * @param string $message 错误消息
+     * @param string $file 引发错误的文件名
+     * @param integer $line 引发错误的行号
      *
      * @throws ErrorException
      */
@@ -143,7 +145,7 @@ abstract class ErrorHandler extends Component
     }
 
     /**
-     * Handles fatal PHP errors
+     * 处理 PHP 致命错误
      */
     public function handleFatalError()
     {
@@ -173,14 +175,14 @@ abstract class ErrorHandler extends Component
     }
 
     /**
-     * Renders the exception.
-     * @param \Exception $exception the exception to be rendered.
+     * 渲染异常
+     * @param \Exception $exception 要渲染的异常
      */
     abstract protected function renderException($exception);
 
     /**
-     * Logs the given exception
-     * @param \Exception $exception the exception to be logged
+     * 记录给定异常
+     * @param \Exception $exception 要记录的异常
      */
     protected function logException($exception)
     {
@@ -194,7 +196,7 @@ abstract class ErrorHandler extends Component
     }
 
     /**
-     * Removes all output echoed before calling this method.
+     * 清除调用此方法前的所有输出
      */
     public function clearOutput()
     {
@@ -207,11 +209,10 @@ abstract class ErrorHandler extends Component
     }
 
     /**
-     * Converts an exception into a PHP error.
+     * 将异常转变为 PHP 错误
      *
-     * This method can be used to convert exceptions inside of methods like `__toString()`
-     * to PHP errors because exceptions cannot be thrown inside of them.
-     * @param \Exception $exception the exception to convert to a PHP error.
+     * 此方法用于将类似`__toString()`方法内的异常转变为 PHP 错误，因为异常不能在它们内部抛出。
+     * @param \Exception $exception 要转变为 PHP 错误的异常
      */
     public static function convertExceptionToError($exception)
     {
@@ -219,9 +220,9 @@ abstract class ErrorHandler extends Component
     }
 
     /**
-     * Converts an exception into a simple string.
-     * @param \Exception $exception the exception being converted
-     * @return string the string representation of the exception.
+     * 把异常转变为简单的字符串
+     * @param \Exception $exception 要转换的异常
+     * @return string 代表异常的字符串
      */
     public static function convertExceptionToString($exception)
     {

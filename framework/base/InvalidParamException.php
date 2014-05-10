@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140510
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -8,7 +12,7 @@
 namespace yii\base;
 
 /**
- * InvalidParamException represents an exception caused by invalid parameters passed to a method.
+ * InvalidParamException（无效参数异常）代表由传递无效参数给方法所引起的异常
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -16,7 +20,7 @@ namespace yii\base;
 class InvalidParamException extends \BadMethodCallException
 {
     /**
-     * @return string the user-friendly name of this exception
+     * @return string 人性化的异常名称
      */
     public function getName()
     {

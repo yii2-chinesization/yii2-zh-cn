@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140509
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -13,10 +17,9 @@ use yii\web\Link;
 use yii\web\Linkable;
 
 /**
- * ArrayableTrait provides a common implementation of the [[Arrayable]] interface.
+ * ArrayableTrait 提供了[[Arrayable]]接口的公共实现
  *
- * ArrayableTrait implements [[toArray()]] by respecting the field definitions as declared
- * in [[fields()]] and [[extraFields()]].
+ * ArrayableTrait 通过遵守[[fields()]]和[[extraFields()]]所声明的字段定义来实现[[toArray()]]
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -24,29 +27,26 @@ use yii\web\Linkable;
 trait ArrayableTrait
 {
     /**
-     * Returns the list of fields that should be returned by default by [[toArray()]] when no specific fields are specified.
+     * 当没有特定字段被指定时返回默认由[[toArray()]]返回的字段列表
      *
-     * A field is a named element in the returned array by [[toArray()]].
+     * 一个字段是[[toArray()]]返回的数组中的指定元素
      *
-     * This method should return an array of field names or field definitions.
-     * If the former, the field name will be treated as an object property name whose value will be used
-     * as the field value. If the latter, the array key should be the field name while the array value should be
-     * the corresponding field definition which can be either an object property name or a PHP callable
-     * returning the corresponding field value. The signature of the callable should be:
+     * 本方法应返回字段名或字段定义的数组，如果是前者，字段名将视为对象属性名，其值用作字段值；
+     * 如果是后者，数组键作为字段名而数组值作为对应的字段定义，
+     * 可以是对象属性名或返回对应字段值的 PHP 回调函数，回调函数的标志是：
      *
      * ```php
      * function ($field, $model) {
-     *     // return field value
+     *     // 返回字段值
      * }
      * ```
      *
-     * For example, the following code declares four fields:
+     * 如，以下代码声明了四个字段：
      *
-     * - `email`: the field name is the same as the property name `email`;
-     * - `firstName` and `lastName`: the field names are `firstName` and `lastName`, and their
-     *   values are obtained from the `first_name` and `last_name` properties;
-     * - `fullName`: the field name is `fullName`. Its value is obtained by concatenating `first_name`
-     *   and `last_name`.
+     * - `email`：字段名等于属性名`email`；
+     * - `firstName` 和 `lastName`：字段名是`firstName` 和 `lastName`，
+     *   而它们的值从`first_name`和`last_name`属性获取；
+     * - `fullName`：字段名是`fullName`，它的值通过连接`first_name`和`last_name`获得。
      *
      * ```php
      * return [
@@ -59,13 +59,12 @@ trait ArrayableTrait
      * ];
      * ```
      *
-     * In this method, you may also want to return different lists of fields based on some context
-     * information. For example, depending on the privilege of the current application user,
-     * you may return different sets of visible fields or filter out some fields.
+     * 在此方法中，你也想基于一些上下文信息返回不同的字段列表，
+     * 如，根据当前应用的用户权限，你想返回一套可见性不同的字段或过滤掉一些字段。
      *
-     * The default implementation of this method returns the public object member variables.
+     * 此方法的默认实现是返回对象的公共成员变量
      *
-     * @return array the list of field names or field definitions.
+     * @return array 字段名或字段定义的列表
      * @see toArray()
      */
     public function fields()
@@ -76,20 +75,16 @@ trait ArrayableTrait
     }
 
     /**
-     * Returns the list of fields that can be expanded further and returned by [[toArray()]].
+     * 返回由[[toArray()]]返回的可进一步扩展的字段列表
      *
-     * This method is similar to [[fields()]] except that the list of fields returned
-     * by this method are not returned by default by [[toArray()]]. Only when field names
-     * to be expanded are explicitly specified when calling [[toArray()]], will their values
-     * be exported.
+     * 本方法类似于[[fields()]]，除了本方法返回的字段列表默认不是由[[toArray()]]所返回，
+     * 只有当要扩展的字段名在调用[[toArray()]]时显式指定，它们的值才会输出。
      *
-     * The default implementation returns an empty array.
+     * 默认实现返回了空数组
      *
-     * You may override this method to return a list of expandable fields based on some context information
-     * (e.g. the current application user).
+     * 你可以覆写本方法以基于某些上下文信息（如应用当前用户）来返回可扩展的字段列表。
      *
-     * @return array the list of expandable field names or field definitions. Please refer
-     * to [[fields()]] on the format of the return value.
+     * @return array 可扩展的字段名或字段定义的列表，请参阅[[fields()]]以了解更多返回值的格式
      * @see toArray()
      * @see fields()
      */
@@ -99,20 +94,17 @@ trait ArrayableTrait
     }
 
     /**
-     * Converts the model into an array.
+     * 将模型转换为数组
      *
-     * This method will first identify which fields to be included in the resulting array by calling [[resolveFields()]].
-     * It will then turn the model into an array with these fields. If `$recursive` is true,
-     * any embedded objects will also be converted into arrays.
+     * 此方法首先通过调用[[resolveFields()]]来区分哪个字段要包括到输出数组，
+     * 然后它用这些字段把模型转变为数组，如果`$recursive` 为 true ，所有嵌入的对象也被转变成数组。
      *
-     * If the model implements the [[Linkable]] interface, the resulting array will also have a `_link` element
-     * which refers to a list of links as specified by the interface.
+     * 如果模型实现了[[Linkable]]接口，输出的数组也会有`_link`元素来代表接口所指定的链接列表
      *
-     * @param array $fields the fields being requested. If empty, all fields as specified by [[fields()]] will be returned.
-     * @param array $expand the additional fields being requested for exporting. Only fields declared in [[extraFields()]]
-     * will be considered.
-     * @param boolean $recursive whether to recursively return array representation of embedded objects.
-     * @return array the array representation of the object
+     * @param array $fields 被请求的字段，如为空，在[[fields()]]指定的所有字段将被返回
+     * @param array $expand 为输出而被请求的附加字段，只有声明在[[extraFields()]]的字段才会被注意
+     * @param boolean $recursive 是否递归返回嵌入对象的数组表示
+     * @return array 对象的数组表示
      */
     public function toArray(array $fields = [], array $expand = [], $recursive = true)
     {
@@ -129,13 +121,12 @@ trait ArrayableTrait
     }
 
     /**
-     * Determines which fields can be returned by [[toArray()]].
-     * This method will check the requested fields against those declared in [[fields()]] and [[extraFields()]]
-     * to determine which fields can be returned.
-     * @param array $fields the fields being requested for exporting
-     * @param array $expand the additional fields being requested for exporting
-     * @return array the list of fields to be exported. The array keys are the field names, and the array values
-     * are the corresponding object property names or PHP callables returning the field values.
+     * 确定[[toArray()]]返回哪些字段
+     * 本方法将核对被请求字段和声明在[[fields()]]和[[extraFields()]]的字段以确定哪些字段被返回
+     * @param array $fields 被请求输出的字段
+     * @param array $expand 被请求输出的附加字段
+     * @return array 要输出的字段列表，数组键是字段名，
+     * 而数组值是相应的对象属性名或返回字段值的 PHP 回调函数
      */
     protected function resolveFields(array $fields, array $expand)
     {

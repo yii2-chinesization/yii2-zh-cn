@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140509
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -8,10 +12,10 @@
 namespace yii\base;
 
 /**
- * ArrayAccessTrait provides the implementation for [[\IteratorAggregate]], [[\ArrayAccess]] and [[\Countable]].
+ * ArrayAccessTrait 实现了[[\IteratorAggregate]], [[\ArrayAccess]]和[[\Countable]]。
  *
- * Note that ArrayAccessTrait requires the class using it contain a property named `data` which should be an array.
- * The data will be exposed by ArrayAccessTrait to support accessing the class object like an array.
+ * 注意 ArrayAccessTrait 要求使用它的类包括一个数组形式的名为`data`的属性，
+ * 此数据将被 ArrayAccessTrait 暴露以支持如数组般访问类对象
  *
  * @property array $data
  *
@@ -21,10 +25,9 @@ namespace yii\base;
 trait ArrayAccessTrait
 {
     /**
-     * Returns an iterator for traversing the data.
-     * This method is required by the SPL interface `IteratorAggregate`.
-     * It will be implicitly called when you use `foreach` to traverse the collection.
-     * @return \ArrayIterator an iterator for traversing the cookies in the collection.
+     * 返回一个迭代器来遍历数据
+     * 此方法被 SPL 接口`IteratorAggregate`所要求，它在你使用`foreach`遍历集合时将隐式调用
+     * @return \ArrayIterator 为遍历集合的 cookies 而新创建的数组迭代器对象
      */
     public function getIterator()
     {
@@ -32,9 +35,9 @@ trait ArrayAccessTrait
     }
 
     /**
-     * Returns the number of data items.
-     * This method is required by Countable interface.
-     * @return integer number of data elements.
+     * 返回数据项的数量
+     * 此方法被 Countable 接口所要求
+     * @return integer 数据元素的数目
      */
     public function count()
     {
@@ -42,8 +45,8 @@ trait ArrayAccessTrait
     }
 
     /**
-     * This method is required by the interface ArrayAccess.
-     * @param mixed $offset the offset to check on
+     * 此方法被 ArrayAccess 接口所要求
+     * @param mixed $offset 开始检查的偏移量
      * @return boolean
      */
     public function offsetExists($offset)
@@ -52,9 +55,9 @@ trait ArrayAccessTrait
     }
 
     /**
-     * This method is required by the interface ArrayAccess.
-     * @param integer $offset the offset to retrieve element.
-     * @return mixed the element at the offset, null if no element is found at the offset
+     * 此方法被 ArrayAccess 接口所要求
+     * @param integer $offset 检索元素的偏移量
+     * @return mixed 偏移量上的元素，如果在偏移量没有找到元素就返回 null
      */
     public function offsetGet($offset)
     {
@@ -62,9 +65,9 @@ trait ArrayAccessTrait
     }
 
     /**
-     * This method is required by the interface ArrayAccess.
-     * @param integer $offset the offset to set element
-     * @param mixed $item the element value
+     * 此方法被 ArrayAccess 接口所要求
+     * @param integer $offset 设置元素的偏移量
+     * @param mixed $item 元素值
      */
     public function offsetSet($offset, $item)
     {
@@ -72,8 +75,8 @@ trait ArrayAccessTrait
     }
 
     /**
-     * This method is required by the interface ArrayAccess.
-     * @param mixed $offset the offset to unset element
+     * 此方法被 ArrayAccess 接口所要求
+     * @param mixed $offset 清除（unset）元素的偏移量
      */
     public function offsetUnset($offset)
     {

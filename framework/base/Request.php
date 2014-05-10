@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140510
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -10,10 +14,10 @@ namespace yii\base;
 use Yii;
 
 /**
- * Request represents a request that is handled by an [[Application]].
+ * Request（请求类）代表由[[Application]]处理的一个请求
  *
- * @property boolean $isConsoleRequest The value indicating whether the current request is made via console.
- * @property string $scriptFile Entry script file path (processed w/ realpath()).
+ * @property boolean $isConsoleRequest 此值表明当前请求是否由控制台发出
+ * @property string $scriptFile 入口脚本文件路径(processed w/ realpath()).
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -24,14 +28,14 @@ abstract class Request extends Component
     private $_isConsoleRequest;
 
     /**
-     * Resolves the current request into a route and the associated parameters.
-     * @return array the first element is the route, and the second is the associated parameters.
+     * 解析当前请求到路由和相关参数
+     * @return array 第一个元素是路由，第二个是相关参数
      */
     abstract public function resolve();
 
     /**
-     * Returns a value indicating whether the current request is made via command line
-     * @return boolean the value indicating whether the current request is made via console
+     * 返回一个值表明当前请求是否由命令行发出
+     * @return boolean 该值指明当前请求是否由控制台发出
      */
     public function getIsConsoleRequest()
     {
@@ -39,8 +43,8 @@ abstract class Request extends Component
     }
 
     /**
-     * Sets the value indicating whether the current request is made via command line
-     * @param boolean $value the value indicating whether the current request is made via command line
+     * 设置一个值来表明当前请求是否由命令行发出
+     * @param boolean $value 一个表明当前请求是否由命令行发出的值
      */
     public function setIsConsoleRequest($value)
     {
@@ -48,9 +52,9 @@ abstract class Request extends Component
     }
 
     /**
-     * Returns entry script file path.
-     * @return string entry script file path (processed w/ realpath())
-     * @throws InvalidConfigException if the entry script file path cannot be determined automatically.
+     * 返回入口脚本文件路径
+     * @return string 入口脚本文件路径(processed w/ realpath())
+     * @throws InvalidConfigException 如果入口脚本文件路径不能自动确定
      */
     public function getScriptFile()
     {
@@ -66,12 +70,11 @@ abstract class Request extends Component
     }
 
     /**
-     * Sets the entry script file path.
-     * The entry script file path can normally be determined based on the `SCRIPT_FILENAME` SERVER variable.
-     * However, for some server configurations, this may not be correct or feasible.
-     * This setter is provided so that the entry script file path can be manually specified.
-     * @param string $value the entry script file path. This can be either a file path or a path alias.
-     * @throws InvalidConfigException if the provided entry script file path is invalid.
+     * 设置入口脚本文件路径
+     * 入口脚本文件路径通常基于`SCRIPT_FILENAME` SERVER 变量确定，然而，有些服务器配置，这并不正确或可行。
+     * 本 setter 方法提供来便于手工指定入口脚本文件路径。
+     * @param string $value 入口脚本文件路径，既可是文件路径又可是路径别名
+     * @throws InvalidConfigException 如果提供的入口脚本文件路径无效
      */
     public function setScriptFile($value)
     {

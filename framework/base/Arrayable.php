@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140509
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -8,14 +12,11 @@
 namespace yii\base;
 
 /**
- * Arrayable is the interface that should be implemented by classes who want to support customizable representation of their instances.
+ * Arrayable 是某些类要实现的接口，这些类的实例想实现自定义的表现形式。
  *
- * For example, if a class implements Arrayable, by calling [[toArray()]], an instance of this class
- * can be turned into an array (including all its embedded objects) which can then be further transformed easily
- * into other formats, such as JSON, XML.
+ * 例如，如果一个类通过调用[[toArray()]]实现了 Arrayable 接口，此类的实例可以转变为一个数组(包括所有嵌入的对象)，然后可以更容易进一步转变到其他格式，如 JSON, XML 。
  *
- * The methods [[fields()]] and [[extraFields()]] allow the implementing classes to customize how and which of their data
- * should be formatted and put into the result of [[toArray()]].
+ * 方法[[fields()]]和[[extraFields()]]允许实现类自定义它们的哪些数据怎样格式化并放入[[toArray()]]的结果里。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -23,29 +24,26 @@ namespace yii\base;
 interface Arrayable
 {
     /**
-     * Returns the list of fields that should be returned by default by [[toArray()]] when no specific fields are specified.
+     * 返回字段（field）列表，当没有指定特定字段时，它们默认由[[toArray()]]返回
      *
-     * A field is a named element in the returned array by [[toArray()]].
+     * 一个字段是由[[toArray()]]返回的数组中的指定元素
      *
-     * This method should return an array of field names or field definitions.
-     * If the former, the field name will be treated as an object property name whose value will be used
-     * as the field value. If the latter, the array key should be the field name while the array value should be
-     * the corresponding field definition which can be either an object property name or a PHP callable
-     * returning the corresponding field value. The signature of the callable should be:
+     * 本方法将返回字段名或定义字段的数组，如果是前者，field 名将视为对象属性名，
+     * 属性值将用作字段值，如果是后者，数组键是字段名而数组值是相应的字段定义，
+     * 即可以是对象属性名也可以是返回对应字段值的 PHP 回调函数，回调函数的标识是：
      *
      * ```php
      * function ($field, $model) {
-     *     // return field value
+     *     // 返回字段值
      * }
      * ```
      *
-     * For example, the following code declares four fields:
+     * 如，以下代码声明了四个 fields ：
      *
-     * - `email`: the field name is the same as the property name `email`;
-     * - `firstName` and `lastName`: the field names are `firstName` and `lastName`, and their
-     *   values are obtained from the `first_name` and `last_name` properties;
-     * - `fullName`: the field name is `fullName`. Its value is obtained by concatenating `first_name`
-     *   and `last_name`.
+     * - `email`：字段名等同于属性名`email`；
+     * - `firstName` 和 `lastName`：字段名是`firstName` 和 `lastName`，
+     *   而它们的值从`first_name`和`last_name`属性获取；
+     * - `fullName`：字段名是`fullName`，它的值通过连接`first_name`和`last_name`获得。
      *
      * ```php
      * return [
@@ -58,33 +56,30 @@ interface Arrayable
      * ];
      * ```
      *
-     * @return array the list of field names or field definitions.
+     * @return array 字段名或字段定义的列表
      * @see toArray()
      */
     public function fields();
     /**
-     * Returns the list of additional fields that can be returned by [[toArray()]] in addition to those listed in [[fields()]].
+     * 返回其他字段列表，由[[toArray()]]返回但未列入[[fields()]]
      *
-     * This method is similar to [[fields()]] except that the list of fields declared
-     * by this method are not returned by default by [[toArray()]]. Only when a field in the list
-     * is explicitly requested, will it be included in the result of [[toArray()]].
+     * 此方法类似于[[fields()]]，除了此方法声明的字段列表不是默认由[[toArray()]]返回，
+     * 只有当此列表的字段是显式请求时，它才被包括到[[toArray()]]的结果中。
      *
-     * @return array the list of expandable field names or field definitions. Please refer
-     * to [[fields()]] on the format of the return value.
+     * @return array 可扩展的字段名或字段定义的列表，请参阅[[fields()]]了解返回值的格式
      * @see toArray()
      * @see fields()
      */
     public function extraFields();
     /**
-     * Converts the object into an array.
+     * 把对象转换成数组
      *
-     * @param array $fields the fields that the output array should contain. Fields not specified
-     * in [[fields()]] will be ignored. If this parameter is empty, all fields as specified in [[fields()]] will be returned.
-     * @param array $expand the additional fields that the output array should contain.
-     * Fields not specified in [[extraFields()]] will be ignored. If this parameter is empty, no extra fields
-     * will be returned.
-     * @param boolean $recursive whether to recursively return array representation of embedded objects.
-     * @return array the array representation of the object
+     * @param array $fields 输出数组要包含的字段，未指定在[[fields()]]的字段将被忽略，
+     * 如果此参数为空，所有指定在[[fields()]]的字段将被返回。
+     * @param array $expand 输出数组要包含的附加字段，未指定在[[extraFields()]]的字段将被忽略，
+     * 如果此参数为空，*没有附加字段*被返回。
+     * @param boolean $recursive 是否递归返回嵌套对象的数组表示
+     * @return array 对象的数组表示
      */
     public function toArray(array $fields = [], array $expand = [], $recursive = true);
 }

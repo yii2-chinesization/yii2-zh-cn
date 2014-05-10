@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140510
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -8,7 +12,7 @@
 namespace yii\base;
 
 /**
- * Response represents the response of an [[Application]] to a [[Request]].
+ * Response（响应类）代表[[Application]]对[[Request]]的响应。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -16,20 +20,20 @@ namespace yii\base;
 class Response extends Component
 {
     /**
-     * @var integer the exit status. Exit statuses should be in the range 0 to 254.
-     * The status 0 means the program terminates successfully.
+     * @var integer 退出状态，退出状态可以是 0 至 254 之间
+     * 状态 0 指程序终止成功
      */
     public $exitStatus = 0;
 
     /**
-     * Sends the response to client.
+     * 发送响应到客户端
      */
     public function send()
     {
     }
 
     /**
-     * Removes all existing output buffers.
+     * 清除所有现存输出缓冲器
      */
     public function clearOutputBuffers()
     {
