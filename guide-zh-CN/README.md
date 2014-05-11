@@ -43,20 +43,20 @@ Yii 2.0 权威指南
 介绍
 -----
 
-* 【已校对-20140430】[关于 Yii](intro-yii.md)
-* 【已更新|未校对-20140502】[从 Yii 1.1 升级](intro-upgrade-from-v1.md)
+* **已完成**【需更新-20140505|已校对-20140430】[关于 Yii](intro-yii.md)
+* **已完成**【需更新|未校对-20140502】[从 Yii 1.1 升级](intro-upgrade-from-v1.md)
 
 
 入门
 -----
 
-* [安装 Yii](start-installation.md)
-* [运行应用](start-workflow.md)
-* [第一次问候](start-hello.md)
-* [使用 Forms](start-forms.md)
-* [玩转 Databases](start-databases.md)
-* [用 Gii 生成代码](start-gii.md)
-* [更上一层楼](start-looking-head.md)
+* **已完成**【待翻译-20140510】[安装 Yii](start-installation.md)
+* **已完成**【待翻译-20140510】[运行应用](start-workflow.md)
+* **已完成**【待翻译-20140510】[第一次问候](start-hello.md)
+* **已完成**【待翻译-20140510】[使用 Forms](start-forms.md)
+* **已完成**【待翻译-20140510】[玩转 Databases](start-databases.md)
+* **已完成**【待翻译-20140510】[用 Gii 生成代码](start-gii.md)
+* **已完成**【待翻译-20140510】[更上一层楼](start-looking-head.md)
 
 应用结构
 --------
