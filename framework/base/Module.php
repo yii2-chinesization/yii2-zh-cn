@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140510
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -11,26 +15,22 @@ use Yii;
 use yii\di\ServiceLocator;
 
 /**
- * Module is the base class for module and application classes.
+ * Module（模块）是所有模块和应用类的基类
  *
- * A module represents a sub-application which contains MVC elements by itself, such as
- * models, views, controllers, etc.
+ * 一个模块表示一个子应用，自身包括了 MVC 元素，如模型，视图和控制器等。
  *
- * A module may consist of [[modules|sub-modules]].
+ * 一个模块可以包括[[modules|sub-modules]]。
  *
- * [[components|Components]] may be registered with the module so that they are globally
- * accessible within the module.
+ * [[components|Components]] 可以注册到模块使他们能在模块范围内全局访问。
  *
- * @property array $aliases List of path aliases to be defined. The array keys are alias names (must start
- * with '@') and the array values are the corresponding paths or aliases. See [[setAliases()]] for an example.
- * This property is write-only.
- * @property string $basePath The root directory of the module.
- * @property string $controllerPath The directory that contains the controller classes. This property is
- * read-only.
- * @property string $layoutPath The root directory of layout files. Defaults to "[[viewPath]]/layouts".
- * @property array $modules The modules (indexed by their IDs).
- * @property string $uniqueId The unique ID of the module. This property is read-only.
- * @property string $viewPath The root directory of view files. Defaults to "[[basePath]]/view".
+ * @property array $aliases 要定义的路径别名列表，数组键是别名(必须以'@'开头)，
+ * 而数组值是对应的路径或别名，[[setAliases()]]查看示例，本属性是只写的。
+ * @property string $basePath 此模块根目录
+ * @property string $controllerPath 控制器类目录，只读属性。
+ * @property string $layoutPath 布局文件根目录，缺省为"[[viewPath]]/layouts"
+ * @property array $modules 模块(以 ID 为索引)
+ * @property string $uniqueId 模块的唯一 ID ，只读属性
+ * @property string $viewPath 视图文件根目录，缺省为"[[basePath]]/view"
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -38,41 +38,38 @@ use yii\di\ServiceLocator;
 class Module extends ServiceLocator
 {
     /**
-     * @event ActionEvent an event raised before executing a controller action.
-     * You may set [[ActionEvent::isValid]] to be false to cancel the action execution.
+     * @event ActionEvent 在执行控制器动作前唤起的事件
+     * 可设置[[ActionEvent::isValid]]为 false 来取消动作的执行
      */
     const EVENT_BEFORE_ACTION = 'beforeAction';
     /**
-     * @event ActionEvent an event raised after executing a controller action.
+     * @event ActionEvent 在控制器动作执行后唤起的事件
      */
     const EVENT_AFTER_ACTION = 'afterAction';
 
     /**
-     * @var array custom module parameters (name => value).
+     * @var array 自定义模块参数(name => value).
      */
     public $params = [];
     /**
-     * @var string an ID that uniquely identifies this module among other modules which have the same [[module|parent]].
+     * @var string 把此模块从有相同父模块[[module|parent]]的模块中区分出来的唯一 ID
      */
     public $id;
     /**
-     * @var Module the parent module of this module. Null if this module does not have a parent.
+     * @var Module 此模块的父模块，如果此模块没有父模块就是 Null
      */
     public $module;
     /**
-     * @var string|boolean the layout that should be applied for views within this module. This refers to a view name
-     * relative to [[layoutPath]]. If this is not set, it means the layout value of the [[module|parent module]]
-     * will be taken. If this is false, layout will be disabled within this module.
+     * @var string|boolean 要应用到此模块视图的布局，此属性引用[[layoutPath]]相关的一个视图名。
+     * 如果本属性未设置，将使用父模块[[module|parent module]]的布局值，如果是 false ，此模块禁用布局。
      */
     public $layout;
     /**
-     * @var array mapping from controller ID to controller configurations.
-     * Each name-value pair specifies the configuration of a single controller.
-     * A controller configuration can be either a string or an array.
-     * If the former, the string should be the fully qualified class name of the controller.
-     * If the latter, the array must contain a 'class' element which specifies
-     * the controller's fully qualified class name, and the rest of the name-value pairs
-     * in the array are used to initialize the corresponding controller properties. For example,
+     * @var array 从控制器 ID 映射到控制器配置
+     * 每个名值对指定单个控制器的配置，控制器配置是字符串或数组，
+     * 如果是前者，字符串必须是控制器的完全限定类名；
+     * 如果是后者，数组必须包括指定控制器完全限定类名的'class'元素，
+     * 且其它名值对用于初始化对应控制器的属性，例如：
      *
      * ~~~
      * [
@@ -86,43 +83,40 @@ class Module extends ServiceLocator
      */
     public $controllerMap = [];
     /**
-     * @var string the namespace that controller classes are in. If not set,
-     * it will use the "controllers" sub-namespace under the namespace of this module.
-     * For example, if the namespace of this module is "foo\bar", then the default
-     * controller namespace would be "foo\bar\controllers".
+     * @var string 控制器类所在的命名空间，如果未设置，将使用本模块命名空间下的"controllers" 子命名空间
+     * 例如，如果本模块的命名空间是"foo\bar"，那么默认的控制器命名空间是"foo\bar\controllers"。
      */
     public $controllerNamespace;
     /**
-     * @var string the default route of this module. Defaults to 'default'.
-     * The route may consist of child module ID, controller ID, and/or action ID.
-     * For example, `help`, `post/create`, `admin/post/create`.
-     * If action ID is not given, it will take the default value as specified in
-     * [[Controller::defaultAction]].
+     * @var string 本模块的默认路由，缺省为'default'
+     * 路由包括子模块 ID，控制器 ID 和动作 ID
+     * 例如：`help`, `post/create`, `admin/post/create`.
+     * 如果未给定动作 ID ，将用指定在[[Controller::defaultAction]]的默认值
      */
     public $defaultRoute = 'default';
     /**
-     * @var string the root directory of the module.
+     * @var string 本模块的根目录
      */
     private $_basePath;
     /**
-     * @var string the root directory that contains view files for this module
+     * @var string 本模块的视图根目录
      */
     private $_viewPath;
     /**
-     * @var string the root directory that contains layout view files for this module.
+     * @var string 本模块的布局根目录
      */
     private $_layoutPath;
     /**
-     * @var array child modules of this module
+     * @var array 本模块的子模块
      */
     private $_modules = [];
 
 
     /**
-     * Constructor.
-     * @param string $id the ID of this module
-     * @param Module $parent the parent module (if any)
-     * @param array $config name-value pairs that will be used to initialize the object properties
+     * 构造函数
+     * @param string $id 本模块的 ID
+     * @param Module $parent 父模块(如果有)
+     * @param array $config 用于初始化对象属性的名值对
      */
     public function __construct($id, $parent = null, $config = [])
     {
@@ -132,13 +126,12 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Initializes the module.
+     * 初始化模块
      *
-     * This method is called after the module is created and initialized with property values
-     * given in configuration. The default implementation will initialize [[controllerNamespace]]
-     * if it is not set.
+     * 本方法在模块创建和以给定配置初始化属性值后调用，
+     * 默认实现将初始化[[controllerNamespace]]，如果它未设置
      *
-     * If you override this method, please make sure you call the parent implementation.
+     * 如果你覆写本方法，请确保你调用了父类实现。
      */
     public function init()
     {
@@ -151,9 +144,9 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Returns an ID that uniquely identifies this module among all modules within the current application.
-     * Note that if the module is an application, an empty string will be returned.
-     * @return string the unique ID of the module.
+     * 返回当前应用中本模块区别于其它模块的唯一 ID
+     * 注意，如果模块是一个应用，将返回空字符串
+     * @return string 本模块的唯一 ID
      */
     public function getUniqueId()
     {
@@ -161,9 +154,9 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Returns the root directory of the module.
-     * It defaults to the directory containing the module class file.
-     * @return string the root directory of the module.
+     * 返回本模块的根目录
+     * 缺省为包含此模块类文件的目录
+     * @return string 本模块的根目录
      */
     public function getBasePath()
     {
@@ -176,10 +169,10 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Sets the root directory of the module.
-     * This method can only be invoked at the beginning of the constructor.
-     * @param string $path the root directory of the module. This can be either a directory name or a path alias.
-     * @throws InvalidParamException if the directory does not exist.
+     * 设置本模块的根目录
+     * 此方法只能在构造函数开始时调用
+     * @param string $path 本模块的根目录，可以是目录名或路径别名
+     * @throws InvalidParamException 如果目录不存在
      */
     public function setBasePath($path)
     {
@@ -193,11 +186,10 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Returns the directory that contains the controller classes according to [[controllerNamespace]].
-     * Note that in order for this method to return a value, you must define
-     * an alias for the root namespace of [[controllerNamespace]].
-     * @return string the directory that contains the controller classes.
-     * @throws InvalidParamException if there is no alias defined for the root namespace of [[controllerNamespace]].
+     * 根据[[controllerNamespace]]返回包含控制器类的目录
+     * 注意为确保此方法能返回一个值，你必须为[[controllerNamespace]]的根命名空间定义一个别名
+     * @return string 控制器类所在目录
+     * @throws InvalidParamException 如果没有为[[controllerNamespace]]的根命名空间定义别名
      */
     public function getControllerPath()
     {
@@ -205,8 +197,8 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Returns the directory that contains the view files for this module.
-     * @return string the root directory of view files. Defaults to "[[basePath]]/view".
+     * 返回本模块的视图文件所在的目录
+     * @return string 视图文件的根目录，缺省为"[[basePath]]/view"
      */
     public function getViewPath()
     {
@@ -218,9 +210,9 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Sets the directory that contains the view files.
-     * @param string $path the root directory of view files.
-     * @throws InvalidParamException if the directory is invalid
+     * 设置视图文件目录
+     * @param string $path 视图文件根目录
+     * @throws InvalidParamException 如果目录无效
      */
     public function setViewPath($path)
     {
@@ -228,8 +220,8 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Returns the directory that contains layout view files for this module.
-     * @return string the root directory of layout files. Defaults to "[[viewPath]]/layouts".
+     * 返回本模块的布局文件目录
+     * @return string 布局文件根目录，缺省为"[[viewPath]]/layouts".
      */
     public function getLayoutPath()
     {
@@ -241,9 +233,9 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Sets the directory that contains the layout files.
-     * @param string $path the root directory of layout files.
-     * @throws InvalidParamException if the directory is invalid
+     * 设置布局文件目录
+     * @param string $path 布局文件根目录
+     * @throws InvalidParamException 如果目录无效
      */
     public function setLayoutPath($path)
     {
@@ -251,20 +243,18 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Defines path aliases.
-     * This method calls [[Yii::setAlias()]] to register the path aliases.
-     * This method is provided so that you can define path aliases when configuring a module.
-     * @property array list of path aliases to be defined. The array keys are alias names
-     * (must start with '@') and the array values are the corresponding paths or aliases.
-     * See [[setAliases()]] for an example.
-     * @param array $aliases list of path aliases to be defined. The array keys are alias names
-     * (must start with '@') and the array values are the corresponding paths or aliases.
-     * For example,
+     * 定义路径别名
+     * 此方法调用[[Yii::setAlias()]]来注册路径别名
+     * 提供本方法是便于你在配置模块时能定义路径别名
+     * @property array 要定义的路径别名列表，数组键是别名(必须以'@'开头)而数组值是相应的路径或别名
+     * 查阅[[setAliases()]]的示例了解详情。
+     * @param array $aliases 要定义的路径别名列表，
+     * 数组键是别名(必须以'@'开头)而数组值是相应的路径或别名，如：
      *
      * ~~~
      * [
-     *     '@models' => '@app/models', // an existing alias
-     *     '@backend' => __DIR__ . '/../backend',  // a directory
+     *     '@models' => '@app/models', // 现有别名
+     *     '@backend' => __DIR__ . '/../backend',  // 目录
      * ]
      * ~~~
      */
@@ -276,11 +266,10 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Checks whether the child module of the specified ID exists.
-     * This method supports checking the existence of both child and grand child modules.
-     * @param string $id module ID. For grand child modules, use ID path relative to this module (e.g. `admin/content`).
-     * @return boolean whether the named module exists. Both loaded and unloaded modules
-     * are considered.
+     * 检查指定 ID 的子模块是否存在
+     * 本方法支持检查子模块和孙模块是否存在
+     * @param string $id 模块 ID ，孙模块的话使用本模块相对的 ID 路径(如`admin/content`)
+     * @return boolean 是否存在指定模块，已加载和未加载的模块都会考虑
      */
     public function hasModule($id)
     {
@@ -295,12 +284,12 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Retrieves the child module of the specified ID.
-     * This method supports retrieving both child modules and grand child modules.
-     * @param string $id module ID (case-sensitive). To retrieve grand child modules,
-     * use ID path relative to this module (e.g. `admin/content`).
-     * @param boolean $load whether to load the module if it is not yet loaded.
-     * @return Module|null the module instance, null if the module does not exist.
+     * 检索指定 ID 的子模块
+     * 本方法支持检索子模块和孙模块
+     * @param string $id 模块 ID (区分大小写)，要检索孙模块，
+     * 使用本模块 ID 的相对路径(如`admin/content`)
+     * @param boolean $load 如果要检索的模块未加载，是否加载
+     * @return Module|null 要检索的模块实例，如果模块不存在返回 null
      * @see hasModule()
      */
     public function getModule($id, $load = true)
@@ -329,15 +318,13 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Adds a sub-module to this module.
-     * @param string $id module ID
-     * @param Module|array|null $module the sub-module to be added to this module. This can
-     * be one of the followings:
+     * 添加子模块到此模块
+     * @param string $id 模块 ID
+     * @param Module|array|null $module 要添加到本模块的子模块，可以是以下之一：
      *
-     * - a [[Module]] object
-     * - a configuration array: when [[getModule()]] is called initially, the array
-     *   will be used to instantiate the sub-module
-     * - null: the named sub-module will be removed from this module
+     * - [[Module]]对象
+     * - 配置数组：当[[getModule()]]调用来初始化时，此数组用于实例化子模块
+     * - null ：指定子模块将从本模块移除
      */
     public function setModule($id, $module)
     {
@@ -349,11 +336,10 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Returns the sub-modules in this module.
-     * @param boolean $loadedOnly whether to return the loaded sub-modules only. If this is set false,
-     * then all sub-modules registered in this module will be returned, whether they are loaded or not.
-     * Loaded modules will be returned as objects, while unloaded modules as configuration arrays.
-     * @return array the modules (indexed by their IDs)
+     * 返回本模块的子模块
+     * @param boolean $loadedOnly 是否只返回已加载的子模块，如果此参数设置为 false ，
+     * 那么将返回本模块的所有已注册子模块,无论是否加载。已加载模块将返回对象，而未加载模块返回配置数组
+     * @return array 模块集 (以 ID 为索引)
      */
     public function getModules($loadedOnly = false)
     {
@@ -372,16 +358,14 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Registers sub-modules in the current module.
+     * 在当前模块注册子模块
      *
-     * Each sub-module should be specified as a name-value pair, where
-     * name refers to the ID of the module and value the module or a configuration
-     * array that can be used to create the module. In the latter case, [[Yii::createObject()]]
-     * will be used to create the module.
+     * 每个子模块都要指定为名值对，其中名引用模块 ID 而值为模块或可用于创建模块的配置数组。
+     * 在后者这样的情况，[[Yii::createObject()]]将被用来创建模块。
      *
-     * If a new sub-module has the same ID as an existing one, the existing one will be overwritten silently.
+     * 如果新的子模块的 ID 和现有模块相同，现有模块将被静悄悄地覆盖。
      *
-     * The following is an example for registering two sub-modules:
+     * 以下是注册两个子模块的一个例子：
      *
      * ~~~
      * [
@@ -393,7 +377,7 @@ class Module extends ServiceLocator
      * ]
      * ~~~
      *
-     * @param array $modules modules (id => module configuration or instances)
+     * @param array $modules 模块集(id => 模块配置或实例)
      */
     public function setModules($modules)
     {
@@ -403,14 +387,13 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Runs a controller action specified by a route.
-     * This method parses the specified route and creates the corresponding child module(s), controller and action
-     * instances. It then calls [[Controller::runAction()]] to run the action with the given parameters.
-     * If the route is empty, the method will use [[defaultRoute]].
-     * @param string $route the route that specifies the action.
-     * @param array $params the parameters to be passed to the action
-     * @return mixed the result of the action.
-     * @throws InvalidRouteException if the requested route cannot be resolved into an action successfully
+     * 运行由路由指定的控制器动作
+     * 本方法解析指定路由并创建相应的子模块、控制器和动作实例，然后它就调用[[Controller::runAction()]]
+     * 以给定参数运行此动作。如果路由为空，本方法将使用[[defaultRoute]]。
+     * @param string $route 指定动作的路由
+     * @param array $params 要传递给动作的参数
+     * @return mixed 动作执行结果
+     * @throws InvalidRouteException 如果被请求的路由不能成功解析到一个动作
      */
     public function runAction($route, $params = [])
     {
@@ -431,26 +414,23 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Creates a controller instance based on the given route.
+     * 基于给定路由创建一个控制器实例
      *
-     * The route should be relative to this module. The method implements the following algorithm
-     * to resolve the given route:
+     * 路由要对应于此模块，本方法实现以下算法来解析给定的路由：
      *
-     * 1. If the route is empty, use [[defaultRoute]];
-     * 2. If the first segment of the route is a valid module ID as declared in [[modules]],
-     *    call the module's `createController()` with the rest part of the route;
-     * 3. If the first segment of the route is found in [[controllerMap]], create a controller
-     *    based on the corresponding configuration found in [[controllerMap]];
-     * 4. The given route is in the format of `abc/def/xyz`. Try either `abc\DefController`
-     *    or `abc\def\XyzController` class within the [[controllerNamespace|controller namespace]].
+     * 1. 如果路由为空，使用[[defaultRoute]]；
+     * 2. 如果路由的第一节是声明在[[modules]]的有效模块 ID ，
+     *    调用模块的`createController()`并传入路由剩下的部分；
+     * 3. 如果路由的第一节可在[[controllerMap]]查找到，基于[[controllerMap]]找到的相应配置创建控制器；
+     * 4. 给定路由是`abc/def/xyz`格式，将在[[controllerNamespace|controller namespace]]
+     * 尝试查找`abc\DefController`或`abc\def\XyzController`类。
      *
-     * If any of the above steps resolves into a controller, it is returned together with the rest
-     * part of the route which will be treated as the action ID. Otherwise, false will be returned.
+     * 如果以上步骤的任何一步解析路由到一个控制器，它将和路由剩下被视为动作 ID 的部分一起返回，
+     * 否则，将返回 false 。
      *
-     * @param string $route the route consisting of module, controller and action IDs.
-     * @return array|boolean If the controller is created successfully, it will be returned together
-     * with the requested action ID. Otherwise false will be returned.
-     * @throws InvalidConfigException if the controller class and its file do not match.
+     * @param string $route 模块、控制器和动作 ID 共同组成的路由
+     * @return array|boolean 如果控制器被成功创建，它将和被请求的动作 ID 一起返回，否则返回 false
+     * @throws InvalidConfigException 如果控制器类和其文件不匹配
      */
     public function createController($route)
     {
@@ -497,17 +477,15 @@ class Module extends ServiceLocator
     }
 
     /**
-     * Creates a controller based on the given controller ID.
+     * 基于给定控制器 ID 创建一个控制器
      *
-     * The controller ID is relative to this module. The controller class
-     * should be namespaced under [[controllerNamespace]].
+     * 控制器 ID 要对应到本模块，控制器类应有命名空间并处于[[controllerNamespace]]命名空间下。
      *
-     * Note that this method does not check [[modules]] or [[controllerMap]].
+     * 注意本方法不核对[[modules]]或[[controllerMap]]。
      *
-     * @param string $id the controller ID
-     * @return Controller the newly created controller instance, or null if the controller ID is invalid.
-     * @throws InvalidConfigException if the controller class and its file name do not match.
-     * This exception is only thrown when in debug mode.
+     * @param string $id 控制器 ID
+     * @return Controller 新创建的控制器实例，如果控制器 ID 无效就返回 null
+     * @throws InvalidConfigException 如果控制器类和其文件不匹配，本异常在调试模式下才抛出。
      */
     public function createControllerByID($id)
     {
@@ -540,27 +518,26 @@ class Module extends ServiceLocator
     }
 
     /**
-     * This method is invoked right before an action within this module is executed.
+     * 本方法在此模块内的动作被执行前调用
      *
-     * The method will trigger the [[EVENT_BEFORE_ACTION]] event. The return value of the method
-     * will determine whether the action should continue to run.
+     * 此方法将触发[[EVENT_BEFORE_ACTION]]事件，此方法的返回值将确定动作是否继续运行
      *
-     * If you override this method, your code should look like the following:
+     * 如果你要覆写此方法，你的代码应如下：
      *
      * ```php
      * public function beforeAction($action)
      * {
      *     if (parent::beforeAction($action)) {
-     *         // your custom code here
-     *         return true;  // or false if needed
+     *         // 这里是你的自定义代码
+     *         return true;  // 或 false ，如果需要
      *     } else {
      *         return false;
      *     }
      * }
      * ```
      *
-     * @param Action $action the action to be executed.
-     * @return boolean whether the action should continue to be executed.
+     * @param Action $action 要执行的动作
+     * @return boolean 动作是否继续执行
      */
     public function beforeAction($action)
     {
@@ -570,25 +547,24 @@ class Module extends ServiceLocator
     }
 
     /**
-     * This method is invoked right after an action within this module is executed.
+     * 此方法在模块内的动作执行后被调用
      *
-     * The method will trigger the [[EVENT_AFTER_ACTION]] event. The return value of the method
-     * will be used as the action return value.
+     * 此方法将触发[[EVENT_AFTER_ACTION]]事件，此方法的返回值将用作动作返回值
      *
-     * If you override this method, your code should look like the following:
+     * 如果你要覆写本方法，代码如下：
      *
      * ```php
      * public function afterAction($action, $result)
      * {
      *     $result = parent::afterAction($action, $result);
-     *     // your custom code here
+     *     // 这里是你的自定义代码
      *     return $result;
      * }
      * ```
      *
-     * @param Action $action the action just executed.
-     * @param mixed $result the action return result.
-     * @return mixed the processed action result.
+     * @param Action $action 刚执行过的动作
+     * @param mixed $result 动作返回结果
+     * @return mixed 处理后的动作结果
      */
     public function afterAction($action, $result)
     {

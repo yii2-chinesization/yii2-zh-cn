@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140510
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -10,33 +14,27 @@ namespace yii\base;
 use Yii;
 
 /**
- * Application is the base class for all application classes.
+ * Application（应用类）是所有应用类的基类
  *
- * @property \yii\web\AssetManager $assetManager The asset manager component. This property is read-only.
- * @property \yii\rbac\ManagerInterface $authManager The auth manager for this application. Null is returned
- * if auth manager is not configured. This property is read-only.
- * @property string $basePath The root directory of the application.
- * @property \yii\caching\Cache $cache The cache application component. Null if the component is not enabled.
- * This property is read-only.
- * @property \yii\db\Connection $db The database connection. This property is read-only.
- * @property \yii\web\ErrorHandler|\yii\console\ErrorHandler $errorHandler The error handler application
- * component. This property is read-only.
- * @property \yii\base\Formatter $formatter The formatter application component. This property is read-only.
- * @property \yii\i18n\I18N $i18n The internationalization component. This property is read-only.
- * @property \yii\log\Dispatcher $log The log dispatcher component. This property is read-only.
- * @property \yii\mail\MailerInterface $mail The mailer interface. This property is read-only.
- * @property \yii\web\Request|\yii\console\Request $request The request component. This property is read-only.
- * @property \yii\web\Response|\yii\console\Response $response The response component. This property is
- * read-only.
- * @property string $runtimePath The directory that stores runtime files. Defaults to the "runtime"
- * subdirectory under [[basePath]].
- * @property string $timeZone The time zone used by this application.
- * @property string $uniqueId The unique ID of the module. This property is read-only.
- * @property \yii\web\UrlManager $urlManager The URL manager for this application. This property is read-only.
- * @property string $vendorPath The directory that stores vendor files. Defaults to "vendor" directory under
- * [[basePath]].
- * @property View|\yii\web\View $view The view object that is used to render various view files. This property
- * is read-only.
+ * @property \yii\web\AssetManager $assetManager 资源管理器组件，只读属性
+ * @property \yii\rbac\ManagerInterface $authManager 此应用的认证管理器，
+ * 如果认证管理器未配置返回 Null ，只读属性
+ * @property string $basePath 此应用的根目录
+ * @property \yii\caching\Cache $cache 缓存组件，如果未启用返回 Null ，只读属性
+ * @property \yii\db\Connection $db 数据库连接组件，只读属性
+ * @property \yii\web\ErrorHandler|\yii\console\ErrorHandler $errorHandler 错误处理器组件，只读属性
+ * @property \yii\base\Formatter $formatter 格式器组件，只读属性
+ * @property \yii\i18n\I18N $i18n 国际化组件，只读属性
+ * @property \yii\log\Dispatcher $log 日志调度器组件，只读属性
+ * @property \yii\mail\MailerInterface $mail 邮件收发器接口，只读属性
+ * @property \yii\web\Request|\yii\console\Request $request 请求组件，只读属性
+ * @property \yii\web\Response|\yii\console\Response $response 响应组件，只读属性
+ * @property string $runtimePath 存储运行时文件的目录，缺省为[[basePath]]下的"runtime"子目录
+ * @property string $timeZone 本应用使用的时区
+ * @property string $uniqueId 本模块的唯一 ID ，只读属性
+ * @property \yii\web\UrlManager $urlManager 此应用的 URL 管理器，只读属性
+ * @property string $vendorPath 存储 vendor 文件的目录，缺省为[[basePath]]下的"vendor"目录
+ * @property View|\yii\web\View $view 用于渲染各种视图文件的视图对象，只读属性
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -44,100 +42,96 @@ use Yii;
 abstract class Application extends Module
 {
     /**
-     * @event Event an event raised before the application starts to handle a request.
+     * @event Event 本应用开始处理请求前唤起的事件
      */
     const EVENT_BEFORE_REQUEST = 'beforeRequest';
     /**
-     * @event Event an event raised after the application successfully handles a request (before the response is sent out).
+     * @event Event 本应用成功处理一个请求后唤起的事件(在响应发送出去前)
      */
     const EVENT_AFTER_REQUEST = 'afterRequest';
     /**
-     * Application state used by [[state]]: application just started.
+     * 被[[state]]使用的应用状态：应用刚刚启动
      */
     const STATE_BEGIN = 0;
     /**
-     * Application state used by [[state]]: application is initializing.
+     * 被[[state]]使用的应用状态：应用正在初始化
      */
     const STATE_INIT = 1;
     /**
-     * Application state used by [[state]]: application is triggering [[EVENT_BEFORE_REQUEST]].
+     * 被[[state]]使用的应用状态：应用正在触发[[EVENT_BEFORE_REQUEST]]
      */
     const STATE_BEFORE_REQUEST = 2;
     /**
-     * Application state used by [[state]]: application is handling the request.
+     * 被[[state]]使用的应用状态：应用正在处理请求
      */
     const STATE_HANDLING_REQUEST = 3;
     /**
-     * Application state used by [[state]]: application is triggering [[EVENT_AFTER_REQUEST]]..
+     * 被[[state]]使用的应用状态：应用正在触发[[EVENT_AFTER_REQUEST]]
      */
     const STATE_AFTER_REQUEST = 4;
     /**
-     * Application state used by [[state]]: application is about to send response.
+     * 被[[state]]使用的应用状态：应用正要发送响应
      */
     const STATE_SENDING_RESPONSE = 5;
     /**
-     * Application state used by [[state]]: application has ended.
+     * 被[[state]]使用的应用状态：应用已经结束
      */
     const STATE_END = 6;
 
     /**
-     * @var string the namespace that controller classes are in. If not set,
-     * it will use the "app\controllers" namespace.
+     * @var string 控制器类所在的命名空间，如果未设置，将使用"app\controllers"命名空间
      */
     public $controllerNamespace = 'app\\controllers';
     /**
-     * @var string the application name.
+     * @var string 应用名
      */
     public $name = 'My Application';
     /**
-     * @var string the version of this application.
+     * @var string 应用版本
      */
     public $version = '1.0';
     /**
-     * @var string the charset currently used for the application.
+     * @var string 应用当前使用的字符集（编码）
      */
     public $charset = 'UTF-8';
     /**
-     * @var string the language that is meant to be used for end users.
+     * @var string 终端用户使用的目标语言
      * @see sourceLanguage
      */
     public $language = 'en';
     /**
-     * @var string the language that the application is written in. This mainly refers to
-     * the language that the messages and view files are written in.
+     * @var string 应用编写语言，主要引用消息和视图文件的编写语言
      * @see language
      */
     public $sourceLanguage = 'en';
     /**
-     * @var Controller the currently active controller instance
+     * @var Controller 当前活动的控制器实例
      */
     public $controller;
     /**
-     * @var string|boolean the layout that should be applied for views in this application. Defaults to 'main'.
-     * If this is false, layout will be disabled.
+     * @var string|boolean 适用于本应用视图的布局，缺省为'main'，如果是 false ，布局将禁用。
      */
     public $layout = 'main';
     /**
-     * @var string the requested route
+     * @var string 被请求的路由
      */
     public $requestedRoute;
     /**
-     * @var Action the requested Action. If null, it means the request cannot be resolved into an action.
+     * @var Action 被请求的动作，如为 null ，即请求不能解析到某个动作
      */
     public $requestedAction;
     /**
-     * @var array the parameters supplied to the requested action.
+     * @var array 提供给被请求动作的参数
      */
     public $requestedParams;
     /**
-     * @var array list of installed Yii extensions. Each array element represents a single extension
-     * with the following structure:
+     * @var array 已安装 Yii 扩展列表，每个数组元素代表单个扩展，结构如下：
      *
      * ~~~
      * [
      *     'name' => 'extension name',
      *     'version' => 'version number',
-     *     'bootstrap' => 'BootstrapClassName',  // optional, may also be a configuration array
+     *     'bootstrap' => 'BootstrapClassName',  // 可选项，也可是配置数组
      *     'alias' => [
      *         '@alias1' => 'to/path1',
      *         '@alias2' => 'to/path2',
@@ -145,38 +139,36 @@ abstract class Application extends Module
      * ]
      * ~~~
      *
-     * The "bootstrap" class listed above will be instantiated during the application
-     * [[bootstrap()|bootstrapping process]]. If the class implements [[BootstrapInterface]],
-     * its [[BootstrapInterface::bootstrap()|bootstrap()]] method will be also be called.
+     * 以上列示的"bootstrap"类将在应用[[bootstrap()|bootstrapping process]]期间被实例化。
+     * 如果此类实现 [[BootstrapInterface]]接口，
+     * 它的[[BootstrapInterface::bootstrap()|bootstrap()]]方法也被调用。
      */
     public $extensions = [];
     /**
-     * @var array list of components that should be run during the application [[bootstrap()|bootstrapping process]].
+     * @var array 在应用[[bootstrap()|bootstrapping process]]引导阶段要运行的组件列表
      *
-     * Each component may be specified in one of the following formats:
+     * 每个组件可指定为以下格式之一：
      *
-     * - an application component ID as specified via [[components]].
-     * - a module ID as specified via [[modules]].
-     * - a class name.
-     * - a configuration array.
+     * - 通过[[components]]指定的应用组件 ID
+     * - 通过[[modules]]指定的模块 ID
+     * - 类名
+     * - 配置数组
      *
-     * During the bootstrapping process, each component will be instantiated. If the component class
-     * implements [[BootstrapInterface]], its [[BootstrapInterface::bootstrap()|bootstrap()]] method
-     * will be also be called.
+     * 在引导过程中，每个组件将被实例化，如果一个组件类实现了[[BootstrapInterface]]接口，
+     * 它的[[BootstrapInterface::bootstrap()|bootstrap()]]方法也会被调用。
      */
     public $bootstrap = [];
     /**
-     * @var integer the current application state during a request handling life cycle.
-     * This property is managed by the application. Do not modify this property.
+     * @var integer 在一个请求处理生命周期中的当前应用状态，此属性由应用管理，不要修改此属性。
      */
     public $state;
 
 
     /**
-     * Constructor.
-     * @param array $config name-value pairs that will be used to initialize the object properties.
-     * Note that the configuration must contain both [[id]] and [[basePath]].
-     * @throws InvalidConfigException if either [[id]] or [[basePath]] configuration is missing.
+     * 构造函数
+     * @param array $config 用于初始化对象属性的名值对数组
+     * 注意配置数组必须包括[[id]]和[[basePath]]。
+     * @throws InvalidConfigException 如果[[id]]或[[basePath]]的配置缺失
      */
     public function __construct($config = [])
     {
@@ -191,12 +183,11 @@ abstract class Application extends Module
     }
 
     /**
-     * Pre-initializes the application.
-     * This method is called at the beginning of the application constructor.
-     * It initializes several important application properties.
-     * If you override this method, please make sure you call the parent implementation.
-     * @param array $config the application configuration
-     * @throws InvalidConfigException if either [[id]] or [[basePath]] configuration is missing.
+     * 预初始化应用
+     * 该方法在应用构造函数开始时调用，它初始化了数个重要的应用属性。
+     * 如果你要覆写此方法，请确保调用了父类实现
+     * @param array $config 应用配置
+     * @throws InvalidConfigException 如果[[id]]或[[basePath]]的配置缺失
      */
     public function preInit(&$config)
     {
@@ -252,9 +243,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Initializes extensions and executes bootstrap components.
-     * This method is called by [[init()]] after the application has been fully configured.
-     * If you override this method, make sure you also call the parent implementation.
+     * 初始化扩展并执行引导组件
+     * 本方法由[[init()]]在应用已经完全配置后调用，如果要覆写本方法请确保也调用了父类实现
      */
     protected function bootstrap()
     {
@@ -300,7 +290,7 @@ abstract class Application extends Module
     }
 
     /**
-     * Registers the errorHandler component as a PHP error handler.
+     * 注册错误处理器组件为 PHP 错误处理器
      */
     protected function registerErrorHandler(&$config)
     {
@@ -316,9 +306,9 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns an ID that uniquely identifies this module among all modules within the current application.
-     * Since this is an application instance, it will always return an empty string.
-     * @return string the unique ID of the module.
+     * 返回在当前应用内一个模块可区别于其它模块的唯一 ID
+     * 由于这是一个应用实例，所以它总是返回一个空字符串
+     * @return string 此模块的唯一 ID
      */
     public function getUniqueId()
     {
@@ -326,11 +316,11 @@ abstract class Application extends Module
     }
 
     /**
-     * Sets the root directory of the application and the @app alias.
-     * This method can only be invoked at the beginning of the constructor.
-     * @param string $path the root directory of the application.
-     * @property string the root directory of the application.
-     * @throws InvalidParamException if the directory does not exist.
+     * 设置应用和 @app 别名的根目录
+     * 本方法只在构造函数开始时被调用
+     * @param string $path 应用的根目录
+     * @property string 应用的根目录
+     * @throws InvalidParamException 如果目录不存在
      */
     public function setBasePath($path)
     {
@@ -339,9 +329,9 @@ abstract class Application extends Module
     }
 
     /**
-     * Runs the application.
-     * This is the main entrance of an application.
-     * @return integer the exit status (0 means normal, non-zero values mean abnormal)
+     * 运行此应用
+     * 这是一个应用的主入口
+     * @return integer 退出状态(0 是正常，非零值是非正常退出)
      */
     public function run()
     {
@@ -372,22 +362,20 @@ abstract class Application extends Module
     }
 
     /**
-     * Handles the specified request.
+     * 处理指定请求
      *
-     * This method should return an instance of [[Response]] or its child class
-     * which represents the handling result of the request.
+     * 这个方法应返回代表请求处理结果的[[Response]]或其子类的实例
      *
-     * @param Request $request the request to be handled
-     * @return Response the resulting response
+     * @param Request $request 要处理的请求
+     * @return Response 得到的响应
      */
     abstract public function handleRequest($request);
 
     private $_runtimePath;
 
     /**
-     * Returns the directory that stores runtime files.
-     * @return string the directory that stores runtime files.
-     * Defaults to the "runtime" subdirectory under [[basePath]].
+     * 返回存储运行时文件的目录
+     * @return string 存储运行时文件的目录，缺省为[[basePath]]下的"runtime" 子目录
      */
     public function getRuntimePath()
     {
@@ -399,8 +387,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Sets the directory that stores runtime files.
-     * @param string $path the directory that stores runtime files.
+     * 设置存储运行时文件的目录
+     * @param string $path 存储运行时文件的目录
      */
     public function setRuntimePath($path)
     {
@@ -411,9 +399,8 @@ abstract class Application extends Module
     private $_vendorPath;
 
     /**
-     * Returns the directory that stores vendor files.
-     * @return string the directory that stores vendor files.
-     * Defaults to "vendor" directory under [[basePath]].
+     * 返回存储 vendor 文件的目录
+     * @return string 存储 vendor 文件的目录，缺省为[[basePath]]下的"vendor"目录
      */
     public function getVendorPath()
     {
@@ -425,8 +412,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Sets the directory that stores vendor files.
-     * @param string $path the directory that stores vendor files.
+     * 设置存储 vendor 文件的目录
+     * @param string $path 存储 vendor 文件的目录
      */
     public function setVendorPath($path)
     {
@@ -435,11 +422,10 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns the time zone used by this application.
-     * This is a simple wrapper of PHP function date_default_timezone_get().
-     * If time zone is not configured in php.ini or application config,
-     * it will be set to UTC by default.
-     * @return string the time zone used by this application.
+     * 返回此应用使用的时区
+     * 这是 PHP 函数 date_default_timezone_get() 的简单封装，
+     * 如果未在 php.ini 或应用配置文件配置时区，它默认将设置为 UTC 。
+     * @return string 本应用使用的时区
      * @see http://php.net/manual/en/function.date-default-timezone-get.php
      */
     public function getTimeZone()
@@ -448,10 +434,9 @@ abstract class Application extends Module
     }
 
     /**
-     * Sets the time zone used by this application.
-     * This is a simple wrapper of PHP function date_default_timezone_set().
-     * Refer to the [php manual](http://www.php.net/manual/en/timezones.php) for available timezones.
-     * @param string $value the time zone used by this application.
+     * 设置此应用使用的时区
+     * 这是 PHP 函数 date_default_timezone_set() 的简单封装，可用时区请参考[php 手册](http://www.php.net/manual/en/timezones.php)
+     * @param string $value 本应用使用的时区
      * @see http://php.net/manual/en/function.date-default-timezone-set.php
      */
     public function setTimeZone($value)
@@ -460,8 +445,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns the database connection component.
-     * @return \yii\db\Connection the database connection
+     * 返回数据库连接组件
+     * @return \yii\db\Connection 数据库连接
      */
     public function getDb()
     {
@@ -469,8 +454,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns the log dispatcher component.
-     * @return \yii\log\Dispatcher the log dispatcher component
+     * 返回日志调度器组件
+     * @return \yii\log\Dispatcher 日志调度组件
      */
     public function getLog()
     {
@@ -478,8 +463,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns the error handler component.
-     * @return \yii\web\ErrorHandler|\yii\console\ErrorHandler the error handler application component.
+     * 返回错误处理器组件
+     * @return \yii\web\ErrorHandler|\yii\console\ErrorHandler 错误处理器组件
      */
     public function getErrorHandler()
     {
@@ -487,8 +472,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns the cache component.
-     * @return \yii\caching\Cache the cache application component. Null if the component is not enabled.
+     * 返回缓存组件
+     * @return \yii\caching\Cache 缓存组件，如果此组件未启用返回 Null
      */
     public function getCache()
     {
@@ -496,8 +481,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns the formatter component.
-     * @return \yii\base\Formatter the formatter application component.
+     * 返回格式器组件
+     * @return \yii\base\Formatter 格式器组件
      */
     public function getFormatter()
     {
@@ -505,8 +490,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns the request component.
-     * @return \yii\web\Request|\yii\console\Request the request component
+     * 返回请求组件
+     * @return \yii\web\Request|\yii\console\Request 请求组件
      */
     public function getRequest()
     {
@@ -514,8 +499,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns the response component.
-     * @return \yii\web\Response|\yii\console\Response the response component
+     * 返回响应组件
+     * @return \yii\web\Response|\yii\console\Response 响应组件
      */
     public function getResponse()
     {
@@ -523,8 +508,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns the view object.
-     * @return View|\yii\web\View the view object that is used to render various view files.
+     * 返回视图对象
+     * @return View|\yii\web\View 用于渲染各种视图文件的视图对象
      */
     public function getView()
     {
@@ -532,8 +517,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns the URL manager for this application.
-     * @return \yii\web\UrlManager the URL manager for this application.
+     * 返回此应用的 URL 管理器
+     * @return \yii\web\UrlManager 此应用的 URL 管理器
      */
     public function getUrlManager()
     {
@@ -541,8 +526,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns the internationalization (i18n) component
-     * @return \yii\i18n\I18N the internationalization component
+     * 返回国际化(i18n)组件
+     * @return \yii\i18n\I18N 国际化组件
      */
     public function getI18n()
     {
@@ -550,8 +535,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns the mailer component.
-     * @return \yii\mail\MailerInterface the mailer interface
+     * 返回邮件收发器组件
+     * @return \yii\mail\MailerInterface 邮件收发器接口
      */
     public function getMail()
     {
@@ -559,9 +544,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns the auth manager for this application.
-     * @return \yii\rbac\ManagerInterface the auth manager for this application.
-     * Null is returned if auth manager is not configured.
+     * 返回此应用的认证管理器
+     * @return \yii\rbac\ManagerInterface 此应用的认证管理器，如果认证管理器未配置返回 null
      */
     public function getAuthManager()
     {
@@ -569,8 +553,8 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns the asset manager.
-     * @return \yii\web\AssetManager the asset manager component
+     * 返回资源管理器
+     * @return \yii\web\AssetManager 资源管理器
      */
     public function getAssetManager()
     {
@@ -578,7 +562,7 @@ abstract class Application extends Module
     }
 
     /**
-     * Returns the core application components.
+     * 返回核心应用组件
      * @see set
      */
     public function coreComponents()
@@ -595,12 +579,11 @@ abstract class Application extends Module
     }
 
     /**
-     * Terminates the application.
-     * This method replaces the `exit()` function by ensuring the application life cycle is completed
-     * before terminating the application.
-     * @param integer $status the exit status (value 0 means normal exit while other values mean abnormal exit).
-     * @param Response $response the response to be sent. If not set, the default application [[response]] component will be used.
-     * @throws ExitException if the application is in testing mode
+     * 终止应用
+     * 本方法替换了`exit()` 方法以确保应用的生命周期在终止应用前已完成。
+     * @param integer $status 退出状态(值为 0 是正常退出而其他值是非正常退出)
+     * @param Response $response 要发送的响应，如未设置，将使用默认的应用组件[[response]]
+     * @throws ExitException 如果应用处于测试模式
      */
     public function end($status = 0, $response = null)
     {
