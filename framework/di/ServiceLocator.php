@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140510
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -13,14 +17,12 @@ use yii\base\Component;
 use yii\base\InvalidConfigException;
 
 /**
- * ServiceLocator implements a [service locator](http://en.wikipedia.org/wiki/Service_locator_pattern).
+ * ServiceLocator（服务定位器类）实现了[service locator](http://en.wikipedia.org/wiki/Service_locator_pattern) 设计模式
  *
- * To use ServiceLocator, you first need to register component IDs with the corresponding component
- * definitions with the locator by calling [[set()]] or [[setComponents()]].
- * You can then call [[get()]] to retrieve a component with the specified ID. The locator will automatically
- * instantiate and configure the component according to the definition.
+ * 要使用服务定位器，首先你必须调用[[set()]]或[[setComponents()]]注册组件 ID 、相应的组件定义和定位器。
+ * 然后你可以调用[[get()]]以指定 ID 检索组件，定位器将根据定义自动实例化和配置组件。
  *
- * For example,
+ * 例如：
  *
  * ```php
  * $locator = new \yii\di\ServiceLocator;
@@ -39,10 +41,9 @@ use yii\base\InvalidConfigException;
  * $cache = $locator->get('cache');  // or $locator->cache
  * ```
  *
- * Because [[\yii\base\Module]] extends from ServiceLocator, modules and the application are all service locators.
+ * 因为[[\yii\base\Module]]继承自 ServiceLocator ，模块和应用都是服务定位器。
  *
- * @property array $components The list of the component definitions or the loaded component instances (ID =>
- * definition or instance).
+ * @property array $components 组件定义列表或已加载的组件实例列表(ID => 定义或实例)
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -50,19 +51,19 @@ use yii\base\InvalidConfigException;
 class ServiceLocator extends Component
 {
     /**
-     * @var array shared component instances indexed by their IDs
+     * @var array 以 ID 索引的共享组件实例
      */
     private $_components = [];
     /**
-     * @var array component definitions indexed by their IDs
+     * @var array 以 ID 为索引的组件定义
      */
     private $_definitions = [];
 
     /**
-     * Getter magic method.
-     * This method is overridden to support accessing components like reading properties.
-     * @param string $name component or property name
-     * @return mixed the named property value
+     * Getter 魔术方法
+     * 此方法可覆写以支持如读取属性般访问组件
+     * @param string $name 组件或属性名
+     * @return mixed 指定属性值
      */
     public function __get($name)
     {
@@ -74,10 +75,10 @@ class ServiceLocator extends Component
     }
 
     /**
-     * Checks if a property value is null.
-     * This method overrides the parent implementation by checking if the named component is loaded.
-     * @param string $name the property name or the event name
-     * @return boolean whether the property value is null
+     * 核对属性值是否为 null
+     * 此方法通过核查指定组件是否已加载来覆写了父类实现
+     * @param string $name 属性名或事件名
+     * @return boolean 属性值是否为 null
      */
     public function __isset($name)
     {
@@ -89,17 +90,15 @@ class ServiceLocator extends Component
     }
 
     /**
-     * Returns a value indicating whether the locator has the specified component definition or has instantiated the component.
-     * This method may return different results depending on the value of `$checkInstance`.
+     * 返回一个值表明定位器是否有指定的组件定义或已经实例化组件
+     * 本方法根据`$checkInstance`的值将返回不同结果：
      *
-     * - If `$checkInstance` is false (default), the method will return a value indicating whether the locator has the specified
-     *   component definition.
-     * - If `$checkInstance` is true, the method will return a value indicating whether the locator has
-     *   instantiated the specified component.
+     * - 如果`$checkInstance`为 false (缺省)，本方法将返回一个表明定位器是否有指定组件定义的值；
+     * - 如果`$checkInstance` 为 true，本方法将返回表明定位器是否已实例化指定组件的值。
      *
-     * @param string $id component ID (e.g. `db`).
-     * @param boolean $checkInstance whether the method should check if the component is shared and instantiated.
-     * @return boolean whether the locator has the specified component definition or has instantiated the component.
+     * @param string $id 组件 ID (如`db`)
+     * @param boolean $checkInstance 本方法是否核查组件被分享和实例化
+     * @return boolean 定位器是否有指定组件定义或实例化组件
      * @see set()
      */
     public function has($id, $checkInstance = false)
@@ -108,13 +107,13 @@ class ServiceLocator extends Component
     }
 
     /**
-     * Returns the component instance with the specified ID.
+     * 返回指定组件实例 ID
      *
-     * @param string $id component ID (e.g. `db`).
-     * @param boolean $throwException whether to throw an exception if `$id` is not registered with the locator before.
-     * @return object|null the component of the specified ID. If `$throwException` is false and `$id`
-     * is not registered before, null will be returned.
-     * @throws InvalidConfigException if `$id` refers to a nonexistent component ID
+     * @param string $id 组件 ID (如`db`)
+     * @param boolean $throwException 如果`$id` 之前未注册到此定位器，是否抛出异常
+     * @return object|null 指定 ID 的组件，如果`$throwException`为 false 且`$id`
+     * 没有注册过，返回 null
+     * @throws InvalidConfigException 如果`$id` 引用不存在的组件 ID
      * @see has()
      * @see set()
      */
@@ -139,15 +138,15 @@ class ServiceLocator extends Component
     }
 
     /**
-     * Registers a component definition with this locator.
+     * 用定位器注册组件定义
      *
-     * For example,
+     * 例如：
      *
      * ```php
-     * // a class name
+     * // 类名
      * $locator->set('cache', 'yii\caching\FileCache');
      *
-     * // a configuration array
+     * // 配置数组
      * $locator->set('db', [
      *     'class' => 'yii\db\Connection',
      *     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
@@ -156,30 +155,28 @@ class ServiceLocator extends Component
      *     'charset' => 'utf8',
      * ]);
      *
-     * // an anonymous function
+     * // 匿名函数
      * $locator->set('cache', function ($params) {
      *     return new \yii\caching\FileCache;
      * });
      *
-     * // an instance
+     * // 实例
      * $locator->set('cache', new \yii\caching\FileCache);
      * ```
      *
-     * If a component definition with the same ID already exists, it will be overwritten.
+     * 如果相同 ID 的组件定义已存在，它将会被覆盖。
      *
-     * @param string $id component ID (e.g. `db`).
-     * @param mixed $definition the component definition to be registered with this locator.
-     * It can be one of the followings:
+     * @param string $id 组件 ID (如`db`)
+     * @param mixed $definition 要以此定位器注册的组件定义，可以是以下之一：
      *
-     * - a class name
-     * - a configuration array: the array contains name-value pairs that will be used to
-     *   initialize the property values of the newly created object when [[get()]] is called.
-     *   The `class` element is required and stands for the the class of the object to be created.
-     * - a PHP callable: either an anonymous function or an array representing a class method (e.g. `['Foo', 'bar']`).
-     *   The callable will be called by [[get()]] to return an object associated with the specified component ID.
-     * - an object: When [[get()]] is called, this object will be returned.
+     * - 类名
+     * - 配置数组：数组包括的名值对可用于在调用[[get()]]时初始化新建对象的属性值，
+     *   `class` 元素是必填项，代表要创建的对象所使用的类。
+     * - PHP 回调函数：匿名函数或代表类方法的数组(如`['Foo', 'bar']`)
+     *   回调函数由[[get()]]调用来返回关联到指定组件 ID 的对象
+     * - 对象，当[[get()]]被调用就返回该对象
      *
-     * @throws InvalidConfigException if the definition is an invalid configuration array
+     * @throws InvalidConfigException 如果定义是无效配置数组
      */
     public function set($id, $definition)
     {
@@ -204,8 +201,8 @@ class ServiceLocator extends Component
     }
 
     /**
-     * Removes the component from the locator.
-     * @param string $id the component ID
+     * 从定位器移除组件
+     * @param string $id 组件 ID
      */
     public function clear($id)
     {
@@ -213,9 +210,9 @@ class ServiceLocator extends Component
     }
 
     /**
-     * Returns the list of the component definitions or the loaded component instances.
-     * @param boolean $returnDefinitions whether to return component definitions instead of the loaded component instances.
-     * @return array the list of the component definitions or the loaded component instances (ID => definition or instance).
+     * 返回组件定义或已加载组件实例列表
+     * @param boolean $returnDefinitions 是否返回组件定义而不是已加载的组件实例
+     * @return array 组件定义或已加载组件实例(ID => 定义或实例)的列表
      */
     public function getComponents($returnDefinitions = true)
     {
@@ -223,16 +220,15 @@ class ServiceLocator extends Component
     }
 
     /**
-     * Registers a set of component definitions in this locator.
+     * 在此定位器注册一套组件定义
      *
-     * This is the bulk version of [[set()]]. The parameter should be an array
-     * whose keys are component IDs and values the corresponding component definitions.
+     * 这是用[[set()]]遍历获取一套组件定义的方法，参数须是数组，键是组件 ID 而值是对应组件定义。
      *
-     * For more details on how to specify component IDs and definitions, please refer to [[set()]].
+     * 关于如何指定组件 ID 和定义的更多细节请参阅[[set()]]。
      *
-     * If a component definition with the same ID already exists, it will be overwritten.
+     * 如果已有相同 ID 的组件定义，它将被覆盖。
      *
-     * The following is an example for registering two component definitions:
+     * 以下是注册两个组件定义的一个例子：
      *
      * ```php
      * [
@@ -247,7 +243,7 @@ class ServiceLocator extends Component
      * ]
      * ```
      *
-     * @param array $components component definitions or instances
+     * @param array $components 组件定义或实例
      */
     public function setComponents($components)
     {
