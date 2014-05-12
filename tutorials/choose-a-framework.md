@@ -31,7 +31,7 @@ For your first Framework, how to choose is really personal.
 <En WIP>
 
 1. 速度流
-代表 Yaf，Phalcon，代表人物鸟哥（风雪之隅 Laruence，PHP开发组中首位国人）。这类心法通常不寻求自身的炼体筑基（PHP），而是另辟蹊径
+代表 Yaf，Phalcon，代表人物鸟哥（Laruence，博客-[风雪之隅](www.laruence.com/)，PHP开发组中首位国人）。这类心法通常不寻求自身的炼体筑基（PHP），而是另辟蹊径
 召唤异世界（C扩展）的力量灌注体身，原则上来说这就不是心法，而是召唤术。缺点就是C不是PHP，难以在PHP代码中继承与修改。它假定你们
 在日常使用中不会修改框架本身，（实际上后期需要自定义某些功能时，经常可能修改到）因为可以放弃灵活性，故而可以在速度这一单项上，
 让其他心法望尘莫及。
@@ -41,5 +41,26 @@ For your first Framework, how to choose is really personal.
 
 3. 全栈流
 代表ZF2，Symfony2，大而全，代码优美，文档丰富，尝试解决宇宙间的一切问题。最高级的心法，可惜上手偏难，运行效率低。
+
+samdark: ZF 2 and Symfony2 are very "enterprise". This "enterprise" shit is too complex.
+"ZF2 is too "scientific".You can write a thesis about ZF2 and its design. Don't get me wrong, I love best practices,
+standards, design patterns, etc.
+But ZF2 devs dive too deep into "science". Symfony2 is better but not enough.
+What’s bad in these “enterprise” things?• Design-patterns oriented instead of practically oriented. Emphasizing on patterns.
+• Easier to unit-test, harder to develop and learn.
+• Almost impossible to delegate routine work to less competent developers w/o spending lots of time teaching them first.
+• High risk for project owner.
+That reminds me… Java past• “Their main thesis to support that complexity is… hold your breath…
+ fasten your seat belts: if it were easier, more stupid people would be using it!. Ta-da!!”
+“J2EE is no way simple. However the reality is simple: for J2EE to survive - we have to make it simple to build, deploy and manage”
+
+有没有别的了呢？实践流，识贱是检验真理的唯一标准：Practical frameworks:
+• Development should be straightforward. We’re not doing complex stuff for webapps most of the time.
+• Easy learning.
+• Less magic.
+• Less configuration.
+• As simple API as possible.
+
+Reference：http://www.slideshare.net/samdark/yii-frameworks-and-where-php-is-heading-to
 
 ## 灵活变通 Switch When Needed
