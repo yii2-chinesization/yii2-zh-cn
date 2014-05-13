@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140510
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -12,24 +16,20 @@ use yii\base\Component;
 use yii\base\InvalidConfigException;
 
 /**
- * Container implements a [dependency injection](http://en.wikipedia.org/wiki/Dependency_injection) container.
+ * Container（容器类）实现了一个[dependency injection（DI ，依赖注入）](http://en.wikipedia.org/wiki/Dependency_injection) 容器
  *
- * A dependency injection (DI) container is an object that knows how to instantiate and configure objects and
- * all their dependent objects. For more information about DI, please refer to
- * [Martin Fowler's article](http://martinfowler.com/articles/injection.html).
+ * 一个依赖注入(DI)容器是一个对象，这个对象知道如何实例化和配置其他对象及其所有依赖对象
+ * 更多有关 DI 的信息请参阅[Martin Fowler 文章](http://martinfowler.com/articles/injection.html).
  *
- * Container supports constructor injection as well as property injection.
+ * 容器支持构造函数注入和属性注入
  *
- * To use Container, you first need to set up the class dependencies by calling [[set()]].
- * You then call [[get()]] to create a new class object. Container will automatically instantiate
- * dependent objects, inject them into the object being created, configure and finally return the newly created object.
+ * 要使用容器，你首先需要通过调用[[set()]]建立类的依赖关系，然后调用[[get()]]创建新的类对象。
+ * 容器将自动实例化依赖对象、把它们注入被创建的对象、最后配置和返回新创建的对象。
  *
- * By default, [[\Yii::$container]] refers to a Container instance which is used by [[\Yii::createObject()]]
- * to create new object instances. You may use this method to replace the `new` operator
- * when creating a new object, which gives you the benefit of automatic dependency resolution and default
- * property configuration.
+ * 默认[[\Yii::$container]]指向一个[[\Yii::createObject()]]创建新对象实例所用到的容器实例。
+ * 你可以在创建新对象时使用此方法替换 `new` 操作符，这给你带来解决自动依赖和配置缺省属性的好处。
  *
- * Below is an example of using Container:
+ * 以下是使用容器的一个例子：
  *
  * ```php
  * namespace app\models;
@@ -80,15 +80,14 @@ use yii\base\InvalidConfigException;
  *
  * $lister = $container->get('userLister');
  *
- * // which is equivalent to:
+ * // 等同于：
  *
  * $db = new \yii\db\Connection(['dsn' => '...']);
  * $finder = new UserFinder($db);
  * $lister = new UserLister($finder);
  * ```
  *
- * @property array $definitions The list of the object definitions or the loaded shared objects (type or ID =>
- * definition or instance). This property is read-only.
+ * @property array $definitions 对象定义或已加载共享对象的列表(type or ID =>定义或实例)，只读属性
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -96,47 +95,41 @@ use yii\base\InvalidConfigException;
 class Container extends Component
 {
     /**
-     * @var array singleton objects indexed by their types
+     * @var array 以类型为索引的单例对象
      */
     private $_singletons = [];
     /**
-     * @var array object definitions indexed by their types
+     * @var array 以类型为索引的对象定义
      */
     private $_definitions = [];
     /**
-     * @var array constructor parameters indexed by object types
+     * @var array 以对象类型为索引的构造函数参数
      */
     private $_params = [];
     /**
-     * @var array cached ReflectionClass objects indexed by class/interface names
+     * @var array 缓存的以类名或接口名为索引的 ReflectionClass 对象
      */
     private $_reflections = [];
     /**
-     * @var array cached dependencies indexed by class/interface names. Each class name
-     * is associated with a list of constructor parameter types or default values.
+     * @var array 以类名或接口名为索引的缓存依赖关系，每个类名关联到一个构造函数参数类型或默认值的列表
      */
     private $_dependencies = [];
 
 
     /**
-     * Returns an instance of the requested class.
+     * 返回被请求类的一个实例
      *
-     * You may provide constructor parameters (`$params`) and object configurations (`$config`)
-     * that will be used during the creation of the instance.
+     * 你可以提供在实例创建时所用到的构造函数参数(`$params`)和对象配置(`$config`)
      *
-     * Note that if the class is declared to be singleton by calling [[setSingleton()]],
-     * the same instance of the class will be returned each time this method is called.
-     * In this case, the constructor parameters and object configurations will be used
-     * only if the class is instantiated the first time.
+     * 注意，如果此类通过调用[[setSingleton()]]来声明为单例，每次调用本方法时都返回这个类的相同实例。
+     * 这种情况，构造函数参数和对象配置只在类首次实例化时使用
      *
-     * @param string $class the class name or an alias name (e.g. `foo`) that was previously registered via [[set()]]
-     * or [[setSingleton()]].
-     * @param array $params a list of constructor parameter values. The parameters should be provided in the order
-     * they appear in the constructor declaration. If you want to skip some parameters, you should index the remaining
-     * ones with the integers that represent their positions in the constructor parameter list.
-     * @param array $config a list of name-value pairs that will be used to initialize the object properties.
-     * @return object an instance of the requested class.
-     * @throws InvalidConfigException if the class cannot be recognized or correspond to an invalid definition
+     * @param string $class 之前已通过[[set()]]或[[setSingleton()]]注册的类名或别名(如`foo`)
+     * @param array $params 构造函数参数值列表，提供的参数顺序是它们在构造函数声明的顺序。
+     * 如果你想跳过某些参数，可以用代表构造函数参数列表中的位置的整型来索引保留的参数。
+     * @param array $config 用于初始化对象属性的名值对
+     * @return object 被请求类的一个实例
+     * @throws InvalidConfigException 如果该类不能识别或对应到无效定义
      */
     public function get($class, $params = [], $config = [])
     {
@@ -249,16 +242,14 @@ class Container extends Component
     }
 
     /**
-     * Registers a class definition with this container and marks the class as a singleton class.
+     * 以此容器注册一个类定义并标记类为单例类
      *
-     * This method is similar to [[set()]] except that classes registered via this method will only have one
-     * instance. Each time [[get()]] is called, the same instance of the specified class will be returned.
+     * 本方法类似于[[set()]]，除了本方法注册的类只有一个实例外。每次调用[[get()]]都返回指定类的同一实例
      *
-     * @param string $class class name, interface name or alias name
-     * @param mixed $definition the definition associated with `$class`. See [[set()]] for more details.
-     * @param array $params the list of constructor parameters. The parameters will be passed to the class
-     * constructor when [[get()]] is called.
-     * @return static the container itself
+     * @param string $class 类名、接口名或别名
+     * @param mixed $definition 关联到`$class`的定义，更多细节见[[set()]]
+     * @param array $params 构造函数参数列表，当[[get()]]调用时此参数将被传递给类的构造函数
+     * @return static 容器本身
      * @see set()
      */
     public function setSingleton($class, $definition = [], array $params = [])
@@ -270,9 +261,9 @@ class Container extends Component
     }
 
     /**
-     * Returns a value indicating whether the container has the definition of the specified name.
-     * @param string $class class name, interface name or alias name
-     * @return boolean whether the container has the definition of the specified name..
+     * 返回一个值，指明容器是否有指定名的定义
+     * @param string $class 类名、接口名或别名
+     * @return boolean 容器是否有指定名的定义
      * @see set()
      */
     public function has($class)
@@ -281,11 +272,11 @@ class Container extends Component
     }
 
     /**
-     * Returns a value indicating whether the given name corresponds to a registered singleton.
-     * @param string $class class name, interface name or alias name
-     * @param boolean $checkInstance whether to check if the singleton has been instantiated.
-     * @return boolean whether the given name corresponds to a registered singleton. If `$checkInstance` is true,
-     * the method should return a value indicating whether the singleton has been instantiated.
+     * 返回一个值，指明给定名是否对应到一个已注册的单例
+     * @param string $class 类名、接口名或别名
+     * @param boolean $checkInstance 是否检查单例是否已实例化
+     * @return boolean 给定名是否对应到一个已注册的单例，如果`$checkInstance`为 true ，
+     * 本方法将返回一个值以表明单例是否已实例化
      */
     public function hasSingleton($class, $checkInstance = false)
     {
@@ -293,8 +284,8 @@ class Container extends Component
     }
 
     /**
-     * Removes the definition for the specified name.
-     * @param string $class class name, interface name or alias name
+     * 移除指定名的定义
+     * @param string $class 类名、接口名或别名
      */
     public function clear($class)
     {
@@ -302,11 +293,11 @@ class Container extends Component
     }
 
     /**
-     * Normalizes the class definition.
-     * @param string $class class name
-     * @param string|array|callable $definition the class definition
-     * @return array the normalized class definition
-     * @throws InvalidConfigException if the definition is invalid.
+     * 标准化类定义
+     * @param string $class 类名
+     * @param string|array|callable $definition 类定义
+     * @return array 已标准化的类定义
+     * @throws InvalidConfigException 如果定义无效
      */
     protected function normalizeDefinition($class, $definition)
     {
@@ -331,8 +322,8 @@ class Container extends Component
     }
 
     /**
-     * Returns the list of the object definitions or the loaded shared objects.
-     * @return array the list of the object definitions or the loaded shared objects (type or ID => definition or instance).
+     * 返回对象定义或已加载共享对象的列表
+     * @return array 对象定义或已加载共享对象的列表(type or ID => definition or instance).
      */
     public function getDefinitions()
     {
@@ -340,13 +331,12 @@ class Container extends Component
     }
 
     /**
-     * Creates an instance of the specified class.
-     * This method will resolve dependencies of the specified class, instantiate them, and inject
-     * them into the new instance of the specified class.
-     * @param string $class the class name
-     * @param array $params constructor parameters
-     * @param array $config configurations to be applied to the new instance
-     * @return object the newly created instance of the specified class
+     * 创建指定类的实例
+     * 该方法将解析指定类的依赖关系、实例化它们并把它们注入指定类的新实例
+     * @param string $class 类名
+     * @param array $params 构造函数参数
+     * @param array $config 应用到新实例的配置
+     * @return object 新创建的指定类的实例
      */
     protected function build($class, $params, $config)
     {
@@ -373,10 +363,10 @@ class Container extends Component
     }
 
     /**
-     * Merges the user-specified constructor parameters with the ones registered via [[set()]].
-     * @param string $class class name, interface name or alias name
-     * @param array $params the constructor parameters
-     * @return array the merged parameters
+     * 合并用户指定的构造函数参数和[[set()]]注册的构造函数参数
+     * @param string $class 类名、接口名或别名
+     * @param array $params 构造函数参数
+     * @return array 合并后的参数
      */
     protected function mergeParams($class, $params)
     {
@@ -394,9 +384,9 @@ class Container extends Component
     }
 
     /**
-     * Returns the dependencies of the specified class.
-     * @param string $class class name, interface name or alias name
-     * @return array the dependencies of the specified class.
+     * 返回指定类的依赖关系
+     * @param string $class 类名、接口名或别名
+     * @return array 指定类的依赖关系
      */
     protected function getDependencies($class)
     {
@@ -426,11 +416,11 @@ class Container extends Component
     }
 
     /**
-     * Resolves dependencies by replacing them with the actual object instances.
-     * @param array $dependencies the dependencies
-     * @param ReflectionClass $reflection the class reflection associated with the dependencies
-     * @return array the resolved dependencies
-     * @throws InvalidConfigException if a dependency cannot be resolved or if a dependency cannot be fulfilled.
+     * 以真正的对象实例取代依赖关系来解析它们
+     * @param array $dependencies 依赖关系
+     * @param ReflectionClass $reflection 关联到依赖关系的类反射
+     * @return array 解析后的依赖关系
+     * @throws InvalidConfigException 如果依赖关系不能解析或依赖关系不能执行
      */
     protected function resolveDependencies($dependencies, $reflection = null)
     {
