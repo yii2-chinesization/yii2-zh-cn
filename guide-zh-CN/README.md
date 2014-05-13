@@ -151,15 +151,15 @@ RESTful Web 服务
 ----------------
 
 * **编撰中**【翻译中-20140501】[快速入门](rest-quick-start.md)
-* **待定中** [资源](rest-resources.md)
-* **待定中** [路由](rest-routing.md)
-* **待定中** [格式化数据](rest-data-formatting.md)
-* **待定中** [授权验证](rest-authentication.md)
-* **待定中** [速率限制](rest-rate-limiting.md)
-* **待定中** [版本化](rest-versioning.md)
-* **待定中** [缓存](rest-caching.md)
-* **待定中** [错误处理](rest-error-handling.md)
-* **待定中** [测试](rest-testing.md)
+* **编撰中** [资源](rest-resources.md)
+* **编撰中** [路由](rest-routing.md)
+* **编撰中** [格式化数据](rest-data-formatting.md)
+* **编撰中** [授权验证](rest-authentication.md)
+* **编撰中** [速率限制](rest-rate-limiting.md)
+* **编撰中** [版本化](rest-versioning.md)
+* **编撰中** [缓存](rest-caching.md)
+* **编撰中** [错误处理](rest-error-handling.md)
+* **编撰中** [测试](rest-testing.md)
 
 
 开发工具
