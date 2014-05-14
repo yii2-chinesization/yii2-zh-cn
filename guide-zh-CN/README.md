@@ -124,7 +124,7 @@ Yii 2.0 权威指南
 * **待定中** [分页（Pagination）](output-pagination.md)
 * **待定中** [排序（Sorting）](output-sorting.md)
 * **编撰中**【未校对-20140501】[数据提供器](output-data-providers.md)
-* **编撰中**【翻译中-20140501】[数据小部件](output-data-widgets.md)
+* **编撰中**【需更新|翻译中-20140501】[数据小部件](output-data-widgets.md)
 * **编撰中**【未校对-20140501】[前端资源管理](output-assets.md)
 
 
