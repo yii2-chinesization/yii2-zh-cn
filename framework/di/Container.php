@@ -172,25 +172,22 @@ class Container extends Component
     }
 
     /**
-     * Registers a class definition with this container.
+     * 用此容器注册类定义
      *
-     * For example,
+     * 如：
      *
      * ```php
-     * // register a class name as is. This can be skipped.
+     * // 如此注册一个类名，这可以跳过
      * $container->set('yii\db\Connection');
      *
-     * // register an interface
-     * // When a class depends on the interface, the corresponding class
-     * // will be instantiated as the dependent object
+     * // 注册接口
+     * // 当一个类依赖于接口，对应的类将实例化为依赖对象
      * $container->set('yii\mail\MailInterface', 'yii\swiftmailer\Mailer');
      *
-     * // register an alias name. You can use $container->get('foo')
-     * // to create an instance of Connection
+     * // 注册一个别名，你可以使用 $container->get('foo') 来创建 Connection 的一个实例
      * $container->set('foo', 'yii\db\Connection');
      *
-     * // register a class with configuration. The configuration
-     * // will be applied when the class is instantiated by get()
+     * // 注册一个带配置的类，配置在类被 get() 实例化时将被应用
      * $container->set('yii\db\Connection', [
      *     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
      *     'username' => 'root',
@@ -198,8 +195,8 @@ class Container extends Component
      *     'charset' => 'utf8',
      * ]);
      *
-     * // register an alias name with class configuration
-     * // In this case, a "class" element is required to specify the class
+     * // 用类配置来注册别名
+     * // 这种情况下， "class" 元素是必填项以指定类
      * $container->set('db', [
      *     'class' => 'yii\db\Connection',
      *     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
@@ -208,30 +205,27 @@ class Container extends Component
      *     'charset' => 'utf8',
      * ]);
      *
-     * // register a PHP callable
-     * // The callable will be executed when $container->get('db') is called
+     * // 注册一个 PHP 回调函数
+     * // 当 $container->get('db') 被调用时此回调函数将被执行
      * $container->set('db', function ($container, $params, $config) {
      *     return new \yii\db\Connection($config);
      * });
      * ```
      *
-     * If a class definition with the same name already exists, it will be overwritten with the new one.
-     * You may use [[has()]] to check if a class definition already exists.
+     * 如果具有相同名称的类定义已存在，它将被新的类定义覆盖，可使用[[has()]]核查类定义是否已存在
      *
-     * @param string $class class name, interface name or alias name
-     * @param mixed $definition the definition associated with `$class`. It can be one of the followings:
+     * @param string $class 类名、接口名或别名
+     * @param mixed $definition 关联到`$class`的定义，可以是以下之一：
      *
-     * - a PHP callable: The callable will be executed when [[get()]] is invoked. The signature of the callable
-     *   should be `function ($container, $params, $config)`, where `$params` stands for the list of constructor
-     *   parameters, `$config` the object configuration, and `$container` the container object. The return value
-     *   of the callable will be returned by [[get()]] as the object instance requested.
-     * - a configuration array: the array contains name-value pairs that will be used to initialize the property
-     *   values of the newly created object when [[get()]] is called. The `class` element stands for the
-     *   the class of the object to be created. If `class` is not specified, `$class` will be used as the class name.
-     * - a string: a class name, an interface name or an alias name.
-     * @param array $params the list of constructor parameters. The parameters will be passed to the class
-     * constructor when [[get()]] is called.
-     * @return static the container itself
+     * - PHP 回调函数：当 [[get()]]调用时此回调函数将执行，回调函数的标识是
+     * `function ($container, $params, $config)`, 其中`$params`代表构造函数的参数列表，
+     * `$config`代表对象配置，而`$container` 代表容器对象。
+     * 此回调函数的返回值是[[get()]]返回的被请求的对象实例。
+     * - 配置数组：数组包括用于[[get()]]调用时初始化新对象的属性值，`class`元素代表要创建对象所属类，
+     * 如果`class`未指定，`$class`将用作类名。
+     * - 字符串：类名、接口名或别名
+     * @param array $params 构造函数的参数列表，在[[get()]]调用时将被传递到构造函数
+     * @return static 容器本身
      */
     public function set($class, $definition = [], array $params = [])
     {
