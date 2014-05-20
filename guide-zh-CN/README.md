@@ -61,7 +61,7 @@ Yii 2.0 权威指南
 应用结构
 --------
 
-* **待定中**【待翻译-20140502】[入口脚本](structure-entry-scripts.md)
+* **已完成**【待翻译-20140502】[入口脚本](structure-entry-scripts.md)
 * **待定中** [应用](structure-applications.md)
 * **已完成**【未校对-20140501】[控制器和动作（Action）](structure-controllers.md)
 * **已完成**【未校对-20140501】[视图（View）](structure-views.md)
@@ -78,17 +78,17 @@ Yii 2.0 权威指南
 * **待定中** [请求（Request）](runtime-requests.md)
 * **待定中** [响应（Response）](runtime-responses.md)
 * **待定中** [Sessions（会话）和 Cookies](runtime-sessions-cookies.md)
-* **编撰中**【未校对-20140501】[URL 解析和生成](runtime-url-handling.md)
+* **已完成**【未校对-20140501】[URL 解析和生成](runtime-url-handling.md)
 * **待定中** [过滤器](runtime-filtering.md)
 
 关键概念
 --------
 
-* **编撰中**【待翻译-20140502】[组件（Component）](concept-components.md)
-* **编撰中**【未校对-20140501】[属性（Property）](concept-properties.md)
-* **编撰中**【未校对-20140501】[事件（Event）](concept-events.md)
-* **编撰中**【未校对-20140501】[行为（Behavior）](concept-behaviors.md)
-* **编撰中**【需更新-20140502】[配置（Configs）](concept-configs.md)
+* **已完成**【待翻译-20140502】[组件（Component）](concept-components.md)
+* **已完成**【未校对-20140501】[属性（Property）](concept-properties.md)
+* **已完成**【未校对-20140501】[事件（Event）](concept-events.md)
+* **已完成**【未校对-20140501】[行为（Behavior）](concept-behaviors.md)
+* **已完成**【需更新-20140502】[配置（Configs）](concept-configs.md)
 * **已完成**【未校对-20140501】[类自动加载（Autoloading）](concept-autoloading.md)
 * **已完成**【未校对-20140501】[别名（Alias）](concept-alias.md)
 * **已完成**【翻译中-20140501】[服务定位器（Service Locator）](concept-service-locator.md)
@@ -142,24 +142,24 @@ Yii 2.0 权威指南
 -----
 
 * **编撰中**【未校对-20140501】[概述](caching-overview.md)
-* **待定中** [数据缓存](caching-data.md)
-* **待定中** [片段和页面缓存](caching-fragment.md)
-* **待定中** [HTTP 缓存](caching-http.md)
+* **编撰中** [数据缓存](caching-data.md)
+* **编撰中** [片段缓存](caching-fragment.md)
+* **编撰中** [分页缓存](caching-page.md)
+* **编撰中** [HTTP 缓存](caching-http.md)
 
 
 RESTful Web 服务
 ----------------
 
-* **编撰中**【翻译中-20140501】[快速入门](rest-quick-start.md)
-* **编撰中** [资源](rest-resources.md)
-* **编撰中** [路由](rest-routing.md)
-* **编撰中** [格式化数据](rest-data-formatting.md)
-* **编撰中** [授权验证](rest-authentication.md)
-* **编撰中** [速率限制](rest-rate-limiting.md)
-* **编撰中** [版本化](rest-versioning.md)
-* **编撰中** [缓存](rest-caching.md)
-* **编撰中** [错误处理](rest-error-handling.md)
-* **编撰中** [测试](rest-testing.md)
+* **已完成**【翻译中-20140501】[快速入门](rest-quick-start.md)
+* **已完成** [资源](rest-resources.md)
+* **已完成** [路由](rest-routing.md)
+* **已完成** [格式化响应](rest-response-formatting.md)
+* **已完成** [授权验证](rest-authentication.md)
+* **已完成** [速率限制](rest-rate-limiting.md)
+* **已完成** [版本化](rest-versioning.md)
+* **已完成** [错误处理](rest-error-handling.md)
+* **已完成** [测试](rest-testing.md)
 
 
 开发工具
@@ -193,8 +193,8 @@ RESTful Web 服务
 高级专题
 --------
 
-* **编撰中**[高级应用模版](tutorial-advanced-app.md)
-* **编撰中**[从头自定义模版](tutorial-start-from-scratch.md)
+* **编撰中** [高级应用模版](tutorial-advanced-app.md)
+* **编撰中** [从头自定义模版](tutorial-start-from-scratch.md)
 * **编撰中** 【未校对-20140502】[控制台命令](tutorial-console.md)
 * **编撰中** 【未校对-20140502】[错误处理](tutorial-handling-errors.md)
 * **编撰中** 【未校对-20140502】[国际化](tutorial-i18n.md)
