@@ -37,7 +37,8 @@ For your first Framework, how to choose is really personal.
 让其他心法望尘莫及。
 
 2. 至简流
-代表 CodeIgniter，额官方已经停运了。简而言之，入门容易，但缺少上层心法。用来入门挺好，可以学到基本的MVC概念，可惜不更新了。
+比较早的代表有 CodeIgniter，可惜官方已经停运了，后来者在极简主义方面做得也有声有色，比如 [Toro](https://github.com/anandkunal/ToroPHP)，[Slim](https://github.com/codeguy/Slim)等。
+简而言之，入门容易，定位灵活，但功能偏弱，另外缺少上层心法，难以进阶。用来入门挺好，可以学到基本的MVC概念。
 
 3. 全栈流
 代表ZF2，Symfony2，大而全，代码优美，文档丰富，尝试解决宇宙间的一切问题。最高级的心法，可惜上手偏难，运行效率低。
@@ -62,5 +63,7 @@ That reminds me… Java past• “Their main thesis to support that complexity 
 • As simple API as possible.
 
 Reference：http://www.slideshare.net/samdark/yii-frameworks-and-where-php-is-heading-to
+
+代表 Laravel 与 Yii
 
 ## 灵活变通 Switch When Needed
