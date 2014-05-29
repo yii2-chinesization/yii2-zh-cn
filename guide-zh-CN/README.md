@@ -62,7 +62,7 @@ Yii 2.0 权威指南
 --------
 
 * **已完成**【待翻译-20140502】[入口脚本](structure-entry-scripts.md)
-* **待定中** [应用](structure-applications.md)
+* **编撰中** [应用](structure-applications.md)
 * **已完成**【未校对-20140501】[控制器和动作（Action）](structure-controllers.md)
 * **已完成**【未校对-20140501】[视图（View）](structure-views.md)
 * **已完成**【未校对-20140501】[模型（Model）](structure-models.md)
