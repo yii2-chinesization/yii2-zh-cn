@@ -63,9 +63,11 @@ Yii 2.0 权威指南
 
 * **已完成**【待翻译-20140502】[入口脚本](structure-entry-scripts.md)
 * **编撰中** [应用](structure-applications.md)
-* **已完成**【未校对-20140501】[控制器和动作（Action）](structure-controllers.md)
+* **编撰中** [应用组件](structure-application-components.md)
+* **已完成**【未校对-20140501】[控制器](structure-controllers.md)
 * **已完成**【未校对-20140501】[视图（View）](structure-views.md)
 * **已完成**【未校对-20140501】[模型（Model）](structure-models.md)
+* **待定中** [过滤器](structure-filters.md)
 * **待定中** [小部件](structure-widgets.md)
 * **待定中** [模块](structure-modules.md)
 * **待定中** [扩展（extensions）](structure-extensions.md)
@@ -79,7 +81,6 @@ Yii 2.0 权威指南
 * **待定中** [响应（Response）](runtime-responses.md)
 * **待定中** [Sessions（会话）和 Cookies](runtime-sessions-cookies.md)
 * **已完成**【未校对-20140501】[URL 解析和生成](runtime-url-handling.md)
-* **待定中** [过滤器](runtime-filtering.md)
 
 关键概念
 --------
@@ -101,7 +102,7 @@ Yii 2.0 权威指南
 * **编撰中**【未校对-20140501】[数据访问对象（DAO）](db-dao.md) - 数据库连接、基本查询、事务和模式操作
 * **编撰中**【未校对-20140501】[查询生成器（Query Builder）](db-query-builder.md) - 使用简单抽象层查询数据库
 * **编撰中**【未校对-20140501】[活动记录（Active Record）](db-active-record.md) - 活动记录对象关系映射（ORM），检索和操作记录、定义关联关系
-* **编撰中**【未校对-20140501】[数据库迁移（Migration）](db-migrations.md)
+* ****【未校对-20140501】[数据库迁移（Migration）](db-migrations.md)
 * **待定中** [Sphinx](db-sphinx.md)
 * **待定中** [Redis](db-redis.md)
 * **待定中** [MongoDB](db-mongodb.md)
@@ -199,7 +200,7 @@ RESTful Web 服务
 * **编撰中** 【未校对-20140502】[错误处理](tutorial-handling-errors.md)
 * **编撰中** 【未校对-20140502】[国际化](tutorial-i18n.md)
 * **编撰中** 【未校对-20140502】[日志](tutorial-logging.md)
-* **待定中** [收发邮件](tutorial-mailing.md)
+* **编撰中** [收发邮件](tutorial-mailing.md)
 * **编撰中** 【未校对-20140502】[性能优化](tutorial-performance-tuning.md)
 * **待定中** [共享主机环境](tutorial-shared-hosting.md)
 * **编撰中** 【未校对-20140502】[模板引擎](tutorial-template-engines.md)
