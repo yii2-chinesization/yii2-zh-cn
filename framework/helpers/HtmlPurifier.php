@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140513
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -8,15 +12,15 @@
 namespace yii\helpers;
 
 /**
- * HtmlPurifier provides an ability to clean up HTML from any harmful code.
+ * HtmlPurifier 提供了从任何有害代码清理 HTML 的能力
  *
- * Basic usage is the following:
+ * 基本用法如下：
  *
  * ```php
  * echo HtmlPurifier::process($html);
  * ```
  *
- * If you want to configure it:
+ * 如果你想配置它：
  *
  * ```php
  * echo HtmlPurifier::process($html, [
@@ -24,10 +28,9 @@ namespace yii\helpers;
  * ]);
  * ```
  *
- * For more details please refer to HTMLPurifier documentation](http://htmlpurifier.org/).
+ * 详情请参阅 [HTMLPurifier 文档](http://htmlpurifier.org/).
  *
- * Note that you should add `ezyang/htmlpurifier` to your composer.json `require` section and run `composer install`
- * before using it.
+ * 注意你要添加 `ezyang/htmlpurifier` 到你的 composer.json `require` 部分并运行`composer install`后再使用它。
  *
  * @author Alexander Makarov <sam@rmcreative.ru>
  * @since 2.0

@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140513
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -8,17 +12,16 @@
 namespace yii\helpers;
 
 /**
- * Security provides a set of methods to handle common security-related tasks.
+ * Security（安全助手类） 提供了一组方法来处理常见的有关安全的任务
  *
- * In particular, Security supports the following features:
+ * 特别是，安全类支持以下功能：
  *
- * - Encryption/decryption: [[encrypt()]] and [[decrypt()]]
- * - Data tampering prevention: [[hashData()]] and [[validateData()]]
- * - Password validation: [[generatePasswordHash()]] and [[validatePassword()]]
+ * - 加密和解密：[[encrypt()]]和[[decrypt()]]
+ * - 数据纂改预防：[[hashData()]]和[[validateData()]]
+ * - 密码验证：[[generatePasswordHash()]]和[[validatePassword()]]
  *
- * Additionally, Security provides [[getSecretKey()]] to support generating
- * named secret keys. These secret keys, once generated, will be stored in a file
- * and made available in future requests.
+ * 此外，安全类提供[[getSecretKey()]]来支持生成指定的密钥，
+ * 这些密钥一旦生成，将被存储在文件中并可在以后的请求中使用。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @author Tom Worster <fsb@thefsb.org>

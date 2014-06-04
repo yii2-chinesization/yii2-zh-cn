@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140513
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -11,9 +15,9 @@ use Yii;
 use yii\base\InvalidParamException;
 
 /**
- * BaseMarkdown provides concrete implementation for [[Markdown]].
+ * BaseMarkdown 为[[Markdown]]提供具体实现
  *
- * Do not use BaseMarkdown. Use [[Markdown]] instead.
+ * 不要使用 BaseMarkdown ，而是使用[[Markdown]]代替。
  *
  * @author Carsten Brandt <mail@cebe.cc>
  * @since 2.0
@@ -21,7 +25,7 @@ use yii\base\InvalidParamException;
 class BaseMarkdown
 {
     /**
-     * @var array a map of markdown flavor names to corresponding parser class configurations.
+     * @var array  markdown 风格名和对应解析器类配置的映射
      */
     public static $flavors = [
         'original' => [
@@ -39,19 +43,18 @@ class BaseMarkdown
         ],
     ];
     /**
-     * @var string the markdown flavor to use when none is specified explicitly.
-     * Defaults to `original`.
+     * @var string 当没有显式指定时使用的 markdown 风格，缺省为`original`
      * @see $flavors
      */
     public static $defaultFlavor = 'original';
 
     /**
-     * Converts markdown into HTML.
+     * 把 markdown 转变为 HTML
      *
-     * @param string $markdown the markdown text to parse
-     * @param string $flavor the markdown flavor to use. See [[$flavors]] for available values.
-     * @return string the parsed HTML output
-     * @throws \yii\base\InvalidParamException when an undefined flavor is given.
+     * @param string $markdown 要解析的 markdown 文本
+     * @param string $flavor 要使用的 markdown 风格，可用值参阅[[$flavors]]
+     * @return string 解析后的 HTML 输出
+     * @throws \yii\base\InvalidParamException 当给定未定义的风格参数时
      */
     public static function process($markdown, $flavor = 'original')
     {
@@ -61,14 +64,14 @@ class BaseMarkdown
     }
 
     /**
-     * Converts markdown into HTML but only parses inline elements.
+     * 把 markdown 转变为 HTML 但只解析行内元素
      *
-     * This can be useful for parsing small comments or description lines.
+     * 这对解析小注释或描述行是有用的
      *
-     * @param string $markdown the markdown text to parse
-     * @param string $flavor the markdown flavor to use. See [[$flavors]] for available values.
-     * @return string the parsed HTML output
-     * @throws \yii\base\InvalidParamException when an undefined flavor is given.
+     * @param string $markdown 要解析的 markdown 文本
+     * @param string $flavor 要使用的 markdown 风格，可用值见[[$flavors]]
+     * @return string 解析后的 HTML 输出
+     * @throws \yii\base\InvalidParamException 当给定未定义的风格参数时
      */
     public static function processParagraph($markdown, $flavor = 'original')
     {
@@ -80,7 +83,7 @@ class BaseMarkdown
     /**
      * @param string $flavor
      * @return \cebe\markdown\Parser
-     * @throws \yii\base\InvalidParamException when an undefined flavor is given.
+     * @throws \yii\base\InvalidParamException 当给定未定义的风格参数时
      */
     protected static function getParser($flavor)
     {

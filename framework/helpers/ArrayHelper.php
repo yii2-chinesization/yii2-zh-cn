@@ -8,8 +8,7 @@
 namespace yii\helpers;
 
 /**
- * ArrayHelper provides additional array functionality that you can use in your
- * application.
+ * ArrayHelper 提供了你在你的应用可使用的其它数组功能
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0

@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140513
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -12,9 +16,9 @@ use yii\base\Arrayable;
 use yii\web\JsExpression;
 
 /**
- * BaseJson provides concrete implementation for [[Json]].
+ * BaseJson 为[[Json]]提供具体实现
  *
- * Do not use BaseJson. Use [[Json]] instead.
+ * 不要使用 BaseJson ，而是使用[[Json]]代替。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -22,14 +26,12 @@ use yii\web\JsExpression;
 class BaseJson
 {
     /**
-     * Encodes the given value into a JSON string.
-     * The method enhances `json_encode()` by supporting JavaScript expressions.
-     * In particular, the method will not encode a JavaScript expression that is
-     * represented in terms of a [[JsExpression]] object.
-     * @param mixed $value the data to be encoded
-     * @param integer $options the encoding options. For more details please refer to
+     * 将给定值编码为 JSON 字符串
+     * 本方法通过支持 JavaScript 表达式来增强了`json_encode()`函数，特别是本方法将不编码[[JsExpression]]对象的形式所代表的 JavaScript 表达式。
+     * @param mixed $value 要编码的数据
+     * @param integer $options 编码选项，详情参阅
      * <http://www.php.net/manual/en/function.json-encode.php>.
-     * @return string the encoding result
+     * @return string 编码结果
      */
     public static function encode($value, $options = 0)
     {
@@ -41,11 +43,11 @@ class BaseJson
     }
 
     /**
-     * Decodes the given JSON string into a PHP data structure.
-     * @param string $json the JSON string to be decoded
-     * @param boolean $asArray whether to return objects in terms of associative arrays.
-     * @return mixed the PHP data
-     * @throws InvalidParamException if there is any decoding error
+     * 把给定 JSON 字符串解码为 PHP 数据结构
+     * @param string $json 要解码的 JSON 字符串
+     * @param boolean $asArray 是否返以关联数组形式的对象
+     * @return mixed  PHP 数据
+     * @throws InvalidParamException 如果解码发生任何错误
      */
     public static function decode($json, $asArray = true)
     {
@@ -74,11 +76,11 @@ class BaseJson
     }
 
     /**
-     * Pre-processes the data before sending it to `json_encode()`.
-     * @param mixed $data the data to be processed
-     * @param array $expressions collection of JavaScript expressions
-     * @param string $expPrefix a prefix internally used to handle JS expressions
-     * @return mixed the processed data
+     * 在发送数据到`json_encode()`前预处理数据
+     * @param mixed $data 要处理的数据
+     * @param array $expressions  JavaScript 表达式集合
+     * @param string $expPrefix 内部用来处理 JS 表达式的前缀
+     * @return mixed 处理后的数据
      */
     protected static function processData($data, &$expressions, $expPrefix)
     {

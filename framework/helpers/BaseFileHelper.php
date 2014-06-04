@@ -1,5 +1,10 @@
 <?php
 /**
+ * 英文文档日期：20140513
+ * 未翻译完成
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -11,9 +16,9 @@ use Yii;
 use yii\base\InvalidParamException;
 
 /**
- * BaseFileHelper provides concrete implementation for [[FileHelper]].
+ * BaseFileHelper 为[[FileHelper]]提供具体实现
  *
- * Do not use BaseFileHelper. Use [[FileHelper]] instead.
+ * 不要使用 BaseFileHelper ，而是使用[[FileHelper]]替代
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @author Alex Makarov <sam@rmcreative.ru>
@@ -27,17 +32,17 @@ class BaseFileHelper
     const PATTERN_NEGATIVE = 16;
 
     /**
-     * Normalizes a file/directory path.
-     * The normalization does the following work:
+     * 标准化文件或目录路径
+     * 标准化做了以下工作：
      *
-     * - Convert all directory separators into `DIRECTORY_SEPARATOR` (e.g. "\a/b\c" becomes "/a/b/c")
-     * - Remove trailing directory separators (e.g. "/a/b/c/" becomes "/a/b/c")
-     * - Turn multiple consecutive slashes into a single one (e.g. "/a///b/c" becomes "/a/b/c")
-     * - Remove ".." and "." based on their meanings (e.g. "/a/./b/../c" becomes "/a/c")
+     * - 将所有目录分隔符转为`DIRECTORY_SEPARATOR` (如"\a/b\c" becomes "/a/b/c")
+     * - 移除末尾的目录分隔符(如"/a/b/c/" becomes "/a/b/c")
+     * - 把多个连续斜杠减少为一个斜杠(如 "/a///b/c" becomes "/a/b/c")
+     * - 基于它们的含义移除".."和"."(如"/a/./b/../c" becomes "/a/c")
      *
-     * @param string $path the file/directory path to be normalized
-     * @param string $ds the directory separator to be used in the normalized result. Defaults to `DIRECTORY_SEPARATOR`.
-     * @return string the normalized file/directory path
+     * @param string $path 要标准化的文件/目录路径
+     * @param string $ds 用于标准化结果的目录分隔符，缺省为`DIRECTORY_SEPARATOR`.
+     * @return string 标准化后的文件/目录路径
      */
     public static function normalizePath($path, $ds = DIRECTORY_SEPARATOR)
     {
@@ -60,25 +65,20 @@ class BaseFileHelper
     }
 
     /**
-     * Returns the localized version of a specified file.
+     * 返回指定文件的本地化版本
      *
-     * The searching is based on the specified language code. In particular,
-     * a file with the same name will be looked for under the subdirectory
-     * whose name is the same as the language code. For example, given the file "path/to/view.php"
-     * and language code "zh-CN", the localized file will be looked for as
-     * "path/to/zh-CN/view.php". If the file is not found, it will try a fallback with just a language code that is
-     * "zh" i.e. "path/to/zh/view.php". If it is not found as well the original file will be returned.
+     * 搜索基于指定的语言编码。尤其是，同名文件将在以语言编码为名的子目录下查找。
+     * 如，给定文件"path/to/view.php"和语言编码"zh-CN"，将查找本地化文件"path/to/zh-CN/view.php"。
+     * 如果此文件不存在，将尝试回退到"zh"去查找，如"path/to/zh/view.php"。如果也没找到就返回原始文件。
+     * 如果目标语言和源码语言相同，将返回原始文件。
      *
-     * If the target and the source language codes are the same,
-     * the original file will be returned.
-     *
-     * @param string $file the original file
-     * @param string $language the target language that the file should be localized to.
-     * If not set, the value of [[\yii\base\Application::language]] will be used.
-     * @param string $sourceLanguage the language that the original file is in.
-     * If not set, the value of [[\yii\base\Application::sourceLanguage]] will be used.
-     * @return string the matching localized file, or the original file if the localized version is not found.
-     * If the target and the source language codes are the same, the original file will be returned.
+     * @param string $file 原始文件
+     * @param string $language 文件要本地化的目标语言
+     * 如果未设置，将使用[[\yii\base\Application::language]]的值。
+     * @param string $sourceLanguage 原始文件的语言
+     * 如果未设置，将使用[[\yii\base\Application::sourceLanguage]]的值。
+     * @return string 匹配的本地化文件，如果本地化版本未找到就返回原始文件。
+     * 如果目标语言和源码语言相同就返回原始文件。
      */
     public static function localize($file, $language = null, $sourceLanguage = null)
     {
@@ -106,16 +106,14 @@ class BaseFileHelper
     }
 
     /**
-     * Determines the MIME type of the specified file.
-     * This method will first try to determine the MIME type based on
-     * [finfo_open](http://php.net/manual/en/function.finfo-open.php). If this doesn't work, it will
-     * fall back to [[getMimeTypeByExtension()]].
-     * @param string $file the file name.
-     * @param string $magicFile name of the optional magic database file, usually something like `/path/to/magic.mime`.
-     * This will be passed as the second parameter to [finfo_open](http://php.net/manual/en/function.finfo-open.php).
-     * @param boolean $checkExtension whether to use the file extension to determine the MIME type in case
-     * `finfo_open()` cannot determine it.
-     * @return string the MIME type (e.g. `text/plain`). Null is returned if the MIME type cannot be determined.
+     * 确定指定文件的 MIME 类型
+     * 本方法首先将尝试基于[finfo_open](http://php.net/manual/en/function.finfo-open.php)
+     * 确定 MIME 类型。如果不起作用，就退而使用[[getMimeTypeByExtension()]]。
+     * @param string $file 文件名
+     * @param string $magicFile 可选数据库魔术文件名，通常是`/path/to/magic.mime`。
+     * 这将作为第二个参数传递到[finfo_open](http://php.net/manual/en/function.finfo-open.php).
+     * @param boolean $checkExtension 是否使用文件扩展名来确定 MIME 类型以防`finfo_open()`不能确定
+     * @return string MIME 类型(如`text/plain`)，如果 MIME 类型无法确定返回 null
      */
     public static function getMimeType($file, $magicFile = null, $checkExtension = true)
     {

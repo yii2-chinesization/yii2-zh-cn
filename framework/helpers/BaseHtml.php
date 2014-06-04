@@ -1,5 +1,10 @@
 <?php
 /**
+ * 英文文档日期：20140513
+ * 未翻译完成
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -14,9 +19,9 @@ use yii\web\Request;
 use yii\base\Model;
 
 /**
- * BaseHtml provides concrete implementation for [[Html]].
+ * BaseHtml 为[[Html]]提供具体实现
  *
- * Do not use BaseHtml. Use [[Html]] instead.
+ * 不要使用 BaseHtml ，而是使用[[Html]]替代。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -24,7 +29,7 @@ use yii\base\Model;
 class BaseHtml
 {
     /**
-     * @var array list of void elements (element name => 1)
+     * @var array 无效元素的列表 (element name => 1)
      * @see http://www.w3.org/TR/html-markup/syntax.html#void-element
      */
     public static $voidElements = [
@@ -46,8 +51,7 @@ class BaseHtml
         'wbr' => 1,
     ];
     /**
-     * @var array the preferred order of attributes in a tag. This mainly affects the order of the attributes
-     * that are rendered by [[renderTagAttributes()]].
+     * @var array 标签属性的优先顺序，这个主要影响由[[renderTagAttributes()]]渲染的属性顺序。
      */
     public static $attributeOrder = [
         'type',
@@ -81,12 +85,12 @@ class BaseHtml
     ];
 
     /**
-     * Encodes special characters into HTML entities.
-     * The [[\yii\base\Application::charset|application charset]] will be used for encoding.
-     * @param string $content the content to be encoded
-     * @param boolean $doubleEncode whether to encode HTML entities in `$content`. If false,
-     * HTML entities in `$content` will not be further encoded.
-     * @return string the encoded content
+     * 把特殊字符编码为 HTML 实体
+     * [[\yii\base\Application::charset|application charset]]将用于编码
+     * @param string $content 要编码的内容
+     * @param boolean $doubleEncode 是否把`$content`的 HTML 实体编码，
+     * 如为 false ，`$content`的 HTML 实体将不再编码。
+     * @return string 已编码的内容
      * @see decode()
      * @see http://www.php.net/manual/en/function.htmlspecialchars.php
      */
@@ -96,10 +100,10 @@ class BaseHtml
     }
 
     /**
-     * Decodes special HTML entities back to the corresponding characters.
-     * This is the opposite of [[encode()]].
-     * @param string $content the content to be decoded
-     * @return string the decoded content
+     * 把特殊的 HTML 实体解码回对应的字符
+     * 这和[[encode()]]正相反。
+     * @param string $content 要解码的内容
+     * @return string 已解码的内容
      * @see encode()
      * @see http://www.php.net/manual/en/function.htmlspecialchars-decode.php
      */
@@ -109,20 +113,20 @@ class BaseHtml
     }
 
     /**
-     * Generates a complete HTML tag.
-     * @param string $name the tag name
-     * @param string $content the content to be enclosed between the start and end tags. It will not be HTML-encoded.
-     * If this is coming from end users, you should consider [[encode()]] it to prevent XSS attacks.
-     * @param array $options the HTML tag attributes (HTML options) in terms of name-value pairs.
-     * These will be rendered as the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
-     * If a value is null, the corresponding attribute will not be rendered.
+     * 生成完整的 HTML 标签
+     * @param string $name 标签名
+     * @param string $content 要封闭到开始和结束标签中的内容，非 HTML 编码
+     * 如果这个内容来自终端用户，应考虑用[[encode()]]把它编码以防止 XSS 攻击
+     * @param array $options HTML 标签属性 (HTML 选项)，名值对形式
+     * 它们将被渲染成输出标签的属性，属性值用[[encode()]]转变成 HTML 编码
+     * 如果值为 null ，对应的属性就不渲染。
      *
-     * For example when using `['class' => 'my-class', 'target' => '_blank', 'value' => null]` it will result in the
-     * html attributes rendered like this: `class="my-class" target="_blank"`.
+     * 例如，当使用`['class' => 'my-class', 'target' => '_blank', 'value' => null]`，
+     * 它渲染输出的 HTML 属性就是这样：`class="my-class" target="_blank"`.
      *
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * 属性如何渲染的详情见[[renderTagAttributes()]]
      *
-     * @return string the generated HTML tag
+     * @return string 生成的 HTML 标签
      * @see beginTag()
      * @see endTag()
      */
@@ -134,13 +138,11 @@ class BaseHtml
     }
 
     /**
-     * Generates a start tag.
-     * @param string $name the tag name
-     * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
-     * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
-     * @return string the generated start tag
+     * 生成一个开始标签
+     * @param string $name 标签名
+     * @param array $options 名值对标签选项，将渲染为输出标签的属性，属性值用[[encode()]]编码成 HTML
+     * 如果值为 null ，对应属性就不渲染，属性如何渲染的详情见[[renderTagAttributes()]]
+     * @return string 生成的开始标签
      * @see endTag()
      * @see tag()
      */
@@ -150,9 +152,9 @@ class BaseHtml
     }
 
     /**
-     * Generates an end tag.
-     * @param string $name the tag name
-     * @return string the generated end tag
+     * 生成结束标签
+     * @param string $name 标签名
+     * @return string 生成的结束标签
      * @see beginTag()
      * @see tag()
      */
@@ -162,14 +164,12 @@ class BaseHtml
     }
 
     /**
-     * Generates a style tag.
-     * @param string $content the style content
-     * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
-     * If a value is null, the corresponding attribute will not be rendered.
-     * If the options does not contain "type", a "type" attribute with value "text/css" will be used.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
-     * @return string the generated style tag
+     * 生成一个 style 标签
+     * @param string $content style 内容
+     * @param array $options 名值对标签选项，将渲染为输出标签的属性，属性值用[[encode()]]编码成 HTML
+     * 如果值为 null ，对应属性就不渲染，属性如何渲染的详情见[[renderTagAttributes()]]
+     * 如果选项不包括"type"，将使用"type"属性和属性值"text/css"
+     * @return string 生成的 style 标签
      */
     public static function style($content, $options = [])
     {
@@ -177,14 +177,12 @@ class BaseHtml
     }
 
     /**
-     * Generates a script tag.
-     * @param string $content the script content
-     * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
-     * If a value is null, the corresponding attribute will not be rendered.
-     * If the options does not contain "type", a "type" attribute with value "text/javascript" will be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
-     * @return string the generated script tag
+     * 生成 script 标签
+     * @param string $content  script 内容
+     * @param array $options 名值对标签选项，将渲染为输出标签的属性，属性值用[[encode()]]编码成 HTML
+     * 如果值为 null ，对应属性就不渲染，属性如何渲染的详情见[[renderTagAttributes()]]
+     * 如果选项不包括"type"，将使用"type"属性和属性值"text/javascript"
+     * @return string 生成的 script 标签
      */
     public static function script($content, $options = [])
     {
@@ -192,18 +190,16 @@ class BaseHtml
     }
 
     /**
-     * Generates a link tag that refers to an external CSS file.
-     * @param array|string $url the URL of the external CSS file. This parameter will be processed by [[Url::to()]].
-     * @param array $options the tag options in terms of name-value pairs. The following option is specially handled:
+     * 生成一个指向外部 CSS 文件的链接标签
+     * @param array|string $url 外部 CSS 文件的 URL ，此参数将由[[Url::to()]]处理
+     * @param array $options 名值对标签选项，下列选项将作特殊处理：
      *
-     * - condition: specifies the conditional comments for IE, e.g., `lt IE 9`. When this is specified,
-     *   the generated `script` tag will be enclosed within the conditional comments. This is mainly useful
-     *   for supporting old versions of IE browsers.
+     * - condition: 指定 IE 的条件注释，如`lt IE 9`。当它被指定，生成的`script`标签将封闭在此条件注释内。
+     * 这对支持 IE 浏览器的旧版本是有用的。
      *
-     * The rest of the options will be rendered as the attributes of the resulting link tag. The values will
-     * be HTML-encoded using [[encode()]]. If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
-     * @return string the generated link tag
+     * 其余选项将被渲染为输出链接标签的属性，属性值用[[encode()]]作 HTML 编码。
+     * 如果值为 null ，对应的属性将不渲染，属性渲染的详情见[[renderTagAttributes()]]
+     * @return string 生成的链接标签
      * @see Url::to()
      */
     public static function cssFile($url, $options = [])
@@ -216,25 +212,23 @@ class BaseHtml
         if (isset($options['condition'])) {
             $condition = $options['condition'];
             unset($options['condition']);
-            return "<!--[if $condition]-->\n" . static::tag('link', '', $options) . "\n<![endif]-->";
+            return "<!--[if $condition]>\n" . static::tag('link', '', $options) . "\n<![endif]-->";
         } else {
             return static::tag('link', '', $options);
         }
     }
 
     /**
-     * Generates a script tag that refers to an external JavaScript file.
-     * @param string $url the URL of the external JavaScript file. This parameter will be processed by [[Url::to()]].
-     * @param array $options the tag options in terms of name-value pairs. The following option is specially handled:
+     * 生成一个指向外部 JavaScript 文件的链接标签
+     * @param string $url 外部 JavaScript 文件的 URL ，此参数将由[[Url::to()]]处理
+     * @param array $options 名值对标签选项，下列选项将作特殊处理：
      *
-     * - condition: specifies the conditional comments for IE, e.g., `lt IE 9`. When this is specified,
-     *   the generated `script` tag will be enclosed within the conditional comments. This is mainly useful
-     *   for supporting old versions of IE browsers.
+     * - condition: 指定 IE 的条件注释，如`lt IE 9`。当它被指定，生成的`script`标签将封闭在此条件注释内。
+     * 这对支持 IE 浏览器的旧版本是有用的。
      *
-     * The rest of the options will be rendered as the attributes of the resulting script tag. The values will
-     * be HTML-encoded using [[encode()]]. If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
-     * @return string the generated script tag
+     * 其余选项将被渲染为输出链接标签的属性，属性值用[[encode()]]作 HTML 编码。
+     * 如果值为 null ，对应的属性将不渲染，属性渲染的详情见[[renderTagAttributes()]]
+     * @return string 生成的 script 标签
      * @see Url::to()
      */
     public static function jsFile($url, $options = [])
@@ -243,7 +237,7 @@ class BaseHtml
         if (isset($options['condition'])) {
             $condition = $options['condition'];
             unset($options['condition']);
-            return "<!--[if $condition]-->\n" . static::tag('script', '', $options) . "\n<![endif]-->";
+            return "<!--[if $condition]>\n" . static::tag('script', '', $options) . "\n<![endif]-->";
         } else {
             return static::tag('script', '', $options);
         }

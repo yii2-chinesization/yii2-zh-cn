@@ -1,5 +1,10 @@
 <?php
 /**
+ * 英文文档日期：20140513
+ * 未翻译完成
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -8,9 +13,9 @@
 namespace yii\helpers;
 
 /**
- * BaseConsole provides concrete implementation for [[Console]].
+ * BaseConsole 为[[Console]]提供具体实现
  *
- * Do not use BaseConsole. Use [[Console]] instead.
+ * 不要使用 BaseConsole ，而是使用[[Console]]代替
  *
  * @author Carsten Brandt <mail@cebe.cc>
  * @since 2.0
@@ -628,7 +633,7 @@ class BaseConsole
      */
     public static function stdin($raw = false)
     {
-        return $raw ? fgets(STDIN) : rtrim(fgets(STDIN), PHP_EOL);
+        return $raw ? fgets(\STDIN) : rtrim(fgets(\STDIN), PHP_EOL);
     }
 
     /**
@@ -639,7 +644,7 @@ class BaseConsole
      */
     public static function stdout($string)
     {
-        return fwrite(STDOUT, $string);
+        return fwrite(\STDOUT, $string);
     }
 
     /**
@@ -650,7 +655,7 @@ class BaseConsole
      */
     public static function stderr($string)
     {
-        return fwrite(STDERR, $string);
+        return fwrite(\STDERR, $string);
     }
 
     /**
