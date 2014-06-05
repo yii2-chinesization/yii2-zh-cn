@@ -1,50 +1,37 @@
 从 Yii 1.1 升级
 ======================
 
-在本章中，我们列出了从 1.1 到 Yii 2.0 版以来的重大变化。
-我们希望此列表将使您更轻松和快速地从 Yii 1.1 升级
-并基于你已有的Yii的知识来快速地掌握Yii2.0
+ Yii 2.0和1.1区别非常大，因为2.0完全重写了。因此，从1.1版本升级不是琐碎的小版本之间的升级。本章将总结这两个版本的主要差异。
+
+请注意 Yii 2.0引入的很多新功能未涵盖在本章总结。强烈推荐你通篇阅读本权威指南以掌握那些功能。有可能你以前须自行开发的功能现在已经成为核心代码的一部分了。
 
 
 命名空间
 ---------
 
-Yii 2.0 中最明显的变化是命名空间的使用。几乎每个核心类
-都使用命名空间，例如，'yii\web\Request'。在类名称中不再使用"C"前缀。
-命名空间按照所指的目录结构命名。例如，`yii\web\Request`
-指示相应的类文件是 Yii 框架文件夹下的 `web/Request.php`。
-你可以使用任何核心类而不用显式地包括这些类文件，感谢 Yii
-类加载器。
+Yii 2.0 最明显的变化是命名空间的使用。几乎所有核心类都有命名空间，如 `yii\web\Request` 。类名已不再需要"C"前缀。命名空间按照目录结构取名，如 `yii\web\Request` 对应的类文件是 Yii 框架目录的 `web/Request.php`。由于 Yii 的类加载器，不需要显式引入任何类文件就能直接使用任何核心类。
 
 
-Component and Object（组件和对象）
+组件和对象
 --------------------
 
-Yii 2.0 将 1.1版本中的`CComponent` 类 拆分为两个类： [[yii\base\Object]] 和 [[yii\base\Component]]。
-[[Yii\base\Object|Object]] 类是一个轻量级的基类，允许通过 getter 和 setter
-定义类的属性。[[Yii\base\Component|Component] 从 [[yii\base\Object|]] 扩展而来，并支持
-事件功能和行为。
+Yii 2.0 将 Yii 1.1 的 `CComponent` 类分离为`对象`和`组件`两个类：[[yii\base\Object]] and [[yii\base\Component]]。
+[[yii\base\Object|Object]] 对象类是轻量级的基类，可用 getters 和 setters 来定义[对象属性]。[[yii\base\Component|Component]] 组件类继承自 [[yii\base\Object|Object]] 对象类并支持[事件](basic-events.md)和[行为](basic-behaviors.md)。
 
-如果您的类不需要事件或行为的功能，则应考虑使用
-`Object` as the base class. This is usually the case for classes that represent basic
-data structures.
-
-More details about Object and component can be found in the [Basic concepts section](basics.md).
+若自定义类不需要事件或行为功能，只要继承自对象类即可，通常是代表基本数据结构的类使用。
 
 
-对象的配置
+对象配置
 --------------------
 
-[[yii\base\Object|Object]]类引入了一个统一的配置对象的方式。
-任何[[yii\base\Object|Object]]的子类（扩展类）应该覆盖它的构造函数（如果需要的话），
-以使它它可以被正确配置：
+[[yii\base\Object|Object]] 对象类提供了一个统一配置对象的方法。对象类的子类需要如下声明构造器（如需要），以使子类可被恰当配置：
 
 ```php
 class MyClass extends \yii\base\Object
 {
     public function __construct($param1, $param2, $config = [])
     {
-        // ... 在配置生效前的初始化
+        // ... 配置生效前的初始化
 
         parent::__construct($config);
     }
@@ -53,18 +40,14 @@ class MyClass extends \yii\base\Object
     {
         parent::init();
 
-        // ... 在配置生效后初始化
+        // ... 配置生效后的初始化
     }
 }
 ```
 
-在上面的例子中，构造函数的最后一个参数
-必须是一个包含相应键值对的数组，来初始化构造函数最后面的属性。
-You can override the [[yii\base\Object::init()|init()]] method to do initialization work that should be done after
-。
+以上代码中，构造函数的最后一个参数必须是键值对配置数组，用于构造函数运行结束时初始化属性。可以覆写[[yii\base\Object::init()|init()]]方法来完成配置生效后的初始化工作。
 
-根据该约定，
-你可以使用下面的配置数组(configuration array)来创建和配置一个新的对象：
+遵循该约定，就能如下使用配置数组来创建和配置新对象：
 
 ```php
 $object = Yii::createObject([
@@ -74,139 +57,61 @@ $object = Yii::createObject([
 ], [$param1, $param2]);
 ```
 
-More on configuration can be found in the [Basic concepts section](basics.md).
+更多配置信息请查阅[对象配置](basic-configs.md)章节。
 
 
-事件（Events）
+事件
 ------
 
-There is no longer the need to define an `on`-method in order to define an event in Yii 2.0.
-Instead, you can use whatever event names. To attach a handler to an event, you should now
-use the `on` method:
+Yii 2.0 定义事件的方法不再需要 `on` 开头，现在事件名不受任何限制。事件触发通过调用[[yii\base\Component::trigger()|trigger()]]方法实现：
+
+```php
+$event = new \yii\base\Event;
+$component->trigger($eventName, $event);
+```
+
+附加处理器到事件使用[[yii\base\Component::on()|on()]]方法：
 
 ```php
 $component->on($eventName, $handler);
-// To detach the handler, use:
+// 分离处理器，使用:
 // $component->off($eventName, $handler);
 ```
 
-
-When you attach a handler, you can now associate it with some parameters which can be later
-accessed via the event parameter by the handler:
-
-```php
-$component->on($eventName, $handler, $params);
-```
+事件功能更加强悍了，更多细节请参考[事件](basic-events.md) 章节。
 
 
-Because of this change, you can now use "global" events. Simply trigger and attach handlers to
-an event of the application instance:
-
-```php
-Yii::$app->on($eventName, $handler);
-....
-// this will trigger the event and cause $handler to be invoked.
-Yii::$app->trigger($eventName);
-```
-
-If you need to handle all instances of a class instead of the object you can attach a handler like the following:
-
-```php
-Event::on(ActiveRecord::className(), ActiveRecord::EVENT_AFTER_INSERT, function ($event) {
-    Yii::trace(get_class($event->sender) . ' is inserted.');
-});
-```
-
-上面的代码所定义的这个处理器，它可以在任意 Active Record 对象的 `EVENT_AFTER_INSERT` 事件发生时，被触发。
-
-See [Event handling section](events.md) for more details.
-
-
-Path Alias
+路径别名
 ----------
 
-Yii 2.0扩展了路径别名的用法，以同时应用于文件/目录的路径和 URL。
-一个别名必须以`@`字符开始，以便区别于传统的文件/目录路径或URL。
-For example, the alias `@yii` refers to the Yii installation directory. Path aliases are
-supported in most places in the Yii core code. For example, `FileCache::cachePath` can take
-both a path alias and a normal directory path.
-
-路径别名也和类的命名空间密切相关的。
-建议将每一个根命名空间定义为路径别名，这让你可以使用Yii的自动加载类
-而不需要进行任何配置。。例如，由于`@yii`指向Yii的安装目录，
-像`yii\web\Request`这样的类便可以通过Yii自动导入。如果需要用第三方类库
-(如Zend Framework)，你可以定义一个`@Zend`路径别名，它指向其安装目录，
-这样Yii就能自动导入这个类库中的任何类。
-
-More on path aliases can be found in the [Basic concepts section](basics.md).
+Yii 2.0 将路径别名的使用扩展到文件/目录路径和 URL。路径别名必须以 `@` 开头，以便区别于普通的文件/目录路径和 URL 。如，路径别名 `@yii`指向 Yii 框架的安装目录。 Yii 核心代码的绝大多数地方都支持路径别名，如[[yii\caching\FileCache::cachePath]]的赋值即可用路径别名又可用标准的目录路径。
 
 
-View
+路径别名和类的命名空间也密切相关。推荐为每个根命名空间定义一个路径别名，以便无须额外配置就能使用 Yii 的类自动加载器。例如，`@yii` 指向 Yii 安装目录，类似`yii\web\Request` 的类就能被 Yii 自动加载。如果使用 Zend 框架等第三方库，只要定义路径别名 `@Zend` 指向该框架的安装目录，Yii 就能自动加载这个库的任何类。
+
+更多路径别名信息请参阅[路径别名](basic-aliases.md)章节。
+
+
+视图
 ----
 
-Yii 2.0 introduces a [[yii\web\View|View]] class to represent the view part of the MVC pattern.
-It can be configured globally through the "view" application component. It is also
-accessible in any view file via `$this`. This is one of the biggest changes compared to 1.1:
-**`$this` in a view file no longer refers to the controller or widget object.**
-It refers to the view object that is used to render the view file. To access the controller
-or the widget object, you have to use `$this->context` now.
+视图最显著的改动是视图内的 `$this` 不再指向当前控制器或小部件，而是指向*视图*对象，这是 2.0 引进的新概念。*视图*即[[yii\web\View]]类，表示 MVC 模式的视图部分。现在要在视图中访问控制器或小部件，需要使用 `$this->context` 。
 
-Because you can access the view object through the "view" application component,
-you can now render a view file like the following anywhere in your code, not necessarily
-in controllers or widgets:
+要渲染任一视图内的局部视图，现在使用 `$this->render()` 方法，且必须显性**echo**它，因为 `render()` 方法返回的是渲染结果而不是直接显示内容。如：
 
 ```php
-$content = Yii::$app->view->renderFile($viewFile, $params);
-// You can also explicitly create a new View instance to do the rendering
-// $view = new View();
-// $view->renderFile($viewFile, $params);
+echo $this->render('_item', ['item' => $item]);
 ```
 
-Also, there is no more `CClientScript` in Yii 2.0. The [[yii\web\View|View]] class has taken over its role
-with significant improvements. For more details, please see the "assets" subsection.
-
-While Yii 2.0 continues to use PHP as its main template language, it comes with two official extensions
-adding support for two popular template engines: Smarty and Twig. The Prado template engine is
-no longer supported. To use these template engines, you just need to use `tpl` as the file
-extension for your Smarty views, or `twig` for Twig views. You may also configure the
-[[yii\web\View::$renderers|View::$renderers]] property to use other template engines. See [Using template engines](template.md) section
-of the guide for more details.
-
-See [View section](view.md) for more details.
+除了使用 PHP 作为主要的模板语言，Yii 2.0也装备了两种流行模板引擎的官方支持：Smarty 和 Twig 。Prado 模板引擎不再支持。要使用这些模板引擎，必须配置 `view` 应用组件，设置[[yii\base\View::$renderers|View::$renderers]]属性。详情请参阅[模板引擎](tutorial-template-engines.md)章节。
 
 
-Models
+模型
 ------
 
-A model is now associated with a form name returned by its [[yii\base\Model::formName()|formName()]] method. This is
-mainly used when using HTML forms to collect user inputs for a model. Previously in 1.1,
-this is usually hardcoded as the class name of the model.
+Yii 2.0使用[[yii\base\Model]]作为模型基类，类似于1.1的 `CModel` 。`CFormModel` 弃用了，现在通过继承[[yii\base\Model]]来创建表单模型类。
 
-New methods called [[yii\base\Model::load()|load()] and [[yii\base\Model::loadMultiple()|Model::loadMultiple()]] are
-introduced to simplify the data population from user inputs to a model. For example,
-
-```php
-$model = new Post();
-if ($model->load($_POST)) {...}
-// which is equivalent to:
-if (isset($_POST['Post'])) {
-    $model->attributes = $_POST['Post'];
-}
-
-$model->save();
-
-$postTags = [];
-$tagsCount = count($_POST['PostTag']);
-while ($tagsCount-- > 0) {
-    $postTags[] = new PostTag(['post_id' => $model->id]);
-}
-Model::loadMultiple($postTags, $_POST);
-```
-
-Yii 2.0 introduces a new method called [[yii\base\Model::scenarios()|scenarios()]] to declare which attributes require
-validation under which scenario. Child classes should overwrite [[yii\base\Model::scenarios()|scenarios()]] to return
-a list of scenarios and the corresponding attributes that need to be validated when
-[[yii\base\Model::validate()|validate()]] is called. For example,
+Yii 2.0引进了名为[[yii\base\Model::scenarios()|scenarios()]]的新方法来声明支持的场景、属性赋值在哪个场景下必须验证及是否视为安全赋值。如：
 
 ```php
 public function scenarios()
@@ -218,115 +123,106 @@ public function scenarios()
 }
 ```
 
+以上代码声明了两个场景：`backend` 和 `frontend` 。对于 `backend` 场景，`email` 和 `role` 属性值都必须是安全的且能批量赋值；对于 `frontend` 场景，`email` 能批量赋值而 `role` 不能，且 `email` 和 `role` 都必须验证。
 
-This method also determines which attributes are safe and which are not. In particular,
-given a scenario, if an attribute appears in the corresponding attribute list in [[yii\base\Model::scenarios()|scenarios()]]
-and the name is not prefixed with `!`, it is considered *safe*.
+[[yii\base\Model::rules()|rules()]]方法仍用于声明验证规则。注意由于引进了[[yii\base\Model::scenarios()|scenarios()]]，现在已经没有 `unsafe` 验证器。
 
-Because of the above change, Yii 2.0 no longer has "unsafe" validator.
+大多数情况下，如果[[yii\base\Model::rules()|rules()]]方法完整指定场景就不必覆写[[yii\base\Model::scenarios()|scenarios()]]，也不必声明 `unsafe` 属性值。
 
-If your model only has one scenario (very common), you do not have to overwrite [[yii\base\Model::scenarios()|scenarios()]],
-and everything will still work like the 1.1 way.
-
-To learn more about Yii 2.0 models refer to [Models](model.md) section of the guide.
+更多模型相关细节请参考[模型](basic-models.md)章节。
 
 
-Controllers
+控制器
 -----------
 
-The [[yii\base\Controller::render()|render()]] and [[yii\base\Controller::renderPartial()|renderPartial()]] methods
-now return the rendering results instead of directly sending them out.
-You have to `echo` them explicitly, e.g., `echo $this->render(...);`.
+Yii 2.0使用[[yii\web\Controller]]作为控制器基类，类似于1.1的 `CWebController` 。而[[yii\base\Action]]是动作类的基类。
 
-To learn more about Yii 2.0 controllers refer to [Controller](controller.md) section of the guide.
-
-
-Widgets
--------
-
-Using a widget is more straightforward in 2.0. You mainly use the
-[[yii\base\Widget::begin()|begin()]],
-[[yii\base\Widget::end()|end()]] and
-[[yii\base\Widget::widget()|widget()]]
-methods of the [[yii\base\Widget|Widget]] class. For example,
+当在控制器动作写代码时，最明显的变化是返回要渲染的内容而不是输出（echo）它。如：
 
 ```php
-// Note that you have to "echo" the result to display it
-echo \yii\widgets\Menu::widget(['items' => $items]);
+public function actionView($id)
+{
+    $model = \app\models\Post::findOne($id);
+    if ($model) {
+        return $this->render('view', ['model' => $model]);
+    } else {
+        throw new \yii\web\NotFoundHttpException;
+    }
+}
+```
 
-// Passing an array to initialize the object properties
-$form = \yii\widgets\ActiveForm::begin([
+更多控制器相关内容请参考[控制器](structure-controllers.md)章节。
+
+
+小部件
+-------
+
+Yii 2.0 使用[[yii\base\Widget]]作为小部件基类，类似于1.1的 `CWidget` 。
+
+为了得到更好的 IDE 支持，Yii 2.0引进了使用小部件的新语法，就是静态方法[[yii\base\Widget::begin()|begin()]], [[yii\base\Widget::end()|end()]] 和 [[yii\base\Widget::widget()|widget()]]，用法如下：
+
+```php
+use yii\widgets\Menu;
+use yii\widgets\ActiveForm;
+
+// 注意必须** "echo" **结果以显示内容
+echo Menu::widget(['items' => $items]);
+
+// 传递一个数组初始化对象的属性
+$form = ActiveForm::begin([
     'options' => ['class' => 'form-horizontal'],
     'fieldConfig' => ['inputOptions' => ['class' => 'input-xlarge']],
 ]);
-... form inputs here ...
-\yii\widgets\ActiveForm::end();
+... 表单输入域在这里 ...
+ActiveForm::end();
 ```
 
-Previously in 1.1, you would have to enter the widget class names as strings via the `beginWidget()`,
-`endWidget()` and `widget()` methods of `CBaseController`. The approach above gets better IDE support.
-
-For more on widgets see the [View section](view.md#widgets).
+更多细节请参阅 [小部件](structure-widgets.md)章节。
 
 
-Themes
+主题
 ------
 
-Themes work completely different in 2.0. They are now based on a path map to "translate" a source
-view into a themed view. For example, if the path map for a theme is
-`['/web/views' => '/web/themes/basic']`, then the themed version for a view file
-`/web/views/site/index.php` will be `/web/themes/basic/site/index.php`.
+Yii 2.0 主题的工作原理完全不同于 Yii 1.1。现在主题基于路径映射机制来映射源视图文件路径到主题化视图文件路径。如，一个主题的路径图是`['/web/views' => '/web/themes/basic']`，则视图文件`/web/views/site/index.php` 的主题化版本就是`/web/themes/basic/site/index.php`。因此，现在主题可应用于任何视图文件，即使是在当前控制器或小部件的外部渲染的视图。
 
-For this reason, theme can now be applied to any view file, even if a view rendered outside
-of the context of a controller or a widget.
+因此也不再使用 `CThemeManager` ，而是用 `theme` 作为 "view" 应用组件的一个可配置属性。
 
-There is no more `CThemeManager`. Instead, `theme` is a configurable property of the "view"
-application component.
-
-For more on themes see the [Theming section](theming.md).
+更多细节请参考[主题化](tutorial-theming.md)章节。
 
 
-Console Applications
+控制台应用
 --------------------
 
-Console applications are now composed by controllers, like Web applications. In fact,
-console controllers and Web controllers share the same base controller class.
+控制台应用现在可像 Web 应用一样由控制器组成，控制台的控制器继承自[[yii\console\Controller]]，类似于1.1的 `CConsoleCommand` 。
 
-Each console controller is like `CConsoleCommand` in 1.1. It consists of one or several
-actions. You use the `yii <route>` command to execute a console command, where `<route>`
-stands for a controller route (e.g. `sitemap/index`). Additional anonymous arguments
-are passed as the parameters to the corresponding controller action method, and named arguments
-are treated as options declared in `options($id)`.
+运行控制台命令使用`yii <route>` ，其中`<route>` 代表控制器路由 (如 `sitemap/index`)。其他匿名参数传递到对应的控制器动作方法，而有名参数根据[[yii\console\Controller::options()]]的声明来解析。
 
-Yii 2.0 supports automatic generation of command help information from comment blocks.
+Yii 2.0 支持从注释自动生成命令帮助信息。
 
-For more on console applications see the [Console section](console.md).
+更多细节请参阅[控制台命令](tutorial-console.md)章节。
 
 
-I18N
+国际化
 ----
 
-Yii 2.0 removes date formatter and number formatter in favor of the PECL intl PHP module.
+Yii 2.0 移除了原来的日期格式器和数字格式器，而以PECL intl PHP 模块取代。
 
-Message translation is still supported, but managed via the "i18n" application component.
-The component manages a set of message sources, which allows you to use different message
-sources based on message categories. For more information, see the class documentation for [I18N](i18n.md).
+消息翻译现在由"i18n" 应用组件执行。该组件管理一系列消息源，允许使用基于消息类别的不同消息源。
+
+更多细节请参阅[国际化](tutorial-i18n.md)章节。
 
 
-Action Filters
+动作过滤器
 --------------
 
-Action filters are implemented via behaviors now. You should extend from [[yii\base\ActionFilter]] to
-define a new filter. To use a filter, you should attach the filter class to the controller
-as a behavior. For example, to use the [[yii\web\AccessControl]] filter, you should have the following
-code in a controller:
+动作过滤器现在通过行为（behavior）来实现。定义新的过滤器需继承[[yii\base\ActionFilter]]类。使用过滤器需要附加过滤器类为控制器的行为。如，使用过滤器[[yii\filters\AccessControl]]，要在控制器编写以下代码：
 
 ```php
 public function behaviors()
 {
     return [
         'access' => [
-            'class' => 'yii\web\AccessControl',
+            'class' => 'yii\filters\AccessControl',
             'rules' => [
                 ['allow' => true, 'actions' => ['admin'], 'roles' => ['@']],
             ],
@@ -335,45 +231,38 @@ public function behaviors()
 }
 ```
 
-For more on action filters see the [Controller section](controller.md#action-filters).
+更多细节请参考[过滤](runtime-filtering.md)章节。
 
 
-Assets
+资源
 ------
 
-Yii 2.0 introduces a new concept called *asset bundle*. It is similar to script
-packages (managed by `CClientScript`) in 1.1, but with better support.
+Yii 2.0 引入了一个新的概念，称为 *资源包* 。类似于1.1的脚本包概念。
 
-An asset bundle is a collection of asset files (e.g. JavaScript files, CSS files, image files, etc.)
-under a directory. Each asset bundle is represented as a class extending [[yii\web\AssetBundle]].
-By registering an asset bundle via [[yii\web\AssetBundle::register()]], you will be able to make
-the assets in that bundle accessible via Web, and the current page will automatically
-contain the references to the JavaScript and CSS files specified in that bundle.
+一个资源包是一个目录下的资源文件集合（如 JavaScript 文件、CSS 文件、图片文件等）。每一个资源包被表示为一个类，该类继承自[[yii\web\AssetBundle]]。用[[yii\web\AssetBundle::register()]]方法注册一个资源包后，就使它的资源可被 Web 访问，注册了资源包的页面会自动包含和引用资源包内的 JS 和 CSS 文件。
 
-To learn more about assets see the [asset manager documentation](assets.md).
+更多细节请参阅[资源管理](output-assets.md) 章节。
 
-Static Helpers
+
+助手类
 --------------
 
-Yii 2.0 introduces many commonly used static helper classes, such as
-[[yii\helpers\Html|Html]],
-[[yii\helpers\ArrayHelper|ArrayHelper]],
-[[yii\helpers\StringHelper|StringHelper]].
-[[yii\helpers\FileHelper|FileHelper]],
-[[yii\helpers\Json|Json]],
-[[yii\helpers\Security|Security]],
-These classes are designed to be easily extended. Note that static classes
-are usually hard to extend because of the fixed class name references. But Yii 2.0
-introduces the class map (via [[Yii::$classMap]]) to overcome this difficulty.
+Yii 2.0 引进了许多普遍用到的静态助手类，如
+
+* [[yii\helpers\Html]]
+* [[yii\helpers\ArrayHelper]]
+* [[yii\helpers\StringHelper]]
+* [[yii\helpers\FileHelper]]
+* [[yii\helpers\Json]]
+* [[yii\helpers\Security]]
 
 
-ActiveForm
+表单
 ----------
 
-Yii 2.0 introduces the *field* concept for building a form using [[yii\widgets\ActiveForm]]. A field
-is a container consisting of a label, an input, an error message, and/or a hint text.
-It is represented as an [[yii\widgets\ActiveField|ActiveField]] object.
-Using fields, you can build a form more cleanly than before:
+Yii 2.0 引进了 *域（field）*概念使用[[yii\widgets\ActiveForm]]来建立表单。一个域是一个由标签、输入框、错误消息和提示文字组成的容器，被表示为[[yii\widgets\ActiveField|ActiveField]]对象。
+
+使用域建立的表单比以前更干净：
 
 ```php
 <?php $form = yii\widgets\ActiveForm::begin(); ?>
@@ -386,12 +275,10 @@ Using fields, you can build a form more cleanly than before:
 ```
 
 
-Query Builder
+查询生成器
 -------------
 
-In 1.1, query building is scattered among several classes, including `CDbCommand`,
-`CDbCriteria`, and `CDbCommandBuilder`. Yii 2.0 uses [[yii\db\Query|Query]] to represent a DB query
-and [[yii\db\QueryBuilder|QueryBuilder]] to generate SQL statements from query objects. For example:
+Yii 1.1中，查询语句构建分散在多个类中，包括`CDbCommand`,`CDbCriteria`, 和 `CDbCommandBuilder`。Yii 2.0 用[[yii\db\Query|Query]]对象表示一个数据库查询，这个对象可以在幕后通过[[yii\db\QueryBuilder|QueryBuilder]]的帮助生成 SQL 语句。例如：
 
 ```php
 $query = new \yii\db\Query();
@@ -404,17 +291,27 @@ $sql = $command->sql;
 $rows = $command->queryAll();
 ```
 
-Best of all, such query building methods can be used together with [[yii\db\ActiveRecord|ActiveRecord]],
-as explained in the next sub-section.
+这些查询语句生成方法最好和[活动记录](db-active-record.md)一起使用。
+
+更多细节请参阅[章节](db-query-builder.md)。
 
 
-ActiveRecord
+活动记录
 ------------
 
-[[yii\db\ActiveRecord|ActiveRecord]] has undergone significant changes in Yii 2.0. The most important one
-is the relational ActiveRecord query. In 1.1, you have to declare the relations
-in the `relations()` method. In 2.0, this is done via getter methods that return
-an [[yii\db\ActiveQuery|ActiveQuery]] object. For example, the following method declares an "orders" relation:
+Yii 2.0 给[活动记录](db-active-record.md)引入了很多变化。最突出的两点是：查询语句的生成和关联查询的处理。
+
+1.1的 `CDbCriteria` 类替换为[[yii\db\ActiveQuery]]，它继承自[[yii\db\Query]]，因此也继承了所有查询语句生成方法。调用[[yii\db\ActiveRecord::find()]]方法来开始生成查询，如：
+
+```php
+// 检索所有 *活动的* 客户和订单，以 ID 排序：
+$customers = Customer::find()
+    ->where(['status' => $active])
+    ->orderBy('id')
+    ->all();
+```
+
+声明关联关系只需简单定义一个 getter 方法来返回[[yii\db\ActiveQuery|ActiveQuery]]对象。getter 方法定义的属性名(即 getOrders() 中的 orders )表示关联关系名。如，以下代码声明了一个 `orders` 关系（1.1中必须在固定地方 `relations()`)声明关系）：
 
 ```php
 class Customer extends \yii\db\ActiveRecord
@@ -426,83 +323,34 @@ class Customer extends \yii\db\ActiveRecord
 }
 ```
 
-You can use `$customer->orders` to access the customer's orders. You can also
-use `$customer->getOrders()->andWhere('status=1')->all()` to perform on-the-fly
-relational query with customized query conditions.
-
-When loading relational records in an eager way, Yii 2.0 does it differently from 1.1.
-In particular, in 1.1 a JOIN query would be used to bring both the primary and the relational
-records; while in 2.0, two SQL statements are executed without using JOIN: the first
-statement brings back the primary records and the second brings back the relational records
-by filtering with the primary keys of the primary records.
-
-
-Yii 2.0 no longer uses the `model()` method when performing queries. Instead, you
-use the [[yii\db\ActiveRecord::find()|find()]] method:
+使用 `$customer->orders` 来访问指定客户的订单。也可以使用以下代码来执行自定义查询条件的动态关联查询：
 
 ```php
-//取回所有活跃的客户并以ID排序：
-$customers = Customer::find()
-    ->where(['status' => $active])
-    ->orderBy('id')
-    ->all();
-// return the customer whose PK is 1
-$customer = Customer::find(1);
+$orders = $customer->getOrders()->andWhere('status=1')->all();
 ```
 
+Yii 2.0 的预先加载关系和 1.1 是不同的。尤其是 JOIN 查询，1.1的 JOIN 查询创建来同时取出主表和关联表的记录，而 2.0也执行两条 SQL 语句，但不使用 JOIN ，而是：第一条语句取回主表记录，然后第二条语句用主表记录的主键过滤后再取出关联记录。
 
-The [[yii\db\ActiveRecord::find()|find()]] method returns an instance of [[yii\db\ActiveQuery|ActiveQuery]]
-which is a subclass of [[yii\db\Query]]. Therefore, you can use all query methods of [[yii\db\Query]].
-
-Instead of returning ActiveRecord objects, you may call [[yii\db\ActiveQuery::asArray()|ActiveQuery::asArray()]] to
-return results in terms of arrays. This is more efficient and is especially useful
-when you need to return a large number of records:
+当构建查询来返回大量记录时，也可使用[[yii\db\ActiveQuery::asArray()|asArray()]]方法链来取代返回[[yii\db\ActiveRecord|ActiveRecord]]对象，以致返回查询结果是数组，这能明显降低大量记录所必须的 CPU 时间和内存。如：
 
 ```php
 $customers = Customer::find()->asArray()->all();
 ```
 
-By default, ActiveRecord now only saves dirty attributes. In 1.1, all attributes
-are saved to database when you call `save()`, regardless of having changed or not,
-unless you explicitly list the attributes to save.
-
-Scopes are now defined in a custom [[yii\db\ActiveQuery|ActiveQuery]] class instead of model directly.
-
-See [active record docs](active-record.md) for more details.
+活动记录有更多其他的改动和增强，请参考[活动记录](db-active-record.md)章节获取更多细节。
 
 
-Auto-quoting Table and Column Names
-------------------------------------
 
-Yii 2.0 supports automatic quoting of database table and column names. A name enclosed
-within double curly brackets i.e. `{{tablename}}` is treated as a table name, and a name enclosed within
-double square brackets i.e. `[[fieldname]]` is treated as a column name. They will be quoted according to
-the database driver being used:
+用户和身份接口
+-----------------
 
-```php
-$command = $connection->createCommand('SELECT [[id]] FROM {{posts}}');
-echo $command->sql;  // MySQL: SELECT `id` FROM `posts`
-```
-
-This feature is especially useful if you are developing an application that supports
-different DBMS.
-
-
-User and IdentityInterface
---------------------------
-
-The `CWebUser` class in 1.1 is now replaced by [[yii\web\User]], and there is no more
-`CUserIdentity` class. Instead, you should implement the [[yii\web\IdentityInterface]] which
-is much more straightforward to implement. The advanced application template provides such an example.
+1.1的`CWebUser` 类现在被[[yii\web\User]]取代，也不再 `CUserIdentity` 类。相反，使用更直观的[[yii\web\IdentityInterface]] 实现。高级 App 提供了使用示例。
 
 
 URL 管理
 --------------
 
-URL management is similar to 1.1. A major enhancement is that it now supports optional
-parameters. For example, if you have rule declared as follows, then it will match
-both `post/popular` and `post/1/popular`. In 1.1, you would have to use two rules to achieve
-the same goal.
+URL 管理和1.1相似，主要的改进是现在支持可选参数了。如，有以下声明好的规则，URL 管理将会同时匹配 `post/popular` 和 `post/1/popular` 。而1.1必须使用两个规则来达到这个目标。
 
 ```php
 [
@@ -512,29 +360,10 @@ the same goal.
 ]
 ```
 
-More details in the [Url manager docs](url.md).
+更多细节请参考 [Url 管理器](url.md). 【原文未改】？[URL 解析和生成](runtime-url-handling.md)
 
-Response
---------
 
-待定...
-
-Extensions
-----------
-
-Yii 1.1 extensions are not compatible with 2.0 so you have to port or rewrite these. In order to get more info about
-extensions in 2.0 [referer to corresponding guide section](extensions.md).
-
-Integration with Composer
--------------------------
-
-Yii is fully inegrated with Composer, a well known package manager for PHP, that resolves dependencies, helps keeping
-your code up to date by allowing updating it with a single console command and manages autoloading for third party
-libraries no matter which autoloading these libraries are using.
-
-In order to learn more refer to [composer](composer.md) and [installation](installation.md) sections of the guide.
-
-Using Yii 1.1 and 2.x together
+Yii 1.1和2.x 共同使用
 ------------------------------
 
-Check the guide on [using Yii together with 3rd-Party Systems](using-3rd-party-libraries.md) on this topic.
+如有遗留 Yii 1.1代码并想要把它和 Yii 2.0共同使用，请参考[Yii 1.1和2.0 共同使用](extend-using-v1-v2.md)章节。

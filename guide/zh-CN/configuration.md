@@ -1,17 +1,15 @@
-Configuration（配置）
+配置
 =============
 
-Yii的应用程序依赖于组件来执行大多数常见任务，例如连接到数据库，
-处理浏览器的路由请求，并处理session。如何通过调整 Yii 应用程序的 *configuring*(配置)来调整这些组件的行为呢？
-大部分组件都有其合理的默认设置，所以你不必做过多的配置。不过，也有些强制性的配置你不得不自己去建立，比如数据库连接。
+Yii 应用依靠组件来执行大多数常见任务，如连接数据库、路由浏览器请求和处理会话。这些常备的组件都可以通过 *配置* Yii 应用来调整其表现。
+多数组件缺省设置是合理的，不一定需要你做非常多的配置。但仍有一些必要的配置需要你完成，如数据库连接。
+应用如何配置取决于使用的应用模板，但有一些共同原则适用于所有 Yii 应用。
 
-程序如何被配置取决于正在使用的程序模板，但也有一些适用于所有 Yii 使用者的通用原则。
-
-引导文件中的配置选项
+引导文件的配置选项
 -----------------------------------------
 
-每一个 Yii 的应用，都至少有一个引导（bootstrap）文件：即一个用于处理所有请求的 PHP 脚本。对于每一个Web应用而已，通常引导文件都是 `index.php`；
-对于控制台（或命令行，console）应用而言，引导文件是 `yii`。两个引导文件做着几乎相同的工作，那就是：
+Yii 的每个应用都有至少一个引导文件：即一个用于处理所有请求的 PHP 脚本。每个Web应用的引导文件通常是 `index.php`；
+控制台应用的引导文件是 `yii`。两个引导文件执行几乎相同的工作：
 
 1. 设置通用常量。
 2. 导入 Yii 框架本身。
@@ -43,12 +41,12 @@ defined('YII_DEBUG') or define('YII_DEBUG', false); //生产环境使用
 ```php
 <?php
 return [
-	'id' => 'applicationId',
-	'basePath' => dirname(__DIR__),
-	'components' => [
-		//应用组件的配置放在这里……
-	],
-	'params' => require(__DIR__ . '/params.php'),
+    'id' => 'applicationId',
+    'basePath' => dirname(__DIR__),
+    'components' => [
+        //应用组件的配置放在这里……
+    ],
+    'params' => require(__DIR__ . '/params.php'),
 ];
 ```
 
@@ -68,23 +66,23 @@ return [
 ```php
 <?php
 return [
-	'id' => 'applicationId',
-	'basePath' => dirname(__DIR__),
-	'components' => [
-		'cache' => ['class' => 'yii\caching\FileCache'],
-		'user' => ['identityClass' => 'app\models\User'],
-		'errorHandler' => ['errorAction' => 'site/error'],
-		'log' => [
-			'traceLevel' => YII_DEBUG ? 3 : 0,
-			'targets' => [
-				[
-					'class' => 'yii\log\FileTarget',
-					'levels' => ['error', 'warning'],
-				],
-			],
-		],
-	],
-	// ...
+    'id' => 'applicationId',
+    'basePath' => dirname(__DIR__),
+    'components' => [
+        'cache' => ['class' => 'yii\caching\FileCache'],
+        'user' => ['identityClass' => 'app\models\User'],
+        'errorHandler' => ['errorAction' => 'site/error'],
+        'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' => [
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['error', 'warning'],
+                ],
+            ],
+        ],
+    ],
+    // ...
 ];
 ```
 

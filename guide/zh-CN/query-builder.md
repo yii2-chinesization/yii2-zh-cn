@@ -1,12 +1,9 @@
-查询语句生成器和查询
+SQL查询生成器和查询
 =======================
 
-Yii 提供基础的数据库访问层，详情参考[Database basics](database-basics.md) 部分。
-数据库访问层是数据库交互底层方式，在一些情况中是有用的，
-但写 SQL 语句令人厌烦，也容易出错。使用查询生成器就是一个替代方案。
-查询生成器是以面向对象来生成查询的工具。
+Yii 提供了基本的数据访问层，描述在[数据库基础](database-basics.md)部分。数据库访问层提供了数据库交互的底层方式，虽然一些情况很有用，但写原生的 SQL 语句容易出错、令人生厌。另一个可选的方案是使用查询生成器。查询生成器以面向对象的方式生成待执行的查询语句。
 
-查询生成器的典型用法是这样的：
+SQL查询生成器的典型用法如下：
 
 ```php
 $rows = (new \yii\db\Query())
@@ -22,67 +19,58 @@ $query = (new \yii\db\Query())
     ->from('user')
     ->limit(10);
 
-// 生成指令。可以用 $command->sql 查看实际执行的 SQL 语句。
+// 创建命令，可以通过 $command->sql 来查看真正的 SQL 语句。
 $command = $query->createCommand();
 
-// 执行指令
+// 执行命令：
 $rows = $command->queryAll();
 ```
 
 查询方法
 -------------
 
-As you can see, [[yii\db\Query]] is the main player that you need to deal with. Behind the scene,
-`Query` is actually only responsible for representing various query information. The actual query
-building logic is done by [[yii\db\QueryBuilder]] when you call the `createCommand()` method,
-and the query execution is done by [[yii\db\Command]].
 
-For convenience, [[yii\db\Query]] provides a set of commonly used query methods that will build
-the query, execute it, and return the result. For example,
+如你所见，[[yii\db\Query]]似乎是需要处理的主角。但背后`Query` 实际只负责表示各种查询信息。真正生成查询SQL
+的逻辑由[[yii\db\QueryBuilder]]调用 `createCommand()` 方法实现，而查询执行由[[yii\db\Command]]完成。
 
-- [[yii\db\Query::all()|all()]]: builds the query, executes it and returns all results as an array.
-- [[yii\db\Query::one()|one()]]: returns the first row of the result.
-- [[yii\db\Query::column()|column()]]: returns the first column of the result.
-- [[yii\db\Query::scalar()|scalar()]]: returns the first column in the first row of the result.
-- [[yii\db\Query::exists()|exists()]]: returns a value indicating whether the query results in anything.
-- [[yii\db\Query::count()|count()]]: returns the result of a `COUNT` query. Other similar methods
-  include `sum()`, `average()`, `max()`, `min()`, which support the so-called aggregational data query.
+为方便起见，[[yii\db\Query]]提供了一系列常用查询方法来生成查询、执行查询和返回查询结果。如，
+
+- [[yii\db\Query::all()|all()]]: 生成和执行查询并返回数组形式的所有查询结果。
+- [[yii\db\Query::one()|one()]]: 返回结果集的第一行。
+- [[yii\db\Query::column()|column()]]: 返回结果集的第一列。
+- [[yii\db\Query::scalar()|scalar()]]: 返回结果集第一行的第一列
+- [[yii\db\Query::exists()|exists()]]: 返回指明查询结果是否存在的值。
+- [[yii\db\Query::count()|count()]]: 返回 `COUNT` 查询的结果。其他相似的方法包括 `sum()`, `average()`, `max()`, `min()`, 这些方法支持所谓数据的聚集查询。
 
 
-Building Query
+生成查询语句
 --------------
 
-In the following, we will explain how to build various clauses in a SQL statement. For simplicity,
-we use `$query` to represent a [[yii\db\Query]] object.
-
+以下将介绍如何生成各种 SQL 语句从句。为了简单起见，使用 `$query` 代表[[yii\db\Query]]对象。
 
 ### `SELECT`
 
-In order to form a basic `SELECT` query, you need to specify what columns to select and from what table:
+为形成基本的 `SELECT` 查询语句，需要指定从哪个表选择什么列：
 
 ```php
 $query->select('id, name')
     ->from('user');
 ```
 
-Select options can be specified as a comma-separated string, as in the above, or as an array.
-The array syntax is especially useful when forming the selection dynamically:
+Select 选项可指定为如上逗号分隔的字符串，或指定为数组。数组在形成动态 select 查询语句特别有用：
 
 ```php
 $query->select(['id', 'name'])
     ->from('user');
 ```
 
-> Info: You should always use the array format if your `SELECT` clause contains SQL expressions.
-> This is because a SQL expression like `CONCAT(first_name, last_name) AS full_name` may contain commas.
-> If you list it together with other columns in a string, the expression may be split into several parts
-> by commas, which is not what you want to see.
+> 信息：如果 `SELECT` 从句包括 SQL 表达式，应该总是使用数组格式。
+> 因为 SQL 表达式 如 `CONCAT(first_name, last_name) AS full_name` 可能包括逗号。
+> 如果把该表达式和其他 columns 列排在一个字符串，该表达式将被逗号分离成你不希望看到的好几个部分。
 
-When specifying columns, you may include the table prefixes or column aliases, e.g., `user.id`, `user.id AS user_id`.
-If you are using array to specify the columns, you may also use the array keys to specify the column aliases,
-e.g., `['user_id' => 'user.id', 'user_name' => 'user.name']`.
+指定列可以包括表前缀或列别名，如 `user.id`, `user.id AS user_id` 。如使用数组指定列，也可以使用数组的键来指明列别名，如 `['user_id' => 'user.id', 'user_name' => 'user.name']`。
 
-To select distinct rows, you may call `distinct()`, like the following:
+要选择不同的行，可以调用 `distinct()` ：
 
 ```php
 $query->select('user_id')->distinct()->from('post');
@@ -90,30 +78,25 @@ $query->select('user_id')->distinct()->from('post');
 
 ### `FROM`
 
-To specify which table(s) to select data from, call `from()`:
+要指定从哪个表选择数据，调用 `from()`：
 
 ```php
 $query->select('*')->from('user');
 ```
 
-You may specify multiple tables using a comma-separated string or an array.
-Table names can contain schema prefixes (e.g. `'public.user'`) and/or table aliases (e.g. `'user u'`).
-The method will automatically quote the table names unless it contains some parenthesis
-(which means the table is given as a sub-query or DB expression). For example,
+可以使用逗号分隔的字符串或数组指定多个表。表名可以包括模式前缀（如 `'public.user'`）和表别名（如 `'user u'`）。from()方法会自动引用表名，除非表名包括圆括号（说明所给的表是子查询或 DB 表达式）。如：
 
 ```php
 $query->select('u.*, p.*')->from(['user u', 'post p']);
 ```
 
-When the tables are specified as an array, you may also use the array keys as the table aliases
-(if a table does not need alias, do not use a string key). For example,
+当表以数组形式指明，可以使用数组键作为表别名（如果表不需要别名，不要使用字符串形式的键）。如：
 
 ```php
-$query->select('u.*, p.*')->from(['u' => 'user u', 'p' => 'post']);
+$query->select('u.*, p.*')->from(['u' => 'user', 'p' => 'post']);
 ```
 
-You may specify a sub-query using a `Query` object. In this case, the corresponding array key will be used
-as the alias for the sub-query.
+使用 `Query` 对象指定子查询。这种情况，相应的数组键将用作子查询的别名：
 
 ```php
 $subQuery = (new Query())->select('id')->from('user')->where('status=1');
@@ -123,28 +106,29 @@ $query->select('*')->from(['u' => $subQuery]);
 
 ### `WHERE`
 
-Usually data is selected based upon certain criteria. Query Builder has some useful methods to specify these, the most powerful of which being `where`. It can be used in multiple ways.
+通常数据基于一定的条件来筛选。查询生成器有一些有用的方法来指定这些条件（标准），其中最强大的是 `where` 方法。这个方法可以多种方式使用。
 
-The simplest way to apply a condition is to use a string:
+应用条件最简单的方式是使用字符串：
 
 ```php
 $query->where('status=:status', [':status' => $status]);
 ```
 
-When using strings, make sure you're binding the query parameters, not creating a query by string concatenation. The above approach is safe to use, the following is not:
+使用字符串须确保是绑定查询参数而不是用字符串们来创建查询。以上方法的使用是安全的，而以下则不安全：
 
 ```php
-$query->where("status=$status"); // Dangerous!
+$query->where("status=$status"); // 危险！
 ```
 
-Instead of binding the status value immediately, you can do so using `params` or `addParams`:
+取代直接绑定状态值可以使用 `params` 或 `addParams` 来完成：
 
 ```php
 $query->where('status=:status');
 $query->addParams([':status' => $status]);
 ```
 
-Multiple conditions can simultaneously be set in `where` using the *hash format*:
+在 `where` 同时设置多个条件可以使用 *哈希格式*:
+
 
 ```php
 $query->where([
@@ -154,67 +138,42 @@ $query->where([
 ]);
 ```
 
-That code will generate the following SQL:
+以上代码将生成下面的 SQL 语句：
 
 ```sql
 WHERE (`status` = 10) AND (`type` = 2) AND (`id` IN (4, 8, 15, 16, 23, 42))
 ```
 
-NULL is a special value in databases, and is handled smartly by the Query Builder. This code:
+在数据库中 NULL 是个特殊值，也可以用查询生成器漂亮的处理。代码如下：
 
 ```php
 $query->where(['status' => null]);
 ```
 
-results in this WHERE clause:
+以上 WHERE 从句的结果是：
 
 ```sql
 WHERE (`status` IS NULL)
 ```
 
-Another way to use the method is the operand format which is `[operator, operand1, operand2, ...]`.
+另一个使用此方法的方式是 `[操作符, 操作数1, 操作数2, ...]` 这样的操作格式。
 
-Operator can be one of the following:
+操作符可以是以下之一：
 
-- `and`: the operands should be concatenated together using `AND`. For example,
-  `['and', 'id=1', 'id=2']` will generate `id=1 AND id=2`. If an operand is an array,
-  it will be converted into a string using the rules described here. For example,
-  `['and', 'type=1', ['or', 'id=1', 'id=2']]` will generate `type=1 AND (id=1 OR id=2)`.
-  The method will NOT do any quoting or escaping.
-- `or`: similar to the `and` operator except that the operands are concatenated using `OR`.
-- `between`: operand 1 should be the column name, and operand 2 and 3 should be the
-   starting and ending values of the range that the column is in.
-   For example, `['between', 'id', 1, 10]` will generate `id BETWEEN 1 AND 10`.
-- `not between`: similar to `between` except the `BETWEEN` is replaced with `NOT BETWEEN`
-  in the generated condition.
-- `in`: operand 1 should be a column or DB expression, and operand 2 be an array representing
-  the range of the values that the column or DB expression should be in. For example,
-  `['in', 'id', [1, 2, 3]]` will generate `id IN (1, 2, 3)`.
-  The method will properly quote the column name and escape values in the range.
-- `not in`: similar to the `in` operator except that `IN` is replaced with `NOT IN` in the generated condition.
-- `like`: operand 1 should be a column or DB expression, and operand 2 be a string or an array representing
-  the values that the column or DB expression should be like.
-  For example, `['like', 'name', 'tester']` will generate `name LIKE '%tester%'`.
-  When the value range is given as an array, multiple `LIKE` predicates will be generated and concatenated
-  using `AND`. For example, `['like', 'name', ['test', 'sample']]` will generate
-  `name LIKE '%test%' AND name LIKE '%sample%'`.
-  You may also provide an optional third operand to specify how to escape special characters in the values.
-  The operand should be an array of mappings from the special characters to their
-  escaped counterparts. If this operand is not provided, a default escape mapping will be used.
-  You may use `false` or an empty array to indicate the values are already escaped and no escape
-  should be applied. Note that when using an escape mapping (or the third operand is not provided),
-  the values will be automatically enclosed within a pair of percentage characters.
-- `or like`: similar to the `like` operator except that `OR` is used to concatenate the `LIKE`
-  predicates when operand 2 is an array.
-- `not like`: similar to the `like` operator except that `LIKE` is replaced with `NOT LIKE`
-  in the generated condition.
-- `or not like`: similar to the `not like` operator except that `OR` is used to concatenate
-  the `NOT LIKE` predicates.
-- `exists`: requires one operand which must be an instance of [[yii\db\Query]] representing the sub-query.
-  It will build a `EXISTS (sub-query)` expression.
-- `not exists`: similar to the `exists` operator and builds a `NOT EXISTS (sub-query)` expression.
+- `and`: 操作数用 `AND` 连结。例如，`['and', 'id=1', 'id=2']` 将生成 `id=1 AND id=2`。如果操作数是数组，将使用以下规则转换为字符串。如，`['and', 'type=1', ['or', 'id=1', 'id=2']]` 将生成 `type=1 AND (id=1 OR id=2)`。方法将 *不做* 任何转义或引用。
+- `or`: 和 `and` 操作符相似，除了操作数用 `OR` 连结。
+- `between`: 操作数1是列名，操作数2和3是列所在范围的初值和末值。如， `['between', 'id', 1, 10]` 将生成 `id BETWEEN 1 AND 10` 。
+- `not between`:  和 `between` 类似，除了在生成的条件用 `NOT BETWEEN` 替换 `BETWEEN` 。
+- `in`: 操作数 1 应是一个列或 DB 表达式，操作符 2 应是代表列或 DB 表达式所在取值范围的数组。如， `['in', 'id', [1, 2, 3]]` 将生成 `id IN (1, 2, 3)`。where() 方法将会引用恰当的列名并转义范围里的值。
+- `not in`: 和 `in` 操作符类似，除了在生成的条件中用 `NOT IN` 替换 `IN` 。
+- `like`: 操作数 1 应是一个列或 DB 表达式，而操作数 2 是字符串或数组，表示要 like 的列值或 DB 表达式。如， `['like', 'name', 'tester']` 将生成 `name LIKE '%tester%'`。当取值范围以数组形式给定，多个 `LIKE` 判断从句将生成并用 `AND` 连结。例如， `['like', 'name', ['test', 'sample']]` 将生成 `name LIKE '%test%' AND name LIKE '%sample%'`。也可以提供可选的第三个操作数来指定在值里如何转义特定字符。该操作数应是映射特定字符到其相对的转义字符的数组。如果该操作数没有提供，将使用默认的转义映射表。要使用 `false` 或空数组来表明值已经转义，没有需要转义的字符。注意当使用默认转义映射表（或第三个操作数未提供），值将被自动以半角字符来转义。
+- `or like`: 和 `like` 操作符类似，除了当操作符 2 是数组时用 `OR` 连结 `LIKE` 判断从句。
+- `not like`: 和 `like` 操作符类似，除了在生成的条件中用 `NOT LIKE` 取代 `LIKE` 。
+- `or not like`: 和 `not like` 操作符类似，除了  `OR` 用来连结 `NOT LIKE` 判断从句.
+- `exists`: 要求一个操作数必须是[[yii\db\Query]]实例来表示子查询。该操作符将建立 `EXISTS (sub-query)` 表达式。
+- `not exists`: 和 `exists` 操作符类似，也会创建一个 `NOT EXISTS (sub-query)` 表达式。
 
-If you are building parts of condition dynamically it's very convenient to use `andWhere` and `orWhere`:
+如要动态建立条件的以上各部分，用 `andWhere()` 或 `orWhere()` 是非常方便的：
 
 ```php
 $status = 10;
@@ -226,15 +185,32 @@ if (!empty($search)) {
 }
 ```
 
-In case `$search` isn't empty the following SQL will be generated:
+在这里 `$search` 不能为空并生成以下 SQL 语句：
 
 ```sql
 WHERE (`status` = 10) AND (`title` LIKE '%yii%')
 ```
 
+#### 建立过滤条件
+
+基于用户输入建立过滤条件，通常希望用忽略过滤器中的 “空输入” 进行特别地处理。如， HTML 表单有用户名和电子邮箱输入项，当用户只输入用户名时，我们将尝试只建立匹配用户名的查询，使用 `filterWhere()` 来实现这个目标：
+
+```php
+// $username and $email 来自用户输入
+$query->filterWhere([
+    'username' => $username,
+    'email' => $email,
+]);
+```
+
+ `filterWhere()` 方法和 `where()` 非常相似。 `filterWhere()` 最大的区别是从提供的条件中移除空值。所以，如果 `$email` 为空，得到的查询是 `...WHERE username=:username`，如果 `$username` 和 `$email` 都为空，查询语句将没有 `WHERE` 部分。
+
+如果值是 null、空字符串、空格组成的字符串或空数组，那么值就是 *空* 。
+也可以使用 `andFilterWhere()` 和 `orFilterWhere()` 附加更多的过滤条件。
+
 ### `ORDER BY`
 
-For ordering results `orderBy` and `addOrderBy` could be used:
+对结果排序使用 `orderBy` 和 `addOrderBy` ：
 
 ```php
 $query->orderBy([
@@ -243,40 +219,40 @@ $query->orderBy([
 ]);
 ```
 
-Here we are ordering by `id` ascending and then by `name` descending.
+以上代码将升序排列 `id` 列然后降序排列 `name` 列。
 
 ```
 
-### `GROUP BY` and `HAVING`
+### `GROUP BY` 和 `HAVING`
 
-In order to add `GROUP BY` to generated SQL you can use the following:
+添加 `GROUP BY` 到生成的 SQL ，可以使用以下代码：
+
 
 ```php
 $query->groupBy('id, status');
 ```
 
-If you want to add another field after using `groupBy`:
+使用 `groupBy` 后添加其他字段：
 
 ```php
 $query->addGroupBy(['created_at', 'updated_at']);
 ```
 
-To add a `HAVING` condition the corresponding `having` method and its `andHaving` and `orHaving` can be used. Parameters
-for these are similar to the ones for `where` methods group:
+使用 `having` 方法和其 `andHaving` 及 `orHaving` 来添加 `HAVING` 条件。这些方法的参数类似于 `where` 方法群的参数：
 
 ```php
 $query->having(['status' => $status]);
 ```
 
-### `LIMIT` and `OFFSET`
+### `LIMIT` 和 `OFFSET`
 
-To limit result to 10 rows `limit` can be used:
+要限制查询结果只取10行，可以使用 `limit` ：
 
 ```php
 $query->limit(10);
 ```
 
-To skip 100 fist rows use:
+要跳过前100行使用：
 
 ```php
 $query->offset(100);
@@ -284,13 +260,13 @@ $query->offset(100);
 
 ### `JOIN`
 
-The `JOIN` clauses are generated in the Query Builder by using the applicable join method:
+ `JOIN` 从句可使用恰当的 join 方法在查询生成器生成：
 
 - `innerJoin()`
 - `leftJoin()`
 - `rightJoin()`
 
-This left join selects data from two related tables in one query:
+左连接在一条查询中从两个相关表筛选数据：
 
 ```php
 $query->select(['user.name AS author', 'post.title as title'])
@@ -298,20 +274,17 @@ $query->select(['user.name AS author', 'post.title as title'])
     ->leftJoin('post', 'post.user_id = user.id');
 ```
 
-In the code, the `leftJoin()` method's first parameter
-specifies the table to join to. The second parameter defines the join condition.
+以上代码， `leftJoin()` 方法的第一个参数指定连接的表，第二个参数定义连接条件。
 
-If your database application supports other join types, you can use those via the  generic `join` method:
+如果你的数据库应用支持其他连接类型，可以用统一 `join` 方法使用它们：
 
 ```php
 $query->join('FULL OUTER JOIN', 'post', 'post.user_id = user.id');
 ```
 
-The first argument is the join type to perform. The second is the table to join to, and the third is the condition.
+第一个参数是要执行的连接类型，第二个是要连接的表，第三个是条件。
 
-Like `FROM`, you may also join with sub-queries. To do so, specify the sub-query as an array
-which must contain one element. The array value must be a `Query` object representing the sub-query,
-while the array key is the alias for the sub-query. For example,
+像 `FROM` 一样，可以连接子查询。要这样做，指定子查询为包括至少一个元素的数组即可。数组值必须是 `Query` 对象，代表子查询，而数组键是子查询的别名。例如：
 
 ```php
 $query->leftJoin(['u' => $subQuery], 'u.id=author_id');
@@ -320,8 +293,7 @@ $query->leftJoin(['u' => $subQuery], 'u.id=author_id');
 
 ### `UNION`
 
-`UNION` in SQL adds results of one query to results of another query. Columns returned by both queries should match.
-In Yii in order to build it you can first form two query objects and then use `union` method:
+SQL 的`UNION` 添加一个查询的结果到另一个查询结果。返回的列必须匹配两个查询。Yii 里要建立 `UNION` ，先形成两个查询对象，然后使用 `union` 方法：
 
 ```php
 $query = new Query();
@@ -334,15 +306,12 @@ $query->union($anotherQuery);
 ```
 
 
-Batch Query
+批（量）查询
 -----------
 
-When working with large amount of data, methods such as [[yii\db\Query::all()]] are not suitable
-because they require loading all data into the memory. To keep the memory requirement low, Yii
-provides the so-called batch query support. A batch query makes uses of data cursor and fetches
-data in batches.
+处理大数据量的时候，类似[[yii\db\Query::all()]]这样的方法并不太合适，因为这些方法要求加载所有数据到内存。为保持低内存要求， Yii 提供了所谓的批查询支持。批查询利用数据指针分批取数据。
 
-Batch query can be used like the following:
+批查询这样使用：
 
 ```php
 use yii\db\Query;
@@ -352,26 +321,20 @@ $query = (new Query())
     ->orderBy('id');
 
 foreach ($query->batch() as $users) {
-    // $users is an array of 100 or fewer rows from the user table
+    // $users 是用户表的100行以内的数组
 }
 
-// or if you want to iterate the row one by one
+// 或者你希望逐行遍历（iterate，有时翻译为迭代）
 foreach ($query->each() as $user) {
-    // $user represents one row of data from the user table
+    // $user 表示用户表的一行数据
 }
 ```
 
-The method [[yii\db\Query::batch()]] and [[yii\db\Query::each()]] return an [[yii\db\BatchQueryResult]] object
-which implements the `Iterator` interface and thus can be used in the `foreach` construct.
-During the first iteration, a SQL query is made to the database. Data are since then fetched in batches
-in the iterations. By default, the batch size is 100, meaning 100 rows of data are being fetched in each batch.
-You can change the batch size by passing the first parameter to the `batch()` or `each()` method.
+[[yii\db\Query::batch()]] 和 [[yii\db\Query::each()]]方法返回[[yii\db\BatchQueryResult]]对象，该对象实现了 `Iterator` （迭代器）接口，因此可以用于 `foreach` 结构。在第一个遍历过程，建立了一条 SQL 查询到数据库，然后数据在这个迭代中被批量取回。一批数量缺省是100行，即每批取回100行数据。可以通过传递第一个参数到 `batch()` 和 `each()` 方法改变一批取回的数量。
 
-Compared to the [[yii\db\Query::all()]], the batch query only loads 100 rows of data at a time into the memory.
-If you process the data and then discard it right away, the batch query can help keep the memory usage under a limit.
+对比[[yii\db\Query::all()]]，批查询一次只加载100行数据到内存。如果你处理完数据马上丢弃，批查询可以帮助保持内存在限定范围内使用。
 
-If you specify the query result to be indexed by some column via [[yii\db\Query::indexBy()]], the batch query
-will still keep the proper index. For example,
+如需指定查询结果用[[yii\db\Query::indexBy()]]方法以某列来索引，批查询仍将保持本来的索引。例如：
 
 ```php
 use yii\db\Query;
@@ -381,7 +344,7 @@ $query = (new Query())
     ->indexBy('username');
 
 foreach ($query->batch() as $users) {
-    // $users is indexed by the "username" column
+    // $users 以 "username" 列为索引
 }
 
 foreach ($query->each() as $username => $user) {

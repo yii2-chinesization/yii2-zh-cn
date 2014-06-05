@@ -1,17 +1,16 @@
 主题
 =======
 
-一个主题是一个视图和布局文件的目录。渲染时，主题中的每个文件将覆盖应用中对应的文件。
-单个应用可以使用多个主题，每一个都提供完全不同的体验。
-任何时候都只有一个主题可以被激活。
+主题是视图和布局文件目录。渲染视图时，激活主题的每个文件将覆盖应用中对应的视图或布局文件。
+单个应用可以使用多个主题，每个主题可以提供完全不同的视觉效果。
+任何时候都只有一个主题被激活。
 
-> 提示: 主题通常不意味着要重新分配，因为视图是应用特定的。(Themes usually do not meant to be redistributed since views are too application specific)。如果你想
-再分别的定制外观和感觉，可以尝试使用[资源包](assets.md)中的CSS和JavaScript文件替代(If you want to redistribute customized look and feel consider CSS and JavaScript files in form of [asset bundles](assets.md) instead)。
+> 注意: 主题通常不需要单独发布，因为视图是和应用捆绑的。如果你想重新发布定制的界面外观，可以使用[资源包](assets.md)中的CSS和JavaScript文件替代。
 
-配置当前主题
+配置激活主题
 -------------------------
 
-主题配置通过应用的`view`组件来定义。因此，你需要在你的应用的配置文件里进行设置：
+主题配置定义在应用的`view`组件中。所以，激活主题需要在应用的配置文件里进行如下设置：
 
 
 ```php
@@ -25,13 +24,13 @@
 ],
 ```
 
-在上面的例子中，`pathMap`定义了去哪里查找视图文件，而`baseUrl`则定义了引用资源的基础URL(base URL)。
-例如，如果`pathMap`为`['/web/views' => '/web/themes/basic']`，那么主题原本的视图则由引用`/web/views/site/index.php`文件变成引用`/web/themes/basic/site/index.php`文件。
+上例中，`pathMap` 路径图定义了查找视图文件的路径，而`baseUrl` 则定义了被这些文件所引用的资源的根URL(base URL)。
+例如，如果`pathMap`为`['/web/views' => '/web/themes/basic']`，那么已激活主题的应用视图文件`/web/views/site/index.php`就相应的变成`/web/themes/basic/site/index.php` 视图文件了。
 
 使用多重路径
 --------------------
 
-主题可以由一个路径映射到到多个路径。例如，
+可以把多个主题路径映射到同一个视图路径。例如，
 
 ```php
 'pathMap' => [
@@ -42,6 +41,6 @@
 ]
 ```
 
-在这个例子中，视图会先去搜索`/web/themes/christmas/site/index.php`文件，如果该文件不存在，则搜索`/web/themes/basic/site/index.php`文件。如果还没找到，应用中的视图文件将被引用。
+上例，视图会先搜索`/web/themes/christmas/site/index.php`文件，如果该文件不存在，则搜索`/web/themes/basic/site/index.php`文件。如果还没找到，应用视图文件将被引用。
 
 在你想临时或是有条件的覆盖一些视图时，这个功能会非常有用。

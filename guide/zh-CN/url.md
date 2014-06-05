@@ -99,7 +99,7 @@ Url::remember() ; //  保存URL以供下次使用
 Url::previous(); // 取出前面保存的 URL 
 ```
 
-> **小贴士**： 为生成一个指向 # 号（锚连接 ID ）的 URL ，比如 `/index.php?r=site/page&id=100#title`， 你要
+> **小技巧**： 为生成一个指向 # 号（锚连接 ID ）的 URL ，比如 `/index.php?r=site/page&id=100#title`， 你要
   指定 `#` 参数 ，采用  `Url::to(['post/read', 'id' => 100, '#' => 'title'])` 来创建。
 
 自定义 URL 
@@ -114,13 +114,13 @@ Url::previous(); // 取出前面保存的 URL
 ```php
 <?php
 return [
-	// ...
-	'components' => [
-		'urlManager' => [
-			'enablePrettyUrl' => true,
-			'showScriptName' => false,
-		],
-	],
+    // ...
+    'components' => [
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+        ],
+    ],
 ];
 ```
 
@@ -144,9 +144,9 @@ URL 格式规则可以关联一些 `GET` 参数，这些 `GET` 参数以如下�
 
 ```php
 [
-	'posts'=>'post/list',
-	'post/<id:\d+>'=>'post/read',
-	'post/<year:\d{4}>/<title>'=>'post/read',
+    'posts'=>'post/list',
+    'post/<id:\d+>'=>'post/read',
+    'post/<year:\d{4}>/<title>'=>'post/read',
 ]
 ```
 
@@ -180,9 +180,9 @@ URL 地址的逆过程。例如，当用户请求 `/index.php/post/100` 时，�
 
 ```php
 [
-	'<controller:(post|comment)>/<id:\d+>/<action:(create|update|delete)>' => '<controller>/<action>',
-	'<controller:(post|comment)>/<id:\d+>' => '<controller>/read',
-	'<controller:(post|comment)>s' => '<controller>/list',
+    '<controller:(post|comment)>/<id:\d+>/<action:(create|update|delete)>' => '<controller>/<action>',
+    '<controller:(post|comment)>/<id:\d+>' => '<controller>/read',
+    '<controller:(post|comment)>s' => '<controller>/list',
 ]
 ```
 
@@ -202,7 +202,7 @@ URL `http://admin.example.com/en/profile` 可以解析为 GET 参数`user=admin`
 
 ```php
 [
-	'http://<user:\w+>.example.com/<lang:\w+>/profile' => 'user/profile',
+    'http://<user:\w+>.example.com/<lang:\w+>/profile' => 'user/profile',
 ]
 ```
 
@@ -215,24 +215,24 @@ URL `http://admin.example.com/en/profile` 可以解析为 GET 参数`user=admin`
 如，应用位于 `http://www.example.com/sandbox/blog` ，
 那么仍然使用上面相同的规则，而不需要加上  `sandbox/blog` 。
 
-### URL 假后缀
+### URL 伪后缀
 
 ```php
 <?php
 return [
-	// ...
-	'components' => [
-		'urlManager' => [
-			'suffix' => '.html',
-		],
-	],
+    // ...
+    'components' => [
+        'urlManager' => [
+            'suffix' => '.html',
+        ],
+    ],
 ];
 ```
 
 ### 处理 REST 请求
 
 TBD:
-- RESTful 风格路由: [[yii\web\VerbFilter]], [[yii\web\UrlManager::$rules]]
+- RESTful 风格路由: [[yii\filters\VerbFilter]], [[yii\filters\UrlManager::$rules]]
 - Json API:
   - 响应: [[yii\web\Response::format]]
   - 请求: [[yii\web\Request::$parsers]], [[yii\web\JsonParser]]
@@ -250,12 +250,12 @@ URL 解析
 ```php
 <?php
 return [
-	// ...
-	'components' => [
-		'urlManager' => [
-			'enableStrictParsing' => true,
-		],
-	],
+    // ...
+    'components' => [
+        'urlManager' => [
+            'enableStrictParsing' => true,
+        ],
+    ],
 ];
 ```
 
@@ -274,15 +274,15 @@ return [
 ```php
 // ...
 'components' => [
-	'urlManager' => [
-		'rules' => [
-			'<action:(login|logout|about)>' => 'site/<action>',
+    'urlManager' => [
+        'rules' => [
+            '<action:(login|logout|about)>' => 'site/<action>',
 
-			// ...
+            // ...
 
-			['class' => 'app\components\CarUrlRule', 'connectionID' => 'db', /* ... */],
-		],
-	],
+            ['class' => 'app\components\CarUrlRule', 'connectionID' => 'db', /* ... */],
+        ],
+    ],
 ],
 ```
 
@@ -296,37 +296,37 @@ use yii\web\UrlRule;
 
 class CarUrlRule extends UrlRule
 {
-	public $connectionID = 'db';
+    public $connectionID = 'db';
 
-	public function createUrl($manager, $route, $params)
-	{
-		if ($route === 'car/index') {
-			if (isset($params['manufacturer'], $params['model'])) {
-				return $params['manufacturer'] . '/' . $params['model'];
-			} elseif (isset($params['manufacturer'])) {
-				return $params['manufacturer'];
-			}
-		}
-		return false;  // 规则没有被应用
-	}
+    public function createUrl($manager, $route, $params)
+    {
+        if ($route === 'car/index') {
+            if (isset($params['manufacturer'], $params['model'])) {
+                return $params['manufacturer'] . '/' . $params['model'];
+            } elseif (isset($params['manufacturer'])) {
+                return $params['manufacturer'];
+            }
+        }
+        return false;  // 规则没有被应用
+    }
 
-	public function parseRequest($manager, $request)
-	{
-		$pathInfo = $request->getPathInfo();
-		if (preg_match('%^(\w+)(/(\w+))?$%', $pathInfo, $matches)) {
-			// 输入$matches[1] 和 $matches[3] 看看
-			// 如果它们匹配了数据库中的厂商和模型，
-			// 赋值给$params['manufacturer'] 和 $params['model']
-			// 并返回['car/index', $params]。
-		}
-		return false;  // 规则没有被应用
-	}
+    public function parseRequest($manager, $request)
+    {
+        $pathInfo = $request->getPathInfo();
+        if (preg_match('%^(\w+)(/(\w+))?$%', $pathInfo, $matches)) {
+            // 输入$matches[1] 和 $matches[3] 看看
+            // 如果它们匹配了数据库中的厂商和模型，
+            // 赋值给$params['manufacturer'] 和 $params['model']
+            // 并返回['car/index', $params]。
+        }
+        return false;  // 规则没有被应用
+    }
 }
 ```
 
 除了上述用法，自定义 URL 规则类还可以实现许多目的。
 如，我们可以写规则类来记录 URL 解析和创建请求的日志。
-开发阶段这是非常有用的。
+开发阶段这是非常有用处的。
 我们也可以写规则类来显示特定的 404 错误类以防止所有其他 URL 规则
 解析当前请求失败。注意这种情况，特定类的规则
 必须定义在最后一条规则。
