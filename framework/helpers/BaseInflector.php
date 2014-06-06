@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140513
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -10,9 +14,9 @@ namespace yii\helpers;
 use Yii;
 
 /**
- * BaseInflector provides concrete implementation for [[Inflector]].
+ * BaseInflector 为[[Inflector]]提供具体实现
  *
- * Do not use BaseInflector. Use [[Inflector]] instead.
+ * 不要使用 BaseInflector ，而是使用[[Inflector]]代替
  *
  * @author Antonio Ramirez <amigo.cobos@gmail.com>
  * @since 2.0
@@ -20,8 +24,8 @@ use Yii;
 class BaseInflector
 {
     /**
-     * @var array the rules for converting a word into its plural form.
-     * The keys are the regular expressions and the values are the corresponding replacements.
+     * @var array 把单词转换为其复数形式的规则
+     * 键是正则表达式而值是相应的替换值
      */
     public static $plurals = [
         '/([nrlm]ese|deer|fish|sheep|measles|ois|pox|media)$/i' => '\1',
@@ -55,8 +59,8 @@ class BaseInflector
         '/$/' => 's',
     ];
     /**
-     * @var array the rules for converting a word into its singular form.
-     * The keys are the regular expressions and the values are the corresponding replacements.
+     * @var array 把单词转换为单数形式的规则
+     * 键是正则表达式而值是相应的替换值
      */
     public static $singulars = [
         '/([nrlm]ese|deer|fish|sheep|measles|ois|pox|media|ss)$/i' => '\1',
@@ -99,8 +103,8 @@ class BaseInflector
         '/s$/i' => '',
     ];
     /**
-     * @var array the special rules for converting a word between its plural form and singular form.
-     * The keys are the special words in singular form, and the values are the corresponding plural form.
+     * @var array 在单词复数形式和其单数形式之间转换的特殊规则
+     * 键是单数形式的特殊单词，值是对应的复式形式
      */
     public static $specials = [
         'atlas' => 'atlases',
@@ -217,7 +221,7 @@ class BaseInflector
     ];
 
     /**
-     * @var array map of special chars and its translation. This is used by [[slug()]].
+     * @var array 特殊字符及其翻译的映射，用于[[slug()]]
      */
     public static $transliteration = [
         // Latin
@@ -290,11 +294,11 @@ class BaseInflector
     ];
 
     /**
-     * Converts a word to its plural form.
-     * Note that this is for English only!
-     * For example, 'apple' will become 'apples', and 'child' will become 'children'.
-     * @param string $word the word to be pluralized
-     * @return string the pluralized word
+     * 把单词转换成复式形式
+     * 注意本方法只用于英文！
+     * 如'apple'将变成'apples'，而'child'将变成'children'
+     * @param string $word 要复数化的单词
+     * @return string 已复数化的单词
      */
     public static function pluralize($word)
     {
@@ -311,9 +315,9 @@ class BaseInflector
     }
 
     /**
-     * Returns the singular of the $word
-     * @param string $word the english word to singularize
-     * @return string Singular noun.
+     * 返回 $word 的单数
+     * @param string $word 要单数化的英文单词
+     * @return string 单数名词
      */
     public static function singularize($word)
     {
@@ -331,10 +335,9 @@ class BaseInflector
     }
 
     /**
-     * Converts an underscored or CamelCase word into a English
-     * sentence.
+     * 把一个有下划线的单词或驼峰式单词转成一个英文句子
      * @param string $words
-     * @param boolean $ucAll whether to set all words to uppercase
+     * @param boolean $ucAll 是否设置所有单词大写
      * @return string
      */
     public static function titleize($words, $ucAll = false)
@@ -345,12 +348,11 @@ class BaseInflector
     }
 
     /**
-     * Returns given word as CamelCased
-     * Converts a word like "send_email" to "SendEmail". It
-     * will remove non alphanumeric character from the word, so
-     * "who's online" will be converted to "WhoSOnline"
+     * 把给定单词转成驼峰式返回
+     * 把一个单词如"send_email"转成"SendEmail"，它将从单词移除所有非文字数组字符，
+     * 所以"who's online" 将转变为"WhoSOnline"。
      * @see variablize()
-     * @param string $word the word to CamelCase
+     * @param string $word 要转为驼峰式的单词
      * @return string
      */
     public static function camelize($word)
@@ -359,11 +361,11 @@ class BaseInflector
     }
 
     /**
-     * Converts a CamelCase name into space-separated words.
-     * For example, 'PostTag' will be converted to 'Post Tag'.
-     * @param string $name the string to be converted
-     * @param boolean $ucwords whether to capitalize the first letter in each word
-     * @return string the resulting words
+     * 把驼峰式名称转为以空格分隔的词组
+     * 如'PostTag'将转为'Post Tag'
+     * @param string $name 要转换的字符串
+     * @param boolean $ucwords 是否让每个单词的首字母变成大写
+     * @return string 转换后的单词
      */
     public static function camel2words($name, $ucwords = true)
     {
@@ -377,12 +379,12 @@ class BaseInflector
     }
 
     /**
-     * Converts a CamelCase name into an ID in lowercase.
-     * Words in the ID may be concatenated using the specified character (defaults to '-').
-     * For example, 'PostTag' will be converted to 'post-tag'.
-     * @param string $name the string to be converted
-     * @param string $separator the character used to concatenate the words in the ID
-     * @return string the resulting ID
+     * 把驼峰式名称转变为都是小写字母的 ID
+     * ID 的单词将使用指定字符连接(缺省为'-')
+     * 如'PostTag'将转变为'post-tag'
+     * @param string $name 要转换的字符串
+     * @param string $separator 用于连接 ID 单词的字符
+     * @return string 转换后的 ID
      */
     public static function camel2id($name, $separator = '-')
     {
@@ -394,12 +396,12 @@ class BaseInflector
     }
 
     /**
-     * Converts an ID into a CamelCase name.
-     * Words in the ID separated by `$separator` (defaults to '-') will be concatenated into a CamelCase name.
-     * For example, 'post-tag' is converted to 'PostTag'.
-     * @param string $id the ID to be converted
-     * @param string $separator the character used to separate the words in the ID
-     * @return string the resulting CamelCase name
+     * 把 ID 转为驼峰式名称
+     * 以`$separator`(缺省为'-')连接的ID 单词将转为驼峰式名称
+     * 如'post-tag'转为'PostTag'
+     * @param string $id 要转变的 ID
+     * @param string $separator 用于分隔 ID 单词的字符
+     * @return string 转换后的驼峰式名称
      */
     public static function id2camel($id, $separator = '-')
     {
@@ -407,8 +409,8 @@ class BaseInflector
     }
 
     /**
-     * Converts any "CamelCased" into an "underscored_word".
-     * @param string $words the word(s) to underscore
+     * 把所有驼峰式单词转为下划线单词
+     * @param string $words 要加下划线的单词
      * @return string
      */
     public static function underscore($words)
@@ -417,9 +419,9 @@ class BaseInflector
     }
 
     /**
-     * Returns a human-readable string from $word
-     * @param string $word the string to humanize
-     * @param boolean $ucAll whether to set all words to uppercase or not
+     * 把 $word 变成人类可读的字符串
+     * @param string $word 要人性化的字符串
+     * @param boolean $ucAll 是否设置所有单词为大写
      * @return string
      */
     public static function humanize($word, $ucAll = false)
@@ -430,11 +432,10 @@ class BaseInflector
     }
 
     /**
-     * Same as camelize but first char is in lowercase.
-     * Converts a word like "send_email" to "sendEmail". It
-     * will remove non alphanumeric character from the word, so
-     * "who's online" will be converted to "whoSOnline"
-     * @param string $word to lowerCamelCase
+     * 转为第一个字符是小写的驼峰式
+     * 如"send_email"转为"sendEmail"，它将移除所有单词中的非文字和数字字符，
+     * 所以"who's online" 将转为"whoSOnline"。
+     * @param string $word 要转为首单词小写驼峰式的单词
      * @return string
      */
     public static function variablize($word)
@@ -445,9 +446,9 @@ class BaseInflector
     }
 
     /**
-     * Converts a class name to its table name (pluralized)
-     * naming conventions. For example, converts "Person" to "people"
-     * @param string $className the class name for getting related table_name
+     * 把类名转为表名(复数形式)
+     * 命名规范，如"Person"转为"people"
+     * @param string $className 类名，为获取所关联的表名
      * @return string
      */
     public static function tableize($className)
@@ -456,13 +457,12 @@ class BaseInflector
     }
 
     /**
-     * Returns a string with all spaces converted to given replacement and
-     * non word characters removed.  Maps special characters to ASCII using
-     * [[$transliteration]] array.
-     * @param string $string An arbitrary string to convert
-     * @param string $replacement The replacement to use for spaces
-     * @param boolean $lowercase whether to return the string in lowercase or not. Defaults to `true`.
-     * @return string The converted string.
+     * 返回一个所有空格以给定值替换且非单词字符被删除的字符串
+     * 使用[[$transliteration]]数组映射特殊字符到 ASCII
+     * @param string $string 要转换的任意字符串
+     * @param string $replacement 用于替换空格的字符
+     * @param boolean $lowercase 是否以小写形式返回字符串，缺省为`true`.
+     * @return string 转换后的字符串
      */
     public static function slug($string, $replacement = '-', $lowercase = true)
     {
@@ -480,7 +480,7 @@ class BaseInflector
     }
 
     /**
-     * Converts a table name to its class name. For example, converts "people" to "Person"
+     * 把表名转为它的类名，如"people"转为"Person"
      * @param string $tableName
      * @return string
      */
@@ -490,8 +490,8 @@ class BaseInflector
     }
 
     /**
-     * Converts number to its ordinal English form. For example, converts 13 to 13th, 2 to 2nd ...
-     * @param integer $number the number to get its ordinal value
+     * 把数字转为它的英文形式的序数。如 13 转为 13th, 2 转为 2nd ...
+     * @param integer $number 要获得其序数值的数字
      * @return string
      */
     public static function ordinalize($number)

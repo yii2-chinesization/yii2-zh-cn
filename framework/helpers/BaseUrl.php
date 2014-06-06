@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140513
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -11,9 +15,9 @@ use Yii;
 use yii\base\InvalidParamException;
 
 /**
- * BaseUrl provides concrete implementation for [[Url]].
+ * BaseUrl 为[[Url]]提供具体实现
  *
- * Do not use BaseUrl. Use [[Url]] instead.
+ * 不要使用 BaseUrl ，而是使用[[Url]]代替
  *
  * @author Alexander Makarov <sam@rmcreative.ru>
  * @since 2.0
@@ -21,38 +25,36 @@ use yii\base\InvalidParamException;
 class BaseUrl
 {
     /**
-     * Creates a URL for the given route.
+     * 为给定路由创建一个 URL
      *
-     * This method will use [[\yii\web\UrlManager]] to create a URL.
+     * 本方法将使用[[\yii\web\UrlManager]]创建 URL
      *
-     * You may specify the route as a string, e.g., `site/index`. You may also use an array
-     * if you want to specify additional query parameters for the URL being created. The
-     * array format must be:
+     * 你可以指定路由为一个字符串，如`site/index`，如果你想为要创建的 URL 指定额外的查询参数，
+     * 你也可以使用一个数组，数组格式是：
      *
      * ```php
-     * // generates: /index.php?r=site/index&param1=value1&param2=value2
+     * // 生成： /index.php?r=site/index&param1=value1&param2=value2
      * ['site/index', 'param1' => 'value1', 'param2' => 'value2']
      * ```
      *
-     * If you want to create a URL with an anchor, you can use the array format with a `#` parameter.
+     * 如果你想创建一个带锚点的 URL ，可以使用带 `#` 参数的数组格式
      * For example,
      *
      * ```php
-     * // generates: /index.php?r=site/index&param1=value1#name
+     * // 生成： /index.php?r=site/index&param1=value1#name
      * ['site/index', 'param1' => 'value1', '#' => 'name']
      * ```
      *
-     * A route may be either absolute or relative. An absolute route has a leading slash (e.g. `/site/index`),
-     * while a relative route has none (e.g. `site/index` or `index`). A relative route will be converted
-     * into an absolute one by the following rules:
+     * 路由可以是绝对的或相对的，绝对路由前带斜杠(如`/site/index`)，
+     * 而相对路由前面没有斜杠(如`site/index` or `index`)。相对路由可由以下规则转变成绝对路由：
      *
-     * - If the route is an empty string, the current [[\yii\web\Controller::route|route]] will be used;
-     * - If the route contains no slashes at all (e.g. `index`), it is considered to be an action ID
-     *   of the current controller and will be prepended with [[\yii\web\Controller::uniqueId]];
-     * - If the route has no leading slash (e.g. `site/index`), it is considered to be a route relative
-     *   to the current module and will be prepended with the module's [[\yii\base\Module::uniqueId|uniqueId]].
+     * - 如果路由是空字符串，将使用当前的[[\yii\web\Controller::route|route]]；
+     * - 如果路由根本不包含任何斜杠(如`index`)，
+     *   就认为它是当前控制器的动作并在它前面加上[[\yii\web\Controller::uniqueId]]；
+     * - 如果路由前没有斜杠(如`site/index`),
+     *   就认为它是相对于当前模块的路由并在它前面加上模块的[[\yii\base\Module::uniqueId|uniqueId]]。
      *
-     * Below are some examples of using this method:
+     * 下面是使用本方法的一些例子：
      *
      * ```php
      * // /index?r=site/index
@@ -68,16 +70,16 @@ class BaseUrl
      * echo Url::toRoute('site/index', 'https');
      * ```
      *
-     * @param string|array $route use a string to represent a route (e.g. `index`, `site/index`),
-     * or an array to represent a route with query parameters (e.g. `['site/index', 'param1' => 'value1']`).
-     * @param boolean|string $scheme the URI scheme to use in the generated URL:
+     * @param string|array $route 使用一个字符串代表一个路由(如`index`, `site/index`)，
+     * 或一个数组代表一个带查询参数的路由(如`['site/index', 'param1' => 'value1']`)。
+     * @param boolean|string $scheme 在生成的 URL 使用的 URI 命名结构：
      *
-     * - `false` (default): generating a relative URL.
-     * - `true`: generating an absolute URL whose scheme is the same as the current request.
-     * - string: generating an absolute URL with the specified scheme (either `http` or `https`).
+     * - `false` (缺省): 生成一个相对 URL
+     * - `true`: 生成一个命名结构和当前请求相同的绝对 URL
+     * - string: 生成具有指定命名结构的绝对 URL(`http`或`https`)
      *
-     * @return string the generated URL
-     * @throws InvalidParamException a relative route is given while there is no active controller
+     * @return string 生成后的 URL
+     * @throws InvalidParamException 给定的相对路由没有对应的活动控制器
      */
     public static function toRoute($route, $scheme = false)
     {
@@ -92,20 +94,18 @@ class BaseUrl
     }
 
     /**
-     * Normalizes route and makes it suitable for UrlManager. Absolute routes are staying as is
-     * while relative routes are converted to absolute ones.
+     * 标准化路由，使得它适合于 UrlManager ，绝对路由保留原状而相对路由转变为绝对路由
      *
-     * A relative route is a route without a leading slash, such as "view", "post/view".
+     * 相对路由是前面没有斜杠的路由，如"view", "post/view" 。
      *
-     * - If the route is an empty string, the current [[\yii\web\Controller::route|route]] will be used;
-     * - If the route contains no slashes at all, it is considered to be an action ID
-     *   of the current controller and will be prepended with [[\yii\web\Controller::uniqueId]];
-     * - If the route has no leading slash, it is considered to be a route relative
-     *   to the current module and will be prepended with the module's uniqueId.
+     * - 如果路由是空字符串，使用当前[[\yii\web\Controller::route|route]]；
+     * - 如果路由完全不包含任何斜杠，它被认为是当前控制器的一个动作 ID
+     *   并在其之前加上[[\yii\web\Controller::uniqueId]]；
+     * - 如果路由前没有斜杠，它被认为是相对当前模块的路由，并在其前面加上模块的唯一 ID 。
      *
-     * @param string $route the route. This can be either an absolute route or a relative route.
-     * @return string normalized route suitable for UrlManager
-     * @throws InvalidParamException a relative route is given while there is no active controller
+     * @param string $route 路由，绝对路由或相对路由均可
+     * @return string 为适合 UrlManager 而标准化了的路由
+     * @throws InvalidParamException 给定相对路由没有对应的活动控制器
      */
     protected static function normalizeRoute($route)
     {
@@ -130,26 +130,22 @@ class BaseUrl
     }
 
     /**
-     * Creates a URL based on the given parameters.
+     * 基于给定参数创建 URL
      *
-     * This method is very similar to [[toRoute()]]. The only difference is that this method
-     * requires a route to be specified as an array only. If a string is given, it will be treated
-     * as a URL which will be prefixed with the base URL if it does not start with a slash.
-     * In particular, if `$url` is
+     * 本方法非常类似于[[toRoute()]]，唯一的区别是本方法需要路由只能指定为数组。
+     * 如果给的是字符串，它将被视为一个 URL ，且如果它没有以斜杠开头给其附上根 URL 前缀。
+     * 尤其是当`$url`是
      *
-     * - an array: [[toRoute()]] will be called to generate the URL. For example:
-     *   `['site/index']`, `['post/index', 'page' => 2]`. Please refer to [[toRoute()]] for more details
-     *   on how to specify a route.
-     * - a string with a leading `@`: it is treated as an alias and the corresponding aliased string
-     *   will be subject to the following rules.
-     * - an empty string: the currently requested URL will be returned;
-     * - a string without a leading slash: it will be prefixed with [[\yii\web\Request::baseUrl]].
-     * - a string with a leading slash: it will be returned as is.
+     * - 数组：[[toRoute()]]将被调用来生成 URL ，如：
+     *   `['site/index']`, `['post/index', 'page' => 2]`. 请参考[[toRoute()]]了解如何指定路由。
+     * - 以`@`开头的字符串：它被视为一个别名，对应的别名字符串从属于以下规则。
+     * - 空字符串：当前被请求的 URL 将被返回；
+     * - 没有前置斜杠的字符串：它将加上前缀[[\yii\web\Request::baseUrl]]。
+     * - 有前置斜杠的字符串：它将返回自身
      *
-     * Note that in case `$scheme` is specified (either a string or true), an absolute URL with host info
-     * will be returned.
+     * 注意在`$scheme`已指定的情况下(字符串或 true)，将返回带主机信息的绝对 URL
      *
-     * Below are some examples of using this method:
+     * 以下是使用本方法的一些例子：
      *
      * ```php
      * // /index?r=site/index
@@ -158,7 +154,7 @@ class BaseUrl
      * // /index?r=site/index&src=ref1#name
      * echo Url::to(['site/index', 'src' => 'ref1', '#' => 'name']);
      *
-     * // the currently requested URL
+     * // 当前被请求的 URL
      * echo Url::to();
      *
      * // /images/logo.gif
@@ -172,15 +168,15 @@ class BaseUrl
      * ```
      *
      *
-     * @param array|string $url the parameter to be used to generate a valid URL
-     * @param boolean|string $scheme the URI scheme to use in the generated URL:
+     * @param array|string $url 用来生成一个有效 URL 的参数
+     * @param boolean|string $scheme  在已生成的 URL 使用的 URI 命名结构：
      *
-     * - `false` (default): generating a relative URL.
-     * - `true`: generating an absolute URL whose scheme is the same as the current request.
-     * - string: generating an absolute URL with the specified scheme (either `http` or `https`).
+     * - `false` (缺省): 生成一个相对 URL.
+     * - `true`: 生成一个命名结构和当前请求相同的绝对 URL
+     * - string: 以指定命名结构生成一个绝对 URL (`http`或`https`)
      *
-     * @return string the generated URL
-     * @throws InvalidParamException a relative route is given while there is no active controller
+     * @return string 已生成的 URL
+     * @throws InvalidParamException 给定的相对路径没有当前活动控制器
      */
     public static function to($url = '', $scheme = false)
     {
@@ -209,12 +205,12 @@ class BaseUrl
     }
 
     /**
-     * Returns the base URL of the current request.
-     * @param boolean|string $scheme the URI scheme to use in the returned base URL:
+     * 返回当前请求的根 URL
+     * @param boolean|string $scheme 在返回的根 URL 使用的 URI 命名结构：
      *
-     * - `false` (default): returning the base URL without host info.
-     * - `true`: returning an absolute base URL whose scheme is the same as the current request.
-     * - string: returning an absolute base URL with the specified scheme (either `http` or `https`).
+     * - `false` (缺省): 返回没有主机信息的根 URL
+     * - `true`: 返回命名结构和当前请求相同的绝对根 URL
+     * - string: 返回指定命名结构的绝对根 URL(`http`或`https`)
      * @return string
      */
     public static function base($scheme = false)
@@ -230,12 +226,12 @@ class BaseUrl
     }
 
     /**
-     * Remembers the specified URL so that it can be later fetched back by [[previous()]].
+     * 记住指定 URL 以便之后可由[[previous()]]取回
      *
-     * @param string|array $url the URL to remember. Please refer to [[to()]] for acceptable formats.
-     * If this parameter is not specified, the currently requested URL will be used.
-     * @param string $name the name associated with the URL to be remembered. This can be used
-     * later by [[previous()]]. If not set, it will use [[\yii\web\User::returnUrlParam]].
+     * @param string|array $url 要记住的 URL ，请参考[[to()]]了解接受的格式
+     * 如果此参数未指定，将使用当前请求 URL
+     * @param string $name 关联到要记住的 URL 的名称，此参数之后可由[[previous()]]使用，
+     * 如果未设置，将使用[[\yii\web\User::returnUrlParam]]
      * @see previous()
      */
     public static function remember($url = '', $name = null)
@@ -250,11 +246,11 @@ class BaseUrl
     }
 
     /**
-     * Returns the URL previously [[remember()|remembered]].
+     * 返回之前[[remember()|remembered]]的 URL
      *
-     * @param string $name the named associated with the URL that was remembered previously.
-     * If not set, it will use [[\yii\web\User::returnUrlParam]].
-     * @return string the URL previously remembered. Null is returned if no URL was remembered with the given name.
+     * @param string $name 关联到之前已记住的 URL 的名称
+     * 如果未设置，将使用[[\yii\web\User::returnUrlParam]]
+     * @return string 之前被记住的 URL ，如果没有给定名的 URL 被记住就返回 Null
      * @see remember()
      */
     public static function previous($name = null)
@@ -267,16 +263,15 @@ class BaseUrl
     }
 
     /**
-     * Returns the canonical URL of the currently requested page.
-     * The canonical URL is constructed using the current controller's [[\yii\web\Controller::route]] and
-     * [[\yii\web\Controller::actionParams]]. You may use the following code in the layout view to add a link tag
-     * about canonical URL:
+     * 返回当前被请求页的标准 URL
+     * 标准的 URL 用当前控制器的[[\yii\web\Controller::route]]和[[\yii\web\Controller::actionParams]]
+     * 组成，你可以使用以下代码到布局视图以添加一个有关标准 URL 的链接标签：
      *
      * ```php
      * $this->registerLinkTag(['rel' => 'canonical', 'href' => Url::canonical()]);
      * ```
      *
-     * @return string the canonical URL of the currently requested page
+     * @return string 当前被请求页面的标准 URL
      */
     public static function canonical()
     {
@@ -287,13 +282,13 @@ class BaseUrl
     }
 
     /**
-     * Returns the home URL.
+     * 返回主页 URL.
      *
-     * @param boolean|string $scheme the URI scheme to use for the returned URL:
+     * @param boolean|string $scheme 为返回 URL 所使用的 URI 命名结构：
      *
-     * - `false` (default): returning a relative URL.
-     * - `true`: returning an absolute URL whose scheme is the same as the current request.
-     * - string: returning an absolute URL with the specified scheme (either `http` or `https`).
+     * - `false` (缺省): 返回相对 URL
+     * - `true`: 返回命名结构和当前请求相同的绝对 URL
+     * - string: 返回指定命名结构的绝对 URL (`http`或`https`)
      *
      * @return string home URL
      */

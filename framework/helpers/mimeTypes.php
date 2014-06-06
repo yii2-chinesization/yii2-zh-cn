@@ -1,9 +1,15 @@
 <?php
 /**
- * MIME types.
+ * 翻译日期：20140513
+ */
+
+/**
+ * MIME 类型
  *
- * This file contains most commonly used MIME types
- * according to file extension names.
+ * （译者注：MIME(Multipurpose Internet Mail Extensions)多用途互联网邮件扩展类型就是设定某种扩展名的
+ * 文件用一种应用程序来打开的方式类型，当该扩展名文件被访问的时候，浏览器会自动使用指定应用程序来打开）
+ *
+ * 本文件根据文件扩展名来包括了最常用的 MIME 类型
  *
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC

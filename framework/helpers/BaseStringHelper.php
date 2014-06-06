@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140513
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -8,9 +12,9 @@
 namespace yii\helpers;
 
 /**
- * BaseStringHelper provides concrete implementation for [[StringHelper]].
+ * BaseStringHelper 为[[StringHelper]]提供了具体实现
  *
- * Do not use BaseStringHelper. Use [[StringHelper]] instead.
+ * 不要使用 BaseStringHelper ，而是使用[[StringHelper]]。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @author Alex Makarov <sam@rmcreative.ru>
@@ -19,10 +23,10 @@ namespace yii\helpers;
 class BaseStringHelper
 {
     /**
-     * Returns the number of bytes in the given string.
-     * This method ensures the string is treated as a byte array by using `mb_strlen()`.
-     * @param string $string the string being measured for length
-     * @return integer the number of bytes in the given string.
+     * 返回给定字符串的字节数
+     * 本方法以使用`mb_strlen()`来保证字符串被视为一个字节数组。
+     * @param string $string 要测量长度的字符串
+     * @return integer 给定字符串的字节数
      */
     public static function byteLength($string)
     {
@@ -30,12 +34,12 @@ class BaseStringHelper
     }
 
     /**
-     * Returns the portion of string specified by the start and length parameters.
-     * This method ensures the string is treated as a byte array by using `mb_substr()`.
-     * @param string $string the input string. Must be one character or longer.
-     * @param integer $start the starting position
-     * @param integer $length the desired portion length
-     * @return string the extracted part of string, or FALSE on failure or an empty string.
+     * 返回字符串里指定了起始位置和长度参数的那部分
+     * 本方法以使用`mb_substr()`来保证字符串被视为一个字节数组。
+     * @param string $string 输入字符串，必须是一个字符或多个字符
+     * @param integer $start 起始位置
+     * @param integer $length 截取的长度
+     * @return string 截取的字符串部分，如果失败返回 FALSE 或空字符串
      * @see http://www.php.net/manual/en/function.substr.php
      */
     public static function byteSubstr($string, $start, $length)
@@ -44,16 +48,14 @@ class BaseStringHelper
     }
 
     /**
-     * Returns the trailing name component of a path.
-     * This method is similar to the php function `basename()` except that it will
-     * treat both \ and / as directory separators, independent of the operating system.
-     * This method was mainly created to work on php namespaces. When working with real
-     * file paths, php's `basename()` should work fine for you.
-     * Note: this method is not aware of the actual filesystem, or path components such as "..".
+     * 返回一个路径的尾部名称部分
+     * 本方法类似于 PHP 函数`basename()`，除了本方法把 \ 和 / 都当做目录分隔符，独立于操作系统。
+     * 本方法主要创建来工作于 PHP 命名空间，当和真正的文件路径工作时，PHP 函数`basename()`已经很好了。
+     * 注意：本方法并不知道实际的文件系统或类似".."的路径部分。
      *
-     * @param string $path A path string.
-     * @param string $suffix If the name component ends in suffix this will also be cut off.
-     * @return string the trailing name component of the given path.
+     * @param string $path 路径字符串
+     * @param string $suffix 如果名称部分以后缀结尾，那么此后缀也会被切掉。
+     * @return string 给定路径的尾部名称部分
      * @see http://www.php.net/manual/en/function.basename.php
      */
     public static function basename($path, $suffix = '')
@@ -70,12 +72,11 @@ class BaseStringHelper
     }
 
     /**
-     * Returns parent directory's path.
-     * This method is similar to `dirname()` except that it will treat
-     * both \ and / as directory separators, independent of the operating system.
+     * 返回父目录的路径
+     * 本方法类似于`dirname()`，除了它将 \ and / 视为目录分隔符，以独立于操作系统。
      *
-     * @param string $path A path string.
-     * @return string the parent directory's path.
+     * @param string $path 路径字符串
+     * @return string 父目录的路径
      * @see http://www.php.net/manual/en/function.basename.php
      */
     public static function dirname($path)
@@ -89,13 +90,13 @@ class BaseStringHelper
     }
     
     /**
-     * Truncates a string to the number of characters specified.
+     * 截取字符串到指定的字符数
      *
-     * @param string $string The string to truncate.
-     * @param integer $length How many characters from original string to include into truncated string.
-     * @param string $suffix String to append to the end of truncated string.
-     * @param string $encoding The charset to use, defaults to charset currently used by application.
-     * @return string the truncated string.
+     * @param string $string 要截取的字符串
+     * @param integer $length 截取长度，从原始字符串中截取多少字符到截取后的字符串
+     * @param string $suffix 要追加到已截取字符串末尾的字符串
+     * @param string $encoding 要使用的字符集缺省为应用当前使用的字符集
+     * @return string 截取后的字符串
      */
     public static function truncate($string, $length, $suffix = '...', $encoding = null)
     {
@@ -107,12 +108,12 @@ class BaseStringHelper
     }
     
     /**
-     * Truncates a string to the number of words specified.
+     * 截取字符串到指定单词数
      *
-     * @param string $string The string to truncate.
-     * @param integer $count How many words from original string to include into truncated string.
-     * @param string $suffix String to append to the end of truncated string.
-     * @return string the truncated string.
+     * @param string $string 要截取的字符串
+     * @param integer $count 从原始字符串截取多少单词到截取后的字符串
+     * @param string $suffix 要追加到已截取字符串末尾的字符串
+     * @return string 截取后的字符串
      */
     public static function truncateWords($string, $count, $suffix = '...')
     {

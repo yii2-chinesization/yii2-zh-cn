@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140513
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -8,9 +12,9 @@
 namespace yii\helpers;
 
 /**
- * BaseHtmlPurifier provides concrete implementation for [[HtmlPurifier]].
+ * BaseHtmlPurifier 为[[HtmlPurifier]]提供具体实现
  *
- * Do not use BaseHtmlPurifier. Use [[HtmlPurifier]] instead.
+ * 不要使用 BaseHtmlPurifier ，而是使用[[HtmlPurifier]]替代。
  *
  * @author Alexander Makarov <sam@rmcreative.ru>
  * @since 2.0
@@ -18,7 +22,7 @@ namespace yii\helpers;
 class BaseHtmlPurifier
 {
     /**
-     * Passes markup through HTMLPurifier making it safe to output to end user
+     * 通过 HTMLPurifier 传递标记使其安全地输出到终端用户
      *
      * @param string $content
      * @param array|null $config

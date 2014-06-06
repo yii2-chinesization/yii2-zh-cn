@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140513
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -8,12 +12,10 @@
 namespace yii\helpers;
 
 /**
- * VarDumper is intended to replace the buggy PHP function var_dump and print_r.
- * It can correctly identify the recursively referenced objects in a complex
- * object structure. It also has a recursive depth control to avoid indefinite
- * recursive display of some peculiar variables.
+ * VarDumper 目的是取代古怪的 PHP 函数 var_dump 和 print_r
+ * 它能准确识别在复杂对象结构中递归引用的对象，它也有递归深度控制以避免一些特殊变量无限递归显示
  *
- * VarDumper can be used as follows,
+ * VarDumper 可以如下使用：
  *
  * ~~~
  * VarDumper::dump($var);

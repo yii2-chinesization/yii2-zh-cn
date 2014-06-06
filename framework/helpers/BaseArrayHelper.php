@@ -1,5 +1,10 @@
 <?php
 /**
+ * 英文文档日期：20140513
+ * 未翻译完成
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -12,9 +17,9 @@ use yii\base\Arrayable;
 use yii\base\InvalidParamException;
 
 /**
- * BaseArrayHelper provides concrete implementation for [[ArrayHelper]].
+ * BaseArrayHelper 为[[ArrayHelper]]提供具体实现
  *
- * Do not use BaseArrayHelper. Use [[ArrayHelper]] instead.
+ * 不要使用 BaseArrayHelper ，而是使用[[ArrayHelper]]代替
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -22,10 +27,10 @@ use yii\base\InvalidParamException;
 class BaseArrayHelper
 {
     /**
-     * Converts an object or an array of objects into an array.
-     * @param object|array $object the object to be converted into an array
-     * @param array $properties a mapping from object class names to the properties that need to put into the resulting arrays.
-     * The properties specified for each class is an array of the following format:
+     * 把对象或对象数组转换为数组
+     * @param object|array $object 要转换为数组的对象
+     * @param array $properties 对象类名和要投入合成数组的属性间的映射
+     * 每个类所指定的属性是以下格式的数组：
      *
      * ~~~
      * [
@@ -42,7 +47,7 @@ class BaseArrayHelper
      * ]
      * ~~~
      *
-     * The result of `ArrayHelper::toArray($post, $properties)` could be like the following:
+     * `ArrayHelper::toArray($post, $properties)`的输出如下：
      *
      * ~~~
      * [
@@ -53,8 +58,8 @@ class BaseArrayHelper
      * ]
      * ~~~
      *
-     * @param boolean $recursive whether to recursively converts properties which are objects into arrays.
-     * @return array the array representation of the object
+     * @param boolean $recursive 是否递归转换对象属性到数组
+     * @return array 对象的数组表示
      */
     public static function toArray($object, $properties = [], $recursive = true)
     {
@@ -100,17 +105,13 @@ class BaseArrayHelper
     }
 
     /**
-     * Merges two or more arrays into one recursively.
-     * If each array has an element with the same string key value, the latter
-     * will overwrite the former (different from array_merge_recursive).
-     * Recursive merging will be conducted if both arrays have an element of array
-     * type and are having the same key.
-     * For integer-keyed elements, the elements from the latter array will
-     * be appended to the former array.
-     * @param array $a array to be merged to
-     * @param array $b array to be merged from. You can specify additional
-     * arrays via third argument, fourth argument etc.
-     * @return array the merged array (the original arrays are not changed.)
+     * 递归合并两个或多个数组到一个数组
+     * 如果每个数组的某个元素具有相同的字符串键值，后者将覆盖前者(不同于 array_merge_recursive)，
+     * 如果两个数组都有一个数组类型的元素和相同的键，那么递归合并就被执行，
+     * 对于键为整型的元素，数组后者将附加到前者上。
+     * @param array $a 要合并到的数组
+     * @param array $b 要合并的数组，你可以通过第三个、四个等参数指定额外的数组。
+     * @return array 合并后的数组（原始数组没有改变）
      */
     public static function merge($a, $b)
     {
@@ -133,8 +134,8 @@ class BaseArrayHelper
     }
 
     /**
-     * Retrieves the value of an array element or object property with the given key or property name.
-     * If the key does not exist in the array or object, the default value will be returned instead.
+     * 以给定的键值或属性名检索数组元素值或对象属性
+     * 如果键不存在于数组或对象，将返回默认值。
      *
      * The key may be specified in a dot format to retrieve the value of a sub-array or the property
      * of an embedded object. In particular, if the key is `x.y.z`, then the returned value would
@@ -401,7 +402,7 @@ class BaseArrayHelper
      * `SORT_REGULAR`, `SORT_NUMERIC`, `SORT_STRING`, `SORT_LOCALE_STRING`, `SORT_NATURAL` and `SORT_FLAG_CASE`.
      * Please refer to [PHP manual](http://php.net/manual/en/function.sort.php)
      * for more details. When sorting by multiple keys with different sort flags, use an array of sort flags.
-     * @throws InvalidParamException if the $descending or $sortFlag parameters do not have
+     * @throws InvalidParamException if the $direction or $sortFlag parameters do not have
      * correct number of elements as that of $key.
      */
     public static function multisort(&$array, $key, $direction = SORT_ASC, $sortFlag = SORT_REGULAR)
@@ -414,7 +415,7 @@ class BaseArrayHelper
         if (is_scalar($direction)) {
             $direction = array_fill(0, $n, $direction);
         } elseif (count($direction) !== $n) {
-            throw new InvalidParamException('The length of $descending parameter must be the same as that of $keys.');
+            throw new InvalidParamException('The length of $direction parameter must be the same as that of $keys.');
         }
         if (is_scalar($sortFlag)) {
             $sortFlag = array_fill(0, $n, $sortFlag);

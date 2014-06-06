@@ -1,5 +1,9 @@
 <?php
 /**
+ * 翻译日期：20140513
+ */
+
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -8,18 +12,18 @@
 namespace yii\helpers;
 
 /**
- * Markdown provides an ability to transform markdown into HTML.
+ * Markdown 通过了转换 markdown 到 HTML 的能力
  *
- * Basic usage is the following:
+ * 基本用法如下：
  *
  * ```php
- * $myHtml = Markdown::process($myText); // use original markdown flavor
- * $myHtml = Markdown::process($myText, 'gfm'); // use github flavored markdown
+ * $myHtml = Markdown::process($myText); // 使用原始的 markdown 风格
+ * $myHtml = Markdown::process($myText, 'gfm'); // 使用 github 风格的 markdown
  * ```
  *
- * You can configure multiple flavors using the [[$flavors]] property.
+ * 你可以使用[[$flavors]]属性来配置多种风格
  *
- * For more details please refer to the [Markdown library documentation](https://github.com/cebe/markdown#readme).
+ * 详情请参阅[Markdown 库文档](https://github.com/cebe/markdown#readme).
  *
  * @author Carsten Brandt <mail@cebe.cc>
  * @since 2.0
