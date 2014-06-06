@@ -61,6 +61,7 @@ Yii 2.0 权威指南
 应用结构
 --------
 
+* **编撰中**[结构总览](structure-overview.md)
 * **已完成**【待翻译-20140502】[入口脚本](structure-entry-scripts.md)
 * **编撰中** [应用](structure-applications.md)
 * **编撰中** [应用组件](structure-application-components.md)
@@ -70,6 +71,7 @@ Yii 2.0 权威指南
 * **待定中** [过滤器](structure-filters.md)
 * **待定中** [小部件](structure-widgets.md)
 * **待定中** [模块](structure-modules.md)
+* **编撰中**【未校对-20140501】[前端资源](structure-assets.md)
 * **待定中** [扩展（extensions）](structure-extensions.md)
 
 请求处理
@@ -81,6 +83,8 @@ Yii 2.0 权威指南
 * **待定中** [响应（Response）](runtime-responses.md)
 * **待定中** [Sessions（会话）和 Cookies](runtime-sessions-cookies.md)
 * **已完成**【未校对-20140501】[URL 解析和生成](runtime-url-handling.md)
+* **编撰中** 【未校对-20140502】[错误处理](runtime-handling-errors.md)
+* **编撰中** 【未校对-20140502】[日志](runtime-logging.md)
 
 关键概念
 --------
@@ -98,7 +102,6 @@ Yii 2.0 权威指南
 配合数据库工作
 -------------
 
-
 * **编撰中**【未校对-20140501】[数据访问对象（DAO）](db-dao.md) - 数据库连接、基本查询、事务和模式操作
 * **编撰中**【未校对-20140501】[查询生成器（Query Builder）](db-query-builder.md) - 使用简单抽象层查询数据库
 * **编撰中**【未校对-20140501】[活动记录（Active Record）](db-active-record.md) - 活动记录对象关系映射（ORM），检索和操作记录、定义关联关系
@@ -108,7 +111,6 @@ Yii 2.0 权威指南
 * **待定中** [MongoDB](db-mongodb.md)
 * **待定中** [ElasticSearch](db-elastic-search.md)
 
-
 接收用户数据
 -----------
 
@@ -116,7 +118,6 @@ Yii 2.0 权威指南
 * **编撰中**【翻译中-20140501】[输入验证](input-validation.md)
 * **待定中** [文件上传](input-file-uploading.md)
 * **待定中** [多模型同时输入](input-multiple-models.md)
-
 
 显示数据
 --------
@@ -126,8 +127,7 @@ Yii 2.0 权威指南
 * **待定中** [排序（Sorting）](output-sorting.md)
 * **编撰中**【未校对-20140501】[数据提供器](output-data-providers.md)
 * **编撰中**【需更新|翻译中-20140501】[数据小部件](output-data-widgets.md)
-* **编撰中**【未校对-20140501】[前端资源管理](output-assets.md)
-
+* **编撰中** 【未校对-20140502】[主题](output-theming.md)
 
 安全
 -----
@@ -148,7 +148,6 @@ Yii 2.0 权威指南
 * **编撰中** [分页缓存](caching-page.md)
 * **编撰中** [HTTP 缓存](caching-http.md)
 
-
 RESTful Web 服务
 ----------------
 
@@ -161,7 +160,6 @@ RESTful Web 服务
 * **已完成** [版本化](rest-versioning.md)
 * **已完成** [错误处理](rest-error-handling.md)
 * **已完成** [测试](rest-testing.md)
-
 
 开发工具
 --------
@@ -197,15 +195,12 @@ RESTful Web 服务
 * **编撰中** [高级应用模版](tutorial-advanced-app.md)
 * **编撰中** [从头自定义模版](tutorial-start-from-scratch.md)
 * **编撰中** 【未校对-20140502】[控制台命令](tutorial-console.md)
-* **编撰中** 【未校对-20140502】[错误处理](tutorial-handling-errors.md)
+* **编撰中**[核心验证器](tutorial-core-validators.md)
 * **编撰中** 【未校对-20140502】[国际化](tutorial-i18n.md)
-* **编撰中** 【未校对-20140502】[日志](tutorial-logging.md)
 * **编撰中** [收发邮件](tutorial-mailing.md)
 * **编撰中** 【未校对-20140502】[性能优化](tutorial-performance-tuning.md)
 * **待定中** [共享主机环境](tutorial-shared-hosting.md)
 * **编撰中** 【未校对-20140502】[模板引擎](tutorial-template-engines.md)
-* **编撰中** 【未校对-20140502】[主题](tutorial-theming.md)
-
 
 小部件
 ------
@@ -220,8 +215,6 @@ RESTful Web 服务
 * LinkSorter：链接到 demo 页
 * **编撰中** 【待翻译-20140502】[Bootstrap 小部件](bootstrap-widgets.md)
 * **待定中** [Jquery UI 小部件](jui-widgets.md)
-
-
 
 助手类
 ------
