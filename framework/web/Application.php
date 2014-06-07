@@ -11,11 +11,11 @@ use Yii;
 use yii\base\InvalidRouteException;
 
 /**
- * Application is the base class for all web application classes.
+ * Application（应用类）是所有web应用类的基类
  *
- * @property string $homeUrl The homepage URL.
- * @property Session $session The session component. This property is read-only.
- * @property User $user The user component. This property is read-only.
+ * @property string $homeUrl 主页URL.
+ * @property Session $session Session组件. 只读属性.
+ * @property User $user 用户组件. 只读属性.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -23,7 +23,7 @@ use yii\base\InvalidRouteException;
 class Application extends \yii\base\Application
 {
     /**
-     * @var string the default route of this application. Defaults to 'site'.
+     * @var string 此应用的默认访问路由. 默认是'site'.
      */
     public $defaultRoute = 'site';
     /**
@@ -131,7 +131,7 @@ class Application extends \yii\base\Application
     }
 
     /**
-     * Returns the user component.
+     * 返回用户组件
      * @return User the user component
      */
     public function getUser()
