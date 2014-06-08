@@ -1,5 +1,10 @@
 <?php
 /**
+ * 英文文档日期：20140512
+ * 未翻译完成
+ */
+ 
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -147,17 +152,8 @@ class Application extends \yii\base\Application
             'response' => ['class' => 'yii\web\Response'],
             'session' => ['class' => 'yii\web\Session'],
             'user' => ['class' => 'yii\web\User'],
+            'errorHandler' => ['class' => 'yii\web\ErrorHandler'],
         ]);
     }
 
-    /**
-     * 把 errorHandler 组件注册为一个 PHP Error Handler。
-     */
-    protected function registerErrorHandler(&$config)
-    {
-        if (!isset($config['components']['errorHandler']['class'])) {
-            $config['components']['errorHandler']['class'] = 'yii\\web\\ErrorHandler';
-        }
-        parent::registerErrorHandler($config);
-    }
 }
