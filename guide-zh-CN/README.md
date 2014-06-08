@@ -8,29 +8,30 @@ Yii 2.0 权威指南
 > - 翻译指粗翻和持续更新翻译工作，更新文档前的翻译状态。
 > - 校对指文档的校对和更新工作，更新文档前的校对状态。
 > - 同一文档的翻译人员和校对人员最好不同，以便核查勘误。
-> - 无论翻译还是校对，都请标明所参考的英文原文的版本日期，请注意放原文日期，目的是方便后续更新文档。
+> - 无论翻译还是校对，都请标明所参考的**英文原文的版本日期**，请注意放**原文日期**，目的是方便后续更新文档。
+> - 亲，动笔之前，请千万千万先看一遍[翻译手册](../translation-guide.md)。
 
-> #### 翻译状态分为以下几种：
-> 可以认领：
+> #### 文档汉化进度分为以下几种状态：
+> 等待认领：
 >
 > - 【待翻译】任何翻译人员都可认领
 > - 【需更新】指官方文档已更新，需要翻译人员或校对进行更新，及翻译。
 >
-> 不能认领：
+> 无需认领：
 >
-> - 【翻译中】表示该文档已被某位翻译人员认领，正在翻译中
+> - 【翻译中】表示该文档已被某位翻译人员认领，正在翻译中，请等他完成再刊错。
 > - 【已完成】官方文档无更新，已完成翻译和校对的中文文档，表示该文档翻译结束。
 > 
 > 翻译状态：
 >
 > - 【未校对】粗翻完成后更改
 > - 【已更新】标明新增了内容，后面往往跟其他标签如：
->     * 【已更新|未校对】更新且汉化完成
+>     * 【已更新|未校对】更新且汉化完成，但未经严格校对
 >     * 【已更新|翻译中】更新大量内容，尚未完全汉化
-> - 【已校对】校对完毕更新为该状态，文档需要更新时更改标签为【需更新】
+> - 【已完成】校对完毕更新为该状态，文档需要更新时更改标签为【需更新】
 >
 > 临时说明：
-> 1.目录前 **待定中，编撰中，已完成** 标示官方文档编写进度情况，【】表示中文化翻译情况。
+> 1.目录前 **待定中，编撰中，已定稿** 标示官方文档编写进度情况，【】表示汉化进度。
 > 2.标注了截止当天的翻译状态，【翻译中】和【待翻译】的文档可以暂时不翻译，因官方在重新编写文档。如需学习那些内容的同学也欢迎翻译。
 > **************************
 
@@ -43,31 +44,31 @@ Yii 2.0 权威指南
 介绍
 -----
 
-* **已完成**【需更新-20140505|已校对-20140430】[关于 Yii](intro-yii.md)
-* **已完成**【需更新|未校对-20140502】[从 Yii 1.1 升级](intro-upgrade-from-v1.md)
+* **已定稿**【需更新-20140505|已完成-20140430】[关于 Yii](intro-yii.md)
+* **已定稿**【需更新|未校对-20140502】[从 Yii 1.1 升级](intro-upgrade-from-v1.md)
 
 
 入门
 -----
 
-* **已完成**【待翻译-20140510】[安装 Yii](start-installation.md)
-* **已完成**【待翻译-20140510】[运行应用](start-workflow.md)
-* **已完成**【待翻译-20140510】[第一次问候](start-hello.md)
-* **已完成**【待翻译-20140510】[使用 Forms](start-forms.md)
-* **已完成**【待翻译-20140510】[玩转 Databases](start-databases.md)
-* **已完成**【待翻译-20140510】[用 Gii 生成代码](start-gii.md)
-* **已完成**【待翻译-20140510】[更上一层楼](start-looking-head.md)
+* **已定稿**【待翻译-20140510】[安装 Yii](start-installation.md)
+* **已定稿**【待翻译-20140510】[运行应用](start-workflow.md)
+* **已定稿**【待翻译-20140510】[第一次问候](start-hello.md)
+* **已定稿**【待翻译-20140510】[使用 Forms](start-forms.md)
+* **已定稿**【待翻译-20140510】[玩转 Databases](start-databases.md)
+* **已定稿**【待翻译-20140510】[用 Gii 生成代码](start-gii.md)
+* **已定稿**【待翻译-20140510】[更上一层楼](start-looking-head.md)
 
 应用结构
 --------
 
 * **编撰中**[结构总览](structure-overview.md)
-* **已完成**【待翻译-20140502】[入口脚本](structure-entry-scripts.md)
+* **已定稿**【待翻译-20140502】[入口脚本](structure-entry-scripts.md)
 * **编撰中** [应用](structure-applications.md)
 * **编撰中** [应用组件](structure-application-components.md)
-* **已完成**【未校对-20140501】[控制器](structure-controllers.md)
-* **已完成**【未校对-20140501】[视图（View）](structure-views.md)
-* **已完成**【未校对-20140501】[模型（Model）](structure-models.md)
+* **已定稿**【未校对-20140501】[控制器](structure-controllers.md)
+* **已定稿**【未校对-20140501】[视图（View）](structure-views.md)
+* **已定稿**【未校对-20140501】[模型（Model）](structure-models.md)
 * **待定中** [过滤器](structure-filters.md)
 * **待定中** [小部件](structure-widgets.md)
 * **待定中** [模块](structure-modules.md)
@@ -82,22 +83,22 @@ Yii 2.0 权威指南
 * **待定中** [请求（Request）](runtime-requests.md)
 * **待定中** [响应（Response）](runtime-responses.md)
 * **待定中** [Sessions（会话）和 Cookies](runtime-sessions-cookies.md)
-* **已完成**【未校对-20140501】[URL 解析和生成](runtime-url-handling.md)
+* **已定稿**【未校对-20140501】[URL 解析和生成](runtime-url-handling.md)
 * **编撰中** 【未校对-20140502】[错误处理](runtime-handling-errors.md)
 * **编撰中** 【未校对-20140502】[日志](runtime-logging.md)
 
 关键概念
 --------
 
-* **已完成**【待翻译-20140502】[组件（Component）](concept-components.md)
-* **已完成**【未校对-20140501】[属性（Property）](concept-properties.md)
-* **已完成**【未校对-20140501】[事件（Event）](concept-events.md)
-* **已完成**【未校对-20140501】[行为（Behavior）](concept-behaviors.md)
-* **已完成**【需更新-20140502】[配置（Configs）](concept-configs.md)
-* **已完成**【未校对-20140501】[类自动加载（Autoloading）](concept-autoloading.md)
-* **已完成**【未校对-20140501】[别名（Alias）](concept-alias.md)
-* **已完成**【翻译中-20140501】[服务定位器（Service Locator）](concept-service-locator.md)
-* **已完成**【翻译中-20140501】[依赖注入容器（DI Container）](concept-di-container.md)
+* **已定稿**【待翻译-20140502】[组件（Component）](concept-components.md)
+* **已定稿**【未校对-20140501】[属性（Property）](concept-properties.md)
+* **已定稿**【未校对-20140501】[事件（Event）](concept-events.md)
+* **已定稿**【未校对-20140501】[行为（Behavior）](concept-behaviors.md)
+* **已定稿**【需更新-20140502】[配置（Configs）](concept-configs.md)
+* **已定稿**【未校对-20140501】[类自动加载（Autoloading）](concept-autoloading.md)
+* **已定稿**【未校对-20140501】[别名（Alias）](concept-alias.md)
+* **已定稿**【翻译中-20140501】[服务定位器（Service Locator）](concept-service-locator.md)
+* **已定稿**【翻译中-20140501】[依赖注入容器（DI Container）](concept-di-container.md)
 
 配合数据库工作
 -------------
@@ -138,7 +139,6 @@ Yii 2.0 权威指南
 * **待定中** [客户端认证](security-auth-clients.md)
 * **待定中** [安全领域的最佳实践](security-best-practices.md)
 
-
 缓存
 -----
 
@@ -151,15 +151,15 @@ Yii 2.0 权威指南
 RESTful Web 服务
 ----------------
 
-* **已完成**【翻译中-20140501】[快速入门](rest-quick-start.md)
-* **已完成** [资源](rest-resources.md)
-* **已完成** [路由](rest-routing.md)
-* **已完成** [格式化响应](rest-response-formatting.md)
-* **已完成** [授权验证](rest-authentication.md)
-* **已完成** [速率限制](rest-rate-limiting.md)
-* **已完成** [版本化](rest-versioning.md)
-* **已完成** [错误处理](rest-error-handling.md)
-* **已完成** [测试](rest-testing.md)
+* **已定稿**【翻译中-20140501】[快速入门](rest-quick-start.md)
+* **已定稿** [资源](rest-resources.md)
+* **已定稿** [路由](rest-routing.md)
+* **已定稿** [格式化响应](rest-response-formatting.md)
+* **已定稿** [授权验证](rest-authentication.md)
+* **已定稿** [速率限制](rest-rate-limiting.md)
+* **已定稿** [版本化](rest-versioning.md)
+* **已定稿** [错误处理](rest-error-handling.md)
+* **已定稿** [测试](rest-testing.md)
 
 开发工具
 --------
@@ -195,7 +195,7 @@ RESTful Web 服务
 * **编撰中** [高级应用模版](tutorial-advanced-app.md)
 * **编撰中** [从头自定义模版](tutorial-start-from-scratch.md)
 * **编撰中** 【未校对-20140502】[控制台命令](tutorial-console.md)
-* **编撰中**[核心验证器](tutorial-core-validators.md)
+* **编撰中** [核心验证器](tutorial-core-validators.md)
 * **编撰中** 【未校对-20140502】[国际化](tutorial-i18n.md)
 * **编撰中** [收发邮件](tutorial-mailing.md)
 * **编撰中** 【未校对-20140502】[性能优化](tutorial-performance-tuning.md)
