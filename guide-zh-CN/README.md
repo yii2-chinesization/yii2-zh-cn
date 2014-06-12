@@ -3,6 +3,8 @@ Yii 2.0 权威指南
 
 > ### 翻译说明
 
+参与项目前，请先阅读两篇文档：[翻译手册](../translation-guide.md)及[校阅手册](../translation-proofreading.md)
+
 > #### 概念解释
 
 > - 翻译指粗翻和持续更新翻译工作，更新文档前的翻译状态。
@@ -117,7 +119,7 @@ Yii 2.0 权威指南
 
 * **编撰中**【未校对-20140501】[创建表单](input-forms.md)
 * **编撰中**【翻译中-20140501】[输入验证](input-validation.md)
-* **待定中** [文件上传](input-file-uploading.md)
+* **编撰中** [文件上传](input-file-uploading.md)
 * **待定中** [多模型同时输入](input-multiple-models.md)
 
 显示数据
