@@ -1,5 +1,9 @@
 <?php
 /**
+ * 英文文档日期：20140512
+ */
+ 
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -11,11 +15,11 @@ use Yii;
 use yii\base\InvalidRouteException;
 
 /**
- * Application（应用类）是所有web应用类的基类
+ * Application （应用）类是所有 WEB 应用类的基类
  *
- * @property string $homeUrl 主页URL.
- * @property Session $session Session组件. 只读属性.
- * @property User $user 用户组件. 只读属性.
+ * @property string $homeUrl 主页的 URL。
+ * @property Session $session Session 组件，为只读属性.
+ * @property User $user 用户组件，只读属性。
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -23,16 +27,14 @@ use yii\base\InvalidRouteException;
 class Application extends \yii\base\Application
 {
     /**
-     * @var string 此应用的默认访问路由. 默认是'site'.
+     * @var string 此应用的默认路由. 缺省是 'site'.
      */
     public $defaultRoute = 'site';
     /**
-     * @var array the configuration specifying a controller action which should handle
-     * all user requests. This is mainly used when the application is in maintenance mode
-     * and needs to handle all incoming requests via a single action.
-     * The configuration is an array whose first element specifies the route of the action.
-     * The rest of the array elements (key-value pairs) specify the parameters to be bound
-     * to the action. For example,
+     * @var array 这个配置选项指定了一个用于处理（译者注：其实就是拦截）所有有用户请求的 Controller 动作。
+     * 这个主要是用在当整个应用处于维护状态，进而需要用一个单独的动作，处理所有发来的请求的状况下。
+     * 该配置项是一个数组，他的第一个元素指定该动作的路由，其余数组元素（都系键值对）指定提供给
+     * 这个动作的所有参数（parameters）。就像这样，噹噹噹噹(〜￣△￣)〜
      *
      * ~~~
      * [
@@ -42,11 +44,11 @@ class Application extends \yii\base\Application
      * ]
      * ~~~
      *
-     * Defaults to null, meaning catch-all is not used.
+     * 缺省是 null，指 catch-all 选项未被使用。
      */
     public $catchAll;
     /**
-     * @var Controller the currently active controller instance
+     * @var Controller 当前处于活跃状态的 Controller 的实例
      */
     public $controller;
 
@@ -63,10 +65,10 @@ class Application extends \yii\base\Application
     }
 
     /**
-     * Handles the specified request.
-     * @param Request $request the request to be handled
-     * @return Response the resulting response
-     * @throws NotFoundHttpException if the requested route is invalid
+     * 处理特定请求。
+     * @param Request $request 是需被处理的那个请求
+     * @return Response 作为结果返回的响应
+     * @throws NotFoundHttpException 若该请求路由无效则抛异常
      */
     public function handleRequest($request)
     {
@@ -98,7 +100,7 @@ class Application extends \yii\base\Application
     private $_homeUrl;
 
     /**
-     * @return string the homepage URL
+     * @return string 返回 homepage URL
      */
     public function getHomeUrl()
     {
@@ -114,7 +116,7 @@ class Application extends \yii\base\Application
     }
 
     /**
-     * @param string $value the homepage URL
+     * @param string $value 是 homepage URL
      */
     public function setHomeUrl($value)
     {
@@ -122,8 +124,8 @@ class Application extends \yii\base\Application
     }
 
     /**
-     * Returns the session component.
-     * @return Session the session component
+     * 返回 session 组件。
+     * @return Session session 组件
      */
     public function getSession()
     {
@@ -132,7 +134,7 @@ class Application extends \yii\base\Application
 
     /**
      * 返回用户组件
-     * @return User the user component
+     * @return User user 组件
      */
     public function getUser()
     {
@@ -149,17 +151,8 @@ class Application extends \yii\base\Application
             'response' => ['class' => 'yii\web\Response'],
             'session' => ['class' => 'yii\web\Session'],
             'user' => ['class' => 'yii\web\User'],
+            'errorHandler' => ['class' => 'yii\web\ErrorHandler'],
         ]);
     }
 
-    /**
-     * Registers the errorHandler component as a PHP error handler.
-     */
-    protected function registerErrorHandler(&$config)
-    {
-        if (!isset($config['components']['errorHandler']['class'])) {
-            $config['components']['errorHandler']['class'] = 'yii\\web\\ErrorHandler';
-        }
-        parent::registerErrorHandler($config);
-    }
 }
