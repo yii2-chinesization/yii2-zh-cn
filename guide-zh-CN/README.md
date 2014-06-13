@@ -2,17 +2,7 @@ Yii 2.0 权威指南
 ===============================
 
 > ### 翻译说明
-
 参与项目前，请先阅读两篇文档：[翻译手册](../translation-guide.md)及[校阅手册](../translation-proofreading.md)
-
-> #### 概念解释
-
-> - 翻译指粗翻和持续更新翻译工作，更新文档前的翻译状态。
-> - 校对指文档的校对和更新工作，更新文档前的校对状态。
-> - 同一文档的翻译人员和校对人员最好不同，以便核查勘误。
-> - 无论翻译还是校对，都请标明所参考的**英文原文的版本日期**，请注意放**原文日期**，目的是方便后续更新文档。
-> - 亲，动笔之前，请千万千万先看一遍[翻译手册](../translation-guide.md)。
-
 > #### 文档汉化进度分为以下几种状态：
 > 等待认领：
 >
@@ -66,7 +56,7 @@ Yii 2.0 权威指南
 
 * **编撰中**[结构总览](structure-overview.md)
 * **已定稿**【待翻译-20140502】[入口脚本](structure-entry-scripts.md)
-* **编撰中** [应用](structure-applications.md)
+* **已定稿** [应用](structure-applications.md)
 * **编撰中** [应用组件](structure-application-components.md)
 * **已定稿**【未校对-20140501】[控制器](structure-controllers.md)
 * **已定稿**【未校对-20140501】[视图（View）](structure-views.md)
@@ -118,7 +108,7 @@ Yii 2.0 权威指南
 -----------
 
 * **编撰中**【未校对-20140501】[创建表单](input-forms.md)
-* **编撰中**【翻译中-20140501】[输入验证](input-validation.md)
+* **已定稿**【翻译中-20140501】[输入验证](input-validation.md)
 * **编撰中** [文件上传](input-file-uploading.md)
 * **待定中** [多模型同时输入](input-multiple-models.md)
 
@@ -197,7 +187,7 @@ RESTful Web 服务
 * **编撰中** [高级应用模版](tutorial-advanced-app.md)
 * **编撰中** [从头自定义模版](tutorial-start-from-scratch.md)
 * **编撰中** 【未校对-20140502】[控制台命令](tutorial-console.md)
-* **编撰中** [核心验证器](tutorial-core-validators.md)
+* **已定稿** [核心验证器](tutorial-core-validators.md)
 * **编撰中** 【未校对-20140502】[国际化](tutorial-i18n.md)
 * **编撰中** [收发邮件](tutorial-mailing.md)
 * **编撰中** 【未校对-20140502】[性能优化](tutorial-performance-tuning.md)
