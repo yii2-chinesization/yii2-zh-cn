@@ -22,13 +22,10 @@
 
 ###特别鸣谢：
 
-* ~~Transifex 提供的免费开源项目仓库~~
 * GitHub 提供好用的在线平台
 * 东方孤思子同学**花大价钱买的域名** (其实也就几十块美元。。。)
-* 有道词典
-* Google Translate
-* 万恶的 Microsoft 提供的免费 Translation API 机翻额度
-* 万恶的腾讯提供的免费 QQ 群
+* 万恶的 Microsoft 提供的[术语搜索](http://www.microsoft.com/Language/en-us/Search.aspx?sString=terminology&langID=zh-cn)
+* 万恶的腾讯提供的免费 QQ 群:
 * Google
 * Wikipedia
 * 全国科学技术名词审定委员会，及英汉双解计算机词典
