@@ -24,13 +24,14 @@ Yii 被翻译成多种语言并被国际化应用与开发者委以重任。我�
 文档翻译
 -------------
 
-Put documentation translations under `docs/<original>-<language>` where `<original>` is the original documentation name
-such as `guide` or `internals` and `<language>` is the language code of the language docs are translated to. For the
-Russian guide translation it is `docs/guide-ru`.
+把文档翻译放在 `docs/<original>-<language>` ，其中 `<original>` 指文档的原文件夹名
+比如 `guide` 或是 `internals` ，`<language>` 是所用翻译语言的语言代码。
+比如 `简体中文-中国` 的代码就是 `docs/guide-zh-CN`，`繁体-呆湾` 就是 `docs/guide-zh-TW`。
 
-After initial work is done you can get what's changed since last translation of the file using a special command from
-`build` directory:
+初始化的工作结束后，你可以通过在 `build` 文件夹里，用一条特殊命令，来获取自上次翻译以来，文档又发生了那些改变：
 
 ```
-build translation ../docs/guide" "../docs/guide-ru" --title="Russian guide translation report" > report-guide-ru.html
+php build translation "../docs/guide" "../docs/guide-zh-CN" "Chinese guide translation report" > report_guide_zh_CN.html
 ```
+
+若出现有关 Composer 的报错，请在 Yii 源代码根目录里执行一遍 `composer install`。
