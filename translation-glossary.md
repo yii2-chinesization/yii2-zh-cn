@@ -1,13 +1,14 @@
 术语                |推荐翻译          |备注                                 |词性
 --------------------|------------------|-------------------------------------|----
-> Info:             |> 须知：          |                                     |Noun
-> note:             |> 注意：          |                                     |Noun
-> tip:              |> 小技巧：        |                                     |Noun
+> Warning:          |> 警告：          |用于点出不安全的事物或其他的隐患     |Noun
+> Note:             |> 注意：          |用于强调核心概念，或是需要避免的事情 |Noun
+> Info:             |> 补充：          |一般的信息（题外话）；重要性上不如注意事项严重|Noun
+> Tip:              |> 小技巧：        |专业的建议以及补充，可能会很有用，但是可能不是所有人每时每刻都需要他|Noun
 Action              |动作              |                                     |Noun
 Active Record       |活动记录，简称 AR |其实可以不翻译                       |Noun
 alias               |路径别名          |                                     |Noun
 application         |应用主体          |此应用非手机应用，指的是我们开发的项目的应用程序主体。|Noun
-attribute           |数据属性          |【待定】Yii1时代叫特性，$model->attributes 模型类(对象)的属性|Noun
+attribute           |特性，或数据属性  |【待定】Yii1时代叫特性，$model->attributes 模型类(对象)的属性|Noun
 bundle              |包                |                                     |Noun
 Class               |类                |                                     |Noun
 collection          |集合              |                                     |Noun
@@ -45,6 +46,6 @@ Response            |响应              |                                     |
 session             |session（会话）   |                                     |Noun
 trait               |trait（特质）     |                                     |Noun
 validation          |验证，数据有效性验证|数据有效性验证                     |Noun
-Vendor              |供应商            |跟 Composer 走                       |Noun
+Vendor              |供应商            |跟 [Composer](yii2-chinesization/yii2-zh-cn) 走|Noun
 widget              |小部件            |从其在Yii里的作用来看，叫“小部件”比Yii 1时代翻译的“挂件”更合适。|Noun
 workflow            |工作流程          |                                     |Noun
