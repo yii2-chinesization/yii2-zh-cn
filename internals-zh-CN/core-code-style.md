@@ -64,7 +64,7 @@ PHP 代码 **必须** 且只能使用 无 `BOM` 的 `UTF-8`编码。
  */
 class MyClass extends \yii\Object implements MyInterface
 {
-	// 代码
+    // 代码
 }
 ```
 
@@ -77,8 +77,8 @@ class MyClass extends \yii\Object implements MyInterface
 <?php
 class Foo
 {
-	const VERSION = '1.0';
-	const DATE_APPROVED = '2012-06-01';
+    const VERSION = '1.0';
+    const DATE_APPROVED = '2012-06-01';
 }
 ```
 ### 4.2. 属性
@@ -98,9 +98,9 @@ class Foo
 <?php
 class Foo
 {
-	public $publicProp;
-	protected $protectedProp;
-	private $_privateProp;
+    public $publicProp;
+    protected $protectedProp;
+    private $_privateProp;
 }
 ```
 
@@ -117,14 +117,14 @@ class Foo
  */
 class Foo
 {
-	/**
-	 * 文档
-	 */
-	public function bar()
-	{
-		// 代码
-		return $value;
-	}
+    /**
+     * 文档
+     */
+    public function bar()
+    {
+        // 代码
+        return $value;
+    }
 }
 ~~~
 
@@ -146,8 +146,8 @@ class Foo
 
 ```php
 $config = [
-	'name'  => 'Yii',
-	'options' => ['usePHP' => true],
+    'name'  => 'Yii',
+    'options' => ['usePHP' => true],
 ];
 ```
 
@@ -157,8 +157,8 @@ $config = [
 ```php
 public function save(Transaction $transaction, $argument2 = 100)
 {
-	$transaction = new Connection; // bad
-	$argument2 = 200; // good
+    $transaction = new Connection; // bad
+    $argument2 = 200; // good
 }
 ```
 
@@ -197,8 +197,8 @@ $name = 'Yii' . ' Framework';
 
 ```php
 $sql = "SELECT *"
-	. "FROM `post` "
-	. "WHERE `id` = 121 ";
+    . "FROM `post` "
+    . "WHERE `id` = 121 ";
 ```
 
 ### 5.3 数组
@@ -219,9 +219,9 @@ $arr = [3, 14, 15, 'Yii', 'Framework'];
 
 ```php
 $arr = [
-	3, 14, 15,
-	92, 6, $test,
-	'Yii', 'Framework',
+    3, 14, 15,
+    92, 6, $test,
+    'Yii', 'Framework',
 ];
 ```
 
@@ -231,8 +231,8 @@ $arr = [
 
 ```php
 $config = [
-	'name'  => 'Yii',
-	'options' => ['usePHP' => true],
+    'name'  => 'Yii',
+    'options' => ['usePHP' => true],
 ];
 ```
 
@@ -246,16 +246,16 @@ $config = [
 
 ```php
 if ($event === null) {
-	return new Event();
+    return new Event();
 } elseif ($event instanceof CoolEvent) {
-	return $event->instance();
+    return $event->instance();
 } else {
-	return null;
+    return null;
 }
 
 //单行语句没有用大括号包裹，这是不允许的：
 if (!$model && null === $event)
-	throw new Exception('test');
+    throw new Exception('test');
 ```
 
 #### switch
@@ -264,18 +264,18 @@ if (!$model && null === $event)
 
 ```php
 switch ($this->phpType) {
-	case 'string':
-		$a = (string)$value;
-		break;
-	case 'integer':
-	case 'int':
-		$a = (integer)$value;
-		break;
-	case 'boolean':
-		$a = (boolean)$value;
-		break;
-	default:
-		$a = null;
+    case 'string':
+        $a = (string)$value;
+        break;
+    case 'integer':
+    case 'int':
+        $a = (integer)$value;
+        break;
+    case 'boolean':
+        $a = (boolean)$value;
+        break;
+    default:
+        $a = null;
 }
 ```
 
@@ -287,8 +287,8 @@ doIt(2, 3);
 doIt(['a' => 'b']);
 
 doIt('a', [
-	'a' => 'b',
-	'c' => 'd',
+    'a' => 'b',
+    'c' => 'd',
 ]);
 ```
 
@@ -300,17 +300,17 @@ doIt('a', [
 // 好的
 $n = 100;
 $sum = array_reduce($numbers, function ($r, $x) use ($n) {
-	$this->doMagic();
-	$r += $x * $n;
-	return $r;
+    $this->doMagic();
+    $r += $x * $n;
+    return $r;
 });
 
 // 糟糕的
 $n = 100;
 $mul = array_reduce($numbers, function($r, $x) use($n) {
-	$this->doMagic();
-	$r *= $x * $n;
-	return $r;
+    $this->doMagic();
+    $r *= $x * $n;
+    return $r;
 });
 ```
 
