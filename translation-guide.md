@@ -60,28 +60,37 @@
 ------------------
 
 ###Git 工作流程###
+
 有关Git的使用，请参阅Yii2官方的内部文档[git-workflow.md](internals-zh-CN/git-workflow.md)
 我们的工作流程跟他很像，也有点像SVN的工作方式：
-####第零步：保存远端服务器（Remote）
-把 `https://github.com/yii2-chinesization/yii2-zh-cn.git` 保存为 `upstream` 远端。
 
-####第一步：我们需要先fetch再merge确保我们在翻译同一个文档库。
-省的有人翻译了一遍某某文章，某人又翻译了一遍，由于翻译地不一样合并的时候还有冲突。
+#### 参考流程
+
+有些朋友可能不太清楚如何用 Git 参与翻译工作，我这里写一个简单的流程，大家可以参考一下：
+
+1. 首先fork这个项目
+2. 把fork过去的项目也就是你的项目clone到你的本地
+3. 在命令行运行 `git branch translating` 来创建一个新分支，这里用translating，你可以用任何其他名字。
+4. 运行 `git checkout translating` 来切换到新分支
+5. 运行 `git remote add upstream https://github.com/yii2-chinesization/yii2-zh-cn.git` 把汉化组的官方库添加为远端库
+6. 运行 `git remote update`更新
+7. 运行 `git fetch upstream master` 拉取官方库的更新到本地
+8. 运行 `git rebase upstream/master` 将官方库的更新合并到你的分支
+
+这是一个初始化流程，只需要做一遍就行，之后请一直在 translating （或其他名字）分支进行修改。
+
+如果修改过程中我的库有了更新，请重复6、7、8步。
+
+修改之后，首先 Push 到你的库，然后登录 GitHub，在你的库的首页可以看到一个 `pull request` 按钮，点击它，填写一些说明信息，
+然后提交即可。
+
 > 特别注意：在官方进行重大调整的时候，我们有可能会临时更改默认分支，请注意把master对应更换成新的默认分支。
 
-```shell
-git pull --rebase upstream master
-```
-或
-```shell
-git fetch upstream
-git merge upstream/master --ff-only # fast-forwarding only.也可以不加，会使用自动合并功能，遇冲突会停止，等待手动处理冲突。
-```
-####然后翻译完，先commit再push。
-如果没有直接修改权限，你可以创建PullRequest简称，PR。最好可以把相关PR都挂在同一个issue之下，便于交流。
-如果你翻译地较多，在群里吱一声，就可以提升为写权限，这样就可以直接 push 了，不过千万要保证每次提交的质量啊。
+如果没有直接修改权限，你需要创建 PullRequest 简称 PR。最好可以把相关PR都挂在同一个 issue 之下，便于交流。
+如果你翻译地较多，在群里吱一声，就可以提升为写权限，这样就可以直接 push 了，即使是有权限也建议使用 PR 处理
+大规模多次零散的翻译提交，这样管理和沟通都会方便。
 
-####最后，别忘了更改[README里文件的状态](guide-zh-CN/README.md)，参考 [README](#README) 章节。
+####最后，别忘了更改[README里文件的状态](guide-zh-CN/README.md)，参考 [汉化进度](#tags) 章节。
 
 翻译技巧与注意事项
 -----------------
@@ -102,7 +111,7 @@ git merge upstream/master --ff-only # fast-forwarding only.也可以不加，会
 粗翻时也无需太过注重信达雅的要求。这些部分可以在后续校对工作时，慢慢达到。关于信达雅的确切含义，请见后面校对篇[信达雅](translation-proofreading.md#xin-da-ya)部分的说明。
 
 
-###需特殊注意的文字###
+### 需特殊注意的文字
 
 #### 维持原样
 有些字符串是不应该被翻译的，比如：
@@ -126,6 +135,7 @@ git merge upstream/master --ff-only # fast-forwarding only.也可以不加，会
 ```
 
 ### README
+
 README.md是整个文档的目录索引。另外，[打开看下](https://github.com/yii2-chinesization/yii2-zh-cn/blob/master/guide-zh-CN/README.md),
 你会发现，在每个条目的的前方会有一个标签，而后方则有着一些日期。他们是做神马的呢？
 
@@ -170,5 +180,17 @@ README.md是整个文档的目录索引。另外，[打开看下](https://github
 
 - [Yii 文档风格指南](documentation_style_guide.md)：主要记述了官方编写文档时的考虑与原则，理解他们有利于我们理解官方的
 叙述风格，增加翻译的准确性。
-- [校对手册]()
+- [校对手册](translation-proofreading.md)：如果说翻译是从无到有，校对就是从有到优。读校对手册，就像作者要摸透编辑的心。
+才能写出编辑满意的高质量文章。
 
+### 其他常用 Git 命令
+
+#### 手动更新与合并
+```shell
+git pull --rebase upstream master
+```
+或
+```shell
+git fetch upstream
+git merge upstream/master --ff-only # fast-forwarding only.也可以不加，会使用自动合并功能，遇冲突会停止，等待手动处理冲突。
+```
