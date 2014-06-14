@@ -4,7 +4,7 @@
 > Note:             |> 注意：          |用于强调核心概念，或是需要避免的事情 |Noun
 > Info:             |> 补充：          |一般的信息（题外话）；重要性上不如注意事项严重|Noun
 > Tip:              |> 小技巧：        |专业的建议以及补充，可能会很有用，但是可能不是所有人每时每刻都需要他|Noun
-Action              |动作              |                                     |Noun
+Action              |操作              |微软的翻译叫做操作                   |Noun
 Active Record       |活动记录，简称 AR |其实可以不翻译                       |Noun
 alias               |路径别名          |                                     |Noun
 application         |应用主体          |此应用非手机应用，指的是我们开发的项目的应用程序主体。|Noun
@@ -41,6 +41,7 @@ perform             |运作              |                                     |
 property            |属性              |                                     |Noun
 PHP                 |PHP               |                                     |Noun
 request             |请求              |                                     |Noun
+Requirements        |需求              |只做某事的先决条件，如：安装需求     |Noun
 route               |路由              |                                     |Noun
 Response            |响应              |                                     |Noun
 session             |session（会话）   |                                     |Noun
