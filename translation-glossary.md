@@ -45,7 +45,7 @@ Requirements        |需求              |只做某事的先决条件，如：�
 route               |路由              |                                     |Noun
 Response            |响应              |                                     |Noun
 session             |session（会话）   |                                     |Noun
-trait               |trait（特质）     |                                     |Noun
+trait               |Traits（特质）    |                                     |Noun
 validation          |验证，数据有效性验证|数据有效性验证                     |Noun
 Vendor              |供应商            |跟 [Composer](yii2-chinesization/yii2-zh-cn) 走|Noun
 widget              |小部件            |从其在Yii里的作用来看，叫“小部件”比Yii 1时代翻译的“挂件”更合适。|Noun
