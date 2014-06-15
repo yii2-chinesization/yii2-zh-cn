@@ -20,7 +20,7 @@ database            |数据库            |                                     
 design pattern      |设计模式          |                                     |Noun
 eager loading       |贪婪加载          |                                     |Noun
 extension           |扩展              |                                     |Noun
-Fixtures            |定制器            |【待定】非常难翻译的概念，微软翻译为装置|Noun
+Fixtures            |测试夹具          |【待定】非常难翻译的概念，微软翻译为装置，未来认为“定制器”的翻译表意更准|Noun
 framework           |框架              |                                     |Noun
 fullstack           |全栈              |所有的层次，前端到后端，从表现到数据 |Noun
 generator           |生成器            |                                     |Noun
@@ -37,7 +37,7 @@ MVC                 |MVC               |模型-视图-控制器                 
 Model               |Model（模型）     |                                     |Noun
 overview            |概览              |                                     |Noun
 package             |包                |同 Bundle                            |Noun
-perform             |运作              |                                     |Verb
+perform             |运作              |【待定】执行                         |Verb
 property            |属性              |                                     |Noun
 PHP                 |PHP               |                                     |Noun
 request             |请求              |                                     |Noun
