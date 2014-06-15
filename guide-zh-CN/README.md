@@ -40,35 +40,35 @@ Yii 2.0 权威指南
 介绍
 -----
 
-* **已定稿**【已完成-20140505】[关于 Yii](intro-yii.md)
-* **已定稿**【需更新|未校对-20140502】[从 Yii 1.1 升级](intro-upgrade-from-v1.md)
+* **已定稿**【已完成-20140505-qiansen1386】 [关于 Yii](intro-yii.md)
+* **已定稿**【需更新|未校对-20140502】 [从 Yii 1.1 升级](intro-upgrade-from-v1.md)
 
 
 入门
 -----
 
-* **已定稿**【待翻译】[安装 Yii](start-installation.md)
-* **已定稿**【待翻译】[运行应用](start-workflow.md)
-* **已定稿**【待翻译】[第一次问候](start-hello.md)
-* **已定稿**【待翻译】[使用 Forms](start-forms.md)
-* **已定稿**【待翻译】[玩转 Databases](start-databases.md)
-* **已定稿**【待翻译】[用 Gii 生成代码](start-gii.md)
-* **已定稿**【待翻译】[更上一层楼](start-looking-head.md)
+* **已定稿**【待翻译】 [安装 Yii](start-installation.md)
+* **已定稿**【待翻译】 [运行应用](start-workflow.md)
+* **已定稿**【待翻译】 [第一次问候](start-hello.md)
+* **已定稿**【待翻译】 [使用 Forms](start-forms.md)
+* **已定稿**【待翻译】 [玩转 Databases](start-databases.md)
+* **已定稿**【待翻译】 [用 Gii 生成代码](start-gii.md)
+* **已定稿**【待翻译】 [更上一层楼](start-looking-head.md)
 
 应用结构
 --------
 
-* **已定稿**【待翻译】[结构总览](structure-overview.md)
-* **已定稿**【待翻译】[入口脚本](structure-entry-scripts.md)
+* **已定稿**【待翻译】 [结构总览](structure-overview.md)
+* **已定稿**【待翻译】 [入口脚本](structure-entry-scripts.md)
 * **已定稿**【待翻译】 [应用](structure-applications.md)
 * **已定稿**【待翻译】 [应用组件](structure-application-components.md)
-* **已定稿**【待翻译】[控制器](structure-controllers.md)
-* **编撰中**[视图（View）](structure-views.md)
-* **已定稿**【待翻译】[模型（Model）](structure-models.md)
+* **已定稿**【需更新】 [控制器](structure-controllers.md)
+* **编撰中**【需更新】 [视图（View）](structure-views.md)
+* **已定稿**【需更新】 [模型（Model）](structure-models.md)
 * **待定中** [过滤器](structure-filters.md)
 * **待定中** [小部件](structure-widgets.md)
 * **待定中** [模块](structure-modules.md)
-* **编撰中**[前端资源](structure-assets.md)
+* **编撰中**【需更新】 [前端资源](structure-assets.md)
 * **待定中** [扩展（extensions）](structure-extensions.md)
 
 请求处理
@@ -79,30 +79,30 @@ Yii 2.0 权威指南
 * **待定中** [请求（Request）](runtime-requests.md)
 * **待定中** [响应（Response）](runtime-responses.md)
 * **待定中** [Sessions（会话）和 Cookies](runtime-sessions-cookies.md)
-* **已定稿**【待翻译】[URL 解析和生成](runtime-url-handling.md)
-* **编撰中** [错误处理](runtime-handling-errors.md)
-* **编撰中** [日志](runtime-logging.md)
+* **已定稿**【需更新|待翻译】 [URL 解析和生成](runtime-url-handling.md)
+* **编撰中**【需更新】 [错误处理](runtime-handling-errors.md)
+* **编撰中**【需更新】 [日志](runtime-logging.md)
 
 关键概念
 --------
 
-* **已定稿**【待翻译】[组件（Component）](concept-components.md)
-* **已定稿**【待翻译】[属性（Property）](concept-properties.md)
-* **已定稿**【待翻译】[事件（Event）](concept-events.md)
-* **已定稿**【待翻译】[行为（Behavior）](concept-behaviors.md)
-* **已定稿**【需更新】[配置（Configs）](concept-configs.md)
-* **已定稿**【待翻译】[类自动加载（Autoloading）](concept-autoloading.md)
-* **已定稿**【待翻译】[别名（Alias）](concept-alias.md)
-* **已定稿**【待翻译】[服务定位器（Service Locator）](concept-service-locator.md)
-* **已定稿**【待翻译】[依赖注入容器（DI Container）](concept-di-container.md)
+* **已定稿**【待翻译】 [组件（Component）](concept-components.md)
+* **已定稿**【需更新】 [属性（Property）](concept-properties.md)
+* **已定稿**【需更新】 [事件（Event）](concept-events.md)
+* **已定稿**【需更新】 [行为（Behavior）](concept-behaviors.md)
+* **已定稿**【需更新】 [配置（Configs）](concept-configurations.md)
+* **已定稿**【需更新】 [类自动加载（Autoloading）](concept-autoloading.md)
+* **已定稿**【需更新】 [别名（Alias）](concept-alias.md)
+* **已定稿**【待翻译】 [服务定位器（Service Locator）](concept-service-locator.md)
+* **已定稿**【待翻译】 [依赖注入容器（DI Container）](concept-di-container.md)
 
 配合数据库工作
 -------------
 
-* **编撰中** [数据访问对象（DAO）](db-dao.md) - 数据库连接、基本查询、事务和模式操作
-* **编撰中** [查询生成器（Query Builder）](db-query-builder.md) - 使用简单抽象层查询数据库
-* **编撰中** [活动记录（Active Record）](db-active-record.md) - 活动记录对象关系映射（ORM），检索和操作记录、定义关联关系
-* **编撰中** [数据库迁移（Migration）](db-migrations.md)
+* **编撰中**【需更新】 [数据访问对象（DAO）](db-dao.md) - 数据库连接、基本查询、事务和模式操作
+* **编撰中**【需更新】 [查询生成器（Query Builder）](db-query-builder.md) - 使用简单抽象层查询数据库
+* **编撰中**【需更新】 [活动记录（Active Record）](db-active-record.md) - 活动记录对象关系映射（ORM），检索和操作记录、定义关联关系
+* **编撰中**【需更新】 [数据库迁移（Migration）](db-migrations.md)
 * **待定中** [Sphinx](db-sphinx.md)
 * **待定中** [Redis](db-redis.md)
 * **待定中** [MongoDB](db-mongodb.md)
@@ -112,7 +112,7 @@ Yii 2.0 权威指南
 -----------
 
 * **编撰中** [创建表单](input-forms.md)
-* **已定稿**【待翻译】[输入验证](input-validation.md)
+* **已定稿**【需更新|待翻译】 [输入验证](input-validation.md)
 * **编撰中** [文件上传](input-file-uploading.md)
 * **待定中** [多模型同时输入](input-multiple-models.md)
 
@@ -122,23 +122,23 @@ Yii 2.0 权威指南
 * **待定中** [格式化输出数据](output-formatting.md)
 * **待定中** [分页（Pagination）](output-pagination.md)
 * **待定中** [排序（Sorting）](output-sorting.md)
-* **编撰中** [数据提供器](output-data-providers.md)
-* **编撰中** [数据小部件](output-data-widgets.md)
-* **编撰中** [主题](output-theming.md)
+* **编撰中**【需更新】 [数据提供器](output-data-providers.md)
+* **编撰中**【需更新】 [数据小部件](output-data-widgets.md)
+* **编撰中**【需更新】 [主题](output-theming.md)
 
 安全
 -----
 
-* **编撰中** [认证（Authentication）](security-authentication.md)
-* **编撰中** [授权（Authorization）](security-authorization.md)
-* **编撰中** [处理密码](security-passwords.md)
+* **编撰中**【需更新】 [认证（Authentication）](security-authentication.md)
+* **编撰中**【需更新】 [授权（Authorization）](security-authorization.md)
+* **编撰中**【需更新】 [处理密码](security-passwords.md)
 * **待定中** [客户端认证](security-auth-clients.md)
 * **待定中** [安全领域的最佳实践](security-best-practices.md)
 
 缓存
 -----
 
-* **已定稿**【待翻译】[概述](caching-overview.md)
+* **已定稿**【需更新|待翻译】[概述](caching-overview.md)
 * **已定稿**【待翻译】 [数据缓存](caching-data.md)
 * **已定稿**【待翻译】 [片段缓存](caching-fragment.md)
 * **已定稿**【待翻译】 [分页缓存](caching-page.md)
@@ -160,8 +160,8 @@ RESTful Web 服务
 开发工具
 --------
 
-* **编撰中** [调试工具栏和调试器](tool-debugger.md)
-* **编撰中** [使用 Gii 生成代码](tool-gii.md)
+* **编撰中**【需更新】 [调试工具栏和调试器](tool-debugger.md)
+* **编撰中**【需更新】 [使用 Gii 生成代码](tool-gii.md)
 * **待定中** [生成 API 文档](tool-api-doc.md)
 
 
@@ -172,31 +172,31 @@ RESTful Web 服务
 * **待定中** [单元测试](test-unit.md)
 * **待定中** [功能测试](test-functional.md)
 * **待定中** [验收测试](test-acceptance.md)
-* **编撰中** [定制器](test-fixtures.md)
+* **编撰中**【需更新】 [测试夹具](test-fixtures.md)
 
 扩展 Yii
 --------
 
-* **编撰中** [创建扩展](extend-creating-extensions.md)
-* **编撰中** [定制核心代码](extend-customizing-core.md)
-* **编撰中** [使用第三方库](extend-using-libs.md)
+* **编撰中**【需更新】 [创建扩展](extend-creating-extensions.md)
+* **编撰中**【需更新】 [定制核心代码](extend-customizing-core.md)
+* **编撰中**【需更新】 [使用第三方库](extend-using-libs.md)
 * **待定中** [在第三方系统使用 Yii](extend-embedding-in-others.md)
 * **待定中** [Yii 1.1 和 2.0 共用](extend-using-v1-v2.md)
-* **编撰中** [使用依赖包管理器 Composer](extend-using-composer.md)
+* **编撰中**【需更新】 [使用依赖包管理器 Composer](extend-using-composer.md)
 
 
 高级专题
 --------
 
-* **编撰中** [高级应用模版](tutorial-advanced-app.md)
+* **编撰中**【需更新】 [高级应用模版](tutorial-advanced-app.md)
 * **编撰中** [从头自定义模版](tutorial-start-from-scratch.md)
-* **编撰中** [控制台命令](tutorial-console.md)
+* **编撰中**【需更新】 [控制台命令](tutorial-console.md)
 * **已定稿**【待翻译】 [核心验证器](tutorial-core-validators.md)
-* **编撰中** [国际化](tutorial-i18n.md)
+* **编撰中**【需更新】 [国际化](tutorial-i18n.md)
 * **编撰中** [收发邮件](tutorial-mailing.md)
-* **编撰中** [性能优化](tutorial-performance-tuning.md)
+* **编撰中**【需更新】 [性能优化](tutorial-performance-tuning.md)
 * **待定中** [共享主机环境](tutorial-shared-hosting.md)
-* **编撰中** [模板引擎](tutorial-template-engines.md)
+* **编撰中**【需更新】 [模板引擎](tutorial-template-engines.md)
 
 小部件
 ------
@@ -210,13 +210,17 @@ RESTful Web 服务
 * LinkPager：链接到 demo 页
 * LinkSorter：链接到 demo 页
 * **编撰中** [Bootstrap 小部件](bootstrap-widgets.md)
-* **待定中** [Jquery UI 小部件](jui-widgets.md)
+* **编撰中** [Jquery UI 小部件](jui-widgets.md)
 
 助手类
 ------
 
-* **编撰中** [概述](helper-overview.md)
+* **编撰中**【待翻译】 [概述](helper-overview.md)
 * **待定中** [ArrayHelper](helper-array.md)
 * **待定中** [Html](helper-html.md)
 * **待定中** [Url](helper-url.md)
 * **待定中** [security](helper-security.md)
+
+不在目录内的文件
+----------------
+* 【待翻译】 [glossary](glossary.md)
