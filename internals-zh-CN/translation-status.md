@@ -18,7 +18,7 @@ structure-entry-scripts.md          | 允
 structure-applications.md           | 允
 structure-application-components.md | 允
 structure-controllers.md            | 允
-structure-views.md                  |
+structure-views.md                  | 允
 structure-models.md                 | 允
 structure-filters.md                |
 structure-widgets.md                |

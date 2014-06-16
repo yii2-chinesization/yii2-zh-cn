@@ -63,7 +63,7 @@ Yii 2.0 权威指南
 * **已定稿**【待翻译】 [应用](structure-applications.md)
 * **已定稿**【待翻译】 [应用组件](structure-application-components.md)
 * **已定稿**【需更新】 [控制器](structure-controllers.md)
-* **编撰中**【需更新】 [视图（View）](structure-views.md)
+* **已定稿**【需更新】 [视图（View）](structure-views.md)
 * **已定稿**【需更新】 [模型（Model）](structure-models.md)
 * **待定中** [过滤器](structure-filters.md)
 * **待定中** [小部件](structure-widgets.md)
