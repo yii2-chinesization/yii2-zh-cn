@@ -39,9 +39,11 @@ Yii2 开发及用户贡献文档中文本土化组织
 
 具体如何翻译呢？请参阅我们的[翻译手册](translation-guide.md)与[校对手册](translation-proofreading.md)。
 
+具体翻译与校对的过程中，可以是随时查阅[术语表](translation-glossary.md)。
+
 有时间的话，也可以看一下其他文档：
 - 官方文档的写作风格：[Yii 文档风格指南](documentation_style_guide.md)
-- 了解更多 Markdown 的语法规则：[Markdown 中文编码风格（试行版）](markdown-code-style.md)
+- 了解更多 Markdown 的语法规则：[Markdown 中文编码规范（试行版）](markdown-code-style.md)
 
 协议 Licence
 ----------------
