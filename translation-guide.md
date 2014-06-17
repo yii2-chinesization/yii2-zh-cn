@@ -61,25 +61,35 @@
 
 ###Git 工作流程###
 
-有关Git的使用，请参阅Yii2官方的内部文档[git-workflow.md](internals-zh-CN/git-workflow.md)
-我们的工作流程跟他很像，也有点像SVN的工作方式：
+有关Git的使用，可以参考 Yii2 官方的内部文档[git-workflow.md](internals-zh-CN/git-workflow.md)
 
+我们的工作流程与其类似。也有所不同。
+
+先简单介绍两个库：
+
+* yii-chinesization/yii2 官方授权我们维护的框架库，用于收集大家翻译的文档并随时反馈给官方，简称： **官方库**，地址：`https://github.com/yii2-chinesization/yii2.git`
+* yii2-chinesization/yii2-zh-cn 最新的翻译文档资料及翻译备份库，简称： **文档库**，地址：`https://github.com/yii2-chinesization/yii2-zh-cn.git`
+
+<a name="git-workflow"></a>
 #### 参考 Git 操作流程 --重要！
 
 有些朋友可能不太清楚如何用 Git 参与翻译工作，我这里写一个简单的流程，大家可以参考一下：
 
-1. 首先fork这个项目
-2. 把fork过去的项目也就是你的项目clone到你的本地
-3. 在命令行运行 `git branch translating` 来创建一个新分支，这里用translating，你可以用任何其他名字。
-4. 运行 `git checkout translating` 来切换到新分支
-5. 运行 `git remote add upstream https://github.com/yii2-chinesization/yii2-zh-cn.git` 把汉化组的官方库添加为远端库
-6. 运行 `git remote update`更新
-7. 运行 `git fetch upstream master` 拉取官方库的更新到本地
-8. 运行 `git rebase upstream/master` 将官方库的更新合并到你的分支
+1. 首先 fork 这个项目以及由我们负责维护的 [Yii2 分支](https://github.com/yii2-chinesization/yii2/)
+2. 把 fork 过去的两个项目也就是你名下的那两个项目 clone 到你的本地
+3. 在命令行运行 `git branch temp` 来创建一个新分支，这里用 `temp`，你也可以用 `translating` 或其他任何名字
+4. 运行 `git checkout temp` 来切换到新分支
+5. 添加 upstream 远端库，用来获取更新
+    * 运行 `git remote add upstream https://github.com/yii2-chinesization/yii2-zh-cn.git` 把汉化组的文档库添加为远端库
+    * 运行 `git remote add upstream https://github.com/yii2-chinesization/yii2.git` 把汉化组的官方库添加为远端库
+    * 例外：如果你同时 fork 了yiisoft/yii2，你可以把 yii2-chiesization 远端，命名为 `chinesization`，或其他你能明白的名字。这样修改以后请对应修改掉下面的 `upstream` 改为你命名的远端名称，如`chinesization`
+6. 分别运行 `git remote update` 更新两库
+7. 分别运行 `git fetch upstream master` 拉取两库的更新到本地
+8. 分别运行 `git rebase upstream/master` 将两库的更新合并到你的分支
 
-这是一个初始化流程，只需要做一遍就行，之后请一直在 translating （或其他名字）分支进行修改。
+步骤1~5是一个初始化流程，只需要做一遍就行，之后请一直在 temp （或其他名字）分支进行修改。
 
-如果修改过程中我的库有了更新，请重复6、7、8步。
+如果修改过程中官方库（不管是文档库还是官方库）有了更新，在对应的库目录下重复6、7、8步即可。
 
 修改之后，首先 Push 到你的库，然后登录 GitHub，在你的库的首页可以看到一个 `pull request` 按钮，点击它，填写一些说明信息，
 然后提交即可。
@@ -90,19 +100,23 @@
 如果你翻译地较多，在群里吱一声，就可以提升为写权限，这样就可以直接 push 了，即使是有权限也建议使用 PR 处理
 大规模多次零散的翻译提交，这样管理和沟通都会方便。
 
+<a name="detailed-workflow"></a>
 #### 具体翻译流程 --极其重要！！
 
-* 翻译前，请先认领并登记原文日期，认领可以是在[README](guide-zh-CN/README.md)，将待翻译改为翻译中，后加原文日期和你的 GitHub ID。例如：`【翻译中-20140505-qiansen1386】`。
-* 从官方仓库内复制最新版本的文件到你的本地仓库，确保GitHub里官方文件的最后修改日期（不是本地文件日期哦）和你认领时填写的编辑时间吻合。
-* 翻译地过程中请多多参考术语表，这能大幅减少你寻求准确翻译的时间。如果术语表中没有的翻译，可以参考[有道词典](http://dict.youdao.com/)，[微软术语搜索](http://www.microsoft.com/Language/zh-cn/Search.aspx)等工具。
-* 最后，别忘了更改[README里文件的状态](guide-zh-CN/README.md)，参考 [汉化进度](#tags) 章节。
+* 翻译前，请先认领并登记原文日期，认领可以是在[文档库的guide-zh-CN/README](guide-zh-CN/README.md)，将待翻译改为翻译中，后加原文日期和你的 GitHub ID。例如：`【翻译中-20140505-你的 GitHub 名】`。
+* 在官方库内的英文原版目录内，把你要翻译的文件的最新版本复制到你本地仓库的 `guide-zh-CN` 目录内，确保
+GitHub 里官方文件的最后修改日期（不是本地文件日期哦）和你认领时填写的编辑时间吻合。
+* 翻译地过程中请多多参考术语表，这能大幅减少你寻求准确翻译的时间。如果术语表中没有的翻译，可以参考
+[有道词典](http://dict.youdao.com/) 和 [微软术语搜索](http://www.microsoft.com/Language/zh-cn/Search.aspx)等工具。
+* 翻译完成后提交给 `yii-chinesization/yii2` 官方库，别忘了更改文档库里 [README里的翻译状态](guide-zh-CN/README.md)，参考
+[汉化进度](#tags) 章节。
 
 认领机制
 --------
 <a name="README"></a>
 ### README
 
-在 `guide` 目录内的 `README.md` 是整个文档的目录索引。[打开看下](https://github.com/yii2-chinesization/yii2-zh-cn/blob/master/guide-zh-CN/README.md)，你会发现，在每个条目的的前方会有一个标签，而后方则有着一些日期。他们是做神马的呢？
+在文档库的 `guide` 目录内的 `README.md` 是整个文档的目录索引。[打开看下](https://github.com/yii2-chinesization/yii2-zh-cn/blob/master/guide-zh-CN/README.md)，你会发现，在每个条目的的前方会有一个标签，而后方则有着一些日期。他们是做神马的呢？
 
 针对每一个不同的文件我们分别挂上一些标签，以及翻译时所参考的英文原文的版本日期。标签用来标注翻译的状态，日期用来在后续文档更新及审阅时，方便找到对应的英文版本，并根据 GitHub 所提供的 History 功能对照着修改我们的译文，使得我们的译文和英文始终保持对应状态。防止文档老旧，更新不及时的情况。
 
