@@ -189,7 +189,7 @@ RESTful Web 服务
 --------
 
 * **编撰中**【需更新】 [高级应用模版](tutorial-advanced-app.md)
-* **编撰中** [从头自定义模版](tutorial-start-from-scratch.md)
+* **编撰中** [从头构建自定义模版](tutorial-start-from-scratch.md)
 * **编撰中**【需更新】 [控制台命令](tutorial-console.md)
 * **已定稿**【待翻译】 [核心验证器](tutorial-core-validators.md)
 * **编撰中**【需更新】 [国际化](tutorial-i18n.md)
