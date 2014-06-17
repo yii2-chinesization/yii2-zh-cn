@@ -47,7 +47,7 @@ Yii 2.0 权威指南
 入门
 -----
 
-* **已定稿**【待翻译】 [安装 Yii](start-installation.md)
+* **已定稿**【未校对-20140614-riverlet】 [安装 Yii](start-installation.md)
 * **已定稿**【待翻译】 [运行应用](start-workflow.md)
 * **已定稿**【待翻译】 [第一次问候](start-hello.md)
 * **已定稿**【待翻译】 [使用 Forms](start-forms.md)
@@ -62,13 +62,13 @@ Yii 2.0 权威指南
 * **已定稿**【待翻译】 [入口脚本](structure-entry-scripts.md)
 * **已定稿**【待翻译】 [应用](structure-applications.md)
 * **已定稿**【待翻译】 [应用组件](structure-application-components.md)
-* **已定稿**【需更新】 [控制器](structure-controllers.md)
+* **已定稿**【需更新】 [控制器（Controller）](structure-controllers.md)
 * **已定稿**【需更新】 [视图（View）](structure-views.md)
 * **已定稿**【需更新】 [模型（Model）](structure-models.md)
 * **待定中** [过滤器](structure-filters.md)
-* **待定中** [小部件](structure-widgets.md)
-* **待定中** [模块](structure-modules.md)
-* **编撰中**【需更新】 [前端资源](structure-assets.md)
+* **待定中** [小部件（Widget）](structure-widgets.md)
+* **待定中** [模块（Module）](structure-modules.md)
+* **编撰中**【需更新】 [前端资源（Asset）](structure-assets.md)
 * **待定中** [扩展（extensions）](structure-extensions.md)
 
 请求处理
@@ -102,7 +102,7 @@ Yii 2.0 权威指南
 * **编撰中**【需更新】 [数据访问对象（DAO）](db-dao.md) - 数据库连接、基本查询、事务和模式操作
 * **编撰中**【需更新】 [查询生成器（Query Builder）](db-query-builder.md) - 使用简单抽象层查询数据库
 * **编撰中**【需更新】 [活动记录（Active Record）](db-active-record.md) - 活动记录对象关系映射（ORM），检索和操作记录、定义关联关系
-* **编撰中**【需更新】 [数据库迁移（Migration）](db-migrations.md)
+* **编撰中**【需更新】 [数据库迁移（Migration）](db-migrations.md) - 在团体开发中对你的数据库使用版本控制
 * **待定中** [Sphinx](db-sphinx.md)
 * **待定中** [Redis](db-redis.md)
 * **待定中** [MongoDB](db-mongodb.md)
