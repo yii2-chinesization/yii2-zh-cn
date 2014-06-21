@@ -3,7 +3,7 @@
 
 从主仓库克隆代码，并在本地搭建尅有运行的程序，最好的方式就是使用 `yii2-dev` 的 Composer 包。
 
-1. `git clone git@github.com:yiisoft/yii2-app-basic.git`.
+1. `git clone https://github.com/yiisoft/yii2-app-basic`.
 2. 从克隆下来的代码中移除 `.git` 目录。
 3. 修改 `composer.json`。移除所有稳定版依赖，修改为 `"yiisoft/yii2-dev": "*"`。
 4. 执行 `composer create-project`命令。不要添加 `--prefer-dist` 参数因为它不会下载 Git 仓库内容。

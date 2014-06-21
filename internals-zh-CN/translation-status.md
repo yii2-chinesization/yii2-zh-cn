@@ -20,9 +20,9 @@ structure-application-components.md | 允
 structure-controllers.md            | 允
 structure-views.md                  | 允
 structure-models.md                 | 允
+structure-modules.md                | 允
 structure-filters.md                |
 structure-widgets.md                |
-structure-modules.md                |
 structure-assets.md                 |
 structure-extensions.md             |
 runtime-bootstrapping.md            |
