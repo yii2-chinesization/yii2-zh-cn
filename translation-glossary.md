@@ -3,50 +3,52 @@
 > Warning:          |> 警告：          |用于点出不安全的事物或其他的隐患     |Noun
 > Note:             |> 注意：          |用于强调核心概念，或是需要避免的事情 |Noun
 > Info:             |> 补充：          |一般的信息（题外话）；重要性上不如注意事项严重|Noun
-> Tip:              |> 小技巧：        |专业的建议以及补充，可能会很有用，但是可能不是所有人每时每刻都需要他|Noun
+> Tip:              |> 技巧：          |专业的建议以及补充，可能会很有用，但是可能不是所有人每时每刻都需要他|Noun
 Action              |操作              |微软的翻译叫做操作                   |Noun
 Active Record       |活动记录，简称 AR |其实可以不翻译                       |Noun
-alias               |路径别名          |                                     |Noun
-application         |应用主体          |此应用非手机应用，指的是我们开发的项目的应用程序主体。|Noun
-attribute           |特性，或数据属性  |【待定】Yii1时代叫特性，$model->attributes 模型类(对象)的属性|Noun
-bundle              |包                |                                     |Noun
+Alias               |（路径）别名      |                                     |Noun
+Application         |应用程序，简称应用|此应用非手机应用，指的是我们开发的项目的应用程序主体。容易混淆的地方请解释一下|Noun
+Attribute           |特性，或数据属性  |【待定】Yii1时代叫特性，$model->attributes 模型类(对象)的属性|Noun
+Bundle              |包                |                                     |Noun
 Class               |类                |                                     |Noun
-collection          |集合              |                                     |Noun
-column              |字段              |                                     |Noun
+Collection          |集合              |                                     |Noun
+Column              |字段              |                                     |Noun
 Component           |组件              |Yii 1的翻译                          |Noun
 Composer            |Composer          |                                     |Noun
-configuration       |配置              |                                     |Noun
-database            |数据库            |                                     |Noun
-design pattern      |设计模式          |                                     |Noun
-eager loading       |贪婪加载          |                                     |Noun
-extension           |扩展              |                                     |Noun
+Configuration       |配置              |                                     |Noun
+Controller          |控制器（Controller）|                                     |Noun
+Database            |数据库            |                                     |Noun
+Design Pattern      |设计模式          |                                     |Noun
+Eager Loading       |贪婪加载          |                                     |Noun
+Extension           |扩展              |                                     |Noun
 Fixtures            |测试夹具          |【待定】非常难翻译的概念，微软翻译为装置，未来认为“定制器”的翻译表意更准|Noun
-framework           |框架              |                                     |Noun
-fullstack           |全栈              |所有的层次，前端到后端，从表现到数据 |Noun
-generator           |生成器            |                                     |Noun
+Framework           |框架              |                                     |Noun
+Fullstack           |全栈              |所有的层次，前端到后端，从表现到数据 |Noun
+Generator           |生成器            |                                     |Noun
 Gii                 |Gii               |自动代码生成器                       |Noun
-helper              |Helper（助手）    |                                     |Noun
-implement           |实现              |或具体实现|Verb
-installation        |安装              |                                     |Noun
-initialization      |初始化            |                                     |Noun
+Helper              |助手类（Helper）  |                                     |Noun
+Implement           |实现              |或具体实现|Verb
+Installation        |安装              |                                     |Noun
+Initialization      |初始化            |                                     |Noun
 key-value pair      |键值对            |                                     |Noun
-lazy loading        |惰性加载          |                                     |Noun
+Lazy Loading        |惰性加载          |                                     |Noun
 massive assignment  |块赋值            |                                     |Noun
-module              |模块              |或子模块                             |Noun
+Module              |模块（Module）    |或子模块                             |Noun
 MVC                 |MVC               |模型-视图-控制器                     |Noun
 Model               |Model（模型）     |                                     |Noun
-overview            |概览              |                                     |Noun
-package             |包                |同 Bundle                            |Noun
-perform             |运作              |【待定】执行                         |Verb
-property            |属性              |                                     |Noun
+Overview            |概览              |                                     |Noun
+Package             |包                |同 Bundle                            |Noun
+perform             |运作或执行        |我觉得两种翻译均可，可根据上下文随意选择|Verb
+Property            |属性              |                                     |Noun
 PHP                 |PHP               |                                     |Noun
-request             |请求              |                                     |Noun
+Request             |请求              |                                     |Noun
 Requirements        |需求              |只做某事的先决条件，如：安装需求     |Noun
-route               |路由              |                                     |Noun
+Route               |路由              |                                     |Noun
 Response            |响应              |                                     |Noun
 session             |session（会话）   |                                     |Noun
-trait               |Traits（特质）    |                                     |Noun
-validation          |验证，数据有效性验证|数据有效性验证                     |Noun
+Trait               |Trait（特质）     |                                     |Noun
+Validation          |验证，数据有效性验证|全称：数据有效性验证，简称：数据验证或验证。首次出现最好写全称|Noun
+View                |视图（View）      |数据有效性验证                       |Noun
 Vendor              |供应商            |跟 [Composer](yii2-chinesization/yii2-zh-cn) 走|Noun
-widget              |小部件            |从其在Yii里的作用来看，叫“小部件”比Yii 1时代翻译的“挂件”更合适。|Noun
-workflow            |工作流程          |                                     |Noun
+Widget              |小部件            |从其在Yii里的作用来看，叫“小部件”比Yii 1时代翻译的“挂件”更合适。|Noun
+Workflow            |工作流程          |                                     |Noun
