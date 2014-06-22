@@ -11,27 +11,17 @@ Yii2 开发及用户贡献文档中文本土化组织
 结构与传送门 Structure and Shortcuts
 ----------------
 ***************************
-/ root
-
-  ├──/ guide-zh-CN 权威指南
-
-  │    ├──[英文原文请跳转：doc.yii2.cn](http://doc.yii2.cn)
-
+/ root  
+  ├──/ guide-zh-CN 权威指南  
+  │    ├──[英文原文请跳转：doc.yii2.cn](http://doc.yii2.cn)  
   │    └──[目录及翻译状态](guide-zh-CN/README.md)
-
   ├──/ [internals-zh-CN](internals-zh-CN/) 翻译的官方内部文档，包括如何向 Yii 官方贡献代码，如何创建新的文档等
-
-  ├──/ [news](news/) 值得注意的新闻翻译，如：发行注记等
-
+  ├──/ [news](news/) 值得注意的新闻翻译，如：发行注记等  
   ├──/ [messages](messages/) Yii 框架本身的国际化文件，比如各个语言的错误描述，有关中文在 zh-CN 文件夹
-
-  ├──/ [framework](framework/) 框架文件，翻译注释文本
-
-  ├──/ [api-doc:http://apidoc.yii2.cn](http://apidoc.yii2.cn)
-
+  ├──/ [framework](framework/) 框架文件，翻译注释文本  
+  ├──/ [api-doc:http://apidoc.yii2.cn](http://apidoc.yii2.cn)  
   └── Root根目录下放置[说明](README.md)，[授权](LICENSE.md)，[翻译手册](translation-guide.md)，[校对手册](translation-proofreading.md)
-  ，[术语表](translation-glossary.md)，[Markdown 编写规范（试行）](markdown-code-style.md)，[Yii 文档风格指南](documentation_style_guide.md)等各种文件。
-
+  ，[术语表](translation-glossary.md)，[Markdown 编写规范（试行）](markdown-code-style.md)，[Yii 文档风格指南](documentation_style_guide.md)等各种文件
 ***************************
 
 加入我们 How to contribute
