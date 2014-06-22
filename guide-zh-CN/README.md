@@ -41,7 +41,7 @@ Yii 2.0 权威指南
 -----
 
 * **已定稿**【已完成-20140505-qiansen1386】 [关于 Yii](intro-yii.md)
-* **已定稿**【需更新|未校对-20140502】 [从 Yii 1.1 升级](intro-upgrade-from-v1.md)
+* **已定稿**【翻译中-20140614】 [从 Yii 1.1 升级](intro-upgrade-from-v1.md)
 
 
 入门

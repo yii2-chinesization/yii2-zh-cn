@@ -20,6 +20,7 @@ Controller          |控制器（Controller）|                                 
 Database            |数据库            |                                     |Noun
 Design Pattern      |设计模式          |                                     |Noun
 Eager Loading       |贪婪加载          |                                     |Noun
+Event Handler       |事件句柄          |或者叫事件处理器                     |Noun
 Extension           |扩展              |                                     |Noun
 Fixtures            |测试夹具          |【待定】非常难翻译的概念，微软翻译为装置，未来认为“定制器”的翻译表意更准|Noun
 Framework           |框架              |                                     |Noun
@@ -42,11 +43,11 @@ perform             |运作或执行        |我觉得两种翻译均可，可�
 Property            |属性              |                                     |Noun
 PHP                 |PHP               |                                     |Noun
 Request             |请求              |                                     |Noun
-Requirements        |需求              |只做某事的先决条件，如：安装需求     |Noun
+Requirements        |需求              |指做某事的先决条件，如：安装需求     |Noun
 Route               |路由              |                                     |Noun
 Response            |响应              |                                     |Noun
 session             |session（会话）   |                                     |Noun
-Trait               |Trait（特质）     |                                     |Noun
+Trait               |Trait             |【待定】微软叫特征，东方写为：Traits（术语翻译未定：特征或特质）|Noun
 Validation          |验证，数据有效性验证|全称：数据有效性验证，简称：数据验证或验证。首次出现最好写全称|Noun
 View                |视图（View）      |数据有效性验证                       |Noun
 Vendor              |供应商            |跟 [Composer](yii2-chinesization/yii2-zh-cn) 走|Noun

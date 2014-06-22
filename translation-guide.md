@@ -76,16 +76,16 @@
 有些朋友可能不太清楚如何用 Git 参与翻译工作，我这里写一个简单的流程，大家可以参考一下：
 
 1. 首先 fork 这个项目以及由我们负责维护的 [Yii2 分支](https://github.com/yii2-chinesization/yii2/)
-2. 把 fork 过去的两个项目也就是你名下的那两个项目 clone 到你的本地
+2. 把 fork 过去的两个项目也就是你名下的那两个项目分别 clone 到你的本地
 3. 在命令行运行 `git branch temp` 来创建一个新分支，这里用 `temp`，你也可以用 `translating` 或其他任何名字
 4. 运行 `git checkout temp` 来切换到新分支
-5. 添加 upstream 远端库，用来获取更新
-    * 运行 `git remote add upstream https://github.com/yii2-chinesization/yii2-zh-cn.git` 把汉化组的文档库添加为远端库
-    * 运行 `git remote add upstream https://github.com/yii2-chinesization/yii2.git` 把汉化组的官方库添加为远端库
+5. 添加官方的远端库，命名为 upstream（也可以是其他名字），用来获取更新
+    * 在**文档库的目录**内，运行 `git remote add upstream https://github.com/yii2-chinesization/yii2-zh-cn.git` 把汉化组的文档库添加为远端库
+    * 在 **yii2 目录**内，运行 `git remote add upstream https://github.com/yii2-chinesization/yii2.git` 把汉化组的官方库添加为远端库
     * 例外：如果你同时 fork 了yiisoft/yii2，你可以把 yii2-chiesization 远端，命名为 `chinesization`，或其他你能明白的名字。这样修改以后请对应修改掉下面的 `upstream` 改为你命名的远端名称，如`chinesization`
-6. 分别运行 `git remote update` 更新两库
-7. 分别运行 `git fetch upstream master` 拉取两库的更新到本地
-8. 分别运行 `git rebase upstream/master` 将两库的更新合并到你的分支
+6. 分别在两个目录内，运行 `git remote update` 更新两库
+7. 分别在两个目录内，运行 `git fetch upstream master` 拉取两库的更新到本地
+8. 分别在两个目录内，运行 `git rebase upstream/master` 将两库的更新合并到你的分支
 
 步骤1~5是一个初始化流程，只需要做一遍就行，之后请一直在 temp （或其他名字）分支进行修改。
 
@@ -187,18 +187,16 @@ GitHub 里官方文件的最后修改日期（不是本地文件日期哦）和�
 
 比如：
 
-```markdown
-[pivot table]: http://en.wikipedia.org/wiki/Pivot_table "Pivot table（数据透视表（中间表），英文，维基百科）"
-```
+    [pivot table]: http://en.wikipedia.org/wiki/Pivot_table "Pivot table（数据透视表（中间表），英文，维基百科）"
 
 附录
 ------------------
 ### 参考阅读
 
-- [Yii 文档风格指南](documentation_style_guide.md)：主要记述了官方编写文档时的考虑与原则，理解他们有利于我们理解官方的
-叙述风格，增加翻译的准确性。
 - [校对手册](translation-proofreading.md)：如果说翻译是从无到有，校对就是从有到优。读校对手册，就像作者要摸透编辑的心。
 才能写出编辑满意的高质量文章。
 - [术语表](translation-glossary.md) 对术语的翻译有任何意见都请随时建立issue大家交流讨论，我们也会不定期向全社会征集对于术语翻译的意见与建议。
+- [Yii 文档风格指南](documentation_style_guide.md)：主要记述了官方编写文档时的考虑与原则，理解他们有利于我们理解官方的
+叙述风格，增加翻译的准确性。
 - [Markdown 编写规范（试行）](markdown-code-style.md)
 
