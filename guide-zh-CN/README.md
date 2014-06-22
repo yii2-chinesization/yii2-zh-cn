@@ -41,7 +41,7 @@ Yii 2.0 权威指南
 -----
 
 * **已定稿**【已完成-20140505-qiansen1386】 [关于 Yii](intro-yii.md)
-* **已定稿**【翻译中-20140614】 [从 Yii 1.1 升级](intro-upgrade-from-v1.md)
+* **已定稿**【翻译中-20140623】 [从 Yii 1.1 升级](intro-upgrade-from-v1.md)
 
 
 入门
@@ -215,7 +215,7 @@ RESTful Web 服务
 助手类
 ------
 
-* **编撰中**【待翻译】 [概述](helper-overview.md)
+* **编撰中**【待翻译】 [助手一览](helper-overview.md)
 * **待定中** [ArrayHelper](helper-array.md)
 * **待定中** [Html](helper-html.md)
 * **待定中** [Url](helper-url.md)

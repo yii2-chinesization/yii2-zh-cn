@@ -42,6 +42,7 @@ Package             |包                |同 Bundle                            |
 perform             |运作或执行        |我觉得两种翻译均可，可根据上下文随意选择|Verb
 Property            |属性              |                                     |Noun
 PHP                 |PHP               |                                     |Noun
+Query Builder       |查询生成器（Query Builder）|                                     |Noun
 Request             |请求              |                                     |Noun
 Requirements        |需求              |指做某事的先决条件，如：安装需求     |Noun
 Route               |路由              |                                     |Noun
