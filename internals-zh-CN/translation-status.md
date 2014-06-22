@@ -21,7 +21,7 @@ structure-controllers.md            | 允
 structure-views.md                  | 允
 structure-models.md                 | 允
 structure-modules.md                | 允
-structure-filters.md                |
+structure-filters.md                | 允
 structure-widgets.md                |
 structure-assets.md                 |
 structure-extensions.md             |
