@@ -16,7 +16,7 @@ Column              |字段              |                                     |
 Component           |组件              |Yii 1的翻译                          |Noun
 Composer            |Composer          |                                     |Noun
 Configuration       |配置              |                                     |Noun
-Controller          |控制器（Controller）|                                     |Noun
+Controller          |控制器（Controller）|                                   |Noun
 Database            |数据库            |                                     |Noun
 Design Pattern      |设计模式          |                                     |Noun
 Eager Loading       |贪婪加载          |                                     |Noun
@@ -28,7 +28,7 @@ Fullstack           |全栈              |所有的层次，前端到后端，�
 Generator           |生成器            |                                     |Noun
 Gii                 |Gii               |自动代码生成器                       |Noun
 Helper              |助手类（Helper）  |                                     |Noun
-Implement           |实现              |或具体实现|Verb
+Implement           |实现              |或具体实现                           |Verb
 Installation        |安装              |                                     |Noun
 Initialization      |初始化            |                                     |Noun
 key-value pair      |键值对            |                                     |Noun
@@ -42,7 +42,8 @@ Package             |包                |同 Bundle                            |
 perform             |运作或执行        |我觉得两种翻译均可，可根据上下文随意选择|Verb
 Property            |属性              |                                     |Noun
 PHP                 |PHP               |                                     |Noun
-Query Builder       |查询生成器（Query Builder）|                                     |Noun
+Query Builder       |查询生成器（Query Builder）|                            |Noun
+query building methods|查询生成方法    |                                     |Noun
 Request             |请求              |                                     |Noun
 Requirements        |需求              |指做某事的先决条件，如：安装需求     |Noun
 Route               |路由              |                                     |Noun
