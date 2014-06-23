@@ -67,8 +67,8 @@
 
 先简单介绍两个库：
 
-* yii-chinesization/yii2 官方授权我们维护的框架库，用于收集大家翻译的文档并随时反馈给官方，简称： **官方库**，地址：`https://github.com/yii2-chinesization/yii2.git`
-* yii2-chinesization/yii2-zh-cn 最新的翻译文档资料及翻译备份库，简称： **文档库**，地址：`https://github.com/yii2-chinesization/yii2-zh-cn.git`
+* **官方库**：yii-chinesization/yii2 官方授权我们维护的框架库，用于收集大家翻译的文档，并随时反馈给官方。地址：`https://github.com/yii2-chinesization/yii2.git`
+* **文档库**：yii2-chinesization/yii2-zh-cn 只用于存放翻译指南资料及老翻译的备份，**新翻译请别放在这里**。地址：`https://github.com/yii2-chinesization/yii2-zh-cn.git`
 
 <a name="git-workflow"></a>
 #### 参考 Git 操作流程 --重要！
@@ -82,7 +82,7 @@
 5. 添加官方的远端库，命名为 upstream（也可以是其他名字），用来获取更新
     * 在**文档库的目录**内，运行 `git remote add upstream https://github.com/yii2-chinesization/yii2-zh-cn.git` 把汉化组的文档库添加为远端库
     * 在 **yii2 目录**内，运行 `git remote add upstream https://github.com/yii2-chinesization/yii2.git` 把汉化组的官方库添加为远端库
-    * 例外：如果你同时 fork 了yiisoft/yii2，你可以把 yii2-chiesization 远端，命名为 `chinesization`，或其他你能明白的名字。这样修改以后请对应修改掉下面的 `upstream` 改为你命名的远端名称，如`chinesization`
+    * 例外：如果你同时 fork 了yiisoft/yii2，你可以把 yii2-chiesization 远端，命名为 `chinesization`，或其他你能明白的名字。这样修改以后请对应修改掉下面的 `upstream` 改为你命名的远端名称，如 `chinesization`
 6. 分别在两个目录内，运行 `git remote update` 更新两库
 7. 分别在两个目录内，运行 `git fetch upstream master` 拉取两库的更新到本地
 8. 分别在两个目录内，使用 `git checkout temp` 切换回你的日常分支后，运行 `git rebase upstream/master` 将两库的更新合并到你的分支
@@ -103,9 +103,10 @@
 <a name="detailed-workflow"></a>
 #### 具体翻译流程 --极其重要！！
 
-* 翻译前，请先认领并登记原文日期，认领可以是在[文档库的guide-zh-CN/README](guide-zh-CN/README.md)，将待翻译改为翻译中，后加原文日期和你的 GitHub ID。例如：`【翻译中-20140505-你的 GitHub 名】`。 **[原文日期的获取后有详细说明](#get-date)**
-* 在官方库内的英文原版目录内，把你要翻译的文件的最新版本复制到你本地仓库的 `guide-zh-CN` 目录内，确保
-GitHub 里官方文件的最后修改日期（不是本地文件日期哦）和你认领时填写的编辑时间吻合。
+* 翻译前，请先在 **文档库** 认领并登记[原文日期](#get-date)，认领信息登记在[文档库/guide-zh-CN/README](guide-zh-CN/README.md)，将待翻译改为翻译中，后加原文日期和你的 GitHub ID。例如：`【翻译中-20140505-你的 GitHub 名】`。 **[点此了解原文日期的获取](#get-date)**
+* 在官方库内的英文原版目录内，把你要翻译的文件的最新版本复制到（官方库内的，不是文档库）`guide-zh-CN`
+目录内，确保 GitHub
+里官方文件的最后修改日期（不是本地文件日期哦）和你认领时填写的编辑时间吻合。
 * 翻译地过程中请多多参考术语表，这能大幅减少你寻求准确翻译的时间。如果术语表中没有的翻译，可以参考
 [有道词典](http://dict.youdao.com/) 和 [微软术语搜索](http://www.microsoft.com/Language/zh-cn/Search.aspx)等工具。
 * 翻译完成后提交给 `yii-chinesization/yii2` 官方库，别忘了更改文档库里 [README里的翻译状态](guide-zh-CN/README.md)，参考
