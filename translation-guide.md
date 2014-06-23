@@ -187,7 +187,7 @@ GitHub 里官方文件的最后修改日期（不是本地文件日期哦）和�
 
 比如：
 
-    [pivot table]: http://en.wikipedia.org/wiki/Pivot_table " Pivot table（数据透视表（中间表），英文，维基百科）" 
+    [pivot table]: http://en.wikipedia.org/wiki/Pivot_table "Pivot table（数据透视表（中间表），英文，维基百科）" 
 
 附录
 ------------------
