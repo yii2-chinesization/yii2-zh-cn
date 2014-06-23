@@ -22,7 +22,7 @@ structure-views.md                  | 允
 structure-models.md                 | 允
 structure-modules.md                | 允
 structure-filters.md                | 允
-structure-widgets.md                |
+structure-widgets.md                | 允
 structure-assets.md                 |
 structure-extensions.md             |
 runtime-bootstrapping.md            |
