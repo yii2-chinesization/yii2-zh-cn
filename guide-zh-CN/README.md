@@ -48,9 +48,9 @@ Yii 2.0 权威指南
 -----
 
 * **已定稿**【未校对-20140614-riverlet】 [安装 Yii](start-installation.md)
-* **已定稿**【翻译中-20140610-AbrahamGreyson】 [运行应用](start-workflow.md)
-* **已定稿**【待翻译】 [第一次问候](start-hello.md)
-* **已定稿**【待翻译】 [使用 Forms](start-forms.md)
+* **已定稿**【未校对-20140610-AbrahamGreyson】 [运行应用](start-workflow.md)
+* **已定稿**【翻译中-20140610-AbrahamGreyson】 [第一声问候](start-hello.md)
+* **已定稿**【翻译中-20140623-AbrahamGreyson】 [使用 Forms](start-forms.md)
 * **已定稿**【待翻译】 [玩转 Databases](start-databases.md)
 * **已定稿**【待翻译】 [用 Gii 生成代码](start-gii.md)
 * **已定稿**【待翻译】 [更上一层楼](start-looking-head.md)
