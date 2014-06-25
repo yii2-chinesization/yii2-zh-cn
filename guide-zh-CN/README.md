@@ -94,7 +94,7 @@ Yii 2.0 权威指南
 * **已定稿**【需更新】 [类自动加载（Autoloading）](concept-autoloading.md)
 * **已定稿**【需更新】 [别名（Alias）](concept-alias.md)
 * **已定稿**【待翻译】 [服务定位器（Service Locator）](concept-service-locator.md)
-* **已定稿**【待翻译】 [依赖注入容器（DI Container）](concept-di-container.md)
+* **已定稿**【未校对-20140511-riverlet】 [依赖注入容器（DI Container）](concept-di-container.md)
 
 配合数据库工作
 -------------
