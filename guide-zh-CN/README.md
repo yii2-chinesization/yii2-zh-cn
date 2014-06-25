@@ -86,13 +86,13 @@ Yii 2.0 权威指南
 关键概念
 --------
 
-* **已定稿**【待翻译】 [组件（Component）](concept-components.md)
-* **已定稿**【需更新】 [属性（Property）](concept-properties.md)
-* **已定稿**【需更新】 [事件（Event）](concept-events.md)
-* **已定稿**【需更新】 [行为（Behavior）](concept-behaviors.md)
-* **已定稿**【需更新】 [配置（Configs）](concept-configurations.md)
-* **已定稿**【需更新】 [类自动加载（Autoloading）](concept-autoloading.md)
-* **已定稿**【需更新】 [别名（Alias）](concept-alias.md)
+* **已定稿**【未校对-20140526-qiansen1386】 [组件（Component）](concept-components.md)
+* **已定稿**【更新中】 [属性（Property）](concept-properties.md)
+* **已定稿**【更新中】 [事件（Event）](concept-events.md)
+* **已定稿**【更新中】 [行为（Behavior）](concept-behaviors.md)
+* **已定稿**【更新中】 [配置（Configs）](concept-configurations.md)
+* **已定稿**【更新中】 [类自动加载（Autoloading）](concept-autoloading.md)
+* **已定稿**【更新中】 [别名（Alias）](concept-alias.md)
 * **已定稿**【待翻译】 [服务定位器（Service Locator）](concept-service-locator.md)
 * **已定稿**【未校对-20140511-riverlet】 [依赖注入容器（DI Container）](concept-di-container.md)
 

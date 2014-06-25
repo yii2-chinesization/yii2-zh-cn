@@ -38,6 +38,7 @@ Module              |模块（Module）    |或子模块                        
 MVC                 |MVC               |模型-视图-控制器                     |Noun
 Model               |Model（模型）     |                                     |Noun
 Overview            |概览              |                                     |Noun
+Override            |重写              |                                     |Noun
 Package             |包                |同 Bundle                            |Noun
 perform             |运作或执行        |我觉得两种翻译均可，可根据上下文随意选择|Verb
 Property            |属性              |                                     |Noun
