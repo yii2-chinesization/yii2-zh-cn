@@ -6,7 +6,7 @@ Yii2 开发及用户贡献文档中文本土化组织
 
 本仓库快捷传送门：[c11n.yii2.cn](http://c11n.yii2.cn/) 临时在线文档：[apidoc.yii2.cn](http://apidoc.yii2.cn/)
 
-基于原文：[Doc 2.0](http://www.yiiframework.com/doc-2.0/index.html) Yii2 官方传送门：[yii2.cn](http://yii2.cn)
+参考原文：[Doc 2.0](http://www.yiiframework.com/doc-2.0/index.html) Yii2 官方传送门：[yii2.cn](http://yii2.cn)
 
 结构与传送门 Structure and Shortcuts
 ----------------
@@ -17,7 +17,7 @@ Yii2 开发及用户贡献文档中文本土化组织
   │    └──[目录及翻译状态](guide-zh-CN/README.md)  
   ├──/ [internals-zh-CN](internals-zh-CN/) 翻译的官方内部文档，包括如何向 Yii 官方贡献代码，如何创建新的文档等  
   ├──/ [news](news/) 值得注意的新闻翻译，如：发行注记等  
-  ├──/ [messages](messages/) Yii 框架本身的国际化文件，比如各个语言的错误描述，有关中文在 zh-CN 文件夹  
+  ├──/ [messages](messages/) Yii 框架本身的国际化文件，比如各个语言版本的错误信息，有关中文在 zh-CN 文件夹
   ├──/ [framework](framework/) 框架文件，翻译注释文本  
   ├──/ [api-doc:http://apidoc.yii2.cn](http://apidoc.yii2.cn)  
   └── Root根目录下放置[说明](README.md)，[授权](LICENSE.md)，[翻译手册](translation-guide.md)，[校对手册](translation-proofreading.md)
@@ -27,7 +27,7 @@ Yii2 开发及用户贡献文档中文本土化组织
 加入我们 How to contribute
 ----------------
 
-**如果你想加入 Yii2 的大家庭，参与到汉化项目中，交流翻译心得与 Yii2 开发的经验等，可以先来[![加下QQ群](http://pub.idqqimg.com/wpa/images/group.png)343188481](http://url.cn/SIMfwO)。**
+**如果你想加入 Yii2 的大家庭中来，参与到汉化项目中，交流翻译心得与 Yii2 开发经验等，可以先来[![加下QQ群](http://pub.idqqimg.com/wpa/images/group.png) 343188481](http://url.cn/SIMfwO)。**
 
 引用Golang呆湾的朋友们的一句话：
 
