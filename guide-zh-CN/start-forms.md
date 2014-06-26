@@ -1,7 +1,7 @@
 使用表单
 ==================
 
-本小节将介绍如何创建一个从用户那搜集数据的表单页面。该页将显示一个包含 name 输入框和 email 输入框的表单。当搜集完这两部分信息后，页面将会输出登记信息的确认。
+本小节将介绍如何创建一个从用户那搜集数据的表单页面。该页将显示一个包含 name 输入框和 email 输入框的表单。当搜集完这两部分信息后，页面将会显示用户输入的信息。
 
 为了实现这个目标，除了创建一个[操作](structure-controllers.md)和两个[视图](structure-views)外，你还需要创建一个[模型](structure-models.md)。
 
@@ -41,7 +41,7 @@ class EntryForm extends Model
 
 该类继承自 [[yii\base\Model]]，Yii 提供的一个基类，通常用来表示数据。
 
-> 补充：[[yii\base\Model]] 被用于普通模型类的父类并与数据表**无关**。[[yii\db\ActiveRecord]] 通常是普通模型类的父类但与数据表有关联（译者注：[[yii\db\ActiveRecord]] 类其实也是继承自 [[yii\base\Model]] 但增加了数据库处理）。
+> 补充：[[yii\base\Model]] 被用于普通模型类的父类并与数据表**无关**。[[yii\db\ActiveRecord]] 通常是普通模型类的父类但与数据表有关联（译者注：[[yii\db\ActiveRecord]] 类其实也是继承自 [[yii\base\Model]]，增加了数据库处理）。
 
 `EntryForm` 类包含 `name` 和 `email` 两个公共成员，用来储存用户输入的数据。它还包含一个名为 `rules()` 的方法，用来返回数据验证规则的集合。上面声明的验证规则表示：
 
@@ -100,7 +100,7 @@ class SiteController extends Controller
 }
 ```
 
-该操作首先创建了一个 `EntryForm` 对象。然后尝试从 `$_POST` 搜集用户提交的数据，由 Yii 的 [[yii\web\Request::post()]] 方法负责。如果模型被成功填充数据（也就是说用户已经提交了 HTML 表单），操作将调用 [[yii\base\Model::validate()|validate()]] 去确保用户提交的是有效数据。
+该操作首先创建了一个 `EntryForm` 对象。然后尝试从 `$_POST` 搜集用户提交的数据，由 Yii 的 [[yii\web\Request::post()]] 方法负责搜集。如果模型被成功填充数据（也就是说用户已经提交了 HTML 表单），操作将调用 [[yii\base\Model::validate()|validate()]] 去确保用户提交的是有效数据。
 
 > 补充：表达式 `Yii::$app` 代表[应用](structure-applications.md)实例，它是一个全局可访问的单例。同时它也是一个[服务定位器](concept-service-locator.md)，能提供 `request`，`response`，`db` 等等特定功能的组件。在上面的代码里就是使用 `request` 组件来访问应用实例收到的 `$_POST` 数据。
 
@@ -112,9 +112,9 @@ class SiteController extends Controller
 创建视图 <a name="creating-views"></a>
 --------------
 
-最后创建两个视图文件 `entry-confirm` 和 `entry`。他们将被刚才创建的 `entry` 操作渲染。
+最后创建两个视图文件 `entry-confirm` 和 `entry`。他们会被刚才创建的 `entry` 操作渲染。
 
-`entry-confirm` 视图简单地显示 name 和 email 数据。视图文件保存在 `views/site/entry-confirm.php`。
+`entry-confirm` 视图简单地显示提交的 name 和 email 数据。视图文件保存在 `views/site/entry-confirm.php`。
 
 ```php
 <?php
@@ -148,74 +148,53 @@ use yii\widgets\ActiveForm;
 <?php ActiveForm::end(); ?>
 ```
 
-The view uses a powerful [widget](structure-widgets.md) called [[yii\widgets\ActiveForm|ActiveForm]] to
-build the HTML form. The `begin()` and `end()` methods of the widget render the opening and closing
-form tags, respectively. Between the two method calls, input fields are created by the
-[[yii\widgets\ActiveForm::field()|field()]] method. The first input field is for the "name" data,
-and the second for the "email" data. After the input fields, the [[yii\helpers\Html::submitButton()]] method
-is called to generate a submit button.
+视图使用了一个功能强大的[小部件](structure-widgets.md) [[yii\widgets\ActiveForm|ActiveForm]] 去生成 HTML 表单。其中的 `begin()` 和 `end()` 分别用来渲染表单的开始和关闭标签。在这两个方法之间使用了 [[yii\widgets\ActiveForm::field()|field()]] 方法去创建输入框。第一个输入框用于 “name”，第二个输入框用于 “email”。之后使用 [[yii\helpers\Html::submitButton()]] 方法生成提交按钮。
 
 
-Trying it Out <a name="trying-it-out"></a>
+尝试下 <a name="trying-it-out"></a>
 -------------
 
-To see how it works, use your browser to access the following URL:
+用浏览器访问下面的 URL 看它能否工作：
 
 ```
 http://hostname/index.php?r=site/entry
 ```
 
-You will see a page displaying a form with two input fields. In front of each input field, a label indicates what data is to be entered. If you click the submit button without
-entering anything, or if you do not provide a valid email address, you will see an error message displayed next to each problematic input field.
+你会看到一个包含两个输入框的表单的页面。每个输入框的前面都有一个标签指明应该输入的数据类型。如果什么都不填就点击提交按钮，或填入格式不正确的 email 地址，你将会看到在对应的输入框下显示错误信息。
 
-![Form with Validation Errors](images/start-form-validation.png)
+![验证错误的表单](images/start-form-validation.png)
 
-After entering a valid name and email address and clicking the submit button, you will see a new page
-displaying the data that you just entered.
+输入有效的 name 和 email 信息并提交后，你将会看到一个显示你所提交数据的确认页面。
 
-![Confirmation of Data Entry](images/start-entry-confirmation.png)
+![输入数据的确认页](images/start-entry-confirmation.png)
 
 
 
-### Magic Explained <a name="magic-explained"></a>
+### 效果说明 <a name="magic-explained"></a>
 
-You may wonder how the HTML form works behind the scene, because it seems almost magical that it can
-display a label for each input field and show error messages if you do not enter the data correctly
-without reloading the page.
+你可能会好奇 HTML 表单暗地里是如何工作的呢，看起来它可以为每个输入框显示文字标签，而当你没输入正确的信息时又不需要刷新页面就能给出错误提示，似乎有些神奇。
 
-Yes, the data validation is initially done on the client side using JavaScript, and secondarily performed on the server side via PHP.
-[[yii\widgets\ActiveForm]] is smart enough to extract the validation rules that you have declared in `EntryForm`,
-turn them into executable JavaScript code, and use the JavaScript to perform data validation. In case you have disabled
-JavaScript on your browser, the validation will still be performed on the server side, as shown in
-the `actionEntry()` method. This ensures data validity in all circumstances.
+是的，其实数据首先由客户端 JavaScript 脚本验证，然后才会提交给服务器通过 PHP 验证。[[yii\widgets\ActiveForm]] 足够智能到把你在 `EntryForm` 模型中声明的验证规则转化成客户端 JavaScript 脚本去执行验证。如果用户浏览器禁用了 JavaScript， 服务器端仍然会像 `actionEntry()` 方法里这样验证一遍数据。这保证了任何情况下用户提交的数据都是有效的。
 
-> Warning: Client-side validation is a convenience that provides for a better user experience. Server-side validation
-  is always required, whether or not client-side validation is in place.
+> 警告：客户端验证是提高用户体验的手段。无论它是否正常启用，服务端验证则都是必须的，请不要忽略它。
 
-The labels for input fields are generated by the `field()` method, using the property names from the model.
-For example, the label `Name` will be generated for the `name` property. 
+输入框的文字标签是 `field()` 方法生成的，内容就是模型中该数据的属性名。例如模型中的 `name` 属性生成的标签就是 `Name`。
 
-You may customize a label within a view using 
-the following code:
+你可以在视图中自定义标签：
 
 ```php
-<?= $form->field($model, 'name')->label('Your Name') ?>
-<?= $form->field($model, 'email')->label('Your Email') ?>
+<?= $form->field($model, 'name')->label('自定义 Name') ?>
+<?= $form->field($model, 'email')->label('自定义 Email') ?>
 ```
 
-> Info: Yii provides many such widgets to help you quickly build complex and dynamic views.
-  As you will learn later, writing a new widget is also extremely easy. You may want to turn much of your
-  view code into reusable widgets to simplify view development in future.
+> 补充：Yii 提供了相当多类似的小部件去帮你生成复杂且动态的视图。在后面你还会了解到自己写小部件是多么简单。你可能会把自己的很多视图代码转化成小部件以提高重用，加快开发效率。
 
 
-Summary <a name="summary"></a>
+总结 <a name="summary"></a>
 -------
 
-In this section of the guide, you have touched every part in the MVC design pattern. You have learned how
-to create a model class to represent the user data and validate said data.
+本小节指南中你接触了 MVC 设计模式的每个部分。你学到了如何创建一个模型代表用户数据并验证它的有效性。
 
-You have also learned how to get data from users and how to display data back in the browser. This is a task that
-could take you a lot of time when developing an application, but Yii provides powerful widgets
-to make this task very easy.
+你还学到了如何从用户那获取数据并在浏览器上回显给用户。这本来是开发应用的过程中比较耗时的任务，好在 Yii 提供了强大的小部件让它变得如此简单。
 
-In the next section, you will learn how to work with databases, which are needed in nearly every application.
+下一小节你将学习如何使用数据库，几乎每个应用都需要数据库。
