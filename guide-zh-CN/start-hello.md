@@ -33,7 +33,7 @@ class SiteController extends Controller
 {
     // ...其它代码...
 
-    public function actionSay($message = '你好')
+    public function actionSay($message = 'Hello')
     {
         return $this->render('say', ['message' => $message]);
     }

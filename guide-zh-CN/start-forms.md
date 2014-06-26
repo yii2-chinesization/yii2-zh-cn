@@ -1,26 +1,21 @@
-Working with Forms
+使用表单
 ==================
 
-This section describes how to create a new page with a form for getting data from users.
-The page will display a form with a name input field and an email input field.
-After getting those two pieces of information from the user, the page will echo the entered values back for confirmation.
+本小节将介绍如何创建一个从用户那搜集数据的表单页面。该页将显示一个包含 name 输入框和 email 输入框的表单。当搜集完这两部分信息后，页面将会输出登记信息的确认。
 
-To achieve this goal, besides creating an [action](structure-controllers.md) and
-two [views](structure-views.md), you will also create a [model](structure-models.md).
+为了实现这个目标，除了创建一个[操作](structure-controllers.md)和两个[视图](structure-views)外，你还需要创建一个[模型](structure-models.md)。
 
-Through this tutorial, you will learn how to:
+贯穿整个小节，你将会学到：
 
-* Create a [model](structure-models.md) to represent the data entered by a user through a form
-* Declare rules to validate the data entered
-* Build an HTML form in a [view](structure-views.md)
+* 创建一个[模型](structure-models.md)表示用户通过表单输入的数据
+* 声明规则去验证输入的数据
+* 在[视图](structure-views.md)中生成一个 HTML 表单
 
 
-Creating a Model <a name="creating-model"></a>
+创建模型 <a name="creating-model"></a>
 ----------------
 
-The data to be requested from the user will be represented by an `EntryForm` model class as shown below and
-saved in the file `models/EntryForm.php`. Please refer to the [Class Autoloading](concept-autoloading.md)
-section for more details about the class file naming convention.
+模型类 `EntryForm` 代表从用户那请求的数据，该类如下所示并存储在 `models/EntryForm.php` 文件中。请参考[类自动加载](concept-autoloading.md)小节获取更多关于类命名约定的介绍。
 
 ```php
 <?php
@@ -44,23 +39,16 @@ class EntryForm extends Model
 }
 ```
 
-The class extends from [[yii\base\Model]], a base class provided by Yii, commonly used to
-represent form data.
+该类继承自 [[yii\base\Model]]，Yii 提供的一个基类，通常用来表示数据。
 
-> Info: [[yii\base\Model]] is used as a parent for model classes *not* associated with database tables.
-[[yii\db\ActiveRecord]] is normally the parent for model classes that do correspond to database tables.
+> 补充：[[yii\base\Model]] 被用于普通模型类的父类并与数据表**无关**。[[yii\db\ActiveRecord]] 通常是普通模型类的父类但与数据表有关联（译者注：[[yii\db\ActiveRecord]] 类其实也是继承自 [[yii\base\Model]] 但增加了数据库处理）。
 
-The `EntryForm` class contains two public members, `name` and `email`, which are used to store
-the data entered by the user. It also contains a method named `rules()`, which returns a set
-of rules for validating the data. The validation rules declared above state that
+`EntryForm` 类包含 `name` 和 `email` 两个公共成员，用来储存用户输入的数据。它还包含一个名为 `rules()` 的方法，用来返回数据验证规则的集合。上面声明的验证规则表示：
 
-* both the `name` and `email` values are required
-* the `email` data must be a syntactically valid email address
+* `name` 和 `email` 值都是必须的
+* `mail` 的值必须满足 email 地址验证
 
-If you have an `EntryForm` object populated with the data entered by a user, you may call
-its [[yii\base\Model::validate()|validate()]] to trigger the data validation routines. A data validation
-failure will set the [[yii\base\Model::hasErrors|hasErrors]] property to true, and you may learn what validation
-errors occurred through [[yii\base\Model::getErrors|errors]].
+如果你有一个从用户那搜集了数据的 `EntryForm` 对象，你可以调用它的 [[yii\base\Model::validate()|validate()]] 方法触发数据验证。如果有数据验证失败，将把 [[yii\base\Model::hasErrors|hasErrors]] 属性设为 ture，想要知道具体发生什么错误就调用 [[yii\base\Model::getErrors|getErrors]]。
 
 ```php
 <?php
@@ -68,19 +56,18 @@ $model = new EntryForm();
 $model->name = 'Qiang';
 $model->email = 'bad';
 if ($model->validate()) {
-    // Good!
+    // 验证成功！
 } else {
-    // Failure!
-    // Use $model->getErrors()
+    // 失败！
+    // 使用 $model->getErrors() 获取错误详情
 }
 ```
 
 
-Creating an Action <a name="creating-action"></a>
+创建操作 <a name="creating-action"></a>
 ------------------
 
-Next, you'll need to create an `entry` action in the `site` controller that will use the new model. The process
-of creating and using actions was explained in the [Saying Hello](start-hello.md) section.
+下面你得在 `site` 控制器中创建一个 `entry` 操作用于新建的模型。操作的创建和使用已经在[说一声你好](start-hello.md)小节中解释了。
 
 ```php
 <?php
@@ -93,52 +80,41 @@ use app\models\EntryForm;
 
 class SiteController extends Controller
 {
-    // ...existing code...
+    // ...其它代码...
 
     public function actionEntry()
     {
         $model = new EntryForm;
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            // valid data received in $model
+            // 验证 $model 收到的数据
 
-            // do something meaningful here about $model ...
+            // 做些有意义的事 ...
 
             return $this->render('entry-confirm', ['model' => $model]);
         } else {
-            // either the page is initially displayed or there is some validation error
+            // 无论是初始化显示还是数据验证错误
             return $this->render('entry', ['model' => $model]);
         }
     }
 }
 ```
 
-The action first creates an `EntryForm` object. It then tries to populate the model
-with the data from `$_POST`, provided in Yii by [[yii\web\Request::post()]].
-If the model is successfully populated (i.e., if the user has submitted the HTML form), the action will call
-[[yii\base\Model::validate()|validate()]] to make sure the values entered are valid.
+该操作首先创建了一个 `EntryForm` 对象。然后尝试从 `$_POST` 搜集用户提交的数据，由 Yii 的 [[yii\web\Request::post()]] 方法负责。如果模型被成功填充数据（也就是说用户已经提交了 HTML 表单），操作将调用 [[yii\base\Model::validate()|validate()]] 去确保用户提交的是有效数据。
 
-> Info: The expression `Yii::$app` represents the [application](structure-applications.md) instance,
-  which is a globally accessible singleton. It is also a [service locator](concept-service-locator.md) that
-  provides components such as `request`, `response`, `db`, etc. to support specific functionality.
-  In the above code, the `request` component of the application instance is used to access the `$_POST` data.
+> 补充：表达式 `Yii::$app` 代表[应用](structure-applications.md)实例，它是一个全局可访问的单例。同时它也是一个[服务定位器](concept-service-locator.md)，能提供 `request`，`response`，`db` 等等特定功能的组件。在上面的代码里就是使用 `request` 组件来访问应用实例收到的 `$_POST` 数据。
 
-If everything is fine, the action will render a view named `entry-confirm` to confirm the data entered 
-with the user that the data entered. If no data is submitted or the data contains errors, the `entry` view will
-be rendered, wherein the HTML form will be shown, along with any validation error messages.
+用户提交表单后，操作将会渲染一个名为 `entry-confirm` 的视图去确认用户输入的数据。如果没填表单就提交，或数据包含错误（译者：如 email 格式不对），`entry` 视图将会渲染输出，连同表单一起输出的还有验证错误的信息。
 
-> Note: In this very simple example we just render the confirmation page upon valid data submission. In practice,
-  you should consider using [[yii\web\Controller::refresh()|refresh()]] or [[yii\web\Controller::redirect()|redirect()]]
-  to avoid [form resubmission problems](http://en.wikipedia.org/wiki/Post/Redirect/Get).
+> 注意：在这个简单例子里我们只是呈现了有效数据的确认页面。实践中你应该考虑使用 [[yii\web\Controller::refresh()|refresh()]] 或 [[yii\web\Controller::redirect()|redirect()]] 去避免[表单重复提交问题](http://en.wikipedia.org/wiki/Post/Redirect/Get)。
 
 
-Creating Views <a name="creating-views"></a>
+创建视图 <a name="creating-views"></a>
 --------------
 
-Finally, create two view files named `entry-confirm` and `entry`. These will be rendered by the `entry` action,
-as just described.
+最后创建两个视图文件 `entry-confirm` 和 `entry`。他们将被刚才创建的 `entry` 操作渲染。
 
-The `entry-confirm` view simply displays the name and email data. It should be stored in the file `views/site/entry-confirm.php`.
+`entry-confirm` 视图简单地显示 name 和 email 数据。视图文件保存在 `views/site/entry-confirm.php`。
 
 ```php
 <?php
@@ -152,7 +128,7 @@ use yii\helpers\Html;
 </ul>
 ```
 
-The `entry` view displays an HTML form. It should be stored in the file `views/site/entry.php`.
+`entry` 视图显示一个 HTML 表单。视图文件保存在 `views/site/entry.php`。
 
 ```php
 <?php
