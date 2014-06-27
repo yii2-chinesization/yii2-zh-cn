@@ -138,8 +138,8 @@ Yii 2.0 权威指南
 缓存
 -----
 
-* **已定稿**【需更新|待翻译】[概述](caching-overview.md)
-* **已定稿**【待翻译】 [数据缓存](caching-data.md)
+* **已定稿**【需更新|翻译中-riverlet】[概述](caching-overview.md)
+* **已定稿**【翻译中-riverlet】 [数据缓存](caching-data.md)
 * **已定稿**【待翻译】 [片段缓存](caching-fragment.md)
 * **已定稿**【待翻译】 [分页缓存](caching-page.md)
 * **已定稿**【待翻译】 [HTTP 缓存](caching-http.md)
