@@ -83,13 +83,15 @@
     * 在**文档库的目录**内，运行 `git remote add upstream https://github.com/yii2-chinesization/yii2-zh-cn.git` 把汉化组的文档库添加为远端库
     * 在 **yii2 目录**内，运行 `git remote add upstream https://github.com/yii2-chinesization/yii2.git` 把汉化组的官方库添加为远端库
     * 例外：如果你同时 fork 了yiisoft/yii2，你可以把 yii2-chiesization 远端，命名为 `chinesization`，或其他你能明白的名字。这样修改以后请对应修改掉下面的 `upstream` 改为你命名的远端名称，如 `chinesization`
+
+步骤1~5是一个初始化流程，只需要做一遍就行，之后请一直在 temp （或其他名字）分支进行修改。
+
 6. 分别在两个目录内，运行 `git remote update` 更新两库
 7. 分别在两个目录内，运行 `git fetch upstream master` 拉取两库的更新到本地
 8. 分别在两个目录内，使用 `git checkout temp` 切换回你的日常分支后，运行 `git rebase upstream/master` 将两库的更新合并到你的分支
 
-步骤1~5是一个初始化流程，只需要做一遍就行，之后请一直在 temp （或其他名字）分支进行修改。
-
-如果修改过程中官方库（不管是文档库还是官方库）有了更新，在对应的库目录下重复6、7、8步即可。
+如果修改过程中我们的仓库（不管是文档库还是官方库）有了更新，在对应的库目录下重复6、7、8步即可。
+也可以简写为 `git pull --rebase upstream master` 一条命令。或者你用 SourceTree 等 GUI 的话，在 push 面板下勾选用变基替代合并。也可以起到相同的作用，巧用变基，可以避免不必要的合并。
 
 修改之后，首先 Push 到你的库，然后登录 GitHub，在你的库的首页可以看到一个 `pull request` 按钮，点击它，填写一些说明信息，
 然后提交即可。
