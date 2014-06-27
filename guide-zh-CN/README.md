@@ -51,9 +51,9 @@ Yii 2.0 权威指南
 * **已定稿**【未校对-20140610-AbrahamGreyson】 [运行应用](start-workflow.md)
 * **已定稿**【未校对-20140610-AbrahamGreyson】 [第一声问候](start-hello.md)
 * **已定稿**【未校对-20140623-AbrahamGreyson】 [使用 Forms](start-forms.md)
-* **已定稿**【翻译中-20140616-AbrahamGreyson】 [玩转 Databases](start-databases.md)
-* **已定稿**【翻译中-20140616-AbrahamGreyson】 [用 Gii 生成代码](start-gii.md)
-* **已定稿**【翻译中-20140616-AbrahamGreyson】 [更上一层楼](start-looking-head.md)
+* **已定稿**【未校对-20140616-AbrahamGreyson】 [玩转 Databases](start-databases.md)
+* **已定稿**【未校对-20140616-AbrahamGreyson】 [用 Gii 生成代码](start-gii.md)
+* **已定稿**【未校对-20140616-AbrahamGreyson】 [更上一层楼](start-looking-ahead.md)
 
 应用结构
 --------
