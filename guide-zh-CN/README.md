@@ -58,18 +58,18 @@ Yii 2.0 权威指南
 应用结构
 --------
 
-* **已定稿**【翻译中-驱逐舰】 [结构总览](structure-overview.md)
-* **已定稿**【翻译中-驱逐舰】 [入口脚本](structure-entry-scripts.md)
-* **已定稿**【翻译中-驱逐舰】 [应用](structure-applications.md)
-* **已定稿**【翻译中-驱逐舰】 [应用组件](structure-application-components.md)
-* **已定稿**【翻译中-驱逐舰】 [控制器（Controller）](structure-controllers.md)
-* **已定稿**【翻译中-驱逐舰】 [视图（View）](structure-views.md)
-* **已定稿**【翻译中-驱逐舰】 [模型（Model）](structure-models.md)
-* **已定稿**【翻译中-驱逐舰】 [过滤器](structure-filters.md)
-* **已定稿**【翻译中-驱逐舰】 [小部件（Widget）](structure-widgets.md)
-* **已定稿**【翻译中-驱逐舰】 [模块（Module）](structure-modules.md)
+* **已定稿**【翻译中-yiichina】 [结构总览](structure-overview.md)
+* **已定稿**【翻译中-yiichina】 [入口脚本](structure-entry-scripts.md)
+* **已定稿**【翻译中-yiichina】 [应用](structure-applications.md)
+* **已定稿**【翻译中-yiichina】 [应用组件](structure-application-components.md)
+* **已定稿**【翻译中-yiichina】 [控制器（Controller）](structure-controllers.md)
+* **已定稿**【翻译中-yiichina】 [视图（View）](structure-views.md)
+* **已定稿**【翻译中-yiichina】 [模型（Model）](structure-models.md)
+* **已定稿**【翻译中-yiichina】 [过滤器](structure-filters.md)
+* **已定稿**【翻译中-yiichina】 [小部件（Widget）](structure-widgets.md)
+* **已定稿**【翻译中-yiichina】 [模块（Module）](structure-modules.md)
 * **编撰中**【需更新】 [前端资源（Asset）](structure-assets.md)
-* **待定中**【翻译中-驱逐舰】 [扩展（extensions）](structure-extensions.md)
+* **待定中**  [扩展（extensions）](structure-extensions.md)
 
 请求处理
 --------
@@ -147,15 +147,15 @@ Yii 2.0 权威指南
 RESTful Web 服务
 ----------------
 
-* **已定稿**【翻译中-驱逐舰】 [快速入门](rest-quick-start.md)
-* **已定稿**【翻译中-驱逐舰】 [资源](rest-resources.md)
-* **已定稿**【翻译中-驱逐舰】 [路由](rest-routing.md)
-* **已定稿**【翻译中-驱逐舰】 [格式化响应](rest-response-formatting.md)
-* **已定稿**【翻译中-驱逐舰】 [授权验证](rest-authentication.md)
-* **已定稿**【翻译中-驱逐舰】 [速率限制](rest-rate-limiting.md)
-* **已定稿**【翻译中-驱逐舰】 [版本化](rest-versioning.md)
-* **已定稿**【翻译中-驱逐舰】 [错误处理](rest-error-handling.md)
-* **已定稿**【翻译中-驱逐舰】 [测试](rest-testing.md)
+* **已定稿**【翻译中-yiichina】 [快速入门](rest-quick-start.md)
+* **已定稿**【翻译中-yiichina】 [资源](rest-resources.md)
+* **已定稿**【翻译中-yiichina】 [路由](rest-routing.md)
+* **已定稿**【翻译中-yiichina】 [格式化响应](rest-response-formatting.md)
+* **已定稿**【翻译中-yiichina】 [授权验证](rest-authentication.md)
+* **已定稿**【翻译中-yiichina】 [速率限制](rest-rate-limiting.md)
+* **已定稿**【翻译中-yiichina】 [版本化](rest-versioning.md)
+* **已定稿**【翻译中-yiichina】 [错误处理](rest-error-handling.md)
+* **已定稿**【翻译中-yiichina】 [测试](rest-testing.md)
 
 开发工具
 --------
