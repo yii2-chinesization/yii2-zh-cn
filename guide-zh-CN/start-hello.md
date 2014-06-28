@@ -1,7 +1,7 @@
 说声 Hello
 ============
 
-本小节描述如何在你的应用中创建一个新的 “Hello” 页面。为了实现这个目标，你将会创建一个[操作](structure-controllers.md#creating-actions)和一个[视图](structure-views.md)：
+本小节描述如何在你的应用中创建一个新的 “Hello” 页面。为了做到这点，你将会创建一个[操作](structure-controllers.md#creating-actions)和一个[视图](structure-views.md)：
 
 * 应用将会分派页面请求给操作
 * 操作将会依次渲染视图呈现 “Hello” 给最终用户
@@ -33,7 +33,7 @@ class SiteController extends Controller
 {
     // ...其它代码...
 
-    public function actionSay($message = 'Hello')
+    public function actionSay($message = '你好')
     {
         return $this->render('say', ['message' => $message]);
     }
