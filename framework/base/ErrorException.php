@@ -1,0 +1,98 @@
+<?php
+/**
+ * 翻译日期：20140510
+ */
+
+/**
+ * @link http://www.yiiframework.com/
+ * @copyright Copyright (c) 2008 Yii Software LLC
+ * @license http://www.yiiframework.com/license/
+ */
+
+namespace yii\base;
+
+use Yii;
+
+/**
+ * ErrorException（错误异常）代表一个 PHP 错误
+ *
+ * @author Alexander Makarov <sam@rmcreative.ru>
+ * @since 2.0
+ */
+class ErrorException extends \ErrorException
+{
+    /**
+     * 异常的构造函数
+     * @link http://php.net/manual/en/errorexception.construct.php
+     * @param $message [optional] 可选项
+     * @param $code [optional] 可选项
+     * @param $severity [optional] 可选项
+     * @param $filename [optional] 可选项
+     * @param $lineno [optional] 可选项
+     * @param $previous [optional] 可选项
+     */
+    public function __construct($message = '', $code = 0, $severity = 1, $filename = __FILE__, $lineno = __LINE__, \Exception $previous = null)
+    {
+        parent::__construct($message, $code, $severity, $filename, $lineno, $previous);
+
+        if (function_exists('xdebug_get_function_stack')) {
+            $trace = array_slice(array_reverse(xdebug_get_function_stack()), 3, -1);
+            foreach ($trace as &$frame) {
+                if (!isset($frame['function'])) {
+                    $frame['function'] = 'unknown';
+                }
+
+                // XDebug < 2.1.1: http://bugs.xdebug.org/view.php?id=695
+                if (!isset($frame['type']) || $frame['type'] === 'static') {
+                    $frame['type'] = '::';
+                } elseif ($frame['type'] === 'dynamic') {
+                    $frame['type'] = '->';
+                }
+
+                // XDebug has a different key name
+                if (isset($frame['params']) && !isset($frame['args'])) {
+                    $frame['args'] = $frame['params'];
+                }
+            }
+
+            $ref = new \ReflectionProperty('Exception', 'trace');
+            $ref->setAccessible(true);
+            $ref->setValue($this, $trace);
+        }
+    }
+
+    /**
+     * 返回是否致命类型错误
+     *
+     * @param array $error 从error_get_last()获取的错误
+     * @return boolean 是否致命类型错误
+     */
+    public static function isFatalError($error)
+    {
+        return isset($error['type']) && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR, E_COMPILE_WARNING]);
+    }
+
+    /**
+     * @return string 人性化的异常名
+     */
+    public function getName()
+    {
+        $names = [
+            E_ERROR => 'PHP Fatal Error',
+            E_PARSE => 'PHP Parse Error',
+            E_CORE_ERROR => 'PHP Core Error',
+            E_COMPILE_ERROR => 'PHP Compile Error',
+            E_USER_ERROR => 'PHP User Error',
+            E_WARNING => 'PHP Warning',
+            E_CORE_WARNING => 'PHP Core Warning',
+            E_COMPILE_WARNING => 'PHP Compile Warning',
+            E_USER_WARNING => 'PHP User Warning',
+            E_STRICT => 'PHP Strict Warning',
+            E_NOTICE => 'PHP Notice',
+            E_RECOVERABLE_ERROR => 'PHP Recoverable Error',
+            E_DEPRECATED => 'PHP Deprecated Warning',
+        ];
+
+        return isset($names[$this->getCode()]) ? $names[$this->getCode()] : 'Error';
+    }
+}
