@@ -89,7 +89,7 @@ Yii 2.0 权威指南
 * **已定稿**【未校对-20140526-qiansen1386】 [组件（Component）](concept-components.md)
 * **已定稿**【未校对-20140628-qiansen1386】 [属性（Property）](concept-properties.md)
 * **已定稿**【需更新】 [事件（Event）](concept-events.md)
-* **已定稿**【需更新】 [行为（Behavior）](concept-behaviors.md)
+* **已定稿**【翻译中-20140627-qiansen1386】 [行为（Behavior）](concept-behaviors.md)
 * **已定稿**【需更新】 [配置（Configs）](concept-configurations.md)
 * **已定稿**【未校对-20140511-qiansen1386】 [类自动加载（Autoloading）](concept-autoloading.md)
 * **已定稿**【未校对-20140701-qiansen1386】 [别名（Alias）](concept-alias.md)
