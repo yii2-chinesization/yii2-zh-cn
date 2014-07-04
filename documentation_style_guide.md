@@ -28,7 +28,7 @@
 ## 参考文献 References
 
 * Yii 2.0 或 Yii 2 （不是 Yii2 或 Yii2.0）
-* Each "page" of the guide is referred to as a "section".（什么意思，好）
+* 指南的每一页都以 “section” 方式表达（译者：把每页称为一章节）。
 
 ## 大小写 Capitalizations
 
