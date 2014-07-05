@@ -9,6 +9,7 @@ Active Record       |活动记录，简称 AR |其实可以不翻译            
 Alias               |（路径）别名      |                                     |Noun
 Application         |应用程序，简称应用|此应用非手机应用，指的是我们开发的项目的应用程序主体。容易混淆的地方请解释一下|Noun
 Attribute           |特性，或数据属性  |【待定】Yii1时代叫特性，$model->attributes 模型类(对象)的属性|Noun
+attach           |配属，附加  |                                       |Noun
 Bundle              |包                |                                     |Noun
 Class               |类                |                                     |Noun
 Collection          |集合              |                                     |Noun
