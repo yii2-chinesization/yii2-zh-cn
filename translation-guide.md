@@ -202,7 +202,11 @@ git log ./path/file.md
 
 比如：
 
-    [pivot table]: http://en.wikipedia.org/wiki/Pivot_table "Pivot table（数据透视表（中间表），英文，维基百科）" 
+    [pivot table]: http://en.wikipedia.org/wiki/Pivot_table "Pivot table（数据透视表（中间表），英文，维基百科）"
+
+#### 斜体字
+
+若原文中包含 ```*斜体*```，改为 ```**粗体**```，原因是中文是区块字，倾斜后会破坏区块感觉，影响阅读体验。
 
 附录
 ------------------
