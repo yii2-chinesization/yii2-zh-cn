@@ -86,7 +86,7 @@ Yii 2.0 权威指南
 关键概念
 --------
 
-* **已定稿**【未校对-20140526-qiansen1386】 [组件（Component）](concept-components.md)
+* **已定稿**【已校对-20140525-qiansen1386】 [组件（Component）](concept-components.md)
 * **已定稿**【未校对-20140628-qiansen1386】 [属性（Property）](concept-properties.md)
 * **已定稿**【翻译中-20140704-qiansen1386】 [事件（Event）](concept-events.md)
 * **已定稿**【未校对-20140704-qiansen1386】 [行为（Behavior）](concept-behaviors.md)
