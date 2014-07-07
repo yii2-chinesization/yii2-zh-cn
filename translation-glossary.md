@@ -18,6 +18,7 @@ Component           |组件              |Yii 1的翻译                        
 Composer            |Composer          |                                     |Noun
 Configuration       |配置              |                                     |Noun
 Controller          |控制器（Controller）|                                   |Noun
+Constructor         |构造方法          |                                     |Noun
 Database            |数据库            |                                     |Noun
 Design Pattern      |设计模式          |                                     |Noun
 Eager Loading       |贪婪加载          |                                     |Noun
