@@ -23,6 +23,7 @@ Database            |数据库            |                                     
 Design Pattern      |设计模式          |                                     |Noun
 Eager Loading       |贪婪加载          |                                     |Noun
 Event Handler       |事件句柄          |或者叫事件处理器                     |Noun
+For example         |例如，如          |                                      |
 Extension           |扩展              |                                     |Noun
 Fixtures            |测试夹具          |【待定】非常难翻译的概念，微软翻译为装置，未来认为“定制器”的翻译表意更准|Noun
 Framework           |框架              |                                     |Noun
@@ -30,6 +31,7 @@ Fullstack           |全栈              |所有的层次，前端到后端，�
 Generator           |生成器            |                                     |Noun
 Gii                 |Gii               |自动代码生成器                       |Noun
 Helper              |助手类（Helper）  |                                     |Noun
+i.e.                |也就是，即        |                                     |
 Implement           |实现              |或具体实现                           |Verb
 Installation        |安装              |                                     |Noun
 Initialization      |初始化            |                                     |Noun
