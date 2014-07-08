@@ -1,198 +1,231 @@
 配置
 =============
 
-> 注意：本章节还在开发中。
+在 Yii 中，创建新对象和初始化已存在对象时广泛使用配置。配置通常包含被创建对象的类名和一组将要赋值给对象[属性](concept-properties.md)的初始值。还可能包含一组将被附加到对象[事件](concept-events.md)上的句柄。和一组将被附加到对象上的[行为](concept-behaviors.md)。
 
-对象配置
----------
-
-[[yii\base\Object|Object]]类引进了一个配置对象的统一方式。[[yii\base\Object|Object]]的任何继承类都要如下声明它的构造函数（如需要），以便它能被正确配置：
+以下代码中的配置被用来创建并初始化一个数据库连接：
 
 ```php
-class MyClass extends \yii\base\Object
-{
-    public function __construct($param1, $param2, $config = [])
-    {
-        // ... 配置生效前在此初始化
-
-        parent::__construct($config);
-    }
-
-    public function init()
-    {
-        parent::init();
-
-        // ... 配置生效后在此初始化
-    }
-}
-```
-
-以上示例，构造函数的最后一个参数必须是配置数组，用于构造函数结束时初始化对象属性。
-
-覆写 `init()` 方法可以在配置生效后继续做初始化工作。
-
-遵守上述约定就能够如下这样用配置数组来创建和配置新对象：
-
-``php
-$object = Yii::createObject([
-    'class' => 'MyClass',
-    'property1' => 'abc',
-    'property2' => 'cde',
-], [$param1, $param2]);
-```
-
-
-Yii 应用依靠组件来执行大多数常见任务，如连接数据库、路由浏览器请求和处理会话。这些常备的组件都可以通过 *配置* Yii 应用来调整其表现。
-多数组件缺省设置是合理的，不一定需要你做非常多的配置。但仍有一些必要的配置需要你完成，如数据库连接。
-应用如何配置取决于使用的应用模板，但有一些共同原则适用于所有 Yii 应用。
-
-引导文件的配置选项
------------------------------------------
-
-Yii 的每个应用都有至少一个引导文件：即一个用于处理所有请求的 PHP 脚本。每个Web应用的引导文件通常是 `index.php`；
-控制台应用的引导文件是 `yii`。两个引导文件执行几乎相同的工作：
-
-1. 设置通用常量。
-2. 导入 Yii 框架本身。
-3. 导入 [Composer 的自动加载器（autoloader）](http://getcomposer.org/doc/01-basic-usage.md#autoloading).
-4. 读取配置文件到 `$config` 变量。
-5. 创建一个新的应用实例，通过 `$config` 来配置并运行这个实例。
-
-如同你 Yii 应用中的每一个资源一样，引导文件也可以被修改来满足你的需求。一个典型的改变就是更改 `YII_DEBUG` 的值。这个常量应该在开发阶段被设定为 `true`，但是在生产环境下，始终为 `false`。
-
-若你没有特殊指定，则默认的引导结构会设置 `YII_DEBUG` 为 `false`：
-
-```php
-defined('YII_DEBUG') or define('YII_DEBUG', false);
-```
-
-在开发阶段，你可以更改它为 `true`：
-
-```php
-define('YII_DEBUG', true); // 仅开发阶段使用 
-defined('YII_DEBUG') or define('YII_DEBUG', false); //生产环境使用
-```
-
-配置应用实例
-------------------------------------
-
-当一个应用实例在引导脚本中被创建时，它就会被配置。这些配置通常被
-存储在`/config` 文件夹里的一个PHP文件中，
-
-```php
-<?php
-return [
-    'id' => 'applicationId',
-    'basePath' => dirname(__DIR__),
-    'components' => [
-        //应用组件的配置放在这里……
-    ],
-    'params' => require(__DIR__ . '/params.php'),
+$config = [
+    'class' => 'yii\db\Connection',
+    'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
+    'username' => 'root',
+    'password' => '',
+    'charset' => 'utf8',
 ];
+
+$db = Yii::createObject($config);
 ```
 
-配置是一个超大的键值对数组。在上面的代码中，数组的键是应用属性的名字，取决于应用的类型，
-你可以配置  [[yii\web\Application]] 或 [[yii\console\Application]] 中的类的属性
+[[Yii::createObject()]] 方法接受一个配置并根据配置中指定的类名创建对象。对象实例化后，剩余的参数被用来初始化对象的属性，事件处理和行为。
 
-请注意，你不仅仅可以配置public（公共）的类属性，也可以通过setter（设值函数）来访问其所有的属性。比如，
-  你可以用一个名为 `runtimePath` 的键值对，来配置runtime（运行环境）的路径。应用类中并没有名为runtime的属性，
-  但类中一个对应的setter叫做 `setRuntimePath`，这样 `runtimePath`就成为了可以被设置的选项。
-  任何扩展自  [[yii\base\Object]]的类都拥有通过 setters 来配置其属性的能力，而这包括了Yii框架中几乎所有的类。
-
-配置应用的组件
-----------------------------------
-
-绝大多数 Yii 的功能性体现在其应用组件的身上。这些组件可以通过配置应用的 `components` 属性，来附加到该应用实例中：
+对于已存在的对象，可以使用 [[Yii::configure()]] 方法根据配置去初始化其属性，就像这样：
 
 ```php
-<?php
-return [
-    'id' => 'applicationId',
+Yii::configure($object, $config);
+```
+
+请注意，如果配置一个已存在的对象，那么配置数组中不应该包含指定类名的 `class` 元素。
+
+
+## 配置的格式 <a name="configuration-format"></a>
+
+一个配置的格式可以描述为以下形式：
+
+```php
+[
+    'class' => 'ClassName',
+    'propertyName' => 'propertyValue',
+    'on eventName' => $eventHandler,
+    'as behaviorName' => $behaviorConfig,
+]
+```
+
+其中
+
+* `class` 元素指定了将要创建的对象的完全限定类名。
+* `propertyName` 元素指定了对象属性的初始值。键名是属性名，值是该属性对应的初始值。只有公共成员变量以及通过 getter/setter 定义的[属性](concept-properties.md)可以被配置。
+* `on eventName` 元素指定了附加到对象[事件](concept-events.md)上的句柄是什么。请注意，数组的键名由 `on ` 前缀加事件名组成。请参考[事件](concept-events.md)章节了解事件句柄格式。
+* `as behaviorName` 元素指定了附加到对象的[行为](concept-behaviors.md)。请注意，数组的键名由 `as ` 前缀加行为名组成。`$behaviorConfig` 表示创建行为的配置信息，格式与我们现在总体叙述的配置格式一样。
+
+下面是一个配置了初始化属性值，事件句柄和行为的示例：
+
+```php
+[
+    'class' => 'app\components\SearchEngine',
+    'apiKey' => 'xxxxxxxx',
+    'on search' => function ($event) {
+        Yii::info("搜索的关键词： " . $event->keyword);
+    },
+    'as indexer' => [
+        'class' => 'app\components\IndexerBehavior',
+        // ... 初始化属性值 ...
+    ],
+]
+```
+
+
+## 使用配置
+
+Yii 中的配置可以用在很多场景。本章开头我们展示了如何使用 [[Yii::creatObject()]] 根据配置信息创建对象。本小节将介绍配置的两种主要用法 —— 配置应用与配置小部件。
+
+
+### 应用的配置 <a name="application-configurations"></a>
+
+[应用](structure-applications.md)的配置可能是最复杂的配置之一。因为 [[yii\web\Application|application]] 类拥有很多可配置的属性和事件。更重要的是它的 [[yii\web\Application::components|components]] 属性可以接收配置数组并通过应用注册为组件。以下是一个针对[基础应用模板](start-basic.md)的应用配置概要：
+
+```php
+$config = [
+    'id' => 'basic',
     'basePath' => dirname(__DIR__),
+    'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'),
     'components' => [
-        'cache' => ['class' => 'yii\caching\FileCache'],
-        'user' => ['identityClass' => 'app\models\User'],
-        'errorHandler' => ['errorAction' => 'site/error'],
+        'cache' => [
+            'class' => 'yii\caching\FileCache',
+        ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+        ],
         'log' => [
+            'class' => 'yii\log\Dispatcher',
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
                 ],
             ],
         ],
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=stay2',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+        ],
     ],
-    // ...
 ];
 ```
 
-在上面的代码中，配置了四个组件：`cache`, `user`, `errorHandler`, `log`。每一个键值对的键是组件 ID。值是一个用于设置组件属性的子数组。组件 ID 同样也被用于在应用的其他位置访问该组件，像是这样：`\Yii::$app->myComponent`.
-
-配置数组具有一个特殊键，命名为 `class`，用于标识该组件的基类。键值对的剩余的其余部分被用于
-配置组件的属性，方式与配置应用的属性相同，也是以键值对的形式。
-
-每一个应用都会预先定义一系列的组件。在配置这些中的一个时，若使用 Yii 为其提供的默认类，则 `class` 这个键可以被省略。你也可以看下应用的 `coreComponents()` 方法，
-来详细看一下有哪些预定义的组件ID，和他们所对应的类。
-
-请注意Yii会聪明地在这个组件被确实使用的时候才配置他们，举例来说，如果你在配置脚本中提供了 `cache` 组件的配置信息，但在后续代码中并没有使用这个组件，Yii不会浪费时间去配置这个还没有初始化的组件。
-
-设置组件的默认类
-------------------------------------
-
-你可以给每一个组件都指定其所用的默认类。比如，如果你想替换掉所有被使用的 `LinkPager` 小部件的类，
-你无需在每一次它被使用的时候都指定一次，你只需这样：
+配置中没有 `class` 键的原因是这段配置应用在下面的入口脚本中，类名已经指定了。
 
 ```php
-\Yii::$container->set('yii\widgets\LinkPager', [
-    'options' => [
-        'class' => 'pagination',
+(new yii\web\Application($config))->run();
+```
+
+更多关于应用 `components` 属性配置的信息可以查阅[应用](structure-applications.md)以及[服务定位器](concept-service-locator.md)章节。
+
+
+### 小部件的配置 <a name="widget-configurations"></a>
+
+使用[小部件](structure-widgets.md)时，常常需要配置以便自定义其属性。 [[yii\base\Widget::widget()]] 和  [[yii\base\Widget::beginWidget()]] 方法都可以用来创建小部件。它们可以接受配置数组：
+
+```php
+use yii\widgets\Menu;
+
+echo Menu::widget([
+    'activateItems' => false,
+    'items' => [
+        ['label' => 'Home', 'url' => ['site/index']],
+        ['label' => 'Products', 'url' => ['product/index']],
+        ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
     ],
 ]);
 ```
 
-上面的这段代码应该放置在 `LinkPager` 小部件被使用之前。可以放置在入口脚本 `index.php`中，
-应用配置文件中，或者其他什么地方。
+上述代码创建了一个小部件 `Menu` 并将其 `activateItems` 属性初始化为 false。`item` 属性也配置成了将要显示的菜单条目。
+
+请注意，代码中已经给出了类名 `yii\widgets\Menu'，配置数组**不应该**再包含 `class` 键。
 
 
+## 配置文件 <a name="configuration-files"></a>
 
-
-### 用配置附加事件处理器
-
-也可以在配置文件内附加事件处理器，添加一个元素给要附加处理器的组件，语法是 `"on <event>" => handler` ：
+当配置的内容十分复杂，通用做法是将其存储在一或多个 PHP 文件中，这些文件被称为**配置文件**。一个配置文件返回的是 PHP 数组。例如，像这样把应用配置信息存储在名为 `web.php` 的文件中：
 
 ```php
 return [
-    // ...
-    'components' => [
-        'db' => [
-            // ...
-            'on afterOpen' => function ($event) {
-                // 连接数据库后这里完成一些工作
-            }
-        ],
-    ],
+    'id' => 'basic',
+    'basePath' => dirname(__DIR__),
+    'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'),
+    'components' => require(__DIR__ . '/components.php'),
 ];
 ```
 
-
-### 用配置附加行为
-
-当以配置数组配置组件时可以给它附加行为。语法是：
+鉴于 `components` 配置也很复杂，上述代码把它们存储在单独的 `components.php` 文件中，并且包含在 `web.php` 里。`components.php` 的内容如下：
 
 ```php
 return [
-    // ...
-    'components' => [
-        'myComponent' => [
-            // ...
-            'as tree' => [
-                'class' => 'Tree',
-                'root' => 0,
+    'cache' => [
+        'class' => 'yii\caching\FileCache',
+    ],
+    'mailer' => [
+        'class' => 'yii\swiftmailer\Mailer',
+    ],
+    'log' => [
+        'class' => 'yii\log\Dispatcher',
+        'traceLevel' => YII_DEBUG ? 3 : 0,
+        'targets' => [
+            [
+                'class' => 'yii\log\FileTarget',
             ],
         ],
     ],
+    'db' => [
+        'class' => 'yii\db\Connection',
+        'dsn' => 'mysql:host=localhost;dbname=stay2',
+        'username' => 'root',
+        'password' => '',
+        'charset' => 'utf8',
+    ],
 ];
 ```
 
-以上配置 `as tree` 表示附加一个名为 `tree` 的行为，这个数组将被传递到[[\Yii::createObject()]]创建行为对象。
+仅仅需要 “require”，就可以取得一个配置文件的配置内容，像这样：
+
+```php
+$config = require('path/to/web.php');
+(new yii\web\Application($config))->run();
+```
+
+
+## 默认配置 <a name="default-configurations"></a>
+
+[[Yii::createObject()]] 方法基于[依赖注入容器](concept-di-container.md)实现。使用 [[Yii::creatObject()]] 创建对象时，可以附加一系列**默认配置**到指定类的任何实例。默认配置还可以在[入口脚本](runtime-bootstrapping.md)中调用 `Yii::$container->set()` 来定义。
+
+例如，如果你想自定义 [[yii\widgets\LinkPager]] 小部件，以便让分页器最多只显示 5 个翻页按钮（默认是 10 个），你可以用下述代码实现：
+
+```php
+\Yii::$container->set('yii\widgets\LinkPager', [
+    'maxButtonCount' => 5,
+]);
+```
+
+不使用默认配置的话，你就得在任何使用分页器的地方，都配置 `maxButtonCount` 的值。
+
+
+## 环境常量 <a name="environment-constants"></a>
+
+配置经常要随着应用运行的不同环境更改。例如在开发环境中，你可能使用名为 `mydb_dev` 的数据库，而生产环境则使用 `mydb_prod` 数据库。为了便于切换使用环境，Yii 提供了一个定义在入口脚本中的 `YII_ENV` 常量。如下：
+
+```php
+defined('YII_ENV') or define('YII_ENV', 'dev');
+```
+
+你可以把 `YII_ENV` 定义成以下任何一种值：
+
+- `prod`：生产环境。常量 `YII_ENV_PROD` 将被看作 true。如果你没修改过，这就是 `YII_ENV` 的默认值。
+- `dev`：开发环境。常量 `YII_ENV_DEV` 将被看作 true。
+- `test`：测试环境。常量 `YII_ENV_TEST` 将被看作 true。
+
+有了这些环境常量，你就可以根据当下应用运行环境的不同，进行差异化配置。例如，应用可以包含下述代码只在开发环境中开启[调试工具](tool-debugger.md)。
+
+```php
+$config = [...];
+
+if (YII_ENV_DEV) {
+    // 根据 `dev` 环境进行的配置调整
+    $config['bootstrap'][] = 'debug';
+    $config['modules']['debug'] = 'yii\debug\Module';
+}
+
+return $config;
+```
