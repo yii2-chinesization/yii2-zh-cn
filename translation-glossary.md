@@ -31,7 +31,6 @@ Fullstack           |全栈              |所有的层次，前端到后端，�
 Generator           |生成器            |                                     |Noun
 Gii                 |Gii               |自动代码生成器                       |Noun
 Helper              |助手类（Helper）  |                                     |Noun
-i.e.                |也就是，即        |                                     |
 Implement           |实现              |或具体实现                           |Verb
 Installation        |安装              |                                     |Noun
 Initialization      |初始化            |                                     |Noun
