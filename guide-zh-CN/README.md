@@ -140,9 +140,9 @@ Yii 2.0 权威指南
 
 * **已定稿**【已校对-20140520-riverlet】[概述](caching-overview.md)
 * **已定稿**【未校对-20140628-riverlet】 [数据缓存](caching-data.md)
-* **已定稿**【待翻译】 [片段缓存](caching-fragment.md)
-* **已定稿**【待翻译】 [分页缓存](caching-page.md)
-* **已定稿**【待翻译】 [HTTP 缓存](caching-http.md)
+* **已定稿**【翻译中】 [片段缓存](caching-fragment.md)
+* **已定稿**【翻译中】 [分页缓存](caching-page.md)
+* **已定稿**【翻译中】 [HTTP 缓存](caching-http.md)
 
 RESTful Web 服务
 ----------------
