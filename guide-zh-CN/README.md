@@ -140,7 +140,7 @@ Yii 2.0 权威指南
 
 * **已定稿**【已校对-20140520-riverlet】[概述](caching-overview.md)
 * **已定稿**【已校对-20140628-riverlet】 [数据缓存](caching-data.md)
-* **已定稿**【翻译中-20140520-AbrahamGreyson】 [片段缓存](caching-fragment.md)
+* **已定稿**【未校对-20140520-AbrahamGreyson】 [片段缓存](caching-fragment.md)
 * **已定稿**【翻译中-20140628-AbrahamGreyson】 [分页缓存](caching-page.md)
 * **已定稿**【翻译中-20140524-AbrahamGreyson】 [HTTP 缓存](caching-http.md)
 
