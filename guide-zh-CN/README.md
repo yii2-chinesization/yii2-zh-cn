@@ -69,7 +69,7 @@ Yii 2.0 权威指南
 * **已定稿**【翻译中-yiichina】 [小部件（Widget）](structure-widgets.md)
 * **已定稿**【翻译中-yiichina】 [模块（Module）](structure-modules.md)
 * **编撰中**【需更新】 [前端资源（Asset）](structure-assets.md)
-* **待定中**  [扩展（extensions）](structure-extensions.md)
+* **已定稿**【待翻译】  [扩展（extensions）](structure-extensions.md)
 
 请求处理
 --------
@@ -88,7 +88,7 @@ Yii 2.0 权威指南
 
 * **已定稿**【已校对-20140525-qiansen1386】 [组件（Component）](concept-components.md)
 * **已定稿**【已校对-20140628-qiansen1386】 [属性（Property）](concept-properties.md)
-* **已定稿**【已校对-20140704-qiansen1386】 [事件（Event）](concept-events.md)
+* **已定稿**【已校对-20140704-AbrahamGreyson】 [事件（Event）](concept-events.md)
 * **已定稿**【已校对-20140704-qiansen1386】 [行为（Behavior）](concept-behaviors.md)
 * **已定稿**【未校对-20140626-AbrahamGreyson】 [配置（Configurations）](concept-configurations.md)
 * **已定稿**【已校对-20140511-qiansen1386】 [类自动加载（Autoloading）](concept-autoloading.md)
@@ -174,16 +174,6 @@ RESTful Web 服务
 * **待定中** [验收测试](test-acceptance.md)
 * **编撰中**【需更新】 [测试夹具](test-fixtures.md)
 
-扩展 Yii
---------
-
-* **编撰中**【需更新】 [创建扩展](extend-creating-extensions.md)
-* **编撰中**【需更新】 [定制核心代码](extend-customizing-core.md)
-* **编撰中**【需更新】 [使用第三方库](extend-using-libs.md)
-* **待定中** [在第三方系统使用 Yii](extend-embedding-in-others.md)
-* **待定中** [Yii 1.1 和 2.0 共用](extend-using-v1-v2.md)
-* **编撰中**【需更新】 [使用依赖包管理器 Composer](extend-using-composer.md)
-
 
 高级专题
 --------
@@ -197,6 +187,7 @@ RESTful Web 服务
 * **编撰中**【需更新】 [性能优化](tutorial-performance-tuning.md)
 * **待定中** [共享主机环境](tutorial-shared-hosting.md)
 * **编撰中**【需更新】 [模板引擎](tutorial-template-engines.md)
+* **已定稿**【待翻译】 [集成第三方代码](tutorial-yii-integration.md)
 
 小部件
 ------
@@ -212,6 +203,7 @@ RESTful Web 服务
 * **已定稿** [Bootstrap 小部件](widget-bootstrap.md)
 * **已定稿** [Jquery UI 小部件](widget-jui.md)
 
+
 助手类
 ------
 
@@ -221,6 +213,18 @@ RESTful Web 服务
 * **待定中** [Url](helper-url.md)
 * **待定中** [security](helper-security.md)
 
+
 不在目录内的文件
 ----------------
 * 【待翻译】 [glossary](glossary.md)
+
+
+应删除文件
+--------
+
+* **编撰中**【需更新】 [创建扩展](extend-creating-extensions.md)
+* **编撰中**【需更新】 [定制核心代码](extend-customizing-core.md)
+* **编撰中**【需更新】 [使用第三方库](extend-using-libs.md)
+* **待定中** [在第三方系统使用 Yii](extend-embedding-in-others.md)
+* **待定中** [Yii 1.1 和 2.0 共用](extend-using-v1-v2.md)
+* **编撰中**【需更新】 [使用依赖包管理器 Composer](extend-using-composer.md)
