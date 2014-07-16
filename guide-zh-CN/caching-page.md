@@ -1,11 +1,9 @@
-Page Caching
+页面缓存
 ============
 
-Page caching refers to caching the content of a whole page on the server side. Later when the same page
-is requested again, its content will be served from the cache instead of regenerating it from scratch.
+页面缓存指的是在服务器端缓存整个页面的内容。随后当同一个页面被请求时，内容将从缓存中取出，而不是重新生成。
 
-Page caching is supported by [[yii\filters\PageCache]], an [action filter](structure-filters.md).
-It can be used like the following in a controller class:
+页面缓存由 [[yii\filters\PageCache]] 类提供支持，该类是一个[过滤器](structure-filters.md)。它可以像这样在控制器类中使用：
 
 ```php
 public function behaviors()
@@ -27,14 +25,16 @@ public function behaviors()
 }
 ```
 
-The above code states that page caching should be used only for the `index` action; the page content should
-be cached for at most 60 seconds and should be variated by the current application language;
-and the cached page should be invalidated if the total number of posts is changed.
+上述代码表示页面缓存只在 `index` 操作时启用，页面内容最多被缓存 60 秒，会随着当前应用的语言更改而变化。如果文章总数发生变化则缓存的页面会失效。
 
-As you can see, page caching is very similar to [fragment caching](caching-fragment.md). They both support options such
-as `duration`, `dependencies`, `variations`, and `enabled`. Their main difference is that page caching is
-implemented as an [action filter](structure-filters.md) while fragment caching a [widget](structure-widgets.md).
+如你所见，页面缓存和[片段缓存](caching-fragment.md)极其相似。它们都支持 `duration`，`dependencies`，`variations` 和 `enabled` 配置选项。它们的主要区别是页面缓存是由[过滤器](structure-filters.md)实现，而片段缓存则是一个[小部件](structure-widgets.md)。
 
-You can use [fragment caching](caching-fragment.md) as well as [dynamic content](caching-fragment.md#dynamic-content)
-together with page caching.
+你可以在使用页面缓存的同时，使用[片段缓存](caching-fragment.md)和[动态内容](caching-fragment.md#dynamic-content)。
+
+
+
+
+
+
+
 
