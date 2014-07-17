@@ -1,36 +1,31 @@
-HTTP Caching
+HTTP 缓存
 ============
 
-Besides server-side caching that we have described in the previous sections, Web applications may
-also exploit client-side caching to save the time for generating and transmitting the same page content.
+除了前面章节讲到的服务器端缓存外， Web 应用还可以利用客户端缓存去节省相同页面内容的生成和传输时间。
 
-To use client-side caching, you may configure [[yii\filters\HttpCache]] as a filter for controller
-actions whose rendering result may be cached on the client side. [[yii\filters\HttpCache|HttpCache]]
-only works for `GET` and `HEAD` requests. It can handle three kinds of cache-related HTTP headers for these requests:
+通过配置 [[yii\filters\HttpCache]] 过滤器，控制器操作渲染的内容就能缓存在客户端。[[yii\filters\HttpCache|HttpCache]] 过滤器仅对 `GET` 和 `HEAD` 请求生效，它能为这些请求设置三种与缓存有关的 HTTP 头。
 
 * [[yii\filters\HttpCache::lastModified|Last-Modified]]
 * [[yii\filters\HttpCache::etagSeed|Etag]]
 * [[yii\filters\HttpCache::cacheControlHeader|Cache-Control]]
 
 
-## `Last-Modified` Header <a name="last-modified"></a>
+## `Last-Modified` 头 <a name="last-modified"></a>
 
-The `Last-Modified` header uses a timestamp to indicate if the page has been modified since the client caches it.
+`Last-Modified` 头使用时间戳标明页面自上次客户端缓存后是否被修改过。
 
-You may configure the [[yii\filters\HttpCache::lastModified]] property to enable sending
-the `Last-Modified` header. The property should be a PHP callable returning a UNIX timestamp about
-the page modification time. The signature of the PHP callable should be as follows,
+通过配置 [[yii\filters\HttpCache::lastModified]] 属性向客户端发送 `Last-Modified` 头。该属性的值应该为 PHP callable 类型，返回的是页面修改时的 Unix 时间戳。该 callable 的参数和返回值应该如下：
 
 ```php
 /**
- * @param Action $action the action object that is being handled currently
- * @param array $params the value of the "params" property
- * @return integer a UNIX timestamp representing the page modification time
+ * @param Action $action 当前处理的操作对象
+ * @param array $params “params” 属性的值
+ * @return integer 页面修改时的 Unix 时间戳
  */
 function ($action, $params)
 ```
 
-The following is an example of making use of the `Last-Modified` header:
+以下是使用 `Last-Modified` 头的示例：
 
 ```php
 public function behaviors()
@@ -48,34 +43,25 @@ public function behaviors()
 }
 ```
 
-The above code states that HTTP caching should be enabled for the `index` action only. It should
-generate a `Last-Modified` HTTP header based on the last update time of posts. When a browser visits
-the `index` page for the first time, the page will be generated on the server and sent to the browser;
-If the browser visits the same page again and there is no post being modified during the period,
-the server will not re-generate the page, and the browser will use the cached version on the client side.
-As a result, server-side rendering and page content transmission are both skipped.
+上述代码表明 HTTP 缓存只在 `index` 操作时启用。它会基于页面最后修改时间生成一个 `Last-Modified` HTTP 头。当浏览器第一次访问 `index` 页时，服务器将会生成页面并发送至客户端浏览器。之后客户端浏览器在页面没被修改期间访问该页，服务器将不会重新生成页面，浏览器会使用之前客户端缓存下来的内容。因此服务端渲染和内容传输都将省去。
 
 
-## `ETag` Header <a name="etag"></a>
+## `ETag` 头 <a name="etag"></a>
 
-The "Entity Tag" (or `ETag` for short) header use a hash to represent the content of a page. If the page
-is changed, the hash will be changed as well. By comparing the hash kept on the client side with the hash
-generated on the server side, the cache may determine whether the page has been changed and should be re-transmitted.
+“Entity Tag”（实体标签，简称 ETag）使用一个哈希值表示页面内容。如果页面被修改过，哈希值也会随之改变。通过对比客户端的哈希值和服务器端生成的哈希值，浏览器就能判断页面是否被修改过，进而决定是否应该重新传输内容。
 
-You may configure the [[yii\filters\HttpCache::etagSeed]] property to enable sending the `ETag` header.
-The property should be a PHP callable returning a seed for generating the ETag hash. The signature of the PHP callable
-should be as follows,
+通过配置 [[yii\filters\HttpCache::etagSeed]] 属性向客户端发送 `ETag` 头。该属性的值应该为 PHP callable 类型，返回的是一段种子字符用来生成 ETag 哈希值。该 callable 的参数和返回值应该如下：
 
 ```php
 /**
- * @param Action $action the action object that is being handled currently
- * @param array $params the value of the "params" property
- * @return string a string used as the seed for generating an ETag hash
+ * @param Action $action 当前处理的操作对象
+ * @param array $params “params” 属性的值
+ * @return string 一段种子字符用来生成 ETag 哈希值
  */
 function ($action, $params)
 ```
 
-The following is an example of making use of the `ETag` header:
+以下是使用 `ETag` 头的示例：
 
 ```php
 public function behaviors()
@@ -93,51 +79,30 @@ public function behaviors()
 }
 ```
 
-The above code states that HTTP caching should be enabled for the `view` action only. It should
-generate an `ETag` HTTP header based on the title and content of the requested post. When a browser visits
-the `view` page for the first time, the page will be generated on the server and sent to the browser;
-If the browser visits the same page again and there is change to the title and content of the post,
-the server will not re-generate the page, and the browser will use the cached version on the client side.
-As a result, server-side rendering and page content transmission are both skipped.
+上述代码表明 HTTP 缓存只在 `view` 操作时启用。它会基于用户请求的标题和内容生成一个 `ETag` HTTP 头。当浏览器第一次访问 `view` 页时，服务器将会生成页面并发送至客户端浏览器。之后客户端浏览器标题和内容没被修改在期间访问该页，服务器将不会重新生成页面，浏览器会使用之前客户端缓存下来的内容。因此服务端渲染和内容传输都将省去。
 
-ETags allow more complex and/or more precise caching strategies than `Last-Modified` headers.
-For instance, an ETag can be invalidated if the site has switched to another theme.
+ETag 相比 `Last-Modified` 能实现更复杂和更精确的缓存策略。例如，当站点切换到另一个主题时可以使 ETag 失效。
 
-Expensive ETag generation may defeat the purpose of using `HttpCache` and introduce unnecessary overhead,
-since they need to be re-evaluated on every request. Try to find a simple expression that invalidates
-the cache if the page content has been modified.
+复杂的 Etag 生成种子可能会违背使用 `HttpCache` 的初衷而引起不必要的性能开销，因为响应每一次请求都需要重新计算 Etag。请试着找出一个最简单的表达式去触发 Etag 失效。
 
 
-> Note: In compliant to [RFC 2616, section 13.3.4](http://tools.ietf.org/html/rfc2616#section-13.3.4),
-  `HttpCache` will send out both `ETag` and `Last-Modified` headers if they are both configured.
-  Consequently, both will be used for cache validation if sent by the client.
+> 注意：为了遵循 [RFC 2616, section 13.3.4（HTTP 协议）](http://tools.ietf.org/html/rfc2616#section-13.3.4)，如果同时配置了 `ETag` 和 `Last-Modified` 头，`HttpCache` 将会同时发送它们，因此它们将被同时用于客户端的缓存失效校验。
 
 
-## `Cache-Control` Header <a name="cache-control"></a>
+## `Cache-Control` 头 <a name="cache-control"></a>
 
-The `Cache-Control` header specifies the general caching policy for pages. You may send it by configuring
-the [[yii\filters\HttpCache::cacheControlHeader]] property with the header value. By default, the following
-header will be sent:
+`Cache-Control` 头指定了页面的常规缓存策略。可以通过配置 [[yii\filters\HttpCache::cacheControlHeader]] 属性发送相应的头信息。默认发送以下头：
 
 ```
 Cache-Control: public, max-age=3600
 ```
 
-## Session Cache Limiter <a name="session-cache-limiter"></a>
+## 会话缓存限制器 <a name="session-cache-limiter"></a>
 
-When a page uses session, PHP will automatically send some cache-related HTTP headers as specified in
-the `session.cache_limiter` PHP INI setting. These headers may interfere or disable the caching
-that you want from `HttpCache`. To prevent this problem, by default `HttpCache` will disable sending
-these headers automatically. If you want to change this behavior, you should configure the
-[[yii\filters\HttpCache::sessionCacheLimiter]] property. The property can take a string value, including
-`public`, `private`, `private_no_expire`, and `nocache`. Please refer to the PHP manual about
-[session_cache_limiter()](http://www.php.net/manual/en/function.session-cache-limiter.php)
-for explanations about these values.
+当页面使 session 时，PHP 将会按照 PHP.INI 中所设置的 `session.cache_limiter` 值自动发送一些缓存相关的 HTTP 头。这些 HTTP 头有可能会干扰你原本设置的 `HttpCache` 或让其失效。为了避免此问题，默认情况下 `HttpCache` 禁止自动发送这些头。想改变这一行为，可以配置 [[yii\filters\HttpCache::sessionCacheLimiter]] 属性。该属性接受一个字符串值，包括 `public`，`private`，`private_no_expire`，和 `nocache`。请参考 PHP 手册中的[缓存限制器](http://www.php.net/manual/en/function.session-cache-limiter.php)了解这些值的含义。
 
 
-## SEO Implications <a name="seo-implications"></a>
+## SEO 影响 <a name="seo-implications"></a>
 
-Search engine bots tend to respect cache headers. Since some crawlers have a limit on how many pages
-per domain they process within a certain time span, introducing caching headers may help indexing your
-site as they reduce the number of pages that need to be processed.
+搜索引擎趋向于遵循站点的缓存头。因为一些爬虫的抓取频率有限制，启用缓存头可以可以减少重复请求数量，增加爬虫抓取效率（译者：大意如此，但搜索引擎的排名规则不了解，好的缓存策略应该是可以为用户体验加分的）。
 
