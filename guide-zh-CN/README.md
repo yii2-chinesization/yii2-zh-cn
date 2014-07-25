@@ -112,7 +112,7 @@ Yii 2.0 权威指南
 -----------
 
 * **编撰中** [创建表单](input-forms.md)
-* **已定稿**【需更新|待翻译】 [输入验证](input-validation.md)
+* **已定稿**【翻译中-20140723-qiansen1386】 [输入验证](input-validation.md)
 * **编撰中** [文件上传](input-file-uploading.md)
 * **待定中** [多模型同时输入](input-multiple-models.md)
 
@@ -139,7 +139,7 @@ Yii 2.0 权威指南
 -----
 
 * **已定稿**【已校对-20140520-riverlet】[概述](caching-overview.md)
-* **已定稿**【已校对-20140628-riverlet】 [数据缓存](caching-data.md)
+* **已定稿**【需更新-20140628-riverlet】 [数据缓存](caching-data.md)
 * **已定稿**【未校对-20140520-AbrahamGreyson】 [片段缓存](caching-fragment.md)
 * **已定稿**【未校对-20140628-AbrahamGreyson】 [分页缓存](caching-page.md)
 * **已定稿**【未校对-20140524-AbrahamGreyson】 [HTTP 缓存](caching-http.md)
@@ -181,7 +181,7 @@ RESTful Web 服务
 * **编撰中**【需更新】 [高级应用模版](tutorial-advanced-app.md)
 * **编撰中** [从头构建自定义模版](tutorial-start-from-scratch.md)
 * **编撰中**【需更新】 [控制台命令](tutorial-console.md)
-* **已定稿**【待翻译】 [核心验证器](tutorial-core-validators.md)
+* **已定稿**【翻译中-20140725-qiansen1386】 [核心验证器](tutorial-core-validators.md)
 * **编撰中**【需更新】 [国际化](tutorial-i18n.md)
 * **编撰中** [收发邮件](tutorial-mailing.md)
 * **编撰中**【需更新】 [性能优化](tutorial-performance-tuning.md)

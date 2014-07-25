@@ -45,6 +45,7 @@ Override            |重写              |                                     |
 Package             |包                |同 Bundle                            |Noun
 perform             |运作或执行        |我觉得两种翻译均可，可根据上下文随意选择|Verb
 Property            |属性              |                                     |Noun
+populate model attributes|填充模型数据    |                                     |Verb phrase
 PHP                 |PHP               |                                     |Noun
 Query Builder       |查询生成器（Query Builder）|                            |Noun
 query building methods|查询生成方法    |                                     |Noun
