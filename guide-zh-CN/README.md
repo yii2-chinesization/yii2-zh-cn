@@ -181,7 +181,7 @@ RESTful Web 服务
 * **编撰中**【需更新】 [高级应用模版](tutorial-advanced-app.md)
 * **编撰中** [从头构建自定义模版](tutorial-start-from-scratch.md)
 * **编撰中**【需更新】 [控制台命令](tutorial-console.md)
-* **已定稿**【翻译中-20140725-qiansen1386】 [核心验证器](tutorial-core-validators.md)
+* **已定稿**【翻译中-20140727-qiansen1386】 [核心验证器](tutorial-core-validators.md)
 * **编撰中**【需更新】 [国际化](tutorial-i18n.md)
 * **编撰中** [收发邮件](tutorial-mailing.md)
 * **编撰中**【需更新】 [性能优化](tutorial-performance-tuning.md)

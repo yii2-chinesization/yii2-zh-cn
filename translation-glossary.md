@@ -28,6 +28,7 @@ Extension           |扩展              |                                     |
 Fixtures            |测试夹具          |【待定】非常难翻译的概念，微软翻译为装置，未来认为“定制器”的翻译表意更准|Noun
 Framework           |框架              |                                     |Noun
 Fullstack           |全栈              |所有的层次，前端到后端，从表现到数据 |Noun
+function signature|函数的样式|直译为函数的特征，此处理解为函数的参数及返回样式|Noun
 Generator           |生成器            |                                     |Noun
 Gii                 |Gii               |自动代码生成器                       |Noun
 Helper              |助手类（Helper）  |                                     |Noun
