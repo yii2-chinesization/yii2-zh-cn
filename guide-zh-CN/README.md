@@ -187,7 +187,7 @@ RESTful Web 服务
 * **编撰中**【需更新】 [性能优化](tutorial-performance-tuning.md)
 * **待定中** [共享主机环境](tutorial-shared-hosting.md)
 * **编撰中**【需更新】 [模板引擎](tutorial-template-engines.md)
-* **已定稿**【待翻译】 [集成第三方代码](tutorial-yii-integration.md)
+* **已定稿**【翻译中-20140706-qiansen1386】 [集成第三方代码](tutorial-yii-integration.md)
 
 小部件
 ------
