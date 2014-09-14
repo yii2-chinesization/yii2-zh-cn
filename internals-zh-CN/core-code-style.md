@@ -405,6 +405,13 @@ public function getEventHandlers($name)
 
 |前面的内容是上述的指向方法、属性或类的链接地址， 后面的内容为链接文字。
 
+也可以使用如下语法链接到权威指南：
+
+```markdown
+[link to guide](guide:file-name.md)
+[link to guide](guide:file-name.md#subsection)
+```
+
 
 #### 单行注释
 

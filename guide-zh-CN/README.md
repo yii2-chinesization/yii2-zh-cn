@@ -169,9 +169,9 @@ RESTful Web 服务
 -----
 
 * **编撰中** [概述](test-overview.md)
-* **待定中** [单元测试](test-unit.md)
-* **待定中** [功能测试](test-functional.md)
-* **待定中** [验收测试](test-acceptance.md)
+* **编撰中** [单元测试](test-unit.md)
+* **编撰中** [功能测试](test-functional.md)
+* **编撰中** [验收测试](test-acceptance.md)
 * **编撰中**【需更新】 [测试夹具](test-fixtures.md)
 
 
@@ -181,7 +181,7 @@ RESTful Web 服务
 * **编撰中**【需更新】 [高级应用模版](tutorial-advanced-app.md)
 * **编撰中** [从头构建自定义模版](tutorial-start-from-scratch.md)
 * **编撰中**【需更新】 [控制台命令](tutorial-console.md)
-* **已定稿**【翻译中-20140727-qiansen1386】 [核心验证器](tutorial-core-validators.md)
+* **已定稿**【未校对-20140727-qiansen1386】 [核心验证器](tutorial-core-validators.md)
 * **编撰中**【需更新】 [国际化](tutorial-i18n.md)
 * **编撰中** [收发邮件](tutorial-mailing.md)
 * **编撰中**【需更新】 [性能优化](tutorial-performance-tuning.md)
