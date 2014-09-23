@@ -58,14 +58,24 @@ Yii2 开发及用户贡献文档中文本土化组织
 Yii 的生态圈<a name="yiicosystem">
 --------
 
+### 学习：
+
 - 文档原文：[Doc 2.0](http://www.yiiframework.com/doc-2.0/index.html)
 - Yii2 官方仓库：[GitHub：yiisoft/yii2](https://github.com/yiisoft/yii2/tree/master/docs/guide)
-- Forecho 的中文问答社区: [Get√Yii](http://www.getyii.com/)
-- ╃巡洋艦㊣ 舰长大人旗下老牌 Yii 大型综合社区：[Yii China](http://www.yiichina.com/)
 - Yii 大神——未来哥旗下分享好书的：[yiibook.com](http://yiibook.com)
 - 深入浅出的文字教程[深入理解Yii2.0](http://www.digpage.com/index.html)
-- 小蘿蔔丁提供的[Yii 2.0权威指南](http://yii2.xlbd.net/web/index.php)
 - 踏德网提供的[Yii 2.0在线翻译平台](http://yii2.techbrood.com/guide-index.html)（由他们负责人透露他们的翻译为其独立完成的）
+
+###社区：
+
+- ╃巡洋艦㊣ 舰长大人旗下老牌 Yii 大型综合社区：[Yii China](http://www.yiichina.com/)
 - 在云端提供的[YiiFans 在线论坛](http://www.yiifans.com/forum.php)
+
+###问答：
+
+- Forecho 的中文问答社区: [Get√Yii](http://www.getyii.com/)
+
+###其他：
+
 - 宏大师为解决国内访问 Packagist.org 不稳定的现状制作的[Composer Proxy](http://composer-proxy.com/)
 - Composer 和 Packagist 的作者提供的商务加速服务[Toran Proxy中文版](http://pkg.phpcomposer.com/)
