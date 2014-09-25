@@ -44,7 +44,7 @@ Composer 安装后，切换到一个可通过 Web 访问的目录，执行如下
 
    ```php
    // !!! 在下面插入一段密钥（若为空） - 以供 cookie validation 的需要
-   'cookieValidationKey' => '在此处输入你的密钥',fastcgi_pass unix:/var/run/php5-fpm.sock;
+   'cookieValidationKey' => '在此处输入你的密钥',
    ```
 
 
