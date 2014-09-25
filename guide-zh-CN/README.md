@@ -47,7 +47,7 @@ Yii 2.0 权威指南
 入门
 -----
 
-* **已定稿**【需更新|已校对-20140720-riverlet】 [安装 Yii](start-installation.md)
+* **已定稿**【已校对-20140919-riverlet】 [安装 Yii](start-installation.md)
 * **已定稿**【未校对-20140610-AbrahamGreyson】 [运行应用](start-workflow.md)
 * **已定稿**【需更新|未校对-20140610-AbrahamGreyson】 [第一声问候](start-hello.md)
 * **已定稿**【需更新|未校对-20140623-AbrahamGreyson】 [使用 Forms](start-forms.md)
