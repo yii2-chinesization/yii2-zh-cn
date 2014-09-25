@@ -23,7 +23,7 @@ Composer 安装后，切换到一个可通过 Web 访问的目录，执行如下
     composer global require "fxp/composer-asset-plugin:1.0.0-beta1"
     composer create-project --prefer-dist yiisoft/yii2-app-basic basic
 
-第一条命令安装[composer asset plugin](https://github.com/francoispluchino/composer-asset-plugin/)，它是通过Composer管理bower和npm包所必须的，此命令你只需执行一次即可。
+第一条命令安装[composer asset plugin](https://github.com/francoispluchino/composer-asset-plugin/)，它是通过Composer管理bower和npm包所必须的，此命令全局应用，只需执行一次即可。
 第二条命令会将 Yii 安装在名为 `basic` 的目录中。
 
 > 技巧：如果你想安装 Yii 的最新开发版本，可以使用如下命令，它添加了一个 [stability 选项](https://getcomposer.org/doc/04-schema.md#minimum-stability)（[中文版](https://github.com/5-say/composer-doc-cn/blob/master/cn-introduction/04-schema.md#minimum-stability)）:
