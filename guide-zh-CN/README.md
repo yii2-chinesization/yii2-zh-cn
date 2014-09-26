@@ -40,20 +40,20 @@ Yii 2.0 权威指南
 介绍
 -----
 
-* **已定稿**【已校对-20140505-qiansen1386】 [关于 Yii](intro-yii.md)
-* **已定稿**【已校对-20140627-qiansen1386】 [从 Yii 1.1 升级](intro-upgrade-from-v1.md)
+* **已定稿**【需更新|已校对-20140505-qiansen1386】 [关于 Yii](intro-yii.md)
+* **已定稿**【需更新|已校对-20140627-qiansen1386】 [从 Yii 1.1 升级](intro-upgrade-from-v1.md)
 
 
 入门
 -----
 
-* **已定稿**【已校对-20140720-riverlet】 [安装 Yii](start-installation.md)
+* **已定稿**【已校对-20140919-riverlet】 [安装 Yii](start-installation.md)
 * **已定稿**【未校对-20140610-AbrahamGreyson】 [运行应用](start-workflow.md)
-* **已定稿**【未校对-20140610-AbrahamGreyson】 [第一声问候](start-hello.md)
-* **已定稿**【未校对-20140623-AbrahamGreyson】 [使用 Forms](start-forms.md)
-* **已定稿**【未校对-20140616-AbrahamGreyson】 [玩转 Databases](start-databases.md)
-* **已定稿**【未校对-20140616-AbrahamGreyson】 [用 Gii 生成代码](start-gii.md)
-* **已定稿**【未校对-20140616-AbrahamGreyson】 [更上一层楼](start-looking-ahead.md)
+* **已定稿**【需更新|未校对-20140610-AbrahamGreyson】 [第一声问候](start-hello.md)
+* **已定稿**【需更新|未校对-20140623-AbrahamGreyson】 [使用 Forms](start-forms.md)
+* **已定稿**【需更新|未校对-20140616-AbrahamGreyson】 [玩转 Databases](start-databases.md)
+* **已定稿**【需更新|未校对-20140616-AbrahamGreyson】 [用 Gii 生成代码](start-gii.md)
+* **已定稿**【需更新|未校对-20140616-AbrahamGreyson】 [更上一层楼](start-looking-ahead.md)
 
 应用结构
 --------
@@ -79,7 +79,7 @@ Yii 2.0 权威指南
 * **待定中** [请求（Request）](runtime-requests.md)
 * **待定中** [响应（Response）](runtime-responses.md)
 * **待定中** [Sessions（会话）和 Cookies](runtime-sessions-cookies.md)
-* **已定稿**【需更新|待翻译】 [URL 解析和生成](runtime-url-handling.md)
+* **编撰中**【需更新|待翻译】 [URL 解析和生成](runtime-url-handling.md)
 * **编撰中**【需更新】 [错误处理](runtime-handling-errors.md)
 * **编撰中**【需更新】 [日志](runtime-logging.md)
 
@@ -89,11 +89,11 @@ Yii 2.0 权威指南
 * **已定稿**【已校对-20140525-qiansen1386】 [组件（Component）](concept-components.md)
 * **已定稿**【已校对-20140628-qiansen1386】 [属性（Property）](concept-properties.md)
 * **已定稿**【已校对-20140704-AbrahamGreyson】 [事件（Event）](concept-events.md)
-* **已定稿**【已校对-20140704-qiansen1386】 [行为（Behavior）](concept-behaviors.md)
-* **已定稿**【未校对-20140626-AbrahamGreyson】 [配置（Configurations）](concept-configurations.md)
-* **已定稿**【已校对-20140511-qiansen1386】 [类自动加载（Autoloading）](concept-autoloading.md)
-* **已定稿**【已校对-20140708-qiansen1386】 [别名（Alias）](concept-aliases.md)
-* **已定稿**【已校对-20140627-qiansen1386】 [服务定位器（Service Locator）](concept-service-locator.md)
+* **已定稿**【需更新|已校对-20140704-qiansen1386】 [行为（Behavior）](concept-behaviors.md)
+* **已定稿**【需更新|未校对-20140626-AbrahamGreyson】 [配置（Configurations）](concept-configurations.md)
+* **已定稿**【需更新|已校对-20140511-qiansen1386】 [类自动加载（Autoloading）](concept-autoloading.md)
+* **已定稿**【需更新|已校对-20140708-qiansen1386】 [别名（Alias）](concept-aliases.md)
+* **已定稿**【需更新|已校对-20140627-qiansen1386】 [服务定位器（Service Locator）](concept-service-locator.md)
 * **已定稿**【已校对-20140703-riverlet】 [依赖注入容器（DI Container）](concept-di-container.md)
 
 配合数据库工作
@@ -112,7 +112,7 @@ Yii 2.0 权威指南
 -----------
 
 * **编撰中** [创建表单](input-forms.md)
-* **已定稿**【翻译中-20140723-qiansen1386】 [输入验证](input-validation.md)
+* **已定稿**【需更新|未校对-20140723-qiansen1386】 [输入验证](input-validation.md)
 * **编撰中** [文件上传](input-file-uploading.md)
 * **待定中** [多模型同时输入](input-multiple-models.md)
 
@@ -142,7 +142,7 @@ Yii 2.0 权威指南
 * **已定稿**【需更新-20140716-riverlet】 [数据缓存](caching-data.md)
 * **已定稿**【未校对-20140520-AbrahamGreyson】 [片段缓存](caching-fragment.md)
 * **已定稿**【未校对-20140628-AbrahamGreyson】 [分页缓存](caching-page.md)
-* **已定稿**【未校对-20140524-AbrahamGreyson】 [HTTP 缓存](caching-http.md)
+* **已定稿**【已更新-20140817-AbrahamGreyson】 [HTTP 缓存](caching-http.md)
 
 RESTful Web 服务
 ----------------
@@ -169,9 +169,10 @@ RESTful Web 服务
 -----
 
 * **编撰中** [概述](test-overview.md)
-* **待定中** [单元测试](test-unit.md)
-* **待定中** [功能测试](test-functional.md)
-* **待定中** [验收测试](test-acceptance.md)
+* **编撰中** [搭建测试环境](test-endvironment-setup.md)
+* **编撰中** [单元测试](test-unit.md)
+* **编撰中** [功能测试](test-functional.md)
+* **编撰中** [验收测试](test-acceptance.md)
 * **编撰中**【需更新】 [测试夹具](test-fixtures.md)
 
 
@@ -181,13 +182,13 @@ RESTful Web 服务
 * **编撰中**【需更新】 [高级应用模版](tutorial-advanced-app.md)
 * **编撰中** [从头构建自定义模版](tutorial-start-from-scratch.md)
 * **编撰中**【需更新】 [控制台命令](tutorial-console.md)
-* **已定稿**【翻译中-20140727-qiansen1386】 [核心验证器](tutorial-core-validators.md)
+* **已定稿**【未校对-20140727-qiansen1386】 [核心验证器](tutorial-core-validators.md)
 * **编撰中**【需更新】 [国际化](tutorial-i18n.md)
 * **编撰中** [收发邮件](tutorial-mailing.md)
 * **编撰中**【需更新】 [性能优化](tutorial-performance-tuning.md)
 * **待定中** [共享主机环境](tutorial-shared-hosting.md)
 * **编撰中**【需更新】 [模板引擎](tutorial-template-engines.md)
-* **已定稿**【待翻译】 [集成第三方代码](tutorial-yii-integration.md)
+* **已定稿**【未校对-20140706-qiansen1386】 [集成第三方代码](tutorial-yii-integration.md)
 
 小部件
 ------

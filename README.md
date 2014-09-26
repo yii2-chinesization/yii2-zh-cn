@@ -4,9 +4,11 @@ Yii2 开发及用户贡献文档中文本土化组织
 
 我们从哪出发：[关于本组织](organization.md)
 
-本仓库快捷传送门：[c11n.yii2.cn](http://c11n.yii2.cn/) 临时在线文档：[apidoc.yii2.cn](http://apidoc.yii2.cn/)
+本仓库快捷传送门：[c11n.yii2.cn](http://c11n.yii2.cn/)
 
-参考原文：[Doc 2.0](http://www.yiiframework.com/doc-2.0/index.html) Yii2 官方传送门：[yii2.cn](http://yii2.cn)
+临时在线文档：[Docwithcn.com](http://docwithcn.com/)
+
+更多精彩请见下方 [Yii 的生态圈](#yiicosystem)
 
 结构与传送门 Structure and Shortcuts
 ----------------
@@ -52,3 +54,28 @@ Yii2 开发及用户贡献文档中文本土化组织
 总体上，官方提供与用户贡献的所有文档资料都基于[GNU Free Documentation License (GFDL)](http://www.gnu.org/copyleft/fdl.html)，简单的说明请见 [LICENSE.md](LICENSE.md)。
 
 对于 Yii 的各项协议的更多详细说明，请前往 [www.yiiframework.com/license](http://www.yiiframework.com/license/) 了解更多内容。
+
+Yii 的生态圈<a name="yiicosystem">
+--------
+
+### 学习：
+
+- 文档原文：[Doc 2.0](http://www.yiiframework.com/doc-2.0/index.html)
+- Yii2 官方仓库：[GitHub：yiisoft/yii2](https://github.com/yiisoft/yii2/tree/master/docs/guide)
+- Yii 大神——未来哥旗下分享好书的：[yiibook.com](http://yiibook.com)
+- 深入浅出的文字教程[深入理解Yii2.0](http://www.digpage.com/index.html)
+- 踏德网提供的[Yii 2.0在线翻译平台](http://yii2.techbrood.com/guide-index.html)（由他们负责人透露他们的翻译为其独立完成的）
+
+###社区：
+
+- ╃巡洋艦㊣ 舰长大人旗下老牌 Yii 大型综合社区：[Yii China](http://www.yiichina.com/)
+- 在云端提供的[YiiFans 在线论坛](http://www.yiifans.com/forum.php)
+
+###问答：
+
+- Forecho 的中文问答社区: [Get√Yii](http://www.getyii.com/)
+
+###其他：
+
+- 宏大师为解决国内访问 Packagist.org 不稳定的现状制作的[Composer Proxy](http://composer-proxy.com/)
+- Composer 和 Packagist 的作者提供的商务加速服务[Toran Proxy中文版](http://pkg.phpcomposer.com/)
