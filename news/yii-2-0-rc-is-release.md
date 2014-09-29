@@ -184,59 +184,44 @@ php composer.phar require bower-asset/jquery:2.1.*
 
 ### 格式化数据
 
-We did significant refactoring of the data formatting classes and the
-previous `yii\base\Formatter` and `yii\i18n\Formatter` classes into a
-single one `yii\i18n\Formatter`. The new formatter class provides a
-consistent interface regardless whether the PHP intl extension is
-installed or not. If the extension is not installed, it will fallback
-nicely to support data formatting without internationalization.
+我们深度重构了数据格式化类，并且之前的 `yii\base\Formatter` 与 `yii\i18n\Formatter` 重构为了一个 
+`yii\i18n\Formatter` 类。新的 Formatter 类提供了一个统一的接口，而与是否开启 PHP intl 
+扩展无关。如果扩展没有安装，他会很好地回滚为不进行国际化的数据格式化。
 
-We also unified the way of specifying date and time formats to be the
-[ICU
-format](http://userguide.icu-project.org/formatparse/datetime#TOC-Date-Time-Format-Syntax).
-Classes such as `DateValidator` and the JUI `DatePicker` all use such
-format by default. You can, however, still use PHP date format by
-prefxing it with `php:`. For example,
+我们也统一了指定日期与时间格式的方式，通过
+[ICU 格式](http://userguide.icu-project.org/formatparse/datetime#TOC-Date-Time-Format-Syntax)。诸如 `DateValidator` 以及 
+JUI 的 `DatePicker` 等类都默认使用该格式。然而，你依旧可以使用 PHP 日期格式，只要添加 `php:` 前缀。比如，
 
 ```php
 $formatter = Yii::$app->formatter;
 $value = time();
-echo $formatter->asDate($value, 'MM/dd/yyyy'); // same as date('m/d/Y', $value)
-echo $formatter->asDate($value, 'php:Y/m/d');  // same as date('Y/m/d', $value)
-echo $formatter->asDate($value, 'long');       // same as date('F j, Y', $value)
+echo $formatter->asDate($value, 'MM/dd/yyyy'); // 等效于 date('m/d/Y', $value)
+echo $formatter->asDate($value, 'php:Y/m/d');  // 等效于 date('Y/m/d', $value)
+echo $formatter->asDate($value, 'long');       // 等效于 date('F j, Y', $value)
 ```
 
 ### 表单
 
-Several improvements were made to the JavaScript code for `ActiveForm`.
+`ActiveForm` 的 JavaScript 代码进行了一系列的改进。
 
-Instead of using callbacks to inject code during the client-side
-validation process, a set of events are triggered. You can easily write
-JavaScript code to respond to these events. For example,
+区别于之前在客户端验证过程中使用回调函数注入代码的过程，现在改为触发一系列的事件。你可以更容易地编写响应这些事件的 JS 代码。比如，
 
 ```php
 $('#myform').on('beforeValidate', function (event, messages, deferreds) {
-    // called before validating the whole form when the submit button is clicked
-    // You may do some custom validation here
+    // 当提交按钮被点击后，在验证整张表单之前被调用
+    // 你可以在此进行一些自定义的验证过程
 });
 
 $('#myform').on('beforeSubmit', function () {
-    // called after all validations pass and the form should be submitted
-    // You may perform AJAX form submission here. Make sure you return false to prevent the default form submission.
+    // 在所有验证都通过后，且表单应该被提交时调用
+    // 你可以在此处执行 AJAX 的表单提交。请确保你返回 false 以阻止传统的表单提交过程继续执行。
 });
 ```
 
-Deferred validation is also supported. In the above example, the
-`deferreds` parameter for the `beforeValidate` event allows you to add
-new Deferred object. Utilizing this deferred validation support,
-`FileValidator` and `ImageValidator` both support client-side validation
-now.
+延时验证（Deferred validation）也被支持了。在上面的例子中，`beforeValidate` 事件里的 `deferreds` 参数允许你添加新的 Deferred 
+对象。通过对延时验证的支持，`FileValidator` 与 `ImageValidator` （文件与图片验证器）现在也支持客户端验证功能了。
 
-Several methods in the `ActiveForm` JavaScript code are now exposed so
-that you can more easily build dynamic forms on the client and support
-validation of input fields that are dynamically created. For example,
-the following JavaScript can be used to add validation support for a
-newly created input field "address":
+ `ActiveForm` 的 JavaScript 代码中的很多方法现在已经暴露出来，这样你可以更加容易的在客户端环境中构建动态表单，并支持对动态生成的输入控件执行验证。比如，以下 JS 代码可用于给新创建的 "address" 输入框添加验证功能：
 
 ```php
 $('#myform').yiiActiveForm('add', {
@@ -250,31 +235,20 @@ $('#myform').yiiActiveForm('add', {
 
 ### 日志 及 错误处理
 
-You can now use arrays or objects as log messages. The default log
-targets will automatically convert them into text display; while your
-customize log target classes can handle such complex data specially.
+现在，你可以使用**数组**或**对象**作为日志消息了。默认的日志目标会自动把它们转换为文本显示；而你自定义的日志目标可以更加特殊化地处理这些复杂数据。
 
-InvalidCallException, InvalidParamException, UnknownMethodException are
-now extending from SPL BadMethodCallException to make exception
-hierarchy more logical.
+InvalidCallException，InvalidParamException，UnknownMethodException 现在继承自 SPL（标准 PHP 类库）的 BadMethodCallException
+以使异常的层级结构更符合逻辑。
 
-Exception display is improved by showing the arguments in the stack
-trace method class.
+异常的显示也进行了改进，新添了对堆栈跟踪方法类中参数的显示。（保留原文：Exception display is improved by showing the arguments in the stack trace method class.求校对人员帮忙改进）
 
 ### 开发工具
 
-The Yii debugger is a useful tool to show you detailed debug information
-when a Yii application runs. We have added a new debugger panel to show
-the loaded asset bundles and their content.
+Yii 的调试器（Debugger）对于显示当前 Yii 应用运行时的调试信息而言是很有用的工具、我们添加了一个新的调试面板以展示当前加载的前端资源包，及它们的内容。
 
-The Yii code generator Gii can now be run as a console command!
-Previously it only provides a Web interface, which although very
-intuitive and easy to use, is not liked by some hardcore users. Now
-everyone should be happy. More importantly, you can still create a new
-Gii generator as usual, and it can be used in both Web and console modes
-without any extra work.
+Yii 的代码生成器 Gii 现在可以使用命令行指令调用了！之前，它只提供一个 Web 图形界面，同样非常直观且好用，但它不受一些“睾丸（高端玩家/硬核玩家）”的喜爱。现在应该每个人都开心了。更重要的是，你依旧可以照常创建自定义的 Gii 生成器，而且他可以同时在 Web 和命令行模式中调用，而无需其他任何额外的修改。
 
-To try Gii in console mode, run the following commands:
+要在命令行模式中试用 Gii，只需执行以下命令：
 
 ```bash
 # 更改当前路径为你应用的基目录
@@ -286,7 +260,7 @@ yii help gii
 # 显示 Gii 中的模型生成器的帮助信息
 yii help gii/model
 
-# 根据 city 表生产 City 模型
+# 根据 city 表生成 City 模型
 yii gii/model --tableName=city --modelClass=City
 ```
 
