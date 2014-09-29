@@ -58,8 +58,8 @@ Yii 2.0 权威指南
 应用结构
 --------
 
-* **已定稿**【翻译中-yiichina】 [结构总览](structure-overview.md)
-* **已定稿**【翻译中-yiichina】 [入口脚本](structure-entry-scripts.md)
+* **已定稿**【已校对-20140602-funson86】 [结构总览](structure-overview.md)
+* **已定稿**【未校对-funson86】 [入口脚本](structure-entry-scripts.md)
 * **已定稿**【翻译中-yiichina】 [应用](structure-applications.md)
 * **已定稿**【翻译中-yiichina】 [应用组件](structure-application-components.md)
 * **已定稿**【翻译中-yiichina】 [控制器（Controller）](structure-controllers.md)
