@@ -1,44 +1,42 @@
-We are very pleased to announce the release of Yii 2.0 RC (Release
-Candidate). You may follow the instructions on
-[yiiframework.com](http://www.yiiframework.com/download/) to install or
-upgrade to this version.
+[原文：http://www.yiiframework.com/news/](http://www.yiiframework.com/news/80/yii-2-0-rc-is-released/)  
+主翻译：@qiansen1386(东方孤思子) 校对： 时间：2014年9月29
 
-This RC release includes about 100 bug fixes and 200 new features and
-enhancements. It is a result of five months of intensive development
-since the prior [Beta
-release](http://www.yiiframework.com/news/77/yii-2-0-beta-is-released/).
-During this period, we have received a lot of help from the Yii
-community users. We hereby thank [everyone who has contributed to
-Yii](https://github.com/yiisoft/yii2/graphs/contributors) and made this
-release possible. You are the best!
+# Yii 2.0 RC 发布啦！
 
-Commonly Asked Questions
-------------------------
+我们非常高兴地宣布：Yii 2.0 RC 版（发行候选版本）终于发布了！你可以参照
+[yiiframework.com](http://www.yiiframework.com/download/) 
+页面的说明来安装或升级。
 
--   **What does 2.0 RC mean?** RC means Release Candidate. It is the
+该 RC 发布包含约 100 项左右的 bug 修复，以及 200 个新功能及改进。它包含了自
+[Beta 版](yii-2-0-beta-is-released.md) 至今 5 个月来集中开发的成果。在这个过程中，我们收到了来自 Yii 社区的大量帮助。特此感谢
+[为 Yii 做出贡献的所有人](https://github.com/yiisoft/yii2/graphs/contributors)，感谢你们让这次发布成为现实，你们是最棒的！
+
+常见问题
+-------
+
+-   **2.0 RC 意味着什么？** RC means Release Candidate. It is the
     last development release before the GA (General Availability)
     release. The remaining work for us to release GA mainly include
     minor issue fixing and documentation.
 
--   **When will 2.0 GA be released?** It depends on the feedback we
+-   **2.0 GA 什么时候发布？** It depends on the feedback we
     receive about this RC release. We have a tentative plan to release
     2.0 GA in about two weeks, if the RC version is proven to be stable
     enough.
 
--   **Can I use RC for my projects?** Yes, and we strongly recommend you
+-   **我能在我的项目里使用 RC 么？** Yes, and we strongly recommend you
     to try it out in your new projects and give us feedback about it. As
     2.0 GA is just around the corner, we suggest you do not use RC for
     production use because we may still introduce breaking changes, even
     though this possibility is very small.
 
--   **Are there any documentation for 2.0?** Yes, [the Definitive
-    Guide](http://www.yiiframework.com/doc-2.0/guide-README.html) which
-    is the most comprehensive and in-depth tutorial about Yii 2.0, and
-    [the API documentation](http://www.yiiframework.com/doc-2.0/) which
-    is the reference that you would use to look up the usage of
-    individual classes in the framework.
+-   **2.0 有什么文档么？**  当然，我们有
+    [官方指南](http://www.yiiframework.com/doc-2.0/guide-README.html)
+    ，它包含与 Yii 2.0 相关的综合而且有深度的各种教程。还有 
+    [API 文档](http://www.yiiframework.com/doc-2.0/)它是用来查阅框架中某个类库的具体用法
+    （译者注：也要关注我们的[文档中文化项目](https://github.com/yii2-chinesization/yii2-zh-cn/)呦！）
 
--   **How can I upgrade my application written in 1.1 to 2.0?** Please
+-   **怎么把我的项目从 1.1 升级到 2.0？** Please
     refer to [Upgrading from Yii
     1.1](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html).
     Note that since 2.0 is a complete rewrite of 1.1, the upgrade will
@@ -46,11 +44,11 @@ Commonly Asked Questions
     stably, we suggest you keep using 1.1 unless you have enough time
     and resource to do the upgrade.
 
--   **How can I upgrade from 2.0 Beta or Alpha?** Please follow the
+-   **我怎么从2.0 alpha 或 beta 升级过来** Please follow the
     instructions in
     [UPGRADE](https://github.com/yiisoft/yii2/blob/2.0.0-rc/framework/UPGRADE.md).
 
--   **How can I follow the 2.0 development?** All development activities
+-   **我怎样了解2.0开发的最新动态？?** All development activities
     of Yii 2.0 occur on GitHub:
     [https://github.com/yiisoft/yii2](https://github.com/yiisoft/yii2).
     You may watch or star this project to receive development updates.
@@ -59,7 +57,7 @@ Commonly Asked Questions
     and/or join our [Facebook
     Group](https://www.facebook.com/groups/yiitalk/).
 
-Major Enhancements in 2.0 RC
+Yii 2.0 RC 的主要改动
 ----------------------------
 
 In this release, we have included many useful features and changes.
@@ -70,7 +68,7 @@ Please read [the Definitive
 Guide](http://www.yiiframework.com/doc-2.0/guide-README.html) if you
 want to learn what you can do with Yii 2.0 in general.
 
-### Security
+### 安全
 
 Several security experts, including [Tom
 Worster](https://github.com/tom--) and [Anthony
@@ -91,7 +89,7 @@ for all cookies by default; CSRF tokens can be stored in sessions
 instead of cookies if you set `yii\web\Request::enableCsrfCookie` to be
 false.
 
-### Database
+### 数据库
 
 #### Database Replication and Read-Write Splitting
 
@@ -131,7 +129,7 @@ be used automatically to perform the query (a simple load balancing
 algorithm is implemented regarding slave selection); if the query is
 updating or inserting data into database, the master will be used.
 
-#### Transactions
+#### 事务
 
 There are several enhancements about using DB transactions.
 
@@ -175,7 +173,7 @@ when starting a new transaction. For example,
 $transaction = $connection->beginTransaction(Transaction::READ_COMMITTED);
 ```
 
-#### Building Query Conditions
+#### 构建查询条件
 
 You can use arbitrary operators when building a query condition. In the
 following example, the operator `>=` is used to build a query condition
@@ -204,7 +202,7 @@ $orders = (new \yii\db\Query)
 ```
 
 
-### Asset Management
+### 前端资源管理
 
 Yii is embracing [Bower](http://bower.io/) and
 [NPM](https://www.npmjs.org/) packages. It uses the excellent [Composer
@@ -231,7 +229,7 @@ Please refer to the [Definitive Guide about
 assets](http://www.yiiframework.com/doc-2.0/guide-structure-assets.html)
 for more details about asset management in general.
 
-### Data Formatting
+### 格式化数据
 
 We did significant refactoring of the data formatting classes and the
 previous `yii\base\Formatter` and `yii\i18n\Formatter` classes into a
@@ -255,7 +253,7 @@ echo $formatter->asDate($value, 'php:Y/m/d');  // same as date('Y/m/d', $value)
 echo $formatter->asDate($value, 'long');       // same as date('F j, Y', $value)
 ```
 
-### Forms
+### 表单
 
 Several improvements were made to the JavaScript code for `ActiveForm`.
 
@@ -297,7 +295,7 @@ $('#myform').yiiActiveForm('add', {
 });
 ```
 
-### Logging and Error Handling
+### 日志 及 错误处理
 
 You can now use arrays or objects as log messages. The default log
 targets will automatically convert them into text display; while your
@@ -310,7 +308,7 @@ hierarchy more logical.
 Exception display is improved by showing the arguments in the stack
 trace method class.
 
-### Development Tools
+### 开发工具
 
 The Yii debugger is a useful tool to show you detailed debug information
 when a Yii application runs. We have added a new debugger panel to show
@@ -339,7 +337,7 @@ yii help gii/model
 yii gii/model --tableName=city --modelClass=City
 ```
 
-### Behaviors
+### 行为（Behaviors）
 
 We have added a new behavior `yii\behaviors\SluggableBehavior` which can
 fill the specified model attribute with the transliterated and adjusted
@@ -371,7 +369,7 @@ $component->attachBehaviors([
 ]);
 ```
 
-### Template Engines
+### 模版引擎
 
 Both Smarty and Twig view renderers have received significant
 improvements. Special syntaxes are introduced for many Yii concepts, and
