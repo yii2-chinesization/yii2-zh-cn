@@ -86,7 +86,7 @@ Yii 现在提供内建的数据库复制与读写分离的支持。有了数据�
         'password' => '***',
     ],
 
-    // list of slave configurations
+    // 从服务器配置列表
     'slaves' => [
         ['dsn' => '从服务器 1 的 dsn'],
         ['dsn' => '从服务器 2 的 dsn'],
@@ -163,30 +163,24 @@ $orders = (new \yii\db\Query)
 
 ### 前端资源管理
 
-Yii is embracing [Bower](http://bower.io/) and
-[NPM](https://www.npmjs.org/) packages. It uses the excellent [Composer
-Asset Plugin](https://github.com/francoispluchino/composer-asset-plugin)
-to manage the dependencies on Bower/NPM packages (e.g. jQuery, jQuery
-UI, Bootstrap) through the interface of Composer.
+Yii 支持使用 [Bower](http://bower.io/) 或 [NPM](https://www.npmjs.org/)
+的包。它使用牛逼的 [Composer Asset Plugin（Composer 前端资源管理插件）](https://github.com/francoispluchino/composer-asset-plugin)
+来通过 Composer 的接口管理 Bower/NPM 包（如，jQuery，jQuery UI，Bootstrap 等）的依赖关系。
 
-Because of this change, it is required that you install the plugin first
-by running the following command (once for all), before you start to
-install or upgrade to Yii 2.0 RC:
+因为这个改变，他现在需要你先给 Composer 安装这个插件。你可以通过（在你开始安装或升级 Yii 2.0 RC 之前）运行一下指令实现（一劳永逸）：
 
 ```php
 php composer.phar global require "fxp/composer-asset-plugin:1.0.0-beta2"
 ```
 
-Now if you run the following command, you will be able to install the
-jQuery Bower package under the `vendor` directory:
+现在如果你运行这个指令，你就可以安装 jQuery Bower 包到 `vendor` 目录：
 
 ```php
 php composer.phar require bower-asset/jquery:2.1.*
 ```
 
-Please refer to the [Definitive Guide about
-assets](http://www.yiiframework.com/doc-2.0/guide-structure-assets.html)
-for more details about asset management in general.
+请参考 [与 Asset 有关的权威指南](http://www.yiiframework.com/doc-2.0/guide-structure-assets.html)
+综合了解关于前端资源管理的更多细节。
 
 ### 格式化数据
 
@@ -298,10 +292,7 @@ yii gii/model --tableName=city --modelClass=City
 
 ### 行为（Behaviors）
 
-We have added a new behavior `yii\behaviors\SluggableBehavior` which can
-fill the specified model attribute with the transliterated and adjusted
-version so that it can be used in URLs. You may use this behavior like
-follows,
+我们添加了一个新的行为 `yii\behaviors\SluggableBehavior`，它可以用直译并调整过的数据填充模型特性，比如说可用于直译 URLs。你可以这样使用它：
 
 ```php
 use yii\behaviors\SluggableBehavior;
@@ -312,19 +303,19 @@ public function behaviors()
        [
            'class' => SluggableBehavior::className(),
            'attribute' => 'title',
-           // 'slugAttribute' => 'alias',   // store slug in "alias" column
-           // 'ensureUnique' => true,       // ensure generation of unique slugs
+           // 'slugAttribute' => 'alias',   // 存储 slug 到 "alias" 字段
+           // 'ensureUnique' => true,       // 确保生成不重复的 slugs
         ],
     ];
 }
 ```
 
-Behaviors can now be specified and attached anonymously. For example,
+行为现在可以匿名定义并配属，比如，
 
 ```php
 $component->attachBehaviors([
-    'myBehavior1' => new MyBehavior,  // a named behavior
-    MyBehavior::className(),          // an anonymous behavior
+    'myBehavior1' => new MyBehavior,  // 命名的行为
+    MyBehavior::className(),          // 匿名的行为
 ]);
 ```
 
