@@ -80,7 +80,7 @@ Yii 现在提供内建的数据库复制与读写分离的支持。有了数据�
     'username' => 'master',
     'password' => '***',
 
-    // 从服务器的通用配置common configuration for slaves
+    // 从服务器的通用配置
     'slaveConfig' => [
         'username' => 'slave',
         'password' => '***',
