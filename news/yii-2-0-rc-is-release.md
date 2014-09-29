@@ -14,21 +14,13 @@
 常见问题
 -------
 
--   **2.0 RC 意味着什么？** RC means Release Candidate. It is the
-    last development release before the GA (General Availability)
-    release. The remaining work for us to release GA mainly include
-    minor issue fixing and documentation.
+-   **2.0 RC 意味着什么？** RC 是发行候选版本的意思。它是在 GA 
+    （General Availability，正式发布的版本）前，最后一个开发发布。GA 前的工作，主要是少量反馈问题的修复，以及改善文档。
 
--   **2.0 GA 什么时候发布？** It depends on the feedback we
-    receive about this RC release. We have a tentative plan to release
-    2.0 GA in about two weeks, if the RC version is proven to be stable
-    enough.
+-   **2.0 GA 什么时候发布？** 这取决于我们从 RC 发布后所收集的问题反馈。我们有一个暂定的计划是，如果 RC 
+    版本最终被证明足够稳定，则将会在大约两周左右发布 2.0 GA。
 
--   **我能在我的项目里使用 RC 么？** Yes, and we strongly recommend you
-    to try it out in your new projects and give us feedback about it. As
-    2.0 GA is just around the corner, we suggest you do not use RC for
-    production use because we may still introduce breaking changes, even
-    though this possibility is very small.
+-   **我能在我的项目里使用 RC 么？** 不仅能，而且我们非常推荐你在你的新项目中试用它，并给我们你的使用反馈。不过，因为 2.0 GA 近在眼前了，所以我们建议你不要在已有的生产环境中使用它。因为我们无法确定是否会有新的不兼容修改出现，尽管这个可能性非常小。
 
 -   **2.0 有什么文档么？**  当然，我们有
     [官方指南](http://www.yiiframework.com/doc-2.0/guide-README.html)
@@ -36,105 +28,73 @@
     [API 文档](http://www.yiiframework.com/doc-2.0/)它是用来查阅框架中某个类库的具体用法
     （译者注：也要关注我们的[文档中文化项目](https://github.com/yii2-chinesization/yii2-zh-cn/)呦！）
 
--   **怎么把我的项目从 1.1 升级到 2.0？** Please
-    refer to [Upgrading from Yii
-    1.1](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html).
-    Note that since 2.0 is a complete rewrite of 1.1, the upgrade will
-    not be trivial. If your application in 1.1 is already running
-    stably, we suggest you keep using 1.1 unless you have enough time
-    and resource to do the upgrade.
+-   **怎么把我的项目从 1.1 升级到 2.0？** 请参考 
+    [从 1.1 升级](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html) 这篇文章。
+    请注意，因为 2.0 相较于 1.1 是完全重构的，所以这种升级所需的改动不会太小。若你的 1.1 应用正在稳定运行，我们建议你继续使用 
+    1.1，除非你有足够的时间和资源进行这种升级。
 
--   **我怎么从2.0 alpha 或 beta 升级过来** Please follow the
-    instructions in
-    [UPGRADE](https://github.com/yiisoft/yii2/blob/2.0.0-rc/framework/UPGRADE.md).
+-   **我怎么从2.0 alpha 或 beta 升级过来** 请参考
+    [UPGRADE](https://github.com/yiisoft/yii2/blob/2.0.0-rc/framework/UPGRADE.md) 的说明。
 
--   **我怎样了解2.0开发的最新动态？?** All development activities
-    of Yii 2.0 occur on GitHub:
+-   **我怎样了解2.0开发的最新动态？?** Yii 2.0 的开发活动都在 GitHub 上：
     [https://github.com/yiisoft/yii2](https://github.com/yiisoft/yii2).
-    You may watch or star this project to receive development updates.
-    You may also follow our Twitter updates at
-    [https://twitter.com/yiiframework](https://twitter.com/yiiframework)
-    and/or join our [Facebook
-    Group](https://www.facebook.com/groups/yiitalk/).
+    你可以关注（watch）或标星（star）这个项目来接收开发动态。你也可以订阅我们的 Twitter 更新
+    [https://twitter.com/yiiframework](https://twitter.com/yiiframework)（译者注：前提是你会翻墙有梯子）
+    或加入我们的 [Facebook 小组](https://www.facebook.com/groups/yiitalk/).
 
 Yii 2.0 RC 的主要改动
 ----------------------------
 
-In this release, we have included many useful features and changes.
-Below we summarize some of the most important ones. Complete list of
-changes in this release can be found in
-[CHANGELOG](https://github.com/yiisoft/yii2/blob/2.0.0-rc/framework/CHANGELOG.md).
-Please read [the Definitive
-Guide](http://www.yiiframework.com/doc-2.0/guide-README.html) if you
-want to learn what you can do with Yii 2.0 in general.
+此次发布，包含了很多有用的更新和改动。而在下文中我们只会总结其中最重要的几个。你可以在[更新日志（CHANGELOG）](https://github.com/yiisoft/yii2/blob/2.0.0-rc/framework/CHANGELOG.md)查看完整的改动列表。
+如果想要了解你能用 Yii 2.0 干什么，请阅读 [权威指南](http://www.yiiframework.com/doc-2.0/guide-README.html)。
 
 ### 安全
 
-Several security experts, including [Tom
-Worster](https://github.com/tom--) and [Anthony
-Ferrara](https://github.com/ircmaxell), have helped review the Yii code
-about its security aspect and left many important feedbacks on how to
-improve the security of Yii in general. Tom even helped us rewrite some
-of the security code, which results in better key generation and
-encryption, protection from timing attacks, and many other things.
+一些安全专家，包括 [Tom Worster（汤姆·沃斯特）](https://github.com/tom--) 以及 [Anthony
+Ferrara（安东尼·法拉利）](https://github.com/ircmaxell)，已经帮助我们在安全方面审查了 Yii 的代码，并提供给我们了一些重要的反馈，告诉我们如何综合提升 Yii 的安全性。Tom 甚至帮助我们重写了一些安全代码，结果是更牛逼的密钥的生成与加密实现，提供了对时序攻击的保护，以及很多其他的黑科技。
 
-To support customization of some security features, we have turned the
-previous `Security` helper class into the `security` application
-component. As a result, you can access security-related features through
-expressions such as `Yii::$app->security->encrypt()`.
+为了更好地支持对一些安全功能的自定义，我们已经把之前的 `Security` 助手类，改为了 `security` 应用组件。因此，你可以用这样的 
+`Yii::$app->security->encrypt()` 的代码访问安全相关的功能。
 
-We have also made several other minor yet important changes to further
-improve the security of Yii. For example, `httpOnly` is now turned on
-for all cookies by default; CSRF tokens can be stored in sessions
-instead of cookies if you set `yii\web\Request::enableCsrfCookie` to be
-false.
+我们也做了一些其他小一点的重要改动，来进一步提升 Yii 的安全性。比如，所有 cookies 的 `httpOnly` 现在是默认打开的；CSRF 令牌，现在可以存到 sessions 而不是 cookies 中，如果你设置 `yii\web\Request::enableCsrfCookie` 为 false。
 
 ### 数据库
 
-#### Database Replication and Read-Write Splitting
+#### 数据库复制（主从分离）与读写分离
 
-Yii now has built-in support for database replication and read-write
-splitting. With database replication, data are replicated from the
-so-called *master servers* to *slave servers*. All writes and updates
-must take place on the master servers, while reads may take place on the
-slave servers. To use this feature, simply configure your DB connection
-like the following:
+Yii 现在提供内建的数据库复制与读写分离的支持。有了数据库复制，数据会从一个所谓的**主服务器**复制到**从服务器**。所有的写入与更新都会发生在主服务器，而读取的操作会发生在从服务器。要使用这个功能，只需简单地配置你的数据连接为一下形式：
 
 ```php
 [
     'class' => 'yii\db\Connection',
 
-    // configuration for the master
-    'dsn' => 'dsn for master server',
+    // 主服务器的配置
+    'dsn' => '主服务器的 dsn',
     'username' => 'master',
-    'password' => '',
+    'password' => '***',
 
-    // common configuration for slaves
+    // 从服务器的通用配置common configuration for slaves
     'slaveConfig' => [
         'username' => 'slave',
-        'password' => '',
+        'password' => '***',
     ],
 
     // list of slave configurations
     'slaves' => [
-        ['dsn' => 'dsn for slave server 1'],
-        ['dsn' => 'dsn for slave server 2'],
-        ['dsn' => 'dsn for slave server 3'],
+        ['dsn' => '从服务器 1 的 dsn'],
+        ['dsn' => '从服务器 2 的 dsn'],
+        ['dsn' => '从服务器 3 的 dsn'],
     ],
 ]
 ```
-With this configuration, you can continue writing DB query code as
-usual. If a query is fetching data from database, one of the slaves will
-be used automatically to perform the query (a simple load balancing
-algorithm is implemented regarding slave selection); if the query is
-updating or inserting data into database, the master will be used.
+
+有了这些配置，你可以照常像以前一样写 DB 查询。只要查询是从数据库中提取数据，其中一个从数据库会自动执行这个查询（一个简单的负载均衡算法会用于确定从服务器的选择）；如果查询是更新或插入数据，则会使用主服务器。
 
 #### 事务
 
-There are several enhancements about using DB transactions.
+这里有很多有关数据库事务的改进。
 
-First, you can now work with transactions in a callback style like the
-following:
+首先，你可以用一种回调函数的风格来使用事务，像这样：
 
 ```php
 $connection->transaction(function() {
@@ -144,7 +104,7 @@ $connection->transaction(function() {
 });
 ```
 
-This is equivalent to the following lengthy code:
+它等效于下面这段更长的代码：
 
 ```php
 $transaction = $connection->beginTransaction();
@@ -159,15 +119,10 @@ try {
 }
 ```
 
-Second, a few events are triggered for transactions. For example, a
-`beginTransaction` event is triggered by a DB connection when you start
-a new transaction; and a `commitTransaction` event is triggered when the
-transaction is successfully committed. You can respond to these events
-to perform some preprocessing and post-processing tasks when using
-transactions.
+其次，事务会触发几条事件。比如，开始新事务时 DB connecton 组件会触发 `beginTransaction` 事件；当事务成功提交时会触发 
+`commitTransaction`。当使用事务时，你就可以响应这些事件，来进行一些预处理或后加工的任务。
 
-Last, you can set transaction isolation levels (e.g. `READ COMMITTED`)
-when starting a new transaction. For example,
+最后，你可以在开始一个新事务时，设置事务隔离级别（比如，`READ COMMITTED`）。比如，
 
 ```php
 $transaction = $connection->beginTransaction(Transaction::READ_COMMITTED);
@@ -175,18 +130,15 @@ $transaction = $connection->beginTransaction(Transaction::READ_COMMITTED);
 
 #### 构建查询条件
 
-You can use arbitrary operators when building a query condition. In the
-following example, the operator `>=` is used to build a query condition
-`age >= 30`. Yii will properly quote the column name and use parameter
-binding to handle the value.
+当你构建一个查询条件的时候，你可以使用任意操作符。在下面的例子里，操作符 `>=` 被用来构建一个查询条件 `
+age >= 30`。Yii 会正确地引用字段名，并用参数绑定功能来处理值。
 
 ```php
 $query = new \yii\db\Query;
 $query->where(['>=', 'age', 30]);
 ```
 
-When building an `in` or `not` condition, you can use sub-queries like
-the following:
+当构建 `in` 或 `not` 条件时，你可以使用子查询，像这样：
 
 ```php
 $subquery = (new \yii\db\Query)
@@ -194,7 +146,7 @@ $subquery = (new \yii\db\Query)
        ->from('user')
        ->where(['>=', 'age', 30]);
    
-// fetch orders that are placed by customers who are older than 30  
+// 读取所有由 30 岁以上的客户下达的订单  
 $orders = (new \yii\db\Query)
    ->from('order')
    ->where(['in', 'customer_id', $subquery])
@@ -324,16 +276,16 @@ without any extra work.
 To try Gii in console mode, run the following commands:
 
 ```bash
-# change path to your application's base path
+# 更改当前路径为你应用的基目录
 cd path/to/AppBasePath
 
-# show help information about Gii
+# 显示 Gii 的帮助信息
 yii help gii
 
-# show help information about the model generator in Gii
+# 显示 Gii 中的模型生成器的帮助信息
 yii help gii/model
 
-# generate City model from city table
+# 根据 city 表生产 City 模型
 yii gii/model --tableName=city --modelClass=City
 ```
 
@@ -371,9 +323,4 @@ $component->attachBehaviors([
 
 ### 模版引擎
 
-Both Smarty and Twig view renderers have received significant
-improvements. Special syntaxes are introduced for many Yii concepts, and
-we have received feedback that these new syntaxes allow one to work with
-Smarty and Twig as efficiently as normal PHP templates. To learn more
-about new syntaxes, please refer to the [Definitive
-Guide](http://www.yiiframework.com/doc-2.0/guide-tutorial-template-engines.html).
+Smarty 和 Twig 的视图渲染器都得到了显著的提升。针对许多 Yii 的概念引入了许多特殊语法，并且我们已经收到了反馈，这些新的语法可以帮助开发者像使用普通 PHP 模版一样高效地操作 Smarty 与 Twig。要了解更多，请查阅 [权威指南](http://www.yiiframework.com/doc-2.0/guide-tutorial-template-engines.html)。
