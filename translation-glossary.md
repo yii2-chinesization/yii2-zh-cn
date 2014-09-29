@@ -22,7 +22,7 @@ Constructor         |构造方法          |                                    
 Database            |数据库            |                                     |Noun
 Design Pattern      |设计模式          |                                     |Noun
 Eager Loading       |贪婪加载          |                                     |Noun
-Event Handler       |事件句柄          |或者叫事件处理器                     |Noun
+Event Handler       |事件处理器        |                                      |Noun
 For example         |例如，如          |                                      |
 Extension           |扩展              |                                     |Noun
 Fixtures            |测试夹具          |【待定】非常难翻译的概念，微软翻译为装置，未来认为“定制器”的翻译表意更准|Noun
@@ -42,7 +42,7 @@ Module              |模块（Module）    |或子模块                        
 MVC                 |MVC               |模型-视图-控制器                     |Noun
 Model               |Model（模型）     |                                     |Noun
 Overview            |概览              |                                     |Noun
-Override            |重写              |                                     |Noun
+Override            |重写              |覆写                                 |Noun
 Package             |包                |同 Bundle                            |Noun
 perform             |运作或执行        |我觉得两种翻译均可，可根据上下文随意选择|Verb
 Property            |属性              |                                     |Noun
