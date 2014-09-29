@@ -1,83 +1,61 @@
-视图
-====
+Views
+=====
 
-> 注意：该章节还在开发中。
+Views are part of the [MVC](http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) architecture.
+They are code responsible for presenting data to end users. In a Web application, views are usually created
+in terms of *view templates* which are PHP script files containing mainly HTML code and presentational PHP code.
+They are managed by the [[yii\web\View|view]] application component which provides commonly used methods
+to facilitate view composition and rendering. For simplicity, we often call view templates or view template files
+as views.
 
-视图组件是 MVC 的重要部分。视图作为应用界面，履行其向终端用户展示数据的职责，如显示表单等。
 
-基础
-------
+## Creating Views <a name="creating-views"></a>
 
-Yii 默认使用 PHP 作为视图模板来生成内容和元素。web 应用视图通常包括一些 HTML 和 PHP `echo`, `foreach`, `if` 等基础结构的联合体。视图中使用复杂的 PHP 代码被认为是不良实践。当复杂逻辑和功能是必须的，这些代码应移动到控制器或小部件。
-
-视图通常被控制器动作用[[yii\base\Controller::render()|render()]]方法调用：
-
-```php
-public function actionIndex()
-{
-    return $this->render('index', ['username' => 'samdark']);
-}
-```
-
-[[yii\base\Controller::render()|render()]]方法的第一个参数是拟显示的视图名。在控制器背景下，Yii
-将在 `views/site/` 目录下寻找该控制器的视图文件，其中 `site` 是控制器 ID 。更多有关视图名如何分解
-的细节请参考[[yii\base\Controller::render()]]方法。
-
-[[yii\base\Controller::render()|render()]]的第二个参数是键值对数组，控制器通过该数组将数据传递给视图，数组键为视图变量名，数组值在视图中通过引用相应的数组键变量名可获取使用。
-
-上述动作 actionIndex 的视图是`views/site/index.php` ，在视图中可以这样使用：
+As aforementioned, a view is simply a PHP script mixed with HTML and PHP code. The following is the view
+that presents a login form. As you can see, PHP code is used to generate the dynamic content, such as the
+page title and the form, while HTML code organizes them into a presentable HTML page.
 
 ```php
-<p>Hello, <?= $username ?>!</p>
-```
-render()第二个参数的数组键'username' 在视图文件中作为变量名 $username 使用，引用输出的结果是第二个参数的数组值 'samdark'。
+<?php
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
-任何数据类型都可以传递给视图，包括数组和对象。
+/* @var $this yii\web\View */
+/* @var $form yii\widgets\ActiveForm */
+/* @var $model app\models\LoginForm */
 
-除了上述的[[yii\web\Controller::render()|render()]]方法，[[yii\web\Controller]]类还提供了一些其他的渲染方法，以下是这些方法的摘要：
+$this->title = 'Login';
+?>
+<h1><?= Html::encode($this->title) ?></h1>
 
-* [[yii\web\Controller::render()|render()]]：渲染视图并应用布局到渲染结果，最常用于整个页面的渲染。
-* [[yii\web\Controller::renderPartial()|renderPartial()]]：渲染无须布局的视图，常用于渲染页面片段。
-* [[yii\web\Controller::renderAjax()|renderAjax()]]：渲染无须布局的视图并注入已注册的 JS/CSS 脚本文件。通常用于渲染响应 AJAX 请求的 HTML 输出。
-* [[yii\web\Controller::renderFile()|renderFile()]]：渲染视图文件，和 [[yii\web\Controller::renderPartial()|renderPartial()]]类似，除了该方法使用视图文件路径而不是视图文件名做参数。
+<p>Please fill out the following fields to login:</p>
 
-
-小部件
--------
-
-小部件用于视图，是独立的积木块，一种结合复杂逻辑、显示和功能到简单组件的方法(如官方给出的Alert方法，用于展示提示信息)。一个小部件：
-
-* 可能包括 PHP 高级编程
-* 通常是可配置的
-* 通常提供要显示的数据
-* 在视图内返还要显示的 HTML
-
-Yii 捆绑了大量的小部件，如[活动表单](form.md)，面包屑，菜单和[bootstrap 框架的封装小部件](bootstrap-widgets.md)。另外，Yii 扩展提供更多小部件，如[jQueryUI](http://www.jqueryui.com)的官方小部件。
-
-要使用小部件，视图文件须如下操作：
-
-```php
-// 注意必须 "echo" 结果才能显示
-echo \yii\widgets\Menu::widget(['items' => $items]);
-
-// 传递数组以初始化对象属性
-$form = \yii\widgets\ActiveForm::begin([
-    'options' => ['class' => 'form-horizontal'],
-    'fieldConfig' => ['inputOptions' => ['class' => 'input-xlarge']],
-]);
-... 表单输入数据在此 ...
-\yii\widgets\ActiveForm::end();
+<?php $form = ActiveForm::begin(); ?>
+    <?= $form->field($model, 'username') ?>
+    <?= $form->field($model, 'password')->passwordInput() ?>
+    <?= Html::submitButton('Login') ?>
+<?php ActiveForm::end(); ?>
 ```
 
-上述第一例，[[yii\base\Widget::widget()|widget()]]方法用来调用一个只需要输出内容的小部件。第二例中，[[yii\base\Widget::begin()|begin()]] 和 [[yii\base\Widget::end()|end()]]用于包含内容的小部件，小部件在被调用的两个方法之间输出其内容。以表单为例，输出的是 `<form>` 标签和一些设置的属性。
+Within a view, you can access `$this` which refers to the [[yii\web\View|view component]] managing
+and rendering this view template.
+
+Besides `$this`, there may be other predefined variables in a view, such as `$model` in the above
+example. These variables represent the data that are *pushed* into the view by [controllers](structure-controllers.md)
+or other objects whose trigger the [view rendering](#rendering-views).
+
+> Tip: The predefined variables are listed in a comment block at beginning of a view so that they can
+  be recognized by IDEs. It is also a good way of documenting your views.
 
 
-安全性
---------
+### Security <a name="security"></a>
 
-主要的安全原则之一是始终转义输出。违反该原则将导致脚本执行，更可能导致被称为 XSS 的跨站点脚本攻击，以致管理员密码泄露，使用户可以自动执行动作等。
+When creating views that generate HTML pages, it is important that you encode and/or filter the data coming
+from end users before presenting them. Otherwise, your application may be subject to
+[cross-site scripting](http://en.wikipedia.org/wiki/Cross-site_scripting) attacks.
 
-Yii 提供了很好的工具以帮助你转义输出。最基本的转义要求是文本不带任何标记。可以如下这样处理：
+To display a plain text, encode it first by calling [[yii\helpers\Html::encode()]]. For example, the following code
+encodes the user name before displaying it:
 
 ```php
 <?php
@@ -89,7 +67,8 @@ use yii\helpers\Html;
 </div>
 ```
 
-如果需要渲染的 HTML 变得复杂，可以分配转义任务给优秀的[HTMLPurifier](http://htmlpurifier.org/)库，这个库在 Yii 中包装成一个助手类[[yii\helpers\HtmlPurifier]]：
+To display HTML content, use [[yii\helpers\HtmlPurifier]] to filter the content first. For example, the following
+code filters the post content before displaying it:
 
 ```php
 <?php
@@ -101,251 +80,453 @@ use yii\helpers\HtmlPurifier;
 </div>
 ```
 
-注意虽然 HTMLPurifier 在输出安全上非常优秀，但它不是非常快速，所以可考虑[缓存结果](caching.md)。
+> Tip: While HTMLPurifier does excellent job in making output safe, it is not fast. You should consider
+  [caching](caching-overview.md) the filtering result if your application requires high performance.
 
-任选其一的两种模板语言
-------------------------------
 
-官方扩展的模板引擎有[Smarty](http://www.smarty.net/) 和 [Twig](http://twig.sensiolabs.org/)。了解更多内容请参考本指南的[使用模板引擎](template.md)部分。
+### Organizing Views <a name="organizing-views"></a>
 
-模板中使用视图对象
-------------------------------
+Like [controllers](structure-controllers.md) and [models](structure-models.md), there are conventions to organize views.
 
-[[yii\web\View]]组件的实例在视图模板中可用，以`$this` 变量表示。模板中使用视图对象可以完成许多有用的事情，如设置页面标题和元标签（meta tags），注册脚本和访问环境（控制器或小部件）。
+* For views rendered by a controller, they should be put under the directory `@app/views/ControllerID` by default,
+  where `ControllerID` refers to the [controller ID](structure-controllers.md#routes). For example, if
+  the controller class is `PostController`, the directory would be `@app/views/post`; If it is `PostCommentController`,
+  the directory would be `@app/views/post-comment`. In case the controller belongs to a module, the directory
+  would be `views/ControllerID` under the [[yii\base\Module::basePath|module directory]].
+* For views rendered in a [widget](structure-widgets.md), they should be put under the `WidgetPath/views` directory by
+  default, where `WidgetPath` stands for the directory containing the widget class file.
+* For views rendered by other objects, it is recommended that you follow the similar convention as that for widgets.
 
-### 设置页面标题
+You may customize these default view directories by overriding the [[yii\base\ViewContextInterface::getViewPath()]]
+method of controllers or widgets.
 
-通常在视图模板设置页面标题。既然可以使用`$this` 访问视图对象，设置标题变得非常简单：
+
+## Rendering Views <a name="rendering-views"></a>
+
+You can render views in [controllers](structure-controllers.md), [widgets](structure-widgets.md), or any
+other places by calling view rendering methods. These methods share a similar signature shown as follows,
+
+```
+/**
+ * @param string $view view name or file path, depending on the actual rendering method
+ * @param array $params the data to be passed to the view
+ * @return string rendering result
+ */
+methodName($view, $params = [])
+```
+
+
+### Rendering in Controllers <a name="rendering-in-controllers"></a>
+
+Within [controllers](structure-controllers.md), you may call the following controller methods to render views:
+
+* [[yii\base\Controller::render()|render()]]: renders a [named view](#named-views) and applies a [layout](#layouts)
+  to the rendering result.
+* [[yii\base\Controller::renderPartial()|renderPartial()]]: renders a [named view](#named-views) without any layout.
+* [[yii\web\Controller::renderAjax()|renderAjax()]]: renders a [named view](#named-views) without any layout,
+  and injects all registered JS/CSS scripts and files. It is usually used in response to AJAX Web requests.
+* [[yii\base\Controller::renderFile()|renderFile()]]: renders a view specified in terms of a view file path or
+  [alias](concept-aliases.md).
+
+For example,
 
 ```php
-$this->title = 'My page title';
+namespace app\controllers;
+
+use Yii;
+use app\models\Post;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+
+class PostController extends Controller
+{
+    public function actionView($id)
+    {
+        $model = Post::findOne($id);
+        if ($model === null) {
+            throw new NotFoundHttpException;
+        }
+
+        // renders a view named "view" and applies a layout to it
+        return $this->render('view', [
+            'model' => $model,
+        ]);
+    }
+}
 ```
 
-### 添加元标签
 
-添加元标签（meta tags）如编码、描述、关键词用视图对象也是非常简单的：
+### Rendering in Widgets <a name="rendering-in-widgets"></a>
+
+Within [widgets](structure-widgets.md), you may call the following widget methods to render views.
+
+* [[yii\base\Widget::render()|render()]]: renders a [named view](#named-views).
+* [[yii\base\Widget::renderFile()|renderFile()]]: renders a view specified in terms of a view file path or
+  [alias](concept-aliases.md).
+
+For example,
 
 ```php
-$this->registerMetaTag(['encoding' => 'utf-8']);
+namespace app\components;
+
+use yii\base\Widget;
+use yii\helpers\Html;
+
+class ListWidget extends Widget
+{
+    public $items = [];
+
+    public function run()
+    {
+        // renders a view named "list"
+        return $this->render('list', [
+            'items' => $this->items,
+        ]);
+    }
+}
 ```
 
-第一个参数是 `<meta>` 标签选项名和值的映射。以上代码将生成：
 
-```html
-<meta encoding="utf-8">
-```
+### Rendering in Views <a name="rendering-in-views"></a>
 
-有时一个类型只允许存在一条标签，这种情况需要指定第二个参数：
+You can render a view within another view by calling one of the following methods provided by the [[yii\base\View|view component]]:
 
-```html
-$this->registerMetaTag(['name' => 'description', 'content' => 'This is my cool website made with Yii!'], 'meta-description');
-$this->registerMetaTag(['name' => 'description', 'content' => 'This website is about funny raccoons.'], 'meta-description');
-```
+* [[yii\base\View::render()|render()]]: renders a [named view](#named-views).
+* [[yii\web\View::renderAjax()|renderAjax()]]: renders a [named view](#named-views) and injects all registered
+  JS/CSS scripts and files. It is usually used in response to AJAX Web requests.
+* [[yii\base\View::renderFile()|renderFile()]]: renders a view specified in terms of a view file path or
+  [alias](concept-aliases.md).
 
-如果有第二个参数相同的多个调用（该例是 `meta-description` ），后者将覆盖前者，只有一条标签被渲染：
-
-```html
-<meta name="description" content="This website is about funny raccoons.">
-```
-
-### 注册链接标签
-
-`<link>` 标签在许多情况都非常有用，如自定义网站图标、指向 RSS 订阅和分派 OpenID 到另一个服务器。 Yii 的视图对象有一个方法可以完成这些目标：
+For example, the following code in a view renders the `_overview.php` view file which is in the same directory
+as the view being currently rendered. Remember that `$this` in a view refers to the [[yii\base\View|view]] component:
 
 ```php
-$this->registerLinkTag([
-    'title' => 'Lives News for Yii Framework',
-    'rel' => 'alternate',
-    'type' => 'application/rss+xml',
-    'href' => 'http://www.yiiframework.com/rss.xml/',
+<?= $this->render('_overview') ?>
+```
+
+
+### Rendering in Other Places <a name="rendering-in-other-places"></a>
+
+In any place, you can get access to the [[yii\base\View|view]] application component by the expression
+`Yii::$app->view` and then call its aforementioned methods to render a view. For example,
+
+```php
+// displays the view file "@app/views/site/license.php"
+echo \Yii::$app->view->renderFile('@app/views/site/license.php');
+```
+
+
+### Named Views <a name="named-views"></a>
+
+When you render a view, you can specify the view using either a view name or a view file path/alias. In most cases,
+you would use the former because it is more concise and flexible. We call views specified using names as *named views*.
+
+A view name is resolved into the corresponding view file path according to the following rules:
+
+* A view name may omit the file extension name. In this case, `.php` will be used as the extension. For example,
+  the view name `about` corresponds to the file name `about.php`.
+* If the view name starts with double slashes `//`, the corresponding view file path would be `@app/views/ViewName`.
+  That is, the view is looked for under the [[yii\base\Application::viewPath|application's view path]].
+  For example, `//site/about` will be resolved into `@app/views/site/about.php`.
+* If the view name starts with a single slash `/`, the view file path is formed by prefixing the view name
+  with the [[yii\base\Module::viewPath|view path]] of the currently active [module](structure-modules.md).
+  If there is no active module, `@app/views/ViewName` will be used. For example, `/user/create` will be resolved into
+  `@app/modules/user/views/user/create.php`, if the currently active module is `user`. If there is no active module,
+  the view file path would be `@app/views/user/create.php`.
+* If the view is rendered with a [[yii\base\View::context|context]] and the context implements [[yii\base\ViewContextInterface]],
+  the view file path is formed by prefixing the [[yii\base\ViewContextInterface::getViewPath()|view path]] of the
+  context to the view name. This mainly applies to the views rendered within controllers and widgets. For example,
+  `site/about` will be resolved into `@app/views/site/about.php` if the context is the controller `SiteController`.
+* If a view is rendered within another view, the directory containing the other view file will be prefixed to
+  the new view name to form the actual view file path. For example, `item` will be resolved into `@app/views/post/item`
+  if it is being rendered in the view `@app/views/post/index.php`.
+
+According to the above rules, calling `$this->render('view')` in a controller `app\controllers\PostController` will
+actually render the view file `@app/views/post/view.php`, while calling `$this->render('_overview')` in that view
+will render the view file `@app/views/post/_overview.php`.
+
+
+### Accessing Data in Views <a name="accessing-data-in-views"></a>
+
+There are two approaches to access data within a view: push and pull.
+
+By passing the data as the second parameter to the view rendering methods, you are using the push approach.
+The data should be represented as an array of name-value pairs. When the view is being rendered, the PHP
+`extract()` function will be called on this array so that the array is extracted into variables in the view.
+For example, the following view rendering code in a controller will push two variables to the `report` view:
+`$foo = 1` and `$bar = 2`.
+
+```php
+echo $this->render('report', [
+    'foo' => 1,
+    'bar' => 2,
 ]);
 ```
 
-以上代码将得到以下结果：
-
-```html
-<link title="Lives News for Yii Framework" rel="alternate" type="application/rss+xml" href="http://www.yiiframework.com/rss.xml/" />
-```
-
-和 meta 标签一样可以指定另一个参数来确保一个类型只有一个链接被注册。
-
-### 注册 CSS
-
-用[[yii\web\View::registerCss()|registerCss()]] 或 [[yii\web\View::registerCssFile()|registerCssFile()]]来注册 CSS。前者注册 CSS 代码块，而后者注册了一个外部的 CSS 文件。如：
+The pull approach actively retrieves data from the [[yii\base\View|view component]] or other objects accessible
+in views (e.g. `Yii::$app`). Using the code below as an example, within the view you can get the controller object
+by the expression `$this->context`. And as a result, it is possible for you to access any properties or methods
+of the controller in the `report` view, such as the controller ID shown in the following:
 
 ```php
-$this->registerCss("body { background: #f00; }");
+The controller ID is: <?= $this->context->id ?>
+?>
 ```
 
-以上代码运行结果是添加下面代码到页面的 head 部分：
+The push approach is usually the preferred way of accessing data in views, because it makes views less dependent
+on context objects. Its drawback is that you need to manually build the data array all the time, which could
+become tedious and error prone if a view is shared and rendered in different places.
 
-```html
-<style>
-body { background: #f00; }
-</style>
-```
 
-要指定样式标签的其他属性，可以传递键值对数组到第三个参数。如需确保只有一个样式标签，用第四个参数，方法如 meta 标签描述的一样。
+### Sharing Data among Views <a name="sharing-data-among-views"></a>
+
+The [[yii\base\View|view component]] provides the [[yii\base\View::params|params]] property that you can use
+to share data among views.
+
+For example, in an `about` view, you can have the following code which specifies the current segment of the
+breadcrumbs.
 
 ```php
-$this->registerCssFile("http://example.com/css/themes/black-and-white.css", [BootstrapAsset::className()], ['media' => 'print'], 'css-print-theme');
+$this->params['breadcrumbs'][] = 'About Us';
 ```
 
-以上代码将添加一条 CSS 文件链接到页面的 head 部分。
-
-* 第一个参数指定要注册的 CSS 文件。
-* 第二个参数指定该 CSS 文件基于[[yii\bootstrap\BootstrapAsset|BootstrapAsset]]，意味着该 CSS 文件将添加在[[yii\bootstrap\BootstrapAsset|BootstrapAsset]]的 CSS 文件后面。不指定这个依赖关系，这个 CSS 文件和[[yii\bootstrap\BootstrapAsset|BootstrapAsset]] CSS 文件的相对位置就是未定义的。
-* 第三个参数指定`<link>` 标签有哪些属性。
-* 最后一个参数指定识别该 CSS 文件的 ID 。如没提供，将使用 CSS 文件的 URL 替代。
-
-强烈推荐使用[资源包](assets.md)来注册外部 CSS 文件，而不是使用[[yii\web\View::registerCssFile()|registerCssFile()]]。资源包允许你结合和压缩多个 CSS 文件，这在大流量站点非常可取。
-
-
-### 注册脚本文件
-
-[[yii\web\View]]对象可以注册脚本，有两个专用方法：
-用于内部脚本的[[yii\web\View::registerJs()|registerJs()]]和用于外部脚本文件的[[yii\web\View::registerJsFile()|registerJsFile()]]。内部脚本在配置和动态生成代码上非常有用。方法添加这些功能的使用如下：
+Then, in the [layout](#layouts) file, which is also a view, you can display the breadcrumbs using the data
+passed along [[yii\base\View::params|params]]:
 
 ```php
-$this->registerJs("var options = ".json_encode($options).";", View::POS_END, 'my-options');
+<?= yii\widgets\Breadcrumbs::widget([
+    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+]) ?>
 ```
 
-第一个参数是要插入页码真正的 JS 代码，第二个参数是确定脚本在页面的哪个位置插入，可能的值有：
 
-- [[yii\web\View::POS_HEAD|View::POS_HEAD]] 头部
-- [[yii\web\View::POS_BEGIN|View::POS_BEGIN]] 刚打开 `<body>` 后
-- [[yii\web\View::POS_END|View::POS_END]] 刚关闭 `</body>` 前
-- [[yii\web\View::POS_READY|View::POS_READY]] 文档 `ready` 事件执行代码时。这将自动注册[[yii\web\JqueryAsset|jQuery]]。
-- [[yii\web\View::POS_LOAD|View::POS_LOAD]] 文档`load`事件执行代码时，这将自动注册[[yii\web\JqueryAsset|jQuery]]。
+## Layouts <a name="layouts"></a>
 
-最后的参数是用来识别代码块的唯一脚本 ID ，ID 相同将替换存在的脚本代码而不是添加新的。如不提供， JS 代码会用自己来做脚本 ID 。
-
-外部脚本可以如下这样添加：
-
-```php
-$this->registerJsFile('http://example.com/js/main.js', [JqueryAsset::className()]);
-```
-
-[[yii\web\View::registerJsFile()|registerJsFile()]]的参数和
-[[yii\web\View::registerCssFile()|registerCssFile()]]的参数类似。上例中依赖 `JqueryAsset` 注册`main.js` 文件。就是说 `main.js` 文件添加在 `jquery.js` 后面。不指明这个依赖关系，
-`main.js` 和 `jquery.js` 的相对位置就是未定义。
-
-如同[[yii\web\View::registerCssFile()|registerCssFile()]]，强烈推荐使用[资源包](assets.md)来注册外部 JS 文件而不是使用[[yii\web\View::registerJsFile()|registerJsFile()]]。
+Layouts are a special type of views that represent the common parts of multiple views. For example, the pages
+for most Web applications share the same page header and footer. While you can repeat the same page header and footer
+in every view, a better way is to do this once in a layout and embed the rendering result of a content view at
+an appropriate place in the layout.
 
 
-### 注册资源包
+### Creating Layouts <a name="creating-layouts"></a>
 
-如前所述，使用资源包替代直接使用 CSS 和 JS 是更好的方式。定义资源包的更多细节请参考本指南的[资源管理](assets.md)部分。使用已定义资源包是非常直观的：
+Because layouts are also views, they can be created in the similar way as normal views. By default, layouts
+are stored in the directory `@app/views/layouts`. For layouts used within a [module](structure-modules.md),
+they should be stored in the `views/layouts` directory under the [[yii\base\Module::basePath|module directory]].
+You may customize the default layout directory by configuring the [[yii\base\Module::layoutPath]] property of
+the application or modules.
 
-```php
-\frontend\assets\AppAsset::register($this);
-```
-
-### 布局
-
-布局是表现页面通用部分的便利方式。通用部分可以在全部页面或至少你应用的大多数页面通用。通常布局包括`<head>` 部分，footer，主菜单和这样的元素。可以在[基础应用模板](apps-basic.md)找到布局的使用示例。这里将回顾一个非常基本、没有任何小部件或额外标记的布局：
+The following example shows how a layout looks like. Note that for illustrative purpose, we have greatly simplified
+the code in the layout. In practice, you may want to add more content to it, such as head tags, main menu, etc.
 
 ```php
 <?php
 use yii\helpers\Html;
+
+/* @var $this yii\web\View */
+/* @var $content string */
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+<html lang="en">
 <head>
-    <meta charset="<?= Yii::$app->charset ?>"/>
+    <meta charset="UTF-8"/>
+    <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
-    <div class="container">
-        <?= $content ?>
-    </div>
-    <footer class="footer">© 2013 me :)</footer>
+    <header>My Company</header>
+    <?= $content ?>
+    <footer>&copy; 2014 by My Company</footer>
 <?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>
 ```
 
-以上标记是一些代码，首先， `$content` 是一个变量，这个变量包含控制器 `$this->render()` 方法渲染视图的结果。
+As you can see, the layout generates the HTML tags that are common to all pages. Within the `<body>` section,
+the layout echoes the `$content` variable which represents the rendering result of content views and is pushed
+into the layout when [[yii\base\Controller::render()]] is called.
 
-通过标准的 PHP  `use` 表达式来引入（ import ）[[yii\helpers\Html|Html]]助手类，该助手类通常用于绝大多数需要转义输出数据的视图。
+Most layouts should call the following methods like shown in the above code. These methods mainly trigger events
+about the rendering process so that scripts and tags registered in other places can be properly injected into
+the places where these methods are called.
 
-一些特别的方法如 [[yii\web\View::beginPage()|beginPage()]]/[[yii\web\View::endPage()|endPage()]],
-        [[yii\web\View::head()|head()]], [[yii\web\View::beginBody()|beginBody()]]/[[yii\web\View::endBody()|endBody()]]触发用于注册脚本、链接和其他页面处理的渲染事件。需要一直包括这些在布局以便渲染正常工作。
+- [[yii\base\View::beginPage()|beginPage()]]: This method should be called at the very beginning of the layout.
+  It triggers the [[yii\base\View::EVENT_BEGIN_PAGE|EVENT_BEGIN_PAGE]] event which indicates the beginning of a page.
+- [[yii\base\View::endPage()|endPage()]]: This method should be called at the end of the layout.
+  It triggers the [[yii\base\View::EVENT_END_PAGE|EVENT_END_PAGE]] event which indicates the end of a page.
+- [[yii\web\View::head()|head()]]: This method should be called within the `<head>` section of an HTML page.
+  It generates a placeholder which will be replaced with the registered head HTML code (e.g. link tags, meta tags)
+  when a page finishes rendering.
+- [[yii\web\View::beginBody()|beginBody()]]: This method should be called at the beginning of the `<body>` section.
+  It triggers the [[yii\web\View::EVENT_BEGIN_BODY|EVENT_BEGIN_BODY]] event and generates a placeholder which will
+  be replaced by the registered HTML code (e.g. JavaScript) targeted at the body begin position.
+- [[yii\web\View::endBody()|endBody()]]: This method should be called at the end of the `<body>` section.
+  It triggers the [[yii\web\View::EVENT_END_BODY|EVENT_END_BODY]] event and generates a placeholder which will
+  be replaced by the registered HTML code (e.g. JavaScript) targeted at the body end position.
 
 
-### 局部视图（partials）
+### Accessing Data in Layouts <a name="accessing-data-in-layouts"></a>
 
-通常在许多页面中需要复用一些 HTML 标记，而为此创建全功能的小部件又太夸张，这种情况可以使用局部。
+Within a layout, you have access to two predefined variables: `$this` and `$content`. The former refers to
+the [[yii\base\View|view]] component, like in normal views, while the latter contains the rendering result of a content
+view which is rendered by calling the [[yii\base\Controller::render()|render()]] method in controllers.
 
-局部视图也是一个视图，位于 `views` 下相应的视图目录，并约定以下划线 `_`开头。例如，渲染一系列用户简介的同时在其他地方显示单个简介。
+If you want to access other data in layouts, you have to use the pull method as described in
+the [Accessing Data in Views](#accessing-data-in-views) subsection. If you want to pass data from a content view
+to a layout, you may use the method described in the [Sharing Data among Views](#sharing-data-among-views) subsection.
 
-首先需要定义一个用户简介的局部视图 `_profile.php` ：
 
+### Using Layouts <a name="using-layouts"></a>
+
+As described in the [Rendering in Controllers](#rendering-in-controllers) subsection, when you render a view
+by calling the [[yii\base\Controller::render()|render()]] method in a controller, a layout will be applied
+to the rendering result. By default, the layout `@app/views/layouts/main.php` will be used. 
+
+You may use a different layout by configuring either [[yii\base\Application::layout]] or [[yii\base\Controller::layout]].
+The former governs the layout used by all controllers, while the latter overrides the former for individual controllers.
+For example, the following code makes the `post` controller to use `@app/views/layouts/post.php` as the layout
+when rendering its views. Other controllers, assuming their `layout` property is untouched, will still use the default
+`@app/views/layouts/main.php` as the layout.
+ 
 ```php
-<?php
-use yii\helpers\Html;
-?>
+namespace app\controllers;
 
-<div class="profile">
-    <h2><?= Html::encode($username) ?></h2>
-    <p><?= Html::encode($tagline) ?></p>
-</div>
+use yii\web\Controller;
+
+class PostController extends Controller
+{
+    public $layout = 'post';
+    
+    // ...
+}
 ```
 
-然后在需要显示一系列用户的 `index.php` 视图文件使用：
+For controllers belonging to a module, you may also configure the module's [[yii\base\Module::layout|layout]] property to
+use a particular layout for these controllers. 
+
+Because the `layout` property may be configured at different levels (controllers, modules, application),
+behind the scene Yii takes two steps to determine what is the actual layout file being used for a particular controller.
+
+In the first step, it determines the layout value and the context module:
+
+- If the [[yii\base\Controller::layout]] property of the controller is not null, use it as the layout value and
+  the [[yii\base\Controller::module|module]] of the controller as the context module.
+- If [[yii\base\Controller::layout|layout]] is null, search through all ancestor modules (including the application itself) of the controller and 
+  find the first module whose [[yii\base\Module::layout|layout]] property is not null. Use that module and
+  its [[yii\base\Module::layout|layout]] value as the context module and the chosen layout value.
+  If such a module cannot be found, it means no layout will be applied.
+  
+In the second step, it determines the actual layout file according to the layout value and the context module
+determined in the first step. The layout value can be:
+
+- a path alias (e.g. `@app/views/layouts/main`).
+- an absolute path (e.g. `/main`): the layout value starts with a slash. The actual layout file will be
+  looked for under the application's [[yii\base\Application::layoutPath|layout path]] which defaults to
+  `@app/views/layouts`.
+- a relative path (e.g. `main`): the actual layout file will be looked for under the context module's
+  [[yii\base\Module::layoutPath|layout path]] which defaults to the `views/layouts` directory under the
+  [[yii\base\Module::basePath|module directory]].
+- the boolean value `false`: no layout will be applied.
+
+If the layout value does not contain a file extension, it will use the default one `.php`.
+
+
+### Nested Layouts <a name="nested-layouts"></a>
+
+Sometimes you may want to nest one layout in another. For example, in different sections of a Web site, you
+want to use different layouts, while all these layouts share the same basic layout that generates the overall
+HTML5 page structure. You can achieve this goal by calling [[yii\base\View::beginContent()|beginContent()]] and
+[[yii\base\View::endContent()|endContent()]] in the child layouts like the following:
 
 ```php
-<div class="user-index">
-    <?php
-    foreach ($users as $user) {
-        echo $this->render('_profile', [
-            'username' => $user->name,
-            'tagline' => $user->tagline,
-        ]);
-    }
-    ?>
-</div>
+<?php $this->beginContent('@app/views/layouts/base.php'); ?>
+
+...child layout content here...
+
+<?php $this->endContent(); ?>
 ```
 
-在其他视图中复用同样的方式它来显示单个用户简介：
+As shown above, the child layout content should be enclosed within [[yii\base\View::beginContent()|beginContent()]] and
+[[yii\base\View::endContent()|endContent()]]. The parameter passed to [[yii\base\View::beginContent()|beginContent()]]
+specifies what is the parent layout. It can be either a layout file or alias.
+
+Using the above approach, you can nest layouts in more than one levels.
+
+
+### Using Blocks <a name="using-blocks"></a>
+
+Blocks allow you to specify the view content in one place while displaying it in another. They are often used together
+with layouts. For example, you can define a block in a content view and display it in the layout.
+
+You call [[yii\base\View::beginBlock()|beginBlock()]] and [[yii\base\View::endBlock()|endBlock()]] to define a block.
+The block can then be accessed via `$view->blocks[$blockID]`, where `$blockID` stands for a unique ID that you assign
+to the block when defining it.
+
+The following example shows how you can use blocks to customize specific parts of a layout in a content view.
+
+First, in a content view, define one or multiple blocks:
 
 ```php
-echo $this->render('_profile', [
-    'username' => $user->name,
-    'tagline' => $user->tagline,
-]);
+...
+
+<?php $this->beginBlock('block1'); ?>
+
+...content of block1...
+
+<?php $this->endBlock(); ?>
+
+...
+
+<?php $this->beginBlock('block3'); ?>
+
+...content of block3...
+
+<?php $this->endBlock(); ?>
 ```
 
-当调用 `render()` 来渲染当前视图的局部视图，可以使用不同格式来指向局部视图。最经常使用的格式是所谓的相对路径视图名，如上例所示。局部视图文件和目录里当前视图的路径是相对的。如果局部视图位于子目录，要在视图名包含子目录名，如 `public/_profile` 。
-
-
-也可以使用路径别名来指向一个视图，如， `@app/views/common/_profile` 。
-
-也可以使用所谓的绝对路径视图名，如 `/user/_profile`, `//user/_profile`。绝对路径视图名以单斜线或双斜线开始。如果以单斜线开头，视图文件将在当前活动模块的视图路径搜寻，否则，将从应用根视图目录开始搜寻。
-
-### 访问视图所处环境（控制器、小部件）
-
-视图通常由控制器或小部件使用。这两种情况视图渲染对象通过 `$this->context` 在视图中都生效。如，需要在控制器渲染的视图中打印当前内部请求路径，可以使用以下代码：
+Then, in the layout view, render the blocks if they are available, or display some default content if a block is
+not defined.
 
 ```php
-echo $this->context->getRoute();
+...
+<?php if (isset($this->blocks['block1'])): ?>
+    <?= $this->blocks['block1'] ?>
+<?php else: ?>
+    ... default content for block1 ...
+<?php endif; ?>
+
+...
+
+<?php if (isset($this->blocks['block2'])): ?>
+    <?= $this->blocks['block2'] ?>
+<?php else: ?>
+    ... default content for block2 ...
+<?php endif; ?>
+
+...
+
+<?php if (isset($this->blocks['block3'])): ?>
+    <?= $this->blocks['block3'] ?>
+<?php else: ?>
+    ... default content for block3 ...
+<?php endif; ?>
+...
 ```
 
-### 缓存页面片段
 
-更多有关页面片段缓存的内容请参考本指南的[缓存](caching.md)部分。
+## Using View Components <a name="using-view-components"></a>
 
-定制视图组件
---------------------------
-
-既然视图已经是名为 `view` 的应用组件，现在可以用继承自[[yii\base\View]] 或 [[yii\web\View]]的自定义组件类来替换。通过`config/web.php`这样的配置文件就可以实现：
+[[yii\base\View|View components]] provides many view-related features. While you can get view components
+by creating individual instances of [[yii\base\View]] or its child class, in most cases you will mainly use
+the `view` application component. You can configure this component in [application configurations](structure-applications.md#application-configurations)
+like the following:
 
 ```php
-return [
+[
     // ...
     'components' => [
         'view' => [
@@ -353,5 +534,189 @@ return [
         ],
         // ...
     ],
-];
+]
 ```
+
+View components provide the following useful view-related features, each described in more details in a separate section:
+
+* [theming](output-theming.md): allows you to develop and change the theme for your Web site.
+* [fragment caching](caching-fragment.md): allows you to cache a fragment within a Web page.
+* [client script handling](output-client-scripts.md): supports CSS and JavaScript registration and rendering.
+* [asset bundle handling](structure-assets.md): supports registering and rendering of [asset bundles](structure-assets.md).
+* [alternative template engines](tutorial-template-engines.md): allows you to use other template engines, such as
+  [Twig](http://twig.sensiolabs.org/), [Smarty](http://www.smarty.net/).
+
+You may also frequently use the following minor yet useful features when you are developing Web pages.
+
+
+### Setting Page Titles <a name="setting-page-titles"></a>
+
+Every Web page should have a title. Normally the title tag is being displayed in a [layout](#layouts). However, in practice
+the title is often determined in content views rather than layouts. To solve this problem, [[yii\web\View]] provides
+the [[yii\web\View::title|title]] property for you to pass the title information from content views to layouts.
+
+To make use of this feature, in each content view, you can set the page title like the following:
+
+```php
+<?php
+$this->title = 'My page title';
+?>
+```
+
+Then in the layout, make sure you have the following code in the `<head>` section:
+
+```php
+<title><?= Html::encode($this->title) ?></title>
+```
+
+
+### Registering Meta Tags <a name="registering-meta-tags"></a>
+
+Web pages usually need to generate various meta tags needed by different parties. Like page titles, meta tags
+appear in the `<head>` section and are usually generated in layouts.
+
+If you want to specify what meta tags to generate in content views, you can call [[yii\web\View::registerMetaTag()]]
+in a content view, like the following:
+
+```php
+<?php
+$this->registerMetaTag(['name' => 'keywords', 'content' => 'yii, framework, php']);
+?>
+```
+
+The above code will register a "keywords" meta tag with the view component. The registered meta tag is
+rendered after the layout finishes rendering. By then, the following HTML code will be inserted
+at the place where you call [[yii\web\View::head()]] in the layout and generate the following HTML code:
+
+```php
+<meta name="keywords" content="yii, framework, php">
+```
+
+Note that if you call [[yii\web\View::registerMetaTag()]] multiple times, it will register multiple meta tags,
+regardless whether the meta tags are the same or not.
+
+To make sure there is only a single instance of a meta tag type, you can specify a key as a second parameter when calling the method.
+For example, the following code registers two "description" meta tags. However, only the second one will be rendered.
+
+```html
+$this->registerMetaTag(['name' => 'description', 'content' => 'This is my cool website made with Yii!'], 'description');
+$this->registerMetaTag(['name' => 'description', 'content' => 'This website is about funny raccoons.'], 'description');
+```
+
+
+### Registering Link Tags <a name="registering-link-tags"></a>
+
+Like [meta tags](#adding-meta-tags), link tags are useful in many cases, such as customizing favicon, pointing to
+RSS feed or delegating OpenID to another server. You can work with link tags in the similar way as meta tags
+by using [[yii\web\View::registerLinkTag()]]. For example, in a content view, you can register a link tag like follows,
+
+```php
+$this->registerLinkTag([
+    'title' => 'Live News for Yii',
+    'rel' => 'alternate',
+    'type' => 'application/rss+xml',
+    'href' => 'http://www.yiiframework.com/rss.xml/',
+]);
+```
+
+The code above will result in
+
+```html
+<link title="Live News for Yii" rel="alternate" type="application/rss+xml" href="http://www.yiiframework.com/rss.xml/">
+```
+
+Similar as [[yii\web\View::registerMetaTag()|registerMetaTags()]], you can specify a key when calling
+[[yii\web\View::registerLinkTag()|registerLinkTag()]] to avoid generated repeated link tags.
+
+
+## View Events <a name="view-events"></a>
+
+[[yii\base\View|View components]] trigger several events during the view rendering process. You may respond
+to these events to inject content into views or process the rendering results before they are sent to end users.
+
+- [[yii\base\View::EVENT_BEFORE_RENDER|EVENT_BEFORE_RENDER]]: triggered at the beginning of rendering a file
+  in a controller. Handlers of this event may set [[yii\base\ViewEvent::isValid]] to be false to cancel the rendering process.
+- [[yii\base\View::EVENT_AFTER_RENDER|EVENT_AFTER_RENDER]]: triggered by the call of [[yii\base\View::beginPage()]] in layouts.
+  Handlers of this event may obtain the rendering result through [[yii\base\ViewEvent::output]] and may modify
+  this property to change the rendering result.
+- [[yii\base\View::EVENT_BEGIN_PAGE|EVENT_BEGIN_PAGE]]: triggered by the call of [[yii\base\View::beginPage()]] in layouts.
+- [[yii\base\View::EVENT_END_PAGE|EVENT_END_PAGE]]: triggered by the call of [[yii\base\View::endPage()]] in layouts.
+- [[yii\web\View::EVENT_BEGIN_BODY|EVENT_BEGIN_BODY]]: triggered by the call of [[yii\web\View::beginBody()]] in layouts.
+- [[yii\web\View::EVENT_END_BODY|EVENT_END_BODY]]: triggered by the call of [[yii\web\View::endBody()]] in layouts.
+
+For example, the following code injects the current date at the end of the page body:
+
+```php
+\Yii::$app->view->on(View::EVENT_END_BODY, function () {
+    echo date('Y-m-d');
+});
+```
+
+
+## Rendering Static Pages <a name="rendering-static-pages"></a>
+
+Static pages refer to those Web pages whose main content are mostly static without the need of accessing
+dynamic data pushed from controllers.
+
+You can output static pages by putting their code in the view, and then using the code like the following in a controller:
+
+```php
+public function actionAbout()
+{
+    return $this->render('about');
+}
+```
+
+If a Web site contains many static pages, it would be very tedious repeating the similar code many times.
+To solve this problem, you may introduce a [standalone action](structure-controllers.md#standalone-actions)
+called [[yii\web\ViewAction]] in a controller. For example,
+
+```php
+namespace app\controllers;
+
+use yii\web\Controller;
+
+class SiteController extends Controller
+{
+    public function actions()
+    {
+        return [
+            'page' => [
+                'class' => 'yii\web\ViewAction',
+            ],
+        ];
+    }
+}
+```
+
+Now if you create a view named `about` under the directory `@app/views/site/pages`, you will be able to
+display this view by the following URL:
+
+```
+http://localhost/index.php?r=site/page&view=about
+```
+
+The `GET` parameter `view` tells [[yii\web\ViewAction]] which view is requested. The action will then look
+for this view under the directory `@app/views/site/pages`. You may configure [[yii\web\ViewAction::viewPrefix]]
+to change the directory for searching these views.
+
+
+## Best Practices <a name="best-practices"></a>
+
+Views are responsible for presenting models in the format that end users desire. In general, views
+
+* should mainly contain presentational code, such as HTML, and simple PHP code to traverse, format and render data.
+* should not contain code that performs DB queries. Such code should be done in models.
+* should avoid direct access to request data, such as `$_GET`, `$_POST`. This belongs to controllers.
+  If request data is needed, they should be pushed into views by controllers.
+* may read model properties, but should not modify them.
+
+To make views more manageable, avoid creating views that are too complex or contain too much redundant code.
+You may use the following techniques to achieve this goal:
+
+* use [layouts](#layouts) to represent common presentational sections (e.g. page header, footer).
+* divide a complicated view into several smaller ones. The smaller views can be rendered and assembled into a bigger
+  one using the rendering methods that we have described.
+* create and use [widgets](structure-widgets.md) as building blocks of views.
+* create and use helper classes to transform and format data in views.
+

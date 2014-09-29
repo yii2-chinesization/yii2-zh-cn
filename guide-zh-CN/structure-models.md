@@ -1,93 +1,186 @@
-模型
-=====
+Models
+======
 
-> 注意：该章节还在开发中。
+Models are part of the [MVC](http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) architecture.
+They are objects representing business data, rules and logic.
 
-Yii 遵循 MVC 结构，在 Yii 中模型的作用是存储或表示应用暂存的数据。 Yii 模型有以下基本特性：
+You can create model classes by extending [[yii\base\Model]] or its child classes. The base class
+[[yii\base\Model]] supports many useful features:
 
-- 特性定义：模型定义了什么看作特性。
-- 特性标签：出于显示目的每个特性可能和一个标签关联。
-- 批量填充特性：一次填充多个模型特性的能力。
-- 基于场景的数据校验。
+* [Attributes](#attributes): represent the business data and can be accessed like normal object properties
+  or array elements;
+* [Attribute labels](#attribute-labels): specify the display labels for attributes;
+* [Massive assignment](#massive-assignment): supports populating multiple attributes in a single step;
+* [Validation rules](#validation-rules): ensures input data based on the declared validation rules;
+* [Data Exporting](#data-exporting): allows model data to be exported in terms of arrays with customizable formats.
 
-Yii 的模型继承自[[yii\base\Model]]类。模型通常用来保持数据何定义数据的验证规则（又称为业务逻辑）。业务逻辑通过提供验证和错误报告极大地简化了
-从复杂 web 表单到生成模型的过程。
+The `Model` class is also the base class for more advanced models, such as [Active Record](db-active-record.md).
+Please refer to the relevant documentation for more details about these advanced models.
 
-模型类也是更多多功能高级模型的基类，如[活动记录](active-record.md)。
+> Info: You are not required to base your model classes on [[yii\base\Model]]. However, because there are many Yii
+  components built to support [[yii\base\Model]], it is usually the preferable base class for a model.
 
-特性
-----------
 
-实际上模型代表的数据是存储在模型的 *特性* 中。模型特性可以像对象的变量那样访问。如， `Post` 模型包括 `title` 和 `content` 特性，如下访问：
+## Attributes <a name="attributes"></a>
+
+Models represent business data in terms of *attributes*. Each attribute is like a publicly accessible property
+of a model. The method [[yii\base\Model::attributes()]] specifies what attributes a model class has.
+
+You can access an attribute like accessing a normal object property:
 
 ```php
-$post = new Post();
-$post->title = 'Hello, world';
-$post->content = 'Something interesting is happening.';
-echo $post->title;
-echo $post->content;
+$model = new \app\models\ContactForm;
+
+// "name" is an attribute of ContactForm
+$model->name = 'example';
+echo $model->name;
 ```
 
-既然[[yii\base\Model|Model]]实现了[ArrayAccess](http://php.net/manual/en/class.arrayaccess.php)接口，也可以当作数组元素来访问：
+You can also access attributes like accessing array elements, thanks to the support for
+[ArrayAccess](http://php.net/manual/en/class.arrayaccess.php) and [ArrayIterator](http://php.net/manual/en/class.arrayiterator.php)
+by [[yii\base\Model]]:
 
 ```php
-$post = new Post();
-$post['title'] = 'Hello, world';
-$post['content'] = 'Something interesting is happening';
-echo $post['title'];
-echo $post['content'];
-```
+$model = new \app\models\ContactForm;
 
-默认情况下，[[yii\base\Model|Model]]要求特性声明为 *公开的* 和 *非静态的* 类成员变量。下例中， `LoginForm` 模型类声明了两个特性：`username` 和 `password`。
+// accessing attributes like array elements
+$model['name'] = 'example';
+echo $model['name'];
 
-```php
-// LoginForm 有两个特性: username 和 password
-class LoginForm extends \yii\base\Model
-{
-    public $username;
-    public $password;
+// iterate attributes
+foreach ($model as $name => $value) {
+    echo "$name: $value\n";
 }
 ```
 
-模型子类可通过覆写[[yii\base\Model::attributes()|attributes()]]方法以不同方式定义特性。如，[[yii\db\ActiveRecord]]使用类关联的数据表列名来定义特性。
 
-特性标签
-----------------
+### Defining Attributes <a name="defining-attributes"></a>
 
-特性标签主要用于显示，如，对给定的特性 `firstName` ，可定义一个 `First Name` 标签，当在表单标签或错误提示等地方显示给终端用户时更人性化。给定一个特性名就可通过调用[[yii\base\Model::getAttributeLabel()]]获取它的标签。
-
-覆写[[yii\base\Model::attributeLabels()]]方法可自定义特性标签。该方法返回特性名到特性标签的映射表，如下例所示。如果特性不在该映射表，它的标签将使用[[yii\base\Model::generateAttributeLabel()]]方法生成。很多情况[[yii\base\Model::generateAttributeLabel()]]都能生成合适的标签（如 `username` 特性生成 `Username` 标签，`orderNumber` 特性生成 `Order Number` 标签）。
+By default, if your model class extends directly from [[yii\base\Model]], all its *non-static public* member
+variables are attributes. For example, the `ContactForm` model class below has four attributes: `name`, `email`,
+`subject` and `body`. The `ContactForm` model is used to represent the input data received from an HTML form.
 
 ```php
-// LoginForm 有两个特性: username and password
-class LoginForm extends \yii\base\Model
+namespace app\models;
+
+use yii\base\Model;
+
+class ContactForm extends Model
 {
-    public $username;
-    public $password;
+    public $name;
+    public $email;
+    public $subject;
+    public $body;
+}
+```
+
+
+You may override [[yii\base\Model::attributes()]] to define attributes in a different way. The method should
+return the names of the attributes in a model. For example, [[yii\db\ActiveRecord]] does so by returning
+the column names of the associated database table as its attribute names. Note that you may also need to
+override the magic methods such as `__get()`, `__set()` so that the attributes can be accessed like
+normal object properties.
+
+
+### Attribute Labels <a name="attribute-labels"></a>
+
+When displaying values or getting input for attributes, you often need to display some labels associated
+with attributes. For example, given an attribute named `firstName`, you may want to display a label `First Name`
+which is more user-friendly when displayed to end users in places such as form inputs and error messages.
+
+You can get the label of an attribute by calling [[yii\base\Model::getAttributeLabel()]]. For example,
+
+```php
+$model = new \app\models\ContactForm;
+
+// displays "Name"
+echo $model->getAttributeLabel('name');
+```
+
+By default, attribute labels are automatically generated from attribute names. The generation is done by
+the method [[yii\base\Model::generateAttributeLabel()]]. It will turn camel-case variable names into
+multiple words with the first letter in each word in upper case. For example, `username` becomes `Username`,
+and `firstName` becomes `First Name`.
+
+If you do not want to use automatically generated labels, you may override [[yii\base\Model::attributeLabels()]]
+to explicitly declare attribute labels. For example,
+
+```php
+namespace app\models;
+
+use yii\base\Model;
+
+class ContactForm extends Model
+{
+    public $name;
+    public $email;
+    public $subject;
+    public $body;
 
     public function attributeLabels()
     {
         return [
-            'username' => 'Your name',
-            'password' => 'Your password',
+            'name' => 'Your name',
+            'email' => 'Your email address',
+            'subject' => 'Subject',
+            'body' => 'Content',
         ];
     }
 }
 ```
 
-场景
----------
-
-模型可用于不同 *场景* 。如， `User` 模型可用于收集用户登录输入数据，也可以用于用户注册。在注册场景中，每项数据都是必须的，而登录场景中，只有用户名和密码是必须的。
-
-为简化实现不同场景的业务逻辑，每个模型都有一个 `scenario` 属性，储存了模型正被使用的场景。如将在以下部分所介绍的那样，场景这个概念主要用于数据验证和批量特性赋值。
-
-每个场景关联了一系列在特定场景 *活动的* 特性。如，在 `login` （登录）场景，只有 `username` 和 `password` 特性是活跃的；而在`register` （注册）场景，除了用户名和密码外，其他特性如 `email` 等也是 *活动的* 。当特性是 *活动的* 就意味着这个特性要接受验证。
-
-可能需要的场景列入 `scenarios()` 方法，该方法返回一个数组，该数组键为场景名，值为在该场景中活动的特性列表：
+For applications supporting multiple languages, you may want to translate attribute labels. This can be done
+in the [[yii\base\Model::attributeLabels()|attributeLabels()]] method as well, like the following:
 
 ```php
-class User extends \yii\db\ActiveRecord
+public function attributeLabels()
+{
+    return [
+        'name' => \Yii::t('app', 'Your name'),
+        'email' => \Yii::t('app', 'Your email address'),
+        'subject' => \Yii::t('app', 'Subject'),
+        'body' => \Yii::t('app', 'Content'),
+    ];
+}
+```
+
+You may even conditionally define attribute labels. For example, based on the [scenario](#scenarios) the model
+is being used in, you may return different labels for the same attribute.
+
+> Info: Strictly speaking, attribute labels are part of [views](structure-views.md). But declaring labels
+  in models is often very convenient and can result in very clean and reusable code.
+
+
+## Scenarios <a name="scenarios"></a>
+
+A model may be used in different *scenarios*. For example, a `User` model may be used to collect user login inputs,
+but it may also be used for the user registration purpose. In different scenarios, a model may use different
+business rules and logic. For example, the `email` attribute may be required during user registration,
+but not so during user login.
+
+A model uses the [[yii\base\Model::scenario]] property to keep track of the scenario it is being used in.
+By default, a model supports only a single scenario named `default`. The following code shows two ways of
+setting the scenario of a model:
+
+```php
+// scenario is set as a property
+$model = new User;
+$model->scenario = 'login';
+
+// scenario is set through configuration
+$model = new User(['scenario' => 'login']);
+```
+
+By default, the scenarios supported by a model are determined by the [validation rules](#validation-rules) declared
+in the model. However, you can customize this behavior by overriding the [[yii\base\Model::scenarios()]] method,
+like the following:
+
+```php
+namespace app\models;
+
+use yii\db\ActiveRecord;
+
+class User extends ActiveRecord
 {
     public function scenarios()
     {
@@ -99,12 +192,24 @@ class User extends \yii\db\ActiveRecord
 }
 ```
 
-如 `scenarios` 方法未定义，默认场景启用。即有验证规则的特性看作是 *活动的* 。
+> Info: In the above and following examples, the model classes are extending from [[yii\db\ActiveRecord]]
+  because the usage of multiple scenarios usually happens to [Active Record](db-active-record.md) classes.
 
-如希望自定义场景生效后还保持默认场景生效，引用父类方法：
+The `scenarios()` method returns an array whose keys are the scenario names and values the corresponding
+*active attributes*. An active attribute can be [massively assigned](#massive-assignment) and is subject
+to [validation](#validation-rules). In the above example, the `username` and `password` attributes are active
+in the `login` scenario; while in the `register` scenario, `email` is also active besides `username` and `password`.
+
+The default implementation of `scenarios()` will return all scenarios found in the validation rule declaration
+method [[yii\base\Model::rules()]]. When overriding `scenarios()`, if you want to introduce new scenarios
+in addition to the default ones, you may write code like the following:
 
 ```php
-class User extends \yii\db\ActiveRecord
+namespace app\models;
+
+use yii\db\ActiveRecord;
+
+class User extends ActiveRecord
 {
     public function scenarios()
     {
@@ -116,319 +221,291 @@ class User extends \yii\db\ActiveRecord
 }
 ```
 
+The scenario feature is primarily used by [validation](#validation-rules) and [massive attribute assignment](#massive-assignment).
+You can, however, use it for other purposes. For example, you may declare [attribute labels](#attribute-labels)
+differently based on the current scenario.
 
-有时批量赋值时需要标记某个特性是不安全的（但仍想验证该特性），可以在 `scenarios()` 方法定义该特性时给特性名添加感叹号前缀来标记。如：
 
-```php
-['username', 'password', '!secret']
-```
+## Validation Rules <a name="validation-rules"></a>
 
-该例中 `username`, `password` 和 `secret` are *活动的* 特性，但只有 `username` 和 `password` 在批量赋值时认为是安全的。
+When the data for a model is received from end users, it should be validated to make sure it satisfies
+certain rules (called *validation rules*, also known as *business rules*). For example, given a `ContactForm` model,
+you may want to make sure all attributes are not empty and the `email` attribute contains a valid email address.
+If the values for some attributes do not satisfy the corresponding business rules, appropriate error messages
+should be displayed to help the user to fix the errors.
 
-识别活动的模型场景可使用以下方法之一：
-
-```php
-class EmployeeController extends \yii\web\Controller
-{
-    public function actionCreate($id = null)
-    {
-        // 第一种方法
-        $employee = new Employee(['scenario' => 'managementPanel']);
-
-        // 第二种方法
-        $employee = new Employee();
-        $employee->scenario = 'managementPanel';
-
-        // 第三种方法
-        $employee = Employee::find()->where('id = :id', [':id' => $id])->one();
-        if ($employee !== null) {
-            $employee->scenario = 'managementPanel';
-        }
-    }
-}
-```
-
-上例假定模型基于[Active Record](active-record.md)。而基础的表单模型很少需要场景，因为基础表单通常直接连接到一个简单的表单，另一个原因如上所示， `scenarios()` 默认情况是返回带有活动验证规则的每一个属性，这些活动的验证规则使属性非常适用于批量赋值和验证。
-
-验证
-----------
-
-当模型用于以特性收集用户输入数据时，通常需要验证受影响的特性以确保这些特性满足特定要求，如特性不能为空，必须只包含字母等。如验证发现错误，就会显示出来提示用户改正。以下示例演示了验证如何履行：
+You may call [[yii\base\Model::validate()]] to validate the received data. The method will use
+the validation rules declared in [[yii\base\Model::rules()]] to validate every relevant attribute. If no error
+is found, it will return true. Otherwise, it will keep the errors in the [[yii\base\Model::errors]] property
+and return false. For example,
 
 ```php
-$model = new LoginForm();
-$model->username = $_POST['username'];
-$model->password = $_POST['password'];
+$model = new \app\models\ContactForm;
+
+// populate model attributes with user inputs
+$model->attributes = \Yii::$app->request->post('ContactForm');
+
 if ($model->validate()) {
-    // ... 用户登录 ...
+    // all inputs are valid
 } else {
-    $errors = $model->getErrors();
-    // ... 显示错误信息给用户 ...
+    // validation failed: $errors is an array containing error messages
+    $errors = $model->errors;
 }
 ```
 
-模型可用的验证规则列于 `rules()` 方法。一条验证规则适用于一个或多个特性并作用于一个或多个场景。一条规则可使用验证器对象——[[yii\validators\Validator]]子类实例或以下格式的数组指定：
 
-```php
-[
-    ['特性1', '特性2', ...],
-    '验证器类或别名',
-    // 指定规则适用的场景
-    // 未指定场景则适用于所有场景
-    'on' => ['场景1', '场景2', ...],
-    // 以下键值对将用于初始化验证器属性
-    'property1' => 'value1',
-    'property2' => 'value2',
-    // ...
-]
-```
-
-调用 `validate()` 时，真正执行的验证规则取决于以下两个准则：
-
-- 规则必须关联至少一个活动的特性；
-- 规则必须在当前场景是活动的。
-
-
-### 建立你自己的验证器 (内联验证方法)
-
-如果内置验证器不能满足你的需求，可以通过在模型类创建一个方法来建立你自己的验证器。这个方法可由[[yii\validators\InlineValidator|InlineValidator]]包裹并在验证时调用，然后用于验证特性并在验证失败时以[[yii\base\Model::addError()|add errors]]添加错误到模型。
-
-自定义验证方法可以 `public function myValidator($attribute, $params)` 来识别，方法名可自由选择。
-
-以下示例实现了一个用于验证用户年龄的验证器：
-
-```php
-public function validateAge($attribute, $params)
-{
-    $value = $this->$attribute;
-    if (strtotime($value) > strtotime('now - ' . $params['min'] . ' years')) {
-        $this->addError($attribute, 'You must be at least ' . $params['min'] . ' years old to register for this service.');
-    }
-}
-
-public function rules()
-{
-    return [
-        // ...
-        [['birthdate'], 'validateAge', 'params' => ['min' => '12']],
-    ];
-}
-```
-
-也可在规则定义中设置[[yii\validators\InlineValidator|InlineValidator]]的其他属性。以[[yii\validators\InlineValidator::$skipOnEmpty|skipOnEmpty]]属性为例：
-
-```php
-[['birthdate'], 'validateAge', 'params' => ['min' => '12'], 'skipOnEmpty' => false],
-```
-
-### 条件验证
-
-当某条件应用时才验证特性，如一个字段的验证依赖另一个字段的值，可以使用[[yii\validators\Validator::when|the `when` property]]来定义这个条件：
-
-```php
-['state', 'required', 'when' => function($model) { return $model->country == Country::USA; }],
-['stateOthers', 'required', 'when' => function($model) { return $model->country != Country::USA; }],
-['mother', 'required', 'when' => function($model) { return $model->age < 18 && $model->married != true; }],
-```
-
-如下这样写条件更易读：
+To declare validation rules associated with a model, override the [[yii\base\Model::rules()]] method by returning
+the rules that the model attributes should satisfy. The following example shows the validation rules declared
+for the `ContactForm` model:
 
 ```php
 public function rules()
 {
-    $usa = function($model) { return $model->country == Country::USA; };
-    $notUsa = function($model) { return $model->country != Country::USA; };
-    $child = function($model) { return $model->age < 18 && $model->married != true; };
     return [
-        ['state', 'required', 'when' => $usa],
-        ['stateOthers', 'required', 'when' => $notUsa], // 注意不是 !$usa
-        ['mother', 'required', 'when' => $child],
+        // the name, email, subject and body attributes are required
+        [['name', 'email', 'subject', 'body'], 'required'],
+
+        // the email attribute should be a valid email address
+        ['email', 'email'],
+    ];
+}
+```
+
+A rule can be used to validate one or multiple attributes, and an attribute may be validated by one or multiple rules.
+Please refer to the [Validating Input](input-validation.md) section for more details on how to declare
+validation rules.
+
+Sometimes, you may want a rule to be applied only in certain [scenarios](#scenarios). To do so, you can
+specify the `on` property of a rule, like the following:
+
+```php
+public function rules()
+{
+    return [
+        // username, email and password are all required in "register" scenario
+        [['username', 'email', 'password'], 'required', 'on' => 'register'],
+
+        // username and password are required in "login" scenario
+        [['username', 'password'], 'required', 'on' => 'login'],
+    ];
+}
+```
+
+If you do not specify the `on` property, the rule would be applied in all scenarios. A rule is called
+an *active rule* if it can be applied in the current [[yii\base\Model::scenario|scenario]].
+
+An attribute will be validated if and only if it is an active attribute declared in `scenarios()` and
+is associated with one or multiple active rules declared in `rules()`.
+
+
+## Massive Assignment <a name="massive-assignment"></a>
+
+Massive assignment is a convenient way of populating a model with user inputs using a single line of code.
+It populates the attributes of a model by assigning the input data directly to the [[yii\base\Model::$attributes]]
+property. The following two pieces of code are equivalent, both trying to assign the form data submitted by end users
+to the attributes of the `ContactForm` model. Clearly, the former, which uses massive assignment, is much cleaner
+and less error prone than the latter:
+
+```php
+$model = new \app\models\ContactForm;
+$model->attributes = \Yii::$app->request->post('ContactForm');
+```
+
+```php
+$model = new \app\models\ContactForm;
+$data = \Yii::$app->request->post('ContactForm', []);
+$model->name = isset($data['name']) ? $data['name'] : null;
+$model->email = isset($data['email']) ? $data['email'] : null;
+$model->subject = isset($data['subject']) ? $data['subject'] : null;
+$model->body = isset($data['body']) ? $data['body'] : null;
+```
+
+
+### Safe Attributes <a name="safe-attributes"></a>
+
+Massive assignment only applies to the so-called *safe attributes* which are the attributes listed in
+[[yii\base\Model::scenarios()]] for the current [[yii\base\Model::scenario|scenario]] of a model.
+For example, if the `User` model has the following scenario declaration, then when the current scenario
+is `login`, only the `username` and `password` can be massively assigned. Any other attributes will
+be kept untouched.
+
+```php
+public function scenarios()
+{
+    return [
+        'login' => ['username', 'password'],
+        'register' => ['username', 'email', 'password'],
+    ];
+}
+```
+
+> Info: The reason that massive assignment only applies to safe attributes is because you want to
+  control which attributes can be modified by end user data. For example, if the `User` model
+  has a `permission` attribute which determines the permission assigned to the user, you would
+  like this attribute to be modifiable by administrators through a backend interface only.
+
+Because the default implementation of [[yii\base\Model::scenarios()]] will return all scenarios and attributes
+found in [[yii\base\Model::rules()]], if you do not override this method, it means an attribute is safe as long
+as it appears in one of the active validation rules.
+
+For this reason, a special validator aliased `safe` is provided so that you can declare an attribute
+to be safe without actually validating it. For example, the following rules declare that both `title`
+and `description` are safe attributes.
+
+```php
+public function rules()
+{
+    return [
+        [['title', 'description'], 'safe'],
     ];
 }
 ```
 
 
-批量特性检索和赋值
----------------------
+### Unsafe Attributes <a name="unsafe-attributes"></a>
 
-特性可以通过 `attributes` 属性批量检索。以下代码返回了 *所有*  `$post` 模型的键值对数组形式的特性。
-
-```php
-$post = Post::find(42);
-if ($post) {
-    $attributes = $post->attributes;
-    var_dump($attributes);
-}
-```
-
-使用 `attributes` 属性还可以从关联数组批量赋值到模型特性：
+As described above, the [[yii\base\Model::scenarios()]] method serves for two purposes: determining which attributes
+should be validated, and determining which attributes are safe. In some rare cases, you may want to validate
+an attribute but do not want to mark it safe. You can do so by prefixing an exclamation mark `!` to the attribute
+name when declaring it in `scenarios()`, like the `secret` attribute in the following:
 
 ```php
-$post = new Post();
-$attributes = [
-    'title' => 'Massive assignment example',
-    'content' => 'Never allow assigning attributes that are not meant to be assigned.',
-];
-$post->attributes = $attributes;
-var_dump($attributes);
-```
-
-以上代码赋值到相应的模型特性，特性名作为数组的键。和对所有特性总是有效的批量检索的关键区别是赋值的特性必须是 **安全的**，否则会被忽略。
-
-验证规则和批量赋值
----------------------
-
-Yii 2 的验证规则是和批量赋值分离的，这和 1.x 是不一样的。验证规则描述在模型的`rules()` 方法，而什么是安全的批量赋值描述在 `scenarios` 方法：
-
-```php
-class User extends ActiveRecord
+public function scenarios()
 {
-    public function rules()
-    {
-        return [
-            // 当相应的字段是“安全的”，规则启用
-            ['username', 'string', 'length' => [4, 32]],
-            ['first_name', 'string', 'max' => 128],
-            ['password', 'required'],
-
-            // 当场景是“注册”，无论字段是否“安全的”，规则启用
-            ['hashcode', 'check', 'on' => 'signup'],
-        ];
-    }
-
-    public function scenarios()
-    {
-        return [
-            // 注册场景允许 username 的批量赋值
-            'signup' => ['username', 'password'],
-            'update' => ['username', 'first_name'],
-        ];
-    }
+    return [
+        'login' => ['username', 'password', '!secret'],
+    ];
 }
 ```
 
-以上代码在严格遵守 `scenarios()` 后才允许批量赋值：
+When the model is in the `login` scenario, all three attributes will be validated. However, only the `username`
+and `password` attributes can be massively assigned. To assign an input value to the `secret` attribute, you
+have to do it explicitly as follows,
 
 ```php
-$user = User::find(42);
-$data = ['password' => '123'];
-$user->attributes = $data;
-print_r($user->attributes);
+$model->secret = $secret;
 ```
 
-以上将返回空数组，因为在 `scenarios()`未定义默认场景。
+
+## Data Exporting <a name="data-exporting"></a>
+
+Models often need to be exported in different formats. For example, you may want to convert a collection of
+models into JSON or Excel format. The exporting process can be broken down into two independent steps.
+In the first step, models are converted into arrays; in the second step, the arrays are converted into
+target formats. You may just focus on the first step, because the second step can be achieved by generic
+data formatters, such as [[yii\web\JsonResponseFormatter]].
+
+The simplest way of converting a model into an array is to use the [[yii\base\Model::$attributes]] property.
+For example,
 
 ```php
-$user = User::find(42);
-$user->scenario = 'signup';
-$data = [
-    'username' => 'samdark',
-    'password' => '123',
-    'hashcode' => 'test',
-];
-$user->attributes = $data;
-print_r($user->attributes);
+$post = \app\models\Post::findOne(100);
+$array = $post->attributes;
 ```
 
-以上代码将返回下面结果：
+By default, the [[yii\base\Model::$attributes]] property will return the values of *all* attributes
+declared in [[yii\base\Model::attributes()]].
+
+A more flexible and powerful way of converting a model into an array is to use the [[yii\base\Model::toArray()]]
+method. Its default behavior is the same as that of [[yii\base\Model::$attributes]]. However, it allows you
+to choose which data items, called *fields*, to be put in the resulting array and how they should be formatted.
+In fact, it is the default way of exporting models in RESTful Web service development, as described in
+the [Response Formatting](rest-response-formatting.md).
+
+
+### Fields <a name="fields"></a>
+
+A field is simply a named element in the array that is obtained by calling the [[yii\base\Model::toArray()]] method
+of a model.
+
+By default, field names are equivalent to attribute names. However, you can change this behavior by overriding
+the [[yii\base\Model::fields()|fields()]] and/or [[yii\base\Model::extraFields()|extraFields()]] methods. Both methods
+should return a list of field definitions. The fields defined by `fields()` are default fields, meaning that
+`toArray()` will return these fields by default. The `extraFields()` method defines additionally available fields
+which can also be returned by `toArray()` as long as you specify them via the `$expand` parameter. For example,
+the following code will return all fields defined in `fields()` and the `prettyName` and `fullAddress` fields
+if they are defined in `extraFields()`.
 
 ```php
-array(
-    'username' => 'samdark',
-    'first_name' => null,
-    'password' => '123',
-    'hashcode' => null, // 该特性未在场景方法中定义
-)
+$array = $model->toArray([], ['prettyName', 'fullAddress']);
 ```
 
-防止未定义 `scenarios` 方法的措施：
+You can override `fields()` to add, remove, rename or redefine fields. The return value of `fields()`
+should be an array. The array keys are the field names, and the array values are the corresponding
+field definitions which can be either property/attribute names or anonymous functions returning the
+corresponding field values. In the special case when a field name is the same as its defining attribute
+name, you can omit the array key. For example,
 
 ```php
-class User extends ActiveRecord
+// explicitly list every field, best used when you want to make sure the changes
+// in your DB table or model attributes do not cause your field changes (to keep API backward compatibility).
+public function fields()
 {
-    public function rules()
-    {
-        return [
-            ['username', 'string', 'length' => [4, 32]],
-            ['first_name', 'string', 'max' => 128],
-            ['password', 'required'],
-        ];
-    }
+    return [
+        // field name is the same as the attribute name
+        'id',
+
+        // field name is "email", the corresponding attribute name is "email_address"
+        'email' => 'email_address',
+
+        // field name is "name", its value is defined by a PHP callback
+        'name' => function () {
+            return $this->first_name . ' ' . $this->last_name;
+        },
+    ];
 }
-```
 
-以上代码假设了默认场景所以批量赋值将对所有定义过 `rules` 的字段生效：
-
-```php
-$user = User::find(42);
-$data = [
-    'username' => 'samdark',
-    'first_name' => 'Alexander',
-    'last_name' => 'Makarov',
-    'password' => '123',
-];
-$user->attributes = $data;
-print_r($user->attributes);
-```
-
-以上代码将返回：
-
-```php
-array(
-    'username' => 'samdark',
-    'first_name' => 'Alexander',
-    'password' => '123',
-)
-```
-
-如果希望对默认场景设置一些字段是不安全的：
-
-```php
-class User extends ActiveRecord
+// filter out some fields, best used when you want to inherit the parent implementation
+// and blacklist some sensitive fields.
+public function fields()
 {
-    function rules()
-    {
-        return [
-            ['username', 'string', 'length' => [4, 32]],
-            ['first_name', 'string', 'max' => 128],
-            ['password', 'required'],
-        ];
-    }
+    $fields = parent::fields();
 
-    public function scenarios()
-    {
-        return [
-            self::SCENARIO_DEFAULT => ['username', 'first_name', '!password']
-        ];
-    }
+    // remove fields that contain sensitive information
+    unset($fields['auth_key'], $fields['password_hash'], $fields['password_reset_token']);
+
+    return $fields;
 }
 ```
 
-批量赋值默认仍可用：
+> Warning: Because by default all attributes of a model will be included in the exported array, you should
+> examine your data to make sure they do not contain sensitive information. If there is such information,
+> you should override `fields()` to filter them out. In the above example, we choose
+> to filter out `auth_key`, `password_hash` and `password_reset_token`.
 
-```php
-$user = User::find(42);
-$data = [
-    'username' => 'samdark',
-    'first_name' => 'Alexander',
-    'password' => '123',
-];
-$user->attributes = $data;
-print_r($user->attributes);
-```
 
-以上代码输出：
+## Best Practices <a name="best-practices"></a>
 
-```php
-array(
-    'username' => 'samdark',
-    'first_name' => 'Alexander',
-    'password' => null, // 因为场景中该字段名前面有 !
-)
-```
+Models are the central places to represent business data, rules and logic. They often need to be reused
+in different places. In a well-designed application, models are usually much fatter than
+[controllers](structure-controllers.md).
 
-更多内容请参考
---------
+In summary, models
 
-- [模型验证](validation.md)
-- [[yii\base\Model]]
+* may contain attributes to represent business data;
+* may contain validation rules to ensure the data validity and integrity;
+* may contain methods implementing business logic;
+* should NOT directly access request, session, or any other environmental data. These data should be injected
+  by [controllers](structure-controllers.md) into models;
+* should avoid embedding HTML or other presentational code - this is better done in [views](structure-views.md);
+* avoid having too many [scenarios](#scenarios) in a single model.
+
+You may usually consider the last recommendation above when you are developing large complex systems.
+In these systems, models could be very fat because they are used in many places and may thus contain many sets
+of rules and business logic. This often ends up in a nightmare in maintaining the model code
+because a single touch of the code could affect several different places. To make the mode code more maintainable,
+you may take the following strategy:
+
+* Define a set of base model classes that are shared by different [applications](structure-applications.md) or
+  [modules](structure-modules.md). These model classes should contain minimal sets of rules and logic that
+  are common among all their usages.
+* In each [application](structure-applications.md) or [module](structure-modules.md) that uses a model,
+  define a concrete model class by extending from the corresponding base model class. The concrete model classes
+  should contain rules and logic that are specific for that application or module.
+
+For example, in the [Advanced Application Template](tutorial-advanced-app.md), you may define a base model
+class `common\models\Post`. Then for the front end application, you define and use a concrete model class
+`frontend\models\Post` which extends from `common\models\Post`. And similarly for the back end application,
+you define `backend\models\Post`. With this strategy, you will be sure that the code in `frontend\models\Post`
+is only specific to the front end application, and if you make any change to it, you do not need to worry if
+the change may break the back end application.

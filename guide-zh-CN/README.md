@@ -59,12 +59,12 @@ Yii 2.0 权威指南
 --------
 
 * **已定稿**【已校对-20140602-funson86】 [结构总览](structure-overview.md)
-* **已定稿**【未校对-20140612-funson86】 [入口脚本](structure-entry-scripts.md)
-* **已定稿**【翻译中-yiichina】 [应用](structure-applications.md)
-* **已定稿**【翻译中-yiichina】 [应用组件](structure-application-components.md)
-* **已定稿**【翻译中-yiichina】 [控制器（Controller）](structure-controllers.md)
-* **已定稿**【翻译中-yiichina】 [视图（View）](structure-views.md)
-* **已定稿**【翻译中-yiichina】 [模型（Model）](structure-models.md)
+* **已定稿**【已校对-20140612-funson86】 [入口脚本](structure-entry-scripts.md)
+* **已定稿**【翻译中-20140729-AbrahamGreyson】 [应用](structure-applications.md)
+* **已定稿**【翻译中-20140910-AbrahamGreyson】 [应用组件](structure-application-components.md)
+* **已定稿**【翻译中-20140910-AbrahamGreyson】 [控制器（Controller）](structure-controllers.md)
+* **已定稿**【翻译中-20140927-AbrahamGreyson】 [视图（View）](structure-views.md)
+* **已定稿**【翻译中-20140918-AbrahamGreyson】 [模型（Model）](structure-models.md)
 * **已定稿**【翻译中-yiichina】 [过滤器](structure-filters.md)
 * **已定稿**【翻译中-yiichina】 [小部件（Widget）](structure-widgets.md)
 * **已定稿**【翻译中-yiichina】 [模块（Module）](structure-modules.md)
@@ -87,7 +87,9 @@ Yii 2.0 权威指南
 --------
 
 * **已定稿**【已校对-20140525-qiansen1386】 [组件（Component）](concept-components.md)
-* **已定稿**【已校对-20140628-qiansen1386】 [属性（Property）](concept-properties.md)
+*structure-controllers.md
+ structure-models.md
+ structure-views.md **已定稿**【已校对-20140628-qiansen1386】 [属性（Property）](concept-properties.md)
 * **已定稿**【已校对-20140704-AbrahamGreyson】 [事件（Event）](concept-events.md)
 * **已定稿**【需更新|已校对-20140704-qiansen1386】 [行为（Behavior）](concept-behaviors.md)
 * **已定稿**【需更新|未校对-20140626-AbrahamGreyson】 [配置（Configurations）](concept-configurations.md)
