@@ -52,7 +52,7 @@ Yii 2.0 权威指南
 * **已定稿**【未校对-20140610-AbrahamGreyson】 [第一声问候](start-hello.md)
 * **已定稿**【未校对-20140624-AbrahamGreyson】 [使用 Forms](start-forms.md)
 * **已定稿**【未校对-20140914-AbrahamGreyson】 [玩转 Databases](start-databases.md)
-* **已定稿**【需更新|未校对-20140616-AbrahamGreyson】 [用 Gii 生成代码](start-gii.md)
+* **已定稿**【未校对-20140908-AbrahamGreyson】 [用 Gii 生成代码](start-gii.md)
 * **已定稿**【需更新|未校对-20140616-AbrahamGreyson】 [更上一层楼](start-looking-ahead.md)
 
 应用结构
