@@ -37,6 +37,7 @@ Installation        |安装              |                                     |
 Initialization      |初始化            |                                     |Noun
 key-value pair      |键值对            |                                     |Noun
 Lazy Loading        |惰性加载          |                                     |Noun
+Log Target          |日志目标          |                                     |Noun
 massive assignment  |块赋值            |                                     |Noun
 Module              |模块（Module）    |或子模块                             |Noun
 MVC                 |MVC               |模型-视图-控制器                     |Noun
@@ -55,6 +56,7 @@ Requirements        |需求              |指做某事的先决条件，如：�
 Route               |路由              |                                     |Noun
 Response            |响应              |                                     |Noun
 session             |session（会话）   |                                     |Noun
+stack trace         |堆栈跟踪          |                                     |Noun
 Trait               |Trait             |【待定】微软叫特征，东方写为：Traits（术语翻译未定：特征或特质）|Noun
 Validation          |验证，数据有效性验证|全称：数据有效性验证，简称：数据验证或验证。首次出现最好写全称|Noun
 View                |视图（View）      |数据有效性验证                       |Noun
