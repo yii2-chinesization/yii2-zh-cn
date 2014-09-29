@@ -1,7 +1,8 @@
-[原文：http://www.yiiframework.com/news/](http://www.yiiframework.com/news/80/yii-2-0-rc-is-released/)  
+>[原文：http://www.yiiframework.com/news/](http://www.yiiframework.com/news/80/yii-2-0-rc-is-released/)  
 主翻译：@qiansen1386(东方孤思子) 校对： 时间：2014年9月29
 
-# Yii 2.0 RC 发布啦！
+Yii 2.0 RC 发布啦！
+=================
 
 我们非常高兴地宣布：Yii 2.0 RC 版（发行候选版本）终于发布了！你可以参照
 [yiiframework.com](http://www.yiiframework.com/download/) 
@@ -14,33 +15,39 @@
 常见问题
 -------
 
--   **2.0 RC 意味着什么？** RC 是发行候选版本的意思。它是在 GA 
+-   **2.0 RC 意味着什么？** 
+    RC 是发行候选版本的意思。它是在 GA 
     （General Availability，正式发布的版本）前，最后一个开发发布。GA 前的工作，主要是少量反馈问题的修复，以及改善文档。
 
--   **2.0 GA 什么时候发布？** 这取决于我们从 RC 发布后所收集的问题反馈。我们有一个暂定的计划是，如果 RC 
+-   **2.0 GA 什么时候发布？** 
+    这取决于我们从 RC 发布后所收集的问题反馈。我们有一个暂定的计划是，如果 RC 
     版本最终被证明足够稳定，则将会在大约两周左右发布 2.0 GA。
 
 -   **我能在我的项目里使用 RC 么？** 不仅能，而且我们非常推荐你在你的新项目中试用它，并给我们你的使用反馈。不过，因为 2.0 GA 近在眼前了，所以我们建议你不要在已有的生产环境中使用它。因为我们无法确定是否会有新的不兼容修改出现，尽管这个可能性非常小。
 
--   **2.0 有什么文档么？**  当然，我们有
+-   **2.0 有什么文档么？**
+    当然，我们有
     [官方指南](http://www.yiiframework.com/doc-2.0/guide-README.html)
     ，它包含与 Yii 2.0 相关的综合而且有深度的各种教程。还有 
     [API 文档](http://www.yiiframework.com/doc-2.0/)它是用来查阅框架中某个类库的具体用法
     （译者注：也要关注我们的[文档中文化项目](https://github.com/yii2-chinesization/yii2-zh-cn/)呦！）
 
--   **怎么把我的项目从 1.1 升级到 2.0？** 请参考 
+-   **怎么把我的项目从 1.1 升级到 2.0？**
+    请参考 
     [从 1.1 升级](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html) 这篇文章。
     请注意，因为 2.0 相较于 1.1 是完全重构的，所以这种升级所需的改动不会太小。若你的 1.1 应用正在稳定运行，我们建议你继续使用 
     1.1，除非你有足够的时间和资源进行这种升级。
 
--   **我怎么从2.0 alpha 或 beta 升级过来** 请参考
+-   **我怎么从2.0 alpha 或 beta 升级过来** 
+    请参考
     [UPGRADE](https://github.com/yiisoft/yii2/blob/2.0.0-rc/framework/UPGRADE.md) 的说明。
 
--   **我怎样了解2.0开发的最新动态？?** Yii 2.0 的开发活动都在 GitHub 上：
-    [https://github.com/yiisoft/yii2](https://github.com/yiisoft/yii2).
+-   **我怎样了解2.0开发的最新动态？** 
+    Yii 2.0 的开发活动都在 GitHub 上：
+    [https://github.com/yiisoft/yii2](https://github.com/yiisoft/yii2)。
     你可以关注（watch）或标星（star）这个项目来接收开发动态。你也可以订阅我们的 Twitter 更新
     [https://twitter.com/yiiframework](https://twitter.com/yiiframework)（译者注：前提是你会翻墙有梯子）
-    或加入我们的 [Facebook 小组](https://www.facebook.com/groups/yiitalk/).
+    或加入我们的 [Facebook 小组](https://www.facebook.com/groups/yiitalk/)。
 
 Yii 2.0 RC 的主要改动
 ----------------------------
