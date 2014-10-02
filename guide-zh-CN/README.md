@@ -1,7 +1,7 @@
 Yii 2.0 权威指南
 ===============================
 
-> ### 翻译说明
+> ### 翻译说明 <a name="shuoming">
 >
 > 参与项目前，请先阅读两篇文档：[翻译手册](../translation-guide.md)及[校阅手册](../translation-proofreading.md)
 >
