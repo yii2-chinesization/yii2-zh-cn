@@ -93,7 +93,7 @@ Yii 2.0 权威指南
 * **已定稿**【需更新】 [配置（Configs）](concept-configurations.md)
 * **已定稿**【需更新】 [类自动加载（Autoloading）](concept-autoloading.md)
 * **已定稿**【需更新】 [别名（Alias）](concept-alias.md)
-* **已定稿**【翻译中-20140505-qiansen1386】 [服务定位器（Service Locator）](concept-service-locator.md)
+* **已定稿**【未校对-20140627-qiansen1386】 [服务定位器（Service Locator）](concept-service-locator.md)
 * **已定稿**【未校对-20140511-riverlet】 [依赖注入容器（DI Container）](concept-di-container.md)
 
 配合数据库工作
@@ -209,8 +209,8 @@ RESTful Web 服务
 * 菜单（Menu）：链接到 demo 页
 * LinkPager：链接到 demo 页
 * LinkSorter：链接到 demo 页
-* **已完成** [Bootstrap 小部件](widget-bootstrap.md)
-* **已完成** [Jquery UI 小部件](widget-jui.md)
+* **已定稿** [Bootstrap 小部件](widget-bootstrap.md)
+* **已定稿** [Jquery UI 小部件](widget-jui.md)
 
 助手类
 ------
