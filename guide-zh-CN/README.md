@@ -69,7 +69,7 @@ Yii 2.0 权威指南
 * **已定稿**【翻译中-yiichina】 [小部件（Widget）](structure-widgets.md)
 * **已定稿**【翻译中-yiichina】 [模块（Module）](structure-modules.md)
 * **编撰中**【需更新】 [前端资源（Asset）](structure-assets.md)
-* **已定稿**【待翻译】  [扩展（extensions）](structure-extensions.md)
+* **已定稿**【翻译中-20141005-ivantree】  [扩展（extensions）](structure-extensions.md)
 
 请求处理
 --------
