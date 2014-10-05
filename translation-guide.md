@@ -1,75 +1,79 @@
 翻译必读 Translating Guide
 ============================
 
-为了方便大家更好的了解并上手权威指南，新闻，源码注释等翻译项目，这里特地为大家提供翻译的相关流程的讲解。
+目录
+----
 
-简述
---------
+- [流程](#workflow)
+- [注意事项](#rules)
+- [工具](#tools)
+- [扩展阅读](#others)
 
-- 翻译指粗翻和持续更新翻译工作，更新文档前的翻译状态。
-- 校对指文档的校对和更新工作，更新文档前的校对状态。
-- 同一文档的翻译人员和校对人员最好不同，以便核查勘误。
-- 无论翻译还是校对，都请标明所参考的**英文原文的版本日期**，请注意放**原文日期**，目的是方便后续更新文档。
-- 亲，动笔之前，除了本篇文章之外，也请先完整看一遍[校阅手册](translation-proofreading.md)，了解最终文档的成文要求，稍稍地注意一下，
-就能有效减轻校阅人员的工作量，减少无意义的内耗。
+流程 <a name="workflow"/>
+----
+翻译流程如下：
+**认领（更新README） → 翻译 → 建Pull Request（简称PR） / 直接提交 → 完成认领（更新README）→等待官方合并或其他评论**
+[了解详情](#workflow-translate)
 
-概念及工具
-------------
+更新流程如下：
+**认领（更新README） → 根据官方的对应文档 Commits History 更新翻译文档 → PR / 提交 → 完成认领（更新README）→等待官方合并或其他评论**
+[了解详述](#workflow-update)
 
-<a name="git-scm"></a>
-### 版本控制与 Git
-我们使用git作为版本控制，GitHub作为官方仓库。
-推荐使用 [SourceTree](http://www.sourcetreeapp.com/) 或 GitHub 官方客户端作为 Git 前端。同时，如果用到控制台终端了，
-常用的命令我们会告诉你的。
-与Git相关的教程，可以看下[CSDN上某大神写的零基础学Git系列](http://blog.csdn.net/column/details/jacky-git.html?&page=2)
+校对流程如下：
 
-> 如果各位有条件，欢迎在国内帮我们建立文档的镜像站点或镜像代码仓库，并使用脚本与我们保持同步，以防 GFW 抽风，提高国内同胞的访问效率。
+```php
+while(看文档 x){
+    if(发现不爽不顺不对的地方){
+        点击 Edit 改了它（们）;
+        PR / 提交;
+    }
+    if(文档看完了) break;
+}
+if(改进之后的文档 x 让人身心愉悦){更新README，将文档 x 的状态改为“已校对";}
+```
 
-<a name="terminology"></a>
-### 术语
+>注意：校阅文档的更多说明请参考[校阅手册](translation-proofreading.md)，为了让你的翻译尽可能接近理想中校对后的状态，建议翻译人员也看一下。
 
-关于某些特定概念，我们应该遵循相同的术语翻译，有些Yii的独有概念，其含义也很好理解的，我们可以不翻译。
-翻译的难点很大一部分都在术语的翻译上，**当一条术语被最终确定下来的时候，记得把他添加到术语表中哦。**
-
-<a name="intro-glossay"></a>
-#### 术语表
-
-相关术语的介绍和参考翻译，被称为**[术语表（Glossary）](translation-glossary.md)**。
-如果在翻译的过程中，发现有新的术语，然而它还没有被加入术语表，请千万帮忙加入，防止同一个术语在不同字符串里的翻译不同，这很重要。
-同时一个术语的翻译可能影响其他所有人的翻译，请添加术语之前一定要查阅下Yii1.0时代的翻译，确保传承性，拿不准请在群里讨论一下。
-如果有术语翻译错误的地方，还请不吝赐教。
-
-#### 微软术语搜索
-
-计算机科学及软件工程领域的一些技术词汇，完全可以参考微软的术语设计。很多翻译都很有借鉴性，当然也有翻译地很烂的。
-把它当计算机专业词典用吧！仅供参考——[微软术语搜索](http://www.microsoft.com/Language/zh-CN/Search.aspx?langID=zh-cn)
-
-#### Google
-为了找到一个好的术语翻译，通常需要查阅大量文档资料。请永远记住善用Google，有益身体健康……
-繁体以及日语的翻译都是可以借鉴的哦。
-
-#### 企鹅群
-很多术语确定不了也可以在群里讨论一下，让我们一起来找出最好的术语翻译！官方一群：343188481
-
-### 认领机制README.md
-在yii2文档子站里，点击权威手册链接直接进入手册部分的同学应该会首先跳转到 `README.md` 的页面。
-此时 `README.md` 就是一个目录.对于参与翻译的同学来说，README.md还提供记录文件版本和翻译状态的功能，接下来我会一一[解释](#README)。
-
-
-具体过程
-------------------
-
-###Git 工作流程###
-
-有关Git的使用，可以参考 Yii2 官方的内部文档[git-workflow.md](internals-zh-CN/git-workflow.md)
-
-我们的工作流程与其类似。也有所不同。
+###具体翻译/更新的流程 <a name="workflow-translate"/>
 
 先简单介绍两个库：
 
-* **官方库**：yii-chinesization/yii2 官方授权我们维护的框架库，用于收集大家翻译的文档，并随时反馈给官方。地址：`https://github.com/yii2-chinesization/yii2.git`
+* **官方库的Fork**：yii-chinesization/yii2 官方授权我们维护的框架库，用于收集大家翻译的文档，并随时反馈给官方。地址：`https://github.com/yii2-chinesization/yii2.git`
 * **文档库**：yii2-chinesization/yii2-zh-cn 只用于存放翻译指南资料及老翻译的备份，**新翻译请别放在这里**。地址：`https://github.com/yii2-chinesization/yii2-zh-cn.git`
 
+
+注意事项 <a name="rules"/>
+-------
+
+1. 更新README指更新[yii2-chinesization/yii2-zh-cn仓库下的guide/README](guide/README.md#shuoming)中文件目录里各个文件前，用于标注翻译状态的标签，详情请看[README前的说明](guide/README.md#shuoming)
+2. 除非紧贴标点符号，否则`英文单词/数字`与`中文`之间应加一个空格。如：`我们说 Yii 2.0 而非Yii2.0。`
+3. 可以翻译且易于理解的术语，尽量用翻译后的形式，除非无法翻译或英文已经约定俗成，如：`Cookie/Session`。前人已经翻译的术语，请参见[术语表（Glossary）](translation-glossary.md)。如果表中没有请添加您自己的翻译。如果对已有的术语翻译存在质疑，可以创建[issue](https://github.com/yii2-chinesization/yii2-zh-cn/issues)，或者在 QQ 群里沟通。总之，尽量避免“同词不同译”的发生。
+4. 若原文中包含 ```*斜体*```，一律改为 ```**粗体**```：原因是中文是方块字，汉字本就没有倾斜风格，而雅黑等主流中文字体的倾斜效果都处理得不好，会影响阅读体验。
+
+
+工具 <a name="tools"/>
+----
+
+1. 我们使用git作为版本控制，GitHub作为官方仓库。
+   推荐使用 [SourceTree](http://www.sourcetreeapp.com/) 或 GitHub 官方客户端作为 Git 前端。关于Git的使用方法，可以看[廖雪峰大大的史上最浅显易懂的 Git 教程](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)或查阅[官方中文文档《Pro Git》](http://git-scm.com/book/zh)，或 [Google](https://google.com)/[StackOverflow](http://stackoverflow.com) 之。
+2. 关于沟通交流，可选的渠道有：QQ群：343188481，[Issue](https://github.com/yii2-chinesization/yii2-zh-cn/issues)，[官方论坛中文板块](http://www.yiiframework.com/forum/index.php/forum/16-chinese/)
+3. [微软术语搜索](http://www.microsoft.com/Language/zh-CN/Search.aspx?langID=zh-cn)：用于查询微软是如何翻译相关术语的。我们的术语表大量参考了微软家族的术语翻译，因为最全，最权威。
+4. 同一文档的翻译人员和校对人员最好不同，以便核查勘误。
+   
+扩展阅读 <a name="others"/>
+-------
+
+
+
+
+
+
+
+
+
+*************************************************************
+旧
+*************************************************************
 <a name="git-workflow"></a>
 #### 参考 Git 操作流程 --重要！
 
@@ -83,13 +87,15 @@
     * 在**文档库的目录**内，运行 `git remote add upstream https://github.com/yii2-chinesization/yii2-zh-cn.git` 把汉化组的文档库添加为远端库
     * 在 **yii2 目录**内，运行 `git remote add upstream https://github.com/yii2-chinesization/yii2.git` 把汉化组的官方库添加为远端库
     * 例外：如果你同时 fork 了yiisoft/yii2，你可以把 yii2-chiesization 远端，命名为 `chinesization`，或其他你能明白的名字。这样修改以后请对应修改掉下面的 `upstream` 改为你命名的远端名称，如 `chinesization`
+
+步骤1~5是一个初始化流程，只需要做一遍就行，之后请一直在 temp （或其他名字）分支进行修改。
+
 6. 分别在两个目录内，运行 `git remote update` 更新两库
 7. 分别在两个目录内，运行 `git fetch upstream master` 拉取两库的更新到本地
 8. 分别在两个目录内，使用 `git checkout temp` 切换回你的日常分支后，运行 `git rebase upstream/master` 将两库的更新合并到你的分支
 
-步骤1~5是一个初始化流程，只需要做一遍就行，之后请一直在 temp （或其他名字）分支进行修改。
-
-如果修改过程中官方库（不管是文档库还是官方库）有了更新，在对应的库目录下重复6、7、8步即可。
+如果修改过程中我们的仓库（不管是文档库还是官方库）有了更新，在对应的库目录下重复6、7、8步即可。
+也可以简写为 `git pull --rebase upstream master` 一条命令。或者你用 SourceTree 等 GUI 的话，在 push 面板下勾选用变基替代合并。也可以起到相同的作用，巧用变基，可以避免不必要的合并。
 
 修改之后，首先 Push 到你的库，然后登录 GitHub，在你的库的首页可以看到一个 `pull request` 按钮，点击它，填写一些说明信息，
 然后提交即可。
@@ -200,7 +206,11 @@ git log ./path/file.md
 
 比如：
 
-    [pivot table]: http://en.wikipedia.org/wiki/Pivot_table "Pivot table（数据透视表（中间表），英文，维基百科）" 
+    [pivot table]: http://en.wikipedia.org/wiki/Pivot_table "Pivot table（数据透视表（中间表），英文，维基百科）"
+
+#### 斜体字
+
+
 
 附录
 ------------------
