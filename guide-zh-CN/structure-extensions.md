@@ -1,53 +1,29 @@
-Extensions
-��չ
+扩展
 ==========
-
-Extensions are redistributable software packages specifically designed to be used in Yii applications and provide
-ready-to-use features. For example, the [yiisoft/yii2-debug](tool-debugger.md) extension adds a handy debug toolbar
-at the bottom of every page in your application to help you more easily grasp how the pages are generated. You can
-use extensions to accelerate your development process. You can also package your code as extensions to share with
-other people your great work.
-
-��չ��ר��������YiiӦ�ó�����ʹ�ú��ṩ׼��ʹ�õĹ��ܵĿ��ٷ���������������:[yiisoft/yii2-debug](tool-debugger.md)��չ�������ֶ�
-�߶ȹ���������Ӧ�ó����ÿ��ҳ��ĵײ����԰��������������ҳ����������ɵġ�������ʹ����չ�Լӿ쿪�����̡���ͬ�����Թ��������չ
-��������������Ա���������￪Դ����
-
-> Info: We use the term "extension" to refer to Yii-specific software packages. For general purpose software packages
-  that can be used without Yii, we will refer to them using the term "package" or "library".
-> ���䣺����ʹ��"Extensions(��չ)"һ����ָ����Yii��ר�������������
-  ���Բ��ض���Yii��ʹ�õ�ͨ����������������ǽ�ʹ������"package"��"library"��ָ���ǡ�
-
-## Using Extensions <a name="using-extensions"></a>
-## ʹ����չ <a name="using-extensions"></a> 
-To use an extension, you need to install it first. Most extensions are distributed as [Composer](https://getcomposer.org/)
-packages which can be installed by taking the following two simple steps:
-Ҫʹ��һ����չ������Ҫ�Ȱ�װ������[Composer](https://getcomposer.org/)�����ҵ��������չ�������ͨ���������ּ򵥵Ĳ�������װ:
-
-1. modify the `composer.json` file of your application and specify which extensions (Composer packages) you want to install.
-2. run `composer install` to install the specified extensions.
-1. �޸��������`composer.json`�ļ���ָ��Ҫ��װ����չ(Composer packages)��
-2. ����`composer install`��װָ������չ
-
-Note that you may need to install [Composer](https://getcomposer.org/) if you do not have it.
-> ע��: ���û�а�װComposer��������Ȱ�װ����
-
-By default, Composer installs packages registered on [Packagist](https://packagist.org/) - the biggest repository
-for open source Composer packages. You can look for extensions on Packagist. You may also
-[create your own repository](https://getcomposer.org/doc/05-repositories.md#repository) and configure Composer
-to use it. This is useful if you are developing closed open extensions and want to share within your projects.
-Ĭ������£�Composer��װ���Ǽ���[Packagist](https://packagist.org/)������Ŀ�Դ����Ϣ���У�����������������Ӧ����չ��
-�������Լ������Ͽ�(https://getcomposer.org/doc/05-repositories.md#repository)Ȼ������Composer��ʹ������
-�����Ҫ����һ����յĿ�����չ����Ŀ�У������ͬ�����á�
-
-Extensions installed by Composer are stored in the `BasePath/vendor` directory, where `BasePath` refers to the
-application's [base path](structure-applications.md#basePath).  Because Composer is a dependency manager, when
-it installs a package, it will also install all its dependent packages.
-��չͨ��Composer��װ��'BasePath/vendor'Ŀ¼�¡�`BasePath`�ο������[base path](structure-applications.md#basePath)��
-Composer��һ����������������㰲װ��һ��������������װ���������İ���
+扩展是专门用来在Yii应用程序中使用和提供准备使用的功能的可再发行软件包。例如:[yiisoft/yii2-debug](tool-debugger.md)扩展增加了手动
+高度工具条在你应用程序的每个页面的底部，以帮助你更容易理解页面是如何生成的。你可以使用扩展以加快开发进程。你同样可以共享你的扩展
+包给其他开发人员，传播发扬开源精神。
 
 
-For example, to install the `yiisoft/yii2-imagine` extension, modify your `composer.json` like the following:
-���磬��װ`yiisoft/yii2-imagine`��չ�������޸�`composer.json`��
+> 补充：我们使用"Extensions(扩展)"一词来指用于Yii的专用软件程序包。
+  可以不特定在Yii中使用的通用软件程序包，我们将使用术语"package"或"library"是指它们。
+
+## 使用扩展 <a name="using-extensions"></a> 
+要使用一个扩展，你需要先安装它。在[Composer](https://getcomposer.org/)可以找到大多数扩展。你可以通过以下两种简单的步骤来安装:
+
+1. 修改你程序中`composer.json`文件，指定要安装的扩展(Composer packages)。
+2. 运行`composer install`安装指定的扩展
+
+> 注意: 如果没有安装Composer，你必须先安装它。
+
+默认情况下，Composer安装包登记在[Packagist](https://packagist.org/)这个最大的开源包信息库中，你可以在那里查找相应的扩展，
+创建你自己的资源库(https://getcomposer.org/doc/05-repositories.md#repository)然后配置Composer并使用它。
+如果你要共享一个封闭的开放扩展到项目中，这对你同样有用。
+
+扩展通过Composer安装在'BasePath/vendor'目录下。`BasePath`参考程序的[base path](structure-applications.md#basePath)。
+Composer是一个依赖管理，如果你安装了一个包，它还将安装所有依赖的包。
+
+例如，安装`yiisoft/yii2-imagine`扩展，如下修改`composer.json`：
 ```json
 {
     // ...
@@ -60,21 +36,14 @@ For example, to install the `yiisoft/yii2-imagine` extension, modify your `compo
 }
 ```
 
-After the installation, you should see the directory `yiisoft/yii2-imagine` under `BasePath/vendor`. You should
-also see another directory `imagine/imagine` which contains the installed dependent package.
-��װ��ɺ�,����Կ���`yiisoft/yii2-imagine`Ŀ¼��`BasePath/vendor`�¡�
-��ͬ���ῴ������Ŀ¼ `imagine/imagine`�Ѱ�װ�����а�������������
+安装完成后,你可以看到`yiisoft/yii2-imagine`目录在`BasePath/vendor`下。
+你同样会看到其他目录 `imagine/imagine`已安装了其中包含的依赖包。
 
-> Info: The `yiisoft/yii2-imagine` is a core extension developed and maintained by the Yii developer team. All
-  core extensions are hosted on [Packagist](https://packagist.org/) and named like `yiisoft/yii2-xyz`, where `xyz`
-  varies for different extensions.
-> ���䣺`yiisoft/yii2-imagine`��һ����Yii������ά���ĺ�����չ������
-  ������չ�й�[Packagist](https://packagist.org/)������`yiisoft/yii2-xyz`����������`xyz`���ڶ�Ӧ��ͬ����չ��
+> 补充：`yiisoft/yii2-imagine`是一个由Yii开发和维护的核心扩展。所有
+  核心扩展托管[Packagist](https://packagist.org/)，并像`yiisoft/yii2-xyz`进行命名，`xyz`用于对应不同的扩展。
 
-Now you can use the installed extensions like they are part of your application. The following example shows
-how you can use the `yii\imagine\Image` class provided by the `yiisoft/yii2-imagine` extension:
-�����������������һ����һ��������װ��չ��
-����ʾ�����������ʹ��`yiisoft/yii2-imagine`�ṩ��`yii\imagine\Image`��չ��
+现在你可以像你程序的一部分一样的来安装扩展。
+以下示例告诉你如何使用`yiisoft/yii2-imagine`提供的`yii\imagine\Image`扩展。
 
 ```php
 use Yii;
@@ -85,23 +54,25 @@ Image::thumbnail('@webroot/img/test-image.jpg', 120, 120)
     ->save(Yii::getAlias('@runtime/thumb-test-image.jpg'), ['quality' => 50]);
 ```
 
-> Info: Extension classes are autoloaded by the [Yii class autoloader](concept-autoloading.md).
+> 补充：扩展类通过[Yii class autoloader](concept-autoloading.md)自动加载。
 
 
-### Installing Extensions Manually <a name="installing-extensions-manually"></a>
+### 自动安装扩展 <a name="installing-extensions-manually"></a>
 
-In some rare occasions, you may want to install some or all extensions manually, rather than relying on Composer.
-To do so, you should
+在某些特别情况下，你可能需要局部或全部通过手动安装扩展，而不是通过Composer。
+那么你可以
 
-1. download the extension archive files and unpack them in the `vendor` directory.
-2. install the class autoloaders provided by the extensions, if any.
-3. download and install all dependent extensions as instructed.
 
-If an extension does not have a class autoloader but follows the [PSR-4 standard](http://www.php-fig.org/psr/psr-4/),
-you may use the class autoloader provided by Yii to autoload the extension classes. All you need to do is just to
-declare a [root alias](concept-aliases.md#defining-aliases) for the extension root directory. For example,
-assuming you have installed an extension in the directory `vendor/mycompany/myext`, and the extension classes
-are under the `myext` namespace, then you can include the following code in your application configuration:
+1.下载扩展并解压到`vendor`文件夹。
+2.如果扩展提供了自动加载类，就添加到autoloaders。
+3.下载并按照指示安装所有依赖的扩展。
+
+
+
+如果扩展没有提供自动加载类，但如下[PSR-4 standard](http://www.php-fig.org/psr/psr-4/)，
+你可以使用Yii提供的自动加载类加载扩展。你仅仅在扩展的要目录下，为该扩展的声明[root alias](根别名)
+(concept-aliases.md#defining-aliases)。示例：假设你已经目录中`vendor/mycompany/myext`安装了扩展，
+并且扩展类使用了`myext`命名空间，那么你可以在你的应用主体配置中包括以下代码
 
 ```php
 [
@@ -112,29 +83,29 @@ are under the `myext` namespace, then you can include the following code in your
 ```
 
 
-## Creating Extensions <a name="creating-extensions"></a>
 
-You may consider creating an extension when you feel the need to share with other people your great code.
-An extension can contain any code you like, such as a helper class, a widget, a module, etc.
+## 创建一个扩展 <a name="creating-extensions"></a>
 
-It is recommended that you create an extension in terms of a [Composer package](https://getcomposer.org/) so that
-it can be more easily installed and used by other users, liked described in the last subsection.
+如果你觉得有必要与他们分享你的代码时，你可以创建一个扩展。
+扩展可以包含任何你喜欢的代码，比如一个辅助类，窗口小部件，模块等
 
-Below are the basic steps you may follow to create an extension as a Composer package.
+建议你创建一个[Composer包]标准的扩展(https://getcomposer.org/)，
+使它可以更容易被其他用户安装和使用，如最后一个小节所述。
 
-1. Create a project for your extension and host it on a VCS repository, such as [github.com](https://github.com).
-   The development and maintenance work about the extension should be done on this repository.
-2. Under the root directory of the project, create a file named `composer.json` as required by Composer. Please
-   refer to the next subsection for more details.
-3. Register your extension with a Composer repository, such as [Packagist](https://packagist.org/), so that
-   other users can find and install your extension using Composer.
+以下是你可以按照创建一个扩展的Composer包的基本步骤。
 
+   
+   
+1. 为你的扩展创建一个项目，并将其登记在VCS资源库，如[github.com](https://github.com)。
+	 关于扩展的开发和维护工作均在这个VCS资源库来完成。
+2. 在项目的根目录下创建一个命名为`composer.json`的文件，被用于Composer。 了解更多详情请请参阅下一小节。
+3. 登记你的扩展到Composer资源库，如[Packagist](https://packagist.org/)，这样其他用于就可以通过Composer找到你扩展并安装使用。
 
 ### `composer.json` <a name="composer-json"></a>
 
-Each Composer package must have a `composer.json` file in its root directory. The file contains the metadata about
-the package. You may find complete specification about this file in the [Composer Manual](https://getcomposer.org/doc/01-basic-usage.md#composer-json-project-setup).
-The following example shows the `composer.json` file for the `yiisoft/yii2-imagine` extension:
+每一个Composer包都必须包含一个`composer.json`文件在他的根目录中。该文件包含有关该软件包的元数据。
+你可能可以在[Composer 手册](https://getcomposer.org/doc/01-basic-usage.md#composer-json-project-setup)中找到关于此包完整规范的说明。
+下面示例显示yiisoft/yii2-imagine`扩展的`composer.json`文件。
 
 ```json
 {
@@ -177,39 +148,37 @@ The following example shows the `composer.json` file for the `yiisoft/yii2-imagi
 ```
 
 
-#### Package Name <a name="package-name"></a>
-
-Each Composer package should have a package name which uniquely identifies the package among all others.
-The format of package names is `vendorName/projectName`. For example, in the package name `yiisoft/yii2-imagine`,
-the vendor name and the project name are `yiisoft` and `yii2-imagine`, respectively.
-
-Do NOT use `yiisoft` as vendor name as it is reserved for use by the Yii core code.
-
-We recommend you prefix `yii2-` to the project name for packages representing Yii 2 extensions, for example,
-`myname/yii2-mywidget`. This will allow users to more easily tell whether a package is a Yii 2 extension.
+#### 包名称<a name="package-name"></a>
 
 
-#### Package Type <a name="package-type"></a>
+在Composer中，任何一个包都有必须有一个唯一标识的名称。
+名字的格式为`vendorName/projectName`。例如包名为`yiisoft/yii2-imagine`，供应商名字和项目名字分别为`yiisoft` 和 `yii2-imagine`。
 
-It is important that you specify the package type of your extension as `yii2-extension` so that the package can
-be recognized as a Yii extension when being installed.
+不要使用`yiisoft`作为供应商名称，因为它是保留给Yii的核心代码使用。
 
-When a user runs `composer install` to install an extension, the file `vendor/yiisoft/extensions.php`
-will be automatically updated to include the information about the new extension. From this file, Yii applications
-can know which extensions are installed (the information can be accessed via [[yii\base\Application::extensions]].
+我们建议你前缀`yii2-`来命名项目名称，代表用于Yii2扩展。例如，`myname/yii2-mywidget`。
+这样很容易让用户识别是否为属于Yii2的扩展。
+
+#### 包类型 <a name="package-type"></a>
+
+指定`yii2-extension`的扩展包的类型是很重要的，便以在安装的时候包可以被识别为Yii的扩展。
 
 
-#### Dependencies <a name="dependencies"></a>
+当用户运行 `composer install`安装扩展时，`vendor/yiisoft/extensions.php`文件将自动更新以包含新的扩展。
+Yii程序通过这个文件知晓哪些扩展被安装。(该信息可通过以下方式访问[[yii\base\Application::extensions]])
 
-Your extension depends on Yii (of course). So you should list it (`yiisoft/yii2`) in the `require` entry in `composer.json`.
-If your extension also depends on other extensions or third-party libraries, you should list them as well.
-Make sure you also list appropriate version constraints (e.g. `1.*`, `@stable`) for each dependent package. Use stable
-dependencies when your extension is released in a stable version.
 
-Most JavaScript/CSS packages are managed using [Bower](http://bower.io/) and/or [NPM](https://www.npmjs.org/),
-instead of Composer. Yii uses the [Composer asset plugin](https://github.com/francoispluchino/composer-asset-plugin)
-to enable managing these kinds of packages through Composer. If your extension depends on a Bower package, you can
-simply list the dependency in `composer.json` like the following:
+#### 依赖项 <a name="dependencies"></a>
+
+你的扩展依赖于Yii(当然)，所以必须在`composer.json`的`require`列表中加入`yiisoft/yii2`。
+如果你的扩展同样依赖于其他扩展或第三方类库，你也同样要在列表中加入。
+请确保你也可以为每一个依赖列出相应的版本限制(如. `1.*`, `@stable`)。
+当你发布稳定的扩展时，请使用稳定的依赖。
+
+
+很多JavaScript/CSS包通过[Bower](http://bower.io/)或[NPM](https://www.npmjs.org/)进行管理，而不是Composer。
+Yii使用[Composer asset plugin](https://github.com/francoispluchino/composer-asset-plugin)以通过Composer管理各类型的包。
+如果你的扩展依赖Bower上的包，你可以通过`composer.json`中的依赖性列表列出，示例：
 
 ```json
 {
@@ -220,19 +189,16 @@ simply list the dependency in `composer.json` like the following:
 }
 ```
 
-The above code states that the extension depends on the `jquery` Bower package. In general, you can use
-`bower-asset/PackageName` to refer to a Bower package in `composer.json`, and use `npm-asset/PackageName`
-to refer to a NPM package. When Composer installs a Bower or NPM package, by default the package content will be
-installed under the `@vendor/bower/PackageName` and `@vendor/npm/Packages` directories, respectively.
-These two directories can also be referred to using the shorter aliases `@bower/PackageName` and `@npm/PackageName`.
+上面的代码提示依赖于Bower上`jquery`包。在一般情况下，你在`composer.json`中可以使用`bower-asset/PackageName`隐射到Bower，
+并使用`npm-asset/PackageName`隐射到对应的NPM包。当Composer安装一个Bower或NPM时，默认情况下包内容将分别被安装到
+`@vendor/bower/PackageName`和`@vendor/npm/Packages`目录。这两个目录同样可以参照使用简短的别名`@bower/PackageName` 和
+`@npm/PackageName`。
 
-For more details about asset management, please refer to the [Assets](structure-assets.md#bower-npm-assets) section.
+关于更多的资源管理信息，请阅读[资源管理](structure-assets.md#bower-npm-assets)部分
 
+#### 自动加载类<a name="class-autoloading"></a>
 
-#### Class Autoloading <a name="class-autoloading"></a>
-
-In order for your classes to be autoloaded by the Yii class autoloader or the Composer class autoloader,
-you should specify the `autoload` entry in the `composer.json` file, like shown below:
+为了让你的类被Yii类或Composer类的自动加载器自动加载，你需要在`composer.json`文件中指定的`autoload`项，如下所示：
 
 ```json
 {
@@ -246,41 +212,38 @@ you should specify the `autoload` entry in the `composer.json` file, like shown 
 }
 ```
 
-You may list one or multiple root namespaces and their corresponding file paths.
+你可以列出一个或多个根命名空间及其相应的文件路径。
 
-When the extension is installed in an application, Yii will create for each listed root namespace
-an [alias](concept-aliases.md#extension-aliases) that refers to the directory corresponding to the namespace.
-For example, the above `autoload` declaration will correspond to an alias named `@yii/imagine`.
-
-
-### Recommended Practices <a name="recommended-practices"></a>
-
-Because extensions are meant to be used by other people, you often need to take extra development effort. Below
-we introduce some common and recommended practices in creating high quality extensions.
+当扩展被安装在一个应用程序，Yii的会为每个扩展列出的根命名空间。
+这里的一个[别名]concept-aliases.md#extension-aliases)指对应于该命名空间中的目录。
+例如，上面的`autoload`声明将对应到一个名为`@yii/imagine`的别名。
 
 
-#### Namespaces <a name="namespaces"></a>
-
-To avoid name collisions and make the classes in your extension autoloadable, you should use namespaces and
-name the classes in your extension by following the [PSR-4 standard](http://www.php-fig.org/psr/psr-4/) or
-[PSR-0 standard](http://www.php-fig.org/psr/psr-0/).
-
-You class namespaces should start with `vendorName\extensionName`, where `extensionName` is similar to the project name
-in the package name except that it should not contain the `yii2-` prefix. For example, for the `yiisoft/yii2-imagine`
-extension, we use `yii\imagine` as the namespace its classes.
-
-Do not use `yii`, `yii2` or `yiisoft` as vendor name. These names are reserved for use by the Yii core code.
+### 推荐实践 <a name="recommended-practices"></a>
 
 
-#### Bootstrapping Classes <a name="bootstrapping-classes"></a>
+由于扩展意味着被其他的人使用，你经常需要采取额外的开发工作。 
+下面我们介绍在创造高品质的扩展一些常用的建议做法。
 
-Sometimes, you may want your extension to execute some code during the [bootstrapping process](runtime-bootstrapping.md)
-stage of an application. For example, your extension may want to respond to the application's `beginRequest` event
-to adjust some environment settings. While you can instruct users of the extension to explicitly attach your event
-handler in the extension to the `beginRequest` event, a better way is to do this automatically.
+#### 命名空间 <a name="namespaces"></a>
 
-To achieve this goal, you can create a so-called *bootstrapping class* by implementing [[yii\base\BootstrapInterface]].
-For example,
+为了避免你的类名称冲突，以使类能在扩展中自动加载，你应该使用命名空间，并按照[PSR-4 standard](http://www.php-fig.org/psr/psr-4/)
+和[PSR-0 standard](http://www.php-fig.org/psr/psr-0/)的标准命名扩展的类名称。
+
+你的命名空间应该以`vendorName\extensionName`开始，其中`extensionName`取名与包中的项目名称相似，但又不能包含`yii2-`前缀。
+示例，`yiisoft/yii2-imagine`的扩展，我们使用`yii\imagine`作为该类的命名空间。
+
+
+不要使用`yii`,`yii2`或`yiisoft`作为供应商名称，这些名称被保留用于Yii核心代码。
+
+
+#### 引导类 <a name="bootstrapping-classes"></a>
+
+有时，你可能希望你的应用程序在扩展过程 [引导进程](runtime-bootstrapping.md) 阶段中执行一些代码。示例，你的扩展也许在应用主体的`beginRequest`
+事件调整一些环境参数。虽然你可以使用手动扩展的形式附加你的'beginRequest' 事件扩展中进行处理，但更好的方式是自动执行此操作。
+
+为了实现这一目标，你可以创建一个所谓*bootstrapping class*通过[[yii\base\BootstrapInterface]]实现。
+示例，
 
 ```php
 namespace myname\mywidget;
@@ -293,13 +256,13 @@ class MyBootstrapClass implements BootstrapInterface
     public function bootstrap($app)
     {
         $app->on(Application::EVENT_BEFORE_REQUEST, function () {
-             // do something here
+             // 定义操作
         });
     }
 }
 ```
 
-You then list this class in the `composer.json` file of your extension like follows,
+然后在'composer.json' 文件中列表列出扩展类
 
 ```json
 {
@@ -311,147 +274,138 @@ You then list this class in the `composer.json` file of your extension like foll
 }
 ```
 
-When the extension is installed in an application, Yii will automatically instantiate the bootstrapping class
-and call its [[yii\base\BootstrapInterface::bootstrap()|bootstrap()]] method during the bootstrapping process for
-every request.
+
+当扩展被安装到应用主体，Yii将自动实例化引导类，并在事件请求的引导进程之间
+执行他的方法[[yii\base\BootstrapInterface::bootstrap()|bootstrap()]]
 
 
-#### Working with Databases <a name="working-with-databases"></a>
-
-Your extension may need to access databases. Do not assume that the applications that use your extension will always
-use `Yii::$db` as the DB connection. Instead, you should declare a `db` property for the classes that require DB access.
-The property will allow users of your extension to customize which DB connection they would like your extension to use.
-As an example, you may refer to the [[yii\caching\DbCache]] class and see how it declares and uses the `db` property.
-
-If your extension needs to create specific DB tables or make changes to DB schema, you should
-
-- provide [migrations](db-migrations.md) to manipulate DB schema, rather than using plain SQL files;
-- try to make the migrations applicable to different DBMS;
-- avoid using [Active Record](db-active-record.md) in the migrations.
+#### 使用数据库 <a name="working-with-databases"></a>
 
 
-#### Using Assets <a name="using-assets"></a>
-
-If your extension is a widget or a module, chances are that it may require some [assets](structure-assets.md) to work.
-For example, a module may display some pages which contain images, JavaScript, and CSS. Because the files of an
-extension are all under the same directory which is not Web accessible when installed in an application, you have
-two choices to make the asset files directly accessible via Web:
-
-- ask users of the extension to manually copy the asset files to a specific Web-accessible folder;
-- declare an [asset bundle](structure-assets.md) and rely on the asset publishing mechanism to automatically
-  copy the files listed in the asset bundle to a Web-accessible folder.
-
-We recommend you use the second approach so that your extension can be more easily used by other people.
-Please refer to the [Assets] section for more details about how to work with assets in general.
+你的扩展可能需要访问数据库。不要想当然的以为你的扩展会通过会应用主体的`Yii::$db`始终连接数据库。相反，你应该声明一个`db`属性用于访问目标数据库的类。
+该属性允许用户定制扩展连接数据库，同样也可以扩展使用。举个例子，你可以参考[[yii\caching\DbCache]]类，看看它是如何声明和使用`db`属性
 
 
-#### Internationalization and Localization <a name="i18n-l10n"></a>
 
-Your extension may be used by applications supporting different languages! Therefore, if your extension displays
-content to end users, you should try to [internationalize and localize](tutorial-i18n.md) it. In particular,
+如果你的扩展需要创建指定的数据库表结构或者修改数据库架构，你将要
 
-- If the extension displays messages intended for end users, the messages should be wrapped into `Yii::t()`
-  so that they can be translated. Messages meant for developers (such as internal exception messages) do not need
-  to be translated.
-- If the extension displays numbers, dates, etc., they should be formatted using [[yii\i18n\Formatter]] with
-  appropriate formatting rules.
+－ 提供 [迁移](db-migrations.md) 来操作数据库架构；
+－ 试着使迁移适用于不同的关系型数据库DBMS；
+-  避免迁移中使用[活动记录](db-active-record.md)
 
+
+#### 使用资源 <a name="using-assets"></a>
+
+
+如果你的扩展是一个小部件或一个模块，那有可能它可能需要使用一些 [资源](structure-assets.md)。
+示例，一个模块可能会显示一些网页，其中包含图像，JavaScript和CSS。因为文件的扩展都是相同的目录下的所有非Web访问
+安装在应用主体中时，通过以下两个选择使资源文件可以直接访问：
+
+－ 手动复制对应的资源文件到WEB访问的目标文件夹下；
+－ 声明[资源包] (structure-assets.md)并依靠资源包发布机制自动复制该资源包到WEB访问的目标文件夹下
+
+
+我们建议你使用第二种方法，使你的扩展可以更容易地被其他人使用。
+更多的细节请参阅[资源]部分。
+
+#### 国际化和本地化 <a name="i18n-l10n"></a>
+
+你的扩展可以在不同语言的应用主体中使用。因此，如果你的扩展要显示内容到最终用户，你需要尝试应用[国际化和本地化](tutorial-i18n.md)。
+特别指出的是
+
+- 如果你的扩展要显示消息到最终用户，那该消息应被包装成`Yii::t()`，这样的话将会被翻译。开发者的消息(诸如内部异常消息)不需要被翻译。
+- 如果扩展显示数字，日期等等信息，那应该使用[[yii\i18n\Formatter]]格式规则与之相匹配。
 For more details, please refer to the [Internationalization](tutorial-i18n.md) section.
+更多的细节请参阅[国际化](tutorial-i18n.md)部分。
+
+#### 测试 <a name="testing"></a> 
+
+如果你希望你的扩展被他人完美的使用，而不会产生任何问题。你应该把他分享给公众进行测试。
 
 
-#### Testing <a name="testing"></a>
+推荐你创建各种测试案例来测试你的扩展，而不是依靠手工测试。每次当你释放扩展的新版本，你可能只需要运行这些测试案例，以确保 
+一切都在良好的状态。Yii提供测试支持，它可以帮助你更轻松地编写单元测试，验收测试和功能测试。
+更多的细节请参阅[测试](test-overview.md)部分。
 
-You want your extension to run flawlessly without bringing problems to other people. To reach this goal, you should
-test your extension before releasing it to public.
-
-It is recommended that you create various test cases to cover your extension code rather than relying on manual tests.
-Each time before you release a new version of your extension, you may simply run these test cases to make sure
-everything is in good shape. Yii provides testing support, which can help you to more easily write unit tests,
-acceptance tests and functionality tests. For more details, please refer to the [Testing](test-overview.md) section.
+#### 版本 <a name="versioning"></a>
 
 
-#### Versioning <a name="versioning"></a>
+你应该为每次发布的扩展设置版本号(例如:`1.0.1`)。我们建议你按照[语义版本](http://semver.org)的做法确定版本号。
 
-You should give each release of your extension a version number (e.g. `1.0.1`). We recommend you follow the
-[semantic versioning](http://semver.org) practice when determining what version numbers should be used.
-
-
-#### Releasing <a name="releasing"></a>
-
-To let other people know your extension, you need to release it to public.
-
-If it is the first time you release an extension, you should register it on a Composer repository, such as
-[Packagist](https://packagist.org/). After that, all you need to do is simply creating a release tag (e.g. `v1.0.1`)
-on the VCS repository of your extension and notify the Composer repository about the new release. People will
-then be able to find the new release, and install or update the extension through the Composer repository.
-
-In the releases of your extension, besides code files you should also consider including the followings to
-help other people learn about and use your extension:
-
-* A readme file in the package root directory: it describes what your extension does and how to install and use it.
-  We recommend you write it in [Markdown](http://daringfireball.net/projects/markdown/) format and name the file
-  as `readme.md`.
-* A changelog file in the package root directory: it lists what changes are made in each release. The file
-  may be written in Markdown format and named as `changelog.md`.
-* An upgrade file in the package root directory: it gives the instructions on how to upgrade from older releases
-  of the extension. The file may be written in Markdown format and named as `upgrade.md`.
-* Tutorials, demos, screenshots, etc.: these are needed if your extension provides many features that cannot be
-  fully covered in the readme file.
-* API documentation: your code should be well documented to allow other people more easily read and understand it.
-  You may refer to the [Object class file](https://github.com/yiisoft/yii2/blob/master/framework/base/Object.php)
-  to learn how to document your code.
-
-> Info: Your code comments can be written in Markdown format. The `yiisoft/yii2-apidoc` extension provides a tool
-  for you to generate pretty API documentation based on your code comments.
-
-> Info: While not a requirement, we suggest your extension adhere to certain coding styles. You may refer to
-  the [core framework code style](https://github.com/yiisoft/yii2/wiki/Core-framework-code-style).
+#### 发布 <a name="releasing"></a>
 
 
-## Core Extensions <a name="core-extensions"></a>
+为了让其他人知道你的扩展，你需要将它发布给公众。
 
-Yii provides the following core extensions that are developed and maintained by the Yii developer team. They are all
-registered on [Packagist](https://packagist.org/) and can be easily installed as described in the
-[Using Extensions](#using-extensions) subsection.
+如果这是你第一次发布扩展，你应该对一个Composer存储库中注册，比如[Packagist](https://packagist.org/)。然后，你需要做的就是
+简单地创建一个发布标签(例如`v1.0.1`)在你的扩展的VCS资源库，并通知有关新版本的Composer资料库。
+
+
+在扩展的版本中，除了代码文件，你也应该考虑包括以下内容，以帮助其他人了解并使用你的扩展：
+
+
+* 在包的根目录中的自述文件：它描述了你的扩展功能以及如何安装和使用它。 
+	我们建议你按[标记](http://daringfireball.net/projects/markdown/)格式写入自述文件，并命名为`readme.md`。
+* 在包的根目录更新日志文件：他将按标记格式列出每次的版本修改变化写入自述文件，并命名为`changelog.md`。
+* 在包的根目录下的升级文件：它提供了有关如何从扩展的旧版本进行升级的说明。我们建议你按[标记]
+  (http://daringfireball.net/projects/markdown/)格式写入自述文件，并命名为`upgrade.md`。
+* 如果你在自述文件中无法表达更多的功能，你应该提供图文并茂的教程等。
+
+> 补充：代码注释可以按标记格式写入。`yiisoft/yii2-apidoc`扩展提供了一个可以帮助你生成基于代码备注的API文档。
+
+> 补充：我们建议你遵守一定的编码风格，你可以参照[内核代码风格](https://github.com/yiisoft/yii2/wiki/Core-framework-code-style).
+
+## 内核扩展 <a name="core-extensions"></a>
+
+Yii提供了由Yii的开发团队开发和维护的以下核心扩展。它们都被登记在[Packagist](https://packagist.org/)并可方便地安装在
+[使用扩展]#using-extensions)部分
+
 
 - [yiisoft/yii2-apidoc](https://github.com/yiisoft/yii2-apidoc):
-  provides an extensible and high-performance API documentation generator. It is also used to generate the core
-  framework API documentation.
+  提供了一个可扩展的，高性能的API文档生成器。它也被用来生成所述核心框架的API文档。
+  
 - [yiisoft/yii2-authclient](https://github.com/yiisoft/yii2-authclient):
-  provides a set of commonly used auth clients, such as Facebook OAuth2 client, GitHub OAuth2 client.
+  提供了一组常用的身份验证的客户端，比如Facebook OAuth2客户端，GitHub的OAuth2客户端。
+
 - [yiisoft/yii2-bootstrap](https://github.com/yiisoft/yii2-bootstrap):
-  provides a set of widgets that encapsulate the [Bootstrap](http://getbootstrap.com/) components and plugins.
+  提供了一组封装的组件和插件的小部件[引导](http://getbootstrap.com/)。
+  
 - [yiisoft/yii2-codeception](https://github.com/yiisoft/yii2-codeception):
-  provides testing support based on [Codeception](http://codeception.com/).
+  提供了一个基于[Codeception](http://codeception.com/)的测试支持
+  
 - [yiisoft/yii2-debug](https://github.com/yiisoft/yii2-debug):
-  provides debugging support for Yii applications. When this extension is used, a debugger toolbar will appear
-  at the bottom of every page. The extension also provides a set of standalone pages to display more detailed
-  debug information.
+  提供一个Yii应用的调试支持。当该扩展被使用，调试工具条将出现在每个页面的底部。该扩展同样可以提供标准页面以显示更多更详细的调试信息。
+  
 - [yiisoft/yii2-elasticsearch](https://github.com/yiisoft/yii2-elasticsearch):
-  provides the support for using [Elasticsearch](http://www.elasticsearch.org/). It includes basic querying/search
-  support and also implements the [Active Record](db-active-record.md) pattern that allows you to store active records
-  in Elasticsearch.
+  提供了用于[Elasticsearch](http://www.elasticsearch.org/)使用支持。他包括了基本的检索支持，同样可以实现了活动记录[Active Record](db-active-record.md)部分
+  储存到Elasticsearch。
+  
 - [yiisoft/yii2-faker](https://github.com/yiisoft/yii2-faker):
-  provides the support for using [Faker](https://github.com/fzaninotto/Faker) to generate fake data for you.
+  提供基于[Faker](https://github.com/fzaninotto/Faker)用于生成虚拟数据。
+  
 - [yiisoft/yii2-gii](https://github.com/yiisoft/yii2-gii):
-  provides a Web-based code generator that is highly extensible and can be used to quickly generate models,
-  forms, modules, CRUD, etc.
+  提供一个基于页面的代码生成器,这是高度可扩展的，并且可以用于快速生成模型，表单，模块，CRUD等。
+  
 - [yiisoft/yii2-imagine](https://github.com/yiisoft/yii2-imagine):
-  provides commonly used image manipulation functions based on [Imagine](http://imagine.readthedocs.org/).
+  提供了基于[Imagine](http://imagine.readthedocs.org/)常用的图像处理功能
+  
 - [yiisoft/yii2-jui](https://github.com/yiisoft/yii2-jui):
-  provides a set of widgets that encapsulate the [JQuery UI](http://jqueryui.com/) interactions and widgets.
+  提供了一组互动封装[JQuery UI](http://jqueryui.com/)及小部件。
+  
 - [yiisoft/yii2-mongodb](https://github.com/yiisoft/yii2-mongodb):
-  provides the support for using [MongoDB](http://www.mongodb.org/). It includes features such as basic query,
-  Active Record, migrations, caching, code generation, etc.
+  提供基于[MongoDB](http://www.mongodb.org/)的支持。它包括的功能，如基本的查询，迁移，活动记录，缓存，代码生成等。
+  
 - [yiisoft/yii2-redis](https://github.com/yiisoft/yii2-redis):
-  provides the support for using [redis](http://redis.io/). It includes features such as basic query,
-  Active Record, caching, etc.
+  提供基于[redis](http://redis.io/)的支持。它包括的功能，如基本的查询，活动记录，缓存等。
+  
 - [yiisoft/yii2-smarty](https://github.com/yiisoft/yii2-smarty):
-  provides a template engine based on [Smarty](http://www.smarty.net/).
+  提供基于[Smarty]模板引擎(http://www.smarty.net/).
+  
 - [yiisoft/yii2-sphinx](https://github.com/yiisoft/yii2-sphinx):
-  provides the support for using [Sphinx](http://sphinxsearch.com). It includes features such as basic query,
-  Active Record, code generation, etc.
+  提供基于[Sphinx](http://sphinxsearch.com)的支持。它包括的功能，如基本的查询，活动记录，代码生成等。
+  
 - [yiisoft/yii2-swiftmailer](https://github.com/yiisoft/yii2-swiftmailer):
-  provides email sending features based on [swiftmailer](http://swiftmailer.org/).
+  提供基于[swiftmailer](http://swiftmailer.org/)电子邮件发送功能。
+  
 - [yiisoft/yii2-twig](https://github.com/yiisoft/yii2-twig):
-  provides a template engine based on [Twig](http://twig.sensiolabs.org/).
+  提供基于[Twig]模板引擎(http://twig.sensiolabs.org/).
