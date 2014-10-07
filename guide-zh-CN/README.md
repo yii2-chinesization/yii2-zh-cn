@@ -27,7 +27,7 @@ Yii 2.0 权威指南
 >
 > 临时说明：
 >
-> 1.目录前 **待定中，编撰中，已定稿** 标示官方文档编写进度情况，【】表示汉化进度。
+> 1.目录前的 **待定中，编撰中，已定稿** 标示官方文档编写进度情况，【】内为汉化进度。
 > **************************
 
 本教程的发布遵循[ Yii 文档使用许可](http://www.yiiframework.com/doc/terms/).
@@ -67,8 +67,7 @@ Yii 2.0 权威指南
 * **已定稿**【翻译中-funson86】 [过滤器](structure-filters.md)
 * **已定稿**【翻译中-funson86】 [小部件（Widget）](structure-widgets.md)
 * **已定稿**【翻译中-funson86】 [模块（Module）](structure-modules.md)
-* **编撰中**【需更新】 [前端资源（Asset）](structure-assets.md)
-
+* **已定稿**【需更新】 [前端资源（Asset）](structure-assets.md)
 * **已定稿**【翻译中-20141005-ivantree】  [扩展（extensions）](structure-extensions.md)
 
 请求处理
@@ -81,16 +80,14 @@ Yii 2.0 权威指南
 * **已定稿** [响应（Response）](runtime-responses.md)
 * **已定稿** [Sessions 和 Cookies](runtime-sessions-cookies.md)
 * **编撰中**【需更新|待翻译】 [URL 解析和生成](runtime-url-handling.md)
-* **编撰中**【需更新】 [错误处理](runtime-handling-errors.md)
-* **编撰中**【需更新】 [日志](runtime-logging.md)
+* **已定稿**【需更新】 [错误处理](runtime-handling-errors.md)
+* **已定稿**【需更新】 [日志记录](runtime-logging.md)
 
 关键概念
 --------
 
 * **已定稿**【已校对-20140525-qiansen1386】 [组件（Component）](concept-components.md)
-*structure-controllers.md
- structure-models.md
- structure-views.md **已定稿**【已校对-20140628-qiansen1386】 [属性（Property）](concept-properties.md)
+* **已定稿**【已校对-20140628-qiansen1386】 [属性（Property）](concept-properties.md)
 * **已定稿**【已校对-20140704-AbrahamGreyson】 [事件（Event）](concept-events.md)
 * **已定稿**【需更新|已校对-20140704-qiansen1386】 [行为（Behavior）](concept-behaviors.md)
 * **已定稿**【需更新|未校对-20140626-AbrahamGreyson】 [配置（Configurations）](concept-configurations.md)
