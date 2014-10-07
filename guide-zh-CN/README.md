@@ -64,9 +64,9 @@ Yii 2.0 权威指南
 * **已定稿**【翻译中-20140910-AbrahamGreyson】 [控制器（Controller）](structure-controllers.md)
 * **已定稿**【翻译中-20140927-AbrahamGreyson】 [视图（View）](structure-views.md)
 * **已定稿**【翻译中-20140918-AbrahamGreyson】 [模型（Model）](structure-models.md)
-* **已定稿**【翻译中-yiichina】 [过滤器](structure-filters.md)
-* **已定稿**【翻译中-yiichina】 [小部件（Widget）](structure-widgets.md)
-* **已定稿**【翻译中-yiichina】 [模块（Module）](structure-modules.md)
+* **已定稿**【翻译中-funson86】 [过滤器](structure-filters.md)
+* **已定稿**【翻译中-funson86】 [小部件（Widget）](structure-widgets.md)
+* **已定稿**【翻译中-funson86】 [模块（Module）](structure-modules.md)
 * **编撰中**【需更新】 [前端资源（Asset）](structure-assets.md)
 
 * **已定稿**【翻译中-20141005-ivantree】  [扩展（extensions）](structure-extensions.md)
