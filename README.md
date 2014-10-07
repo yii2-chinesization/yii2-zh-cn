@@ -48,7 +48,7 @@ Yii2 开发及用户贡献文档中文本土化组织
   └── Root根目录下放置[说明](README.md)，[授权](LICENSE.md)，[翻译手册](translation-guide.md)，[校对手册](translation-proofreading.md)
   ，[术语表](translation-glossary.md)，[Markdown 编写规范（试行）](markdown-code-style.md)，[Yii 文档风格指南](documentation_style_guide.md)等各种文件  
 ***************************
-
+>注意：该库的文档并非最新最全，只是用于参考与备份，最新文档的存放地点为 yii2-chinesization/yii2。查看老文档备份请检出 achieve 分支
 
 Yii 的生态圈 <a name="yiicosystem">
 --------
