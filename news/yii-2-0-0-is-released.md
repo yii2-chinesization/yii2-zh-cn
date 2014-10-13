@@ -42,7 +42,7 @@ Highlights
 Yii 2.0 应用了 PHP 命名空间与 Trait（特质），[PSR
 推荐开发标准](http://www.php-fig.org/psr/)，
 [Composer 依赖管理工具](https://getcomposer.org/)，[Bower](http://bower.io/) 与
-[NPM](https://www.npmjs.org/)。所有这些改变都使得框架自身变得更清爽，与第三方类库之间更易协作。
+[NPM](https://www.npmjs.org/)前端依赖管理工具。所有这些改变都使得框架自身变得更清爽，与第三方类库之间更易协作。
 
 Yii 2.0 adopts PHP namespaces and traits, [PSR
 standards](http://www.php-fig.org/psr/),
@@ -53,6 +53,11 @@ refreshing and interoperable with other libraries.
 ### 可靠的基础类库
 （Solid Foundation Classes）
 
+跟 1.1 时代一样，Yii 2.0 支持用 getter 和
+setter，[配置数组](http://www.yiiframework.com/doc-2.0/guide-concept-configurations.html)，
+[事件（events）](http://www.yiiframework.com/doc-2.0/guide-concept-events.html)以及
+[行为（behaviors）](http://www.yiiframework.com/doc-2.0/guide-concept-behaviors.html)来配置[对象属性（Object
+Properties）](http://www.yiiframework.com/doc-2.0/guide-concept-properties.html)。新的实现更加高效，更具表现力。举例而言，你可以这样来响应事件：
 Like in 1.1, Yii 2.0 supports [object
 properties](http://www.yiiframework.com/doc-2.0/guide-concept-properties.html)
 defined via getters and setters,
@@ -65,26 +70,33 @@ you can write the following code to respond to an event:
 
     $response = new yii\web\Response;
     $response->on('beforeSend', function ($event) {
-        // respond to the "beforeSend" event here
+        // 在此处响应 "beforeSend" 事件
     });
 
+Yii 2.0 实现了[依赖注入容器](http://www.yiiframework.com/doc-2.0/guide-concept-di-container.html)和[服务定位器](http://www.yiiframework.com/doc-2.0/guide-concept-service-locator.html)。这些功能让使用 Yii 构建的应用更加容易定制与测试。
+and [service
 Yii 2.0 implements the [dependency injection
 container](http://www.yiiframework.com/doc-2.0/guide-concept-di-container.html)
 and [service
 locator](http://www.yiiframework.com/doc-2.0/guide-concept-service-locator.html).
 It makes the applications built with Yii more customizable and testable.
 
-### Development Tools
+### 开发工具
+（Development Tools）
 
+Yii 2.0 包含了一系列的开发工具，让程序猿的人生不再那么苦逼。
 Yii 2.0 comes with several development tools to make the life of
 developers easier.
 
+新的 [Yii debugger](http://www.yiiframework.com/doc-2.0/guide-tool-debugger.html)
+允许你检视你应用内部的运行状况。它也可以用于性能调教，来找出影响应用性能的瓶颈所在。
 The [Yii
 debugger](http://www.yiiframework.com/doc-2.0/guide-tool-debugger.html)
 allows you to examine the runtime internals of your application. It can
 also be used to do performance profiling to find out the performance
 bottlenecks in your application.
 
+如 1.1，Yii 2.0 也提供 Gii，也就是[代码生成器](http://www.yiiframework.com/doc-2.0/guide-tool-gii.html)，它可以帮你省去开发中的一大块时间。Gii 非常易于扩展，允许你自定义或创建不一样的代码生成器。它还同时提供 Web 与命令行两种界面，以适应不同的用户偏好。
 Like 1.1, Yii 2.0 also provides Gii, a [code generation
 tool](http://www.yiiframework.com/doc-2.0/guide-tool-gii.html), that can
 cut down a large portion of your development time. Gii is very
@@ -92,6 +104,9 @@ extensible, allowing you to customize or create different code
 generators. Gii provides both Web and console interfaces to fit for
 different user preferences.
 
+Yii 1.1的 API 文档收到过很多的积极反馈。很多人反馈说他们也想为他们的应用提供类似的文档系统。Yii 2.0
+实现了他们的愿望，带来了[文档生成器](https://github.com/yiisoft/yii2/tree/master/extensions/apidoc)扩展。该生成器支持
+Markdown 语法，它可以让你以一种更为简单明了且富有充分表现力的时髦方式撰写文档。
 The API documentation of Yii 1.1 has received a lot of positive
 feedback. Many people expressed the wish to create a similar
 documentation for their applications. Yii 2.0 realizes this with a
@@ -100,16 +115,27 @@ generator](https://github.com/yiisoft/yii2/tree/master/extensions/apidoc).
 The generator supports Markdown syntax which allows you to write
 documentation in a more succinct and expressive fashion.
 
-### Security
+### 安全
+（Security）
 
+Yii 2.0 可以帮助你写出更加安全的代码。它包含内建的安全组件有效防止蛀牙（东方孤思子在搞什么鬼），SQL 注入，XSS 攻击，CSRF 攻击，Cookie 篡改，等等攻击。安全砖家 [汤姆·沃斯特（Tom 
+Worster）](https://github.com/tom--)和[安东尼·法拉利（Anthony Ferrara）](https://github.com/ircmaxell)
+帮我们并重写了部分安全相关的代码哦。
 Yii 2.0 helps you to write more secure code. It has built-in support to
 prevent SQL injections, XSS attacks, CSRF attacks, cookie tampering,
 etc. Security experts [Tom Worster](https://github.com/tom--) and
 [Anthony Ferrara](https://github.com/ircmaxell) even helped us review
 and rewrite some of the security-related code.
 
-### Databases
+### 数据库
+（Databases）
 
+带数据库从来没有这么容易过。Yii 2.0 支持 [DB
+迁移](http://www.yiiframework.com/doc-2.0/guide-db-migrations.html)，[数据访问对象
+(DAO)](http://www.yiiframework.com/doc-2.0/guide-db-dao.html)，[查询构造器（query
+builder）](http://www.yiiframework.com/doc-2.0/guide-db-query-builder.html)
+和 [活动记录（Active
+Record）](http://www.yiiframework.com/doc-2.0/guide-db-active-record.html)。相较于 1.1，Yii 2.0 改进了 AR 的性能，并且通过 ActiveRecord（AR） 和 QueryBuilder(QB) 统一了查询数据的语法。下面的例子展现了你能如何用 AR 或 QB 方便地查询顾客（Customer）的数据。如你所见，两种方式均使用了跟 SQL 语法一脉相承的链式方法调用。
 Working with databases has never been easier. Yii 2.0 supports [DB
 migration](http://www.yiiframework.com/doc-2.0/guide-db-migrations.html),
 [database access objects
@@ -134,9 +160,10 @@ use chained method calls which are similar to SQL syntax.
     $customers = Customer::find()
         ->where(['status' => Customer::STATUS_ACTIVE])
         ->orderBy('id')
-        ->asArray();
+        ->asArray()
         ->all();
 
+下面的代码展示了你如何用 AR 实现关系查询：
 The following code shows how you can perform relational queries using
 Active Record:
 
@@ -152,26 +179,31 @@ Active Record:
             return 'customer';
         }
      
-        // defines a one-to-many relation with Order model
+        // 定义和 Order 模型类之间的一对多关系
         public function getOrders()
         {
             return $this->hasMany(Order::className(), ['customer_id' => 'id']);
         }
     }
      
-    // returns the customer whose id is 100
+    // 返回 id 为 100 的客户
     $customer = Customer::findOne(100);
-    // returns the orders for the customer
+    // 返回该用户的所有过往订单
     $orders = $customer->orders;
 
+还有下面的代码展示了如何更新一个客户记录。内部运行的时候，会用参数绑定来防止 SQL 注入攻击，并只向数据库中保存修改过的字段。
 And the following code shows how you can update a Customer record.
 Behind the scene, parameter binding is used to prevent SQL injection
 attacks, and only modified columns are saved to DB.
 
     $customer = Customer::findOne(100);
     $customer->address = '123 Anderson St';
-    $customer->save();  // executes SQL: UPDATE `customer` SET `address`='123 Anderson St' WHERE `id`=100
+    $customer->save();  // 执行 SQL：UPDATE `customer` SET `address`='123 Anderson St' WHERE `id`=100
 
+Yii 2.0 支持各种路子的数据库。除了传统的关系型数据库，Yii 2.0 还增加了对 Cubrid，ElasticSearch，Sphinx。它还支持 
+NoSQL 的数据库，包括 Redis 和 MongoDB。更重要的是，所有的数据库使用同一套 Query Builder 和 ActiveRecord 的 
+API，这使得你在多个数据库之间的切换变得小菜一碟了。而且，在使用 AR 的时候，你甚至可以关联不同数据库之间的数据（比如 
+MySQL 和 Redis）。
 Yii 2.0 supports the widest range of databases. Besides the traditional
 relational databases, Yii 2.0 adds the support for Cubrid,
 ElasticSearch, Sphinx. It also supports NoSQL databases, including Redis
@@ -181,6 +213,8 @@ for you to switch among different databases. And when using Active
 Record, you can even relate data from different databases (e.g. between
 MySQL and Redis).
 
+对于拥有大型数据库和对高性能有一定要求的应用，Yii 
+2.0 也提供了内建的[数据库复制与读写分离](http://www.yiiframework.com/doc-2.0/guide-db-dao.html#replication-and-read-write-splitting)支持。
 For applications with big databases and high performance requirement,
 Yii 2.0 also provides built-in support for [database replication and
 read-write
@@ -188,12 +222,18 @@ splitting](http://www.yiiframework.com/doc-2.0/guide-db-dao.html#replication-and
 
 ### RESTful APIs
 
+仅需几行代码，Yii 2.0 让你快速构建一系列全功能，遵从最新协议的 [RESTful
+APIs](http://www.yiiframework.com/doc-2.0/guide-rest-quick-start.html)。下面的例子展示了如何创建一个提供用户数据的
+RESTful API 服务。
+
 With a few lines of code, Yii 2.0 lets you to quickly build a set of
 fully functional [RESTful
 APIs](http://www.yiiframework.com/doc-2.0/guide-rest-quick-start.html)
 that comply to the latest protocols. The following example shows how you
 can create a RESTful API serving user data.
 
+首先，创建一个控制器类 `app\controllers\UserController`，然后制定
+`app\models\User` 为提供服务的模型：
 First, create a controller class `app\controllers\UserController` and
 specify `app\models\User` as the type of model being served:
 
@@ -206,6 +246,7 @@ specify `app\models\User` as the type of model being served:
         public $modelClass = 'app\models\User';
     }
 
+之后，修改你应用配置中 `urlManager` 组件的配置数组，加入以 Pretty URL 的形式提供 user 数据的配置项：
 Then, modify the configuration about the `urlManager` component in your
 application configuration to serve user data in pretty URLs:
 
@@ -217,21 +258,21 @@ application configuration to serve user data in pretty URLs:
             ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
         ],
     ]
-
+    
+这就是全部的要做的事！ 这个你刚刚创建的 API 支持：
 That's all you need to do! The API you just created supports:
 
--   `GET /users`: list all users page by page;
--   `HEAD /users`: show the overview information of user listing;
--   `POST /users`: create a new user;
--   `GET /users/123`: return the details of the user 123;
--   `HEAD /users/123`: show the overview information of user 123;
--   `PATCH /users/123` and `PUT /users/123`: update the user 123;
--   `DELETE /users/123`: delete the user 123;
--   `OPTIONS /users`: show the supported verbs regarding endpoint
-    `/users`;
--   `OPTIONS /users/123`: show the supported verbs regarding endpoint
-    `/users/123`.
+-   `GET /users`: （逐页）列出全部用户；
+-   `HEAD /users`：显示 user 列表的概览信息；
+-   `POST /users`：创建新用户；
+-   `GET /users/123`：返回用户 123 的详细资料；
+-   `HEAD /users/123`：显示 user 123 的概述；
+-   `PATCH /users/123` 以及 `PUT /users/123`：更新 user 123;
+-   `DELETE /users/123`：删除 user 123;
+-   `OPTIONS /users`：显示对于 `/users` 端点所支持的动作；
+-   `OPTIONS /users/123`: 显示对于 `/users/123` 端点所支持的动作。
 
+你也可以像这样通过 `curl` 命令访问你的 API,
 You may access your API with the `curl` command like the following,
 
     $ curl -i -H "Accept:application/json" "http://localhost/users"
@@ -262,7 +303,8 @@ You may access your API with the `curl` command like the following,
         ...
     ]
 
-### Caching
+### 缓存
+（Caching）
 
 Like 1.1, Yii 2.0 supports a whole range of caching options, from server
 side caching, such as [fragment
