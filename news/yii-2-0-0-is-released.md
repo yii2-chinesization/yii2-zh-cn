@@ -1,9 +1,14 @@
-Yii 2.0 is finally coming, after more than three years of intensive
-development with almost [10,000
-commits](https://github.com/yiisoft/yii2/commits/master) by over [300
-authors](https://github.com/yiisoft/yii2/graphs/contributors)! Thank you
-for your support and patience!
+>[原文：http://www.yiiframework.com/news/](http://www.yiiframework.com/news/81/yii-2-0-0-is-released/)  
+主翻译：@qiansen1386(东方孤思子) 校对： 时间：2014年10月13
 
+Yii 2.0.0 终于发布了！
+=================
+
+经过三年多的密集开发，饱含了 [300 余位贡献者](https://github.com/yiisoft/yii2/graphs/contributors)的总计超过
+[10,000 次提交](https://github.com/yiisoft/yii2/commits/master)的 Yii 2.0.0 终于来了！感谢各位的支持与耐心！
+
+你们应该也都知道了，Yii 2.0 是前作 1.1 之后的完全重写。我们这么选择主要是为了构建出一个代表当下最先进水平的 PHP
+框架，在保持 Yii 原本的简洁与可扩展性的基础上，又加入了最新的科技与最新的功能，从而使得它较之之前更胜一筹。今天我们非常荣幸地宣布，我们已经达到了我们的设计目标。
 As you may have already known, Yii 2.0 is a complete rewrite over the
 previous version 1.1. We made this choice in order to build a
 state-of-the-art PHP framework by keeping the original simplicity and
@@ -11,25 +16,33 @@ extensibility of Yii while adopting the latest technologies and features
 to make it even better. And today we are very glad to announce that we
 have achieved our goal.
 
+下面是一些关于 Yii 与 Yii 2.0 的链接：
 Below are some useful links about Yii and Yii 2.0:
 
--   [Yii project site](http://www.yiiframework.com)
--   [Yii 2.0 GitHub Project](https://github.com/yiisoft/yii2): you may
-    star and/or watch it to keep track of Yii development activities.
--   [Yii Facebook group](https://www.facebook.com/groups/yiitalk/)
--   [Yii Twitter feeds](https://twitter.com/yiiframework)
--   [Yii LinkedIn
-    group](https://www.linkedin.com/groups/yii-framework-1483367)
+-   [Yii 项目官网](http://www.yiiframework.com)
+-   [Yii 2.0 GitHub 项目仓库](https://github.com/yiisoft/yii2)：你可以 star（星标）、watch （关注）它来跟踪了解 Yii 开发的最新动态。
+-   [Yii Facebook 小组](https://www.facebook.com/groups/yiitalk/)
+-   [Yii Twitter 微博](https://twitter.com/yiiframework)
+-   [Yii 领英（LinkedIn）小组](https://www.linkedin.com/groups/yii-framework-1483367)
 
+在下面我们会总结一下这个大家期待已久的发布的一些闪光点。你若你实在迫不及待，也可以直接参考 [指南-入门篇](http://www.yiiframework.com/doc-2.0/guide-index.html#getting-started) 快速上手把玩。
 In the following we will summarize some of the highlights of this long
 awaited release. You may check out the [Getting
 Started](http://www.yiiframework.com/doc-2.0/guide-index.html#getting-started)
 section if you want to rush to try it out first.
 
+闪光点
+------
 Highlights
 ----------
 
-### Adopting Standards and Latest Technologies
+### 适应各项标准与最新科技
+（Adopting Standards and Latest Technologies）
+
+Yii 2.0 应用了 PHP 命名空间与 Trait（特质），[PSR
+推荐开发标准](http://www.php-fig.org/psr/)，
+[Composer 依赖管理工具](https://getcomposer.org/)，[Bower](http://bower.io/) 与
+[NPM](https://www.npmjs.org/)。所有这些改变都使得框架自身变得更清爽，与第三方类库之间更易协作。
 
 Yii 2.0 adopts PHP namespaces and traits, [PSR
 standards](http://www.php-fig.org/psr/),
@@ -37,7 +50,8 @@ standards](http://www.php-fig.org/psr/),
 [NPM](https://www.npmjs.org/). All these make the framework more
 refreshing and interoperable with other libraries.
 
-### Solid Foundation Classes
+### 可靠的基础类库
+（Solid Foundation Classes）
 
 Like in 1.1, Yii 2.0 supports [object
 properties](http://www.yiiframework.com/doc-2.0/guide-concept-properties.html)
