@@ -39,20 +39,20 @@ Yii 2.0 权威指南
 介绍
 -----
 
-* **已定稿**【已校对-20140818-qiansen1386】 [关于 Yii](intro-yii.md)
-* **已定稿**【已校对-20140828-qiansen1386】 [从 Yii 1.1 升级](intro-upgrade-from-v1.md)
+* **已定稿**【已校对-20140819-qiansen1386】 [关于 Yii](intro-yii.md)
+* **已定稿**【已校对-20141004-qiansen1386】 [从 Yii 1.1 升级](intro-upgrade-from-v1.md)
 
 
 入门
 -----
 
-* **已定稿**【已校对-20140928-riverlet】 [安装 Yii](start-installation.md)
+* **已定稿**【已校对-20141013-riverlet】 [安装 Yii](start-installation.md)
 * **已定稿**【未校对-20140610-AbrahamGreyson】 [运行应用](start-workflow.md)
 * **已定稿**【未校对-20140610-AbrahamGreyson】 [第一声问候](start-hello.md)
-* **已定稿**【未校对-20140624-AbrahamGreyson】 [使用 Forms](start-forms.md)
-* **已定稿**【未校对-20140914-AbrahamGreyson】 [玩转 Databases](start-databases.md)
+* **已定稿**【未校对-20140930-AbrahamGreyson】 [使用 Forms](start-forms.md)
+* **已定稿**【未校对-20141007-AbrahamGreyson】 [玩转 Databases](start-databases.md)
 * **已定稿**【未校对-20140908-AbrahamGreyson】 [用 Gii 生成代码](start-gii.md)
-* **已定稿**【未校对-20140628-AbrahamGreyson】 [更上一层楼](start-looking-ahead.md)
+* **已定稿**【未校对-20141001-AbrahamGreyson】 [更上一层楼](start-looking-ahead.md)
 
 应用结构
 --------
