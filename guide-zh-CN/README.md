@@ -119,7 +119,7 @@ Yii 2.0 权威指南
 显示数据
 --------
 
-* **待定中** [格式化输出数据](output-formatter.md)
+* **编撰中** [格式化输出数据](output-formatter.md)
 * **待定中** [分页（Pagination）](output-pagination.md)
 * **待定中** [排序（Sorting）](output-sorting.md)
 * **编撰中**【需更新】 [数据提供器](output-data-providers.md)
@@ -186,7 +186,7 @@ RESTful Web 服务
 * **编撰中**【需更新】 [国际化](tutorial-i18n.md)
 * **编撰中** [收发邮件](tutorial-mailing.md)
 * **编撰中**【需更新】 [性能优化](tutorial-performance-tuning.md)
-* **待定中** [共享主机环境](tutorial-shared-hosting.md)
+* **编撰中** [共享主机环境](tutorial-shared-hosting.md)
 * **编撰中**【需更新】 [模板引擎](tutorial-template-engines.md)
 * **已定稿**【未校对-20140706-qiansen1386】 [集成第三方代码](tutorial-yii-integration.md)
 
