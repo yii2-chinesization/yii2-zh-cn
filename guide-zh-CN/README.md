@@ -86,11 +86,11 @@ Yii 2.0 权威指南
 关键概念
 --------
 
-* **已定稿**【已校对-20140525-qiansen1386】 [组件（Component）](concept-components.md)
-* **已定稿**【已校对-20140628-qiansen1386】 [属性（Property）](concept-properties.md)
-* **已定稿**【已校对-20140704-AbrahamGreyson】 [事件（Event）](concept-events.md)
-* **已定稿**【需更新|已校对-20140704-qiansen1386】 [行为（Behavior）](concept-behaviors.md)
-* **已定稿**【需更新|未校对-20140626-AbrahamGreyson】 [配置（Configurations）](concept-configurations.md)
+* **已定稿**【已校对-20140707-qiansen1386】 [组件（Component）](concept-components.md)
+* **已定稿**【已校对-20141014-qiansen1386】 [属性（Property）](concept-properties.md)
+* **已定稿**【已校对-20141015-AbrahamGreyson】 [事件（Event）](concept-events.md)
+* **已定稿**【已校对-20140913-qiansen1386】 [行为（Behavior）](concept-behaviors.md)
+* **已定稿**【未校对-20141014-AbrahamGreyson】 [配置（Configurations）](concept-configurations.md)
 * **已定稿**【需更新|已校对-20140511-qiansen1386】 [类自动加载（Autoloading）](concept-autoloading.md)
 * **已定稿**【需更新|已校对-20140708-qiansen1386】 [别名（Alias）](concept-aliases.md)
 * **已定稿**【需更新|已校对-20140627-qiansen1386】 [服务定位器（Service Locator）](concept-service-locator.md)
