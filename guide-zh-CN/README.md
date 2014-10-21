@@ -62,7 +62,7 @@ Yii 2.0 权威指南
 * **已定稿**【未校对-20140729-funson86】 [应用](structure-applications.md)
 * **已定稿**【未校对-20140910-funson86】 [应用组件](structure-application-components.md)
 * **已定稿**【未校对-20140910-funson86】 [控制器（Controller）](structure-controllers.md)
-* **已定稿**【翻译中-20140927-funson86】 [视图（View）](structure-views.md)
+* **已定稿**【未校对-20140927-funson86】 [视图（View）](structure-views.md)
 * **已定稿**【未校对-20140918-funson86】 [模型（Model）](structure-models.md)
 * **已定稿**【未校对-20140912-funson86】 [过滤器](structure-filters.md)
 * **已定稿**【未校对-20140816-funson86】 [小部件（Widget）](structure-widgets.md)
