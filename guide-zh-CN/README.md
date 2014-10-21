@@ -74,7 +74,7 @@ Yii 2.0 权威指南
 --------
 
 * **已定稿** 【未校对-20140928-qiansen1386】[运行概述](runtime-overview.md)
-* **已定稿** [引导启动（Bootstrapping）](runtime-bootstrapping.md)
+* **已定稿** 【未校对-20140928-qiansen1386】[引导启动（Bootstrapping）](runtime-bootstrapping.md)
 * **已定稿** [路由（Routing）](runtime-routing.md)
 * **已定稿** [请求（Request）](runtime-requests.md)
 * **已定稿** [响应（Response）](runtime-responses.md)
