@@ -1,4 +1,4 @@
-Yii2 贡献者的 Git 工作流程
+git 工作流程（workflow）
 ===================================
 
 你想助 Yii2 一臂之力吗？太棒了！为了你的提交能更快被通过，请遵循下列步骤（前两步仅需做一次）。 如果你是 Git 和 Github 新人，也许想先看看 [Github] 帮助(http://help.github.com/)， [尝试 Git](https://try.github.com)
