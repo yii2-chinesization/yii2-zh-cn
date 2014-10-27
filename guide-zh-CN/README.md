@@ -142,7 +142,7 @@ Yii 2.0 权威指南
 * **已定稿**【需更新-20140716-riverlet】 [数据缓存](caching-data.md)
 * **已定稿**【未校对-20140520-AbrahamGreyson】 [片段缓存](caching-fragment.md)
 * **已定稿**【未校对-20140628-AbrahamGreyson】 [分页缓存](caching-page.md)
-* **已定稿**【已更新-20140817-AbrahamGreyson】 [HTTP 缓存](caching-http.md)
+* **已定稿**【未校对-20140817-AbrahamGreyson】 [HTTP 缓存](caching-http.md)
 
 RESTful Web 服务
 ----------------
@@ -201,8 +201,8 @@ RESTful Web 服务
 * 菜单（Menu）：链接到 demo 页
 * LinkPager：链接到 demo 页
 * LinkSorter：链接到 demo 页
-* **已定稿** [Bootstrap 小部件](widget-bootstrap.md)
-* **已定稿** [Jquery UI 小部件](widget-jui.md)
+* **编撰中** [Bootstrap 小部件](widget-bootstrap.md)
+* **编撰中** [Jquery UI 小部件](widget-jui.md)
 
 
 助手类
@@ -218,14 +218,3 @@ RESTful Web 服务
 不在目录内的文件
 ----------------
 * 【待翻译】 [glossary](glossary.md)
-
-
-应删除文件
---------
-
-* **编撰中**【需更新】 [创建扩展](extend-creating-extensions.md)
-* **编撰中**【需更新】 [定制核心代码](extend-customizing-core.md)
-* **编撰中**【需更新】 [使用第三方库](extend-using-libs.md)
-* **待定中** [在第三方系统使用 Yii](extend-embedding-in-others.md)
-* **待定中** [Yii 1.1 和 2.0 共用](extend-using-v1-v2.md)
-* **编撰中**【需更新】 [使用依赖包管理器 Composer](extend-using-composer.md)
