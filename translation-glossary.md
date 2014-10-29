@@ -54,6 +54,7 @@ query building methods|查询生成方法    |                                  
 Request             |请求              |                                     |Noun
 Requirements        |需求              |指做某事的先决条件，如：安装需求     |Noun
 Route               |路由              |                                     |Noun
+Routing             |引导路由              |                                     |Verb
 Response            |响应              |                                     |Noun
 session             |session（会话）   |                                     |Noun
 stack trace         |堆栈跟踪          |                                     |Noun
