@@ -137,7 +137,7 @@ AR 提供了两种方法来构建 DB 查询并向 AR 实例里填充数据：
  - [[yii\db\ActiveRecord::findBySql()]]
 
 以上两个方法都会返回 [[yii\db\ActiveQuery]] 实例，该类继承自[[yii\db\Query]]，
-因此，他们都支持同一套灵活且强大的 DB 查询方法，如 `where()`，`join()`，`orderBy()`，等等。 
+因此，他们都支持同一套灵活且强大的 DB 查询方法，如 `where()`，`join()`，`orderBy()`，等等。
 下面的这些案例展示了一些可能的玩法：
 
 ```php
@@ -668,7 +668,7 @@ $orders = Order::find()->joinWith('books.author')->all();
 
 代码背后， Yii 先执行一条 JOIN SQL 语句把满足 JOIN SQL 语句查询条件的主要模型查出，
 然后为每个关系执行一条查询语句，
-bing填充相应的关联记录。
+并填充相应的关联记录。
 
 [[yii\db\ActiveQuery::joinWith()|joinWith()]] 和  [[yii\db\ActiveQuery::with()|with()]] 的区别是
 前者连接主模型类和关联模型类的数据表来检索主模型，
@@ -714,7 +714,7 @@ class User extends ActiveRecord
 
 在上面， [[yii\db\ActiveRecord::hasMany()|hasMany()]] 方法回传了一个 [[yii\db\ActiveQuery]] 对象，
 当你用 [[yii\db\ActiveQuery::joinWith()|joinWith()]] 执行一条查询时，取决于正被调用的是哪个 [[yii\db\ActiveQuery::onCondition()|onCondition()]]，
-返回 `category_id` 为 1 的 items 
+返回 `category_id` 为 1 的 items
 
 当你用 [[yii\db\ActiveQuery::joinWith()|joinWith()]] 进行一次查询时，“on-condition”条件会被放置在相应查询语句的 ON 部分，
 如：
