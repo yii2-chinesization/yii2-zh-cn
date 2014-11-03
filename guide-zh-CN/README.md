@@ -67,7 +67,7 @@ Yii 2.0 权威指南
 * **已定稿**【未校对-20140912-funson86】 [过滤器](structure-filters.md)
 * **已定稿**【未校对-20140816-funson86】 [小部件（Widget）](structure-widgets.md)
 * **已定稿**【未校对-20141003-funson86】 [模块（Module）](structure-modules.md)
-* **已定稿**【翻译中-20141005-funson86】 [前端资源（Asset）](structure-assets.md)
+* **已定稿**【未校对-20141005-funson86】 [前端资源（Asset）](structure-assets.md)
 * **已定稿**【翻译中-20141005-ivantree】  [扩展（extensions）](structure-extensions.md)
 
 请求处理
