@@ -409,7 +409,7 @@ new GroupUrlRule([
 
 ### 扩展和工具
 
-我们建立了一个文档生成器扩展，取名为 `yii2-apidoc`，它可以用来帮助你生成界面好看的 API 文档，以及基于 MarkDown 的教程指南 。该生成器易于定制并可方便扩展以满足你的特定需求。它也用来生成官方文档和 API 文件，你可以在 http://www.yiiframework.com/doc-2.0/ 处查看。
+我们建立了一个文档生成器扩展，取名为 `yii2-apidoc`，它可以用来帮助你生成界面好看的 API 文档，以及基于 MarkDown 的教程指南 。该生成器易于定制并可方便扩展以满足你的特定需求。它也用来生成官方文档和 API 文件，你可以在 http://www.docwithcn.com/ 处查看。
 
 Yii 调试器经过许多微小的改进后更加好用。它现在也在它的总结页面装备了 email 面板，以及数据库查询和邮件总结列。
 
@@ -421,18 +421,18 @@ Yii 2.0 Beta 版的发行是一个重要的里程碑，凝聚了各方极大的�
 
    [1]: http://www.yiiframework.com/download/
    [2]: http://www.yiiframework.com/news/76/yii-2-0-alpha-is-released/
-   [3]: http://www.yiiframework.com/doc-2.0/guide-index.html
-   [4]: http://www.yiiframework.com/doc-2.0/
-   [5]: http://www.yiiframework.com/doc-2.0/guide-upgrade-from-v1.html
+   [3]: http://www.docwithcn.com/guide-index.html
+   [4]: http://www.docwithcn.com/
+   [5]: http://www.docwithcn.com/guide-upgrade-from-v1.html
    [6]: https://github.com/yiisoft/yii2/blob/2.0.0-beta/CHANGELOG.md
    [7]: https://github.com/yiisoft/yii2/blob/2.0.0-beta/framework/CHANGELOG.md
    [8]: https://github.com/php-fig/fig-standards/blob/master/proposed/psr-4-autoloader/psr-4-autoloader.md
    [9]: https://github.com/squizlabs/PHP_CodeSniffer
    [10]: https://github.com/fabpot/PHP-CS-Fixer
    [11]: http://breachattack.com/
-   [12]: http://www.yiiframework.com/doc-2.0/guide-rest.html
+   [12]: http://www.docwithcn.com/guide-rest.html
    [13]: https://github.com/yiisoft/yii2-codeception
-   [14]: http://www.yiiframework.com/doc-2.0/guide-test-fixture.html
+   [14]: http://www.docwithcn.com/guide-test-fixture.html
    [15]: https://github.com/yiisoft/yii2-faker
    [16]: http://www.elasticsearch.org/
    [17]: http://redis.io

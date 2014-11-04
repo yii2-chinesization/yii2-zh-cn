@@ -27,14 +27,14 @@ Yii 2.0 RC 发布啦！
 
 -   **2.0 有什么文档么？**
     当然，我们有
-    [官方指南](http://www.yiiframework.com/doc-2.0/guide-README.html)
+    [官方指南](http://www.docwithcn.com/guide-README.html)
     ，它包含与 Yii 2.0 相关的综合而且有深度的各种教程。还有 
-    [API 文档](http://www.yiiframework.com/doc-2.0/)它是用来查阅框架中某个类库的具体用法
+    [API 文档](http://www.docwithcn.com/)它是用来查阅框架中某个类库的具体用法
     （译者注：也要关注我们的[文档中文化项目](https://github.com/yii2-chinesization/yii2-zh-cn/)呦！）
 
 -   **怎么把我的项目从 1.1 升级到 2.0？**
     请参考 
-    [从 1.1 升级](http://www.yiiframework.com/doc-2.0/guide-intro-upgrade-from-v1.html) 这篇文章。
+    [从 1.1 升级](http://www.docwithcn.com/guide-intro-upgrade-from-v1.html) 这篇文章。
     请注意，因为 2.0 相较于 1.1 是完全重构的，所以这种升级所需的改动不会太小。若你的 1.1 应用正在稳定运行，我们建议你继续使用 
     1.1，除非你有足够的时间和资源进行这种升级。
 
@@ -53,7 +53,7 @@ Yii 2.0 RC 的主要改动
 ----------------------------
 
 此次发布，包含了很多有用的更新和改动。而在下文中我们只会总结其中最重要的几个。你可以在[更新日志（CHANGELOG）](https://github.com/yiisoft/yii2/blob/2.0.0-rc/framework/CHANGELOG.md)查看完整的改动列表。
-如果想要了解你能用 Yii 2.0 干什么，请阅读 [权威指南](http://www.yiiframework.com/doc-2.0/guide-README.html)。
+如果想要了解你能用 Yii 2.0 干什么，请阅读 [权威指南](http://www.docwithcn.com/guide-README.html)。
 
 ### 安全
 
@@ -179,7 +179,7 @@ php composer.phar global require "fxp/composer-asset-plugin:1.0.0-beta2"
 php composer.phar require bower-asset/jquery:2.1.*
 ```
 
-请参考 [与 Asset 有关的权威指南](http://www.yiiframework.com/doc-2.0/guide-structure-assets.html)
+请参考 [与 Asset 有关的权威指南](http://www.docwithcn.com/guide-structure-assets.html)
 综合了解关于前端资源管理的更多细节。
 
 ### 格式化数据
@@ -295,4 +295,4 @@ $component->attachBehaviors([
 
 ### 模版引擎
 
-Smarty 和 Twig 的视图渲染器都得到了显著的提升。针对许多 Yii 的概念引入了许多特殊语法，并且我们已经收到了反馈，这些新的语法可以帮助开发者像使用普通 PHP 模版一样高效地操作 Smarty 与 Twig。要了解更多，请查阅 [权威指南](http://www.yiiframework.com/doc-2.0/guide-tutorial-template-engines.html)。
+Smarty 和 Twig 的视图渲染器都得到了显著的提升。针对许多 Yii 的概念引入了许多特殊语法，并且我们已经收到了反馈，这些新的语法可以帮助开发者像使用普通 PHP 模版一样高效地操作 Smarty 与 Twig。要了解更多，请查阅 [权威指南](http://www.docwithcn.com/guide-tutorial-template-engines.html)。
