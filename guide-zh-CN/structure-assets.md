@@ -347,7 +347,7 @@ Yii使用文件扩展名来表示资源使用哪种扩展语法，默认可以�
 - [CoffeeScript](http://coffeescript.org/): `.coffee`
 - [TypeScript](http://www.typescriptlang.org/): `.ts`
 
-Yii依靠安装的预处理公斤来转换资源，例如，为使用[LESS](http://lesscss.org/)，应安装`lessc` 预处理命令。
+Yii依靠安装的预处理工具来转换资源，例如，为使用[LESS](http://lesscss.org/)，应安装`lessc` 预处理命令。
 
 可配置[[yii\web\AssetManager::converter]]自定义预处理命令和支持的扩展语法，如下所示：
 
