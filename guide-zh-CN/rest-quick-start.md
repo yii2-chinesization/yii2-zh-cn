@@ -63,7 +63,7 @@ class UserController extends ActiveController
 ## 尝试 <a name="trying-it-out"></a>
 
 随着以上所做的最小的努力，你已经完成了创建用于访问用户数据
-的 RESTful 风格的 API。您所创建的 API 包括：
+的 RESTful 风格的 API。你所创建的 API 包括：
 
 * `GET /users`: 逐页列出所有用户
 * `HEAD /users`: 显示用户列表的概要信息
@@ -142,18 +142,18 @@ Content-Type: application/xml
 </response>
 ```
 
-> 技巧：您还可以通过 Web 浏览器中输入 URL `http://localhost/users` 来访问你的 API。
+> 技巧：你还可以通过 Web 浏览器中输入 URL `http://localhost/users` 来访问你的 API。
   尽管如此，你可能需要一些浏览器插件来发送特定的 headers 请求。
 
 如你所见，在 headers 响应，有关于总数，页数的信息，等等。
 还有一些链接，让你导航到其他页面的数据。例如： `http://localhost/users?page=2`
 会给你的用户数据的下一个页面。
 
-使用 `fields` 和 `expand` 参数，您也可以指定哪些字段应该包含在结果内。
+使用 `fields` 和 `expand` 参数，你也可以指定哪些字段应该包含在结果内。
 例如：URL `http://localhost/users?fields=id,email` 将只返回 `id` 和 `email` 字段。
 
 
-> 补充：您可能已经注意到了 `http://localhost/users` 的结果包括一些敏感字段，
+> 补充：你可能已经注意到了 `http://localhost/users` 的结果包括一些敏感字段，
 > 例如 `password_hash`, `auth_key` 你肯定不希望这些出现在你的 API 结果中。
 > 你应该在 [响应格式](rest-response-formatting.md) 部分中过滤掉这些字段。
 
@@ -164,10 +164,10 @@ Content-Type: application/xml
 控制器来组织末端接口为一个单一的资源类型。
 
 从 [[yii\base\Model]] 类扩展的资源被表示为数据模型。
-如果你在使用（关系或非关系）数据库，推荐您使用 [[yii\db\ActiveRecord|ActiveRecord]]
+如果你在使用（关系或非关系）数据库，推荐你使用 [[yii\db\ActiveRecord|ActiveRecord]]
 来表示资源。
 
 你可以使用 [[yii\rest\UrlRule]] 简化路由到你的 API 末端。
 
-为了方便维护您的WEB前端和后端，建议您开发接口作为一个单独的应用程序，虽然这不是必须的。
+为了方便维护你的WEB前端和后端，建议你开发接口作为一个单独的应用程序，虽然这不是必须的。
 
