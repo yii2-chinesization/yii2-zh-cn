@@ -4,7 +4,7 @@ Yii2 开发及用户贡献文档中文本土化组织
 
 - **[关于本组织](organization.md)**
 - **[快捷链接:C11N.Yii2.cn](http://c11n.yii2.cn/)**
-- **[临时在线文档：Docwithcn.com](http://docwithcn.com/)**
+- **[临时在线文档：apidoc.yii2.cn](http://apidoc.yii2.cn/)**
 - **[参与汉化](#contribute)**
 - **[目录结构](#directory)**
 - **[Yii 的生态圈](#yiicosystem)**
