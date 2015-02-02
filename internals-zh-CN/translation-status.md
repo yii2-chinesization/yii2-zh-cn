@@ -41,19 +41,20 @@ concept-aliases.md                  | 可
 concept-autoloading.md              | 可
 concept-service-locator.md          | 可
 concept-di-container.md             | 可
-db-dao.md                           |
+db-dao.md                           | 可
 db-query-builder.md                 |
 db-active-record.md                 |
 db-migrations.md                    |
 db-sphinx.md                        |
 db-redis.md                         |
 db-mongodb.md                       |
-db-elastic-search.md                |
+db-elasticsearch.md                 |
 input-forms.md                      |
 input-validation.md                 | 可
-input-file-uploading.md             |
+input-file-upload.md                |
 input-multiple-models.md            |
-output-formatting.md                |
+input-tabular-input.md              |
+output-formatter.md                 |
 output-pagination.md                |
 output-sorting.md                   |
 output-data-providers.md            |
@@ -102,4 +103,3 @@ helper-overview.md                  |
 helper-array.md                     |
 helper-html.md                      |
 helper-url.md                       |
-helper-security.md                  |
