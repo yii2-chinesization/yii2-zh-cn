@@ -98,7 +98,7 @@ Yii 2.0 权威指南
 配合数据库工作
 -------------
 
-* **编撰中**【需更新】 [数据访问对象（DAO）](db-dao.md) - 数据库连接、基本查询、事务和模式操作
+* **已定稿**【需更新|待翻译】 [数据访问对象（DAO）](db-dao.md) - 数据库连接、基本查询、事务和模式操作
 * **编撰中**【需更新】 [查询生成器（Query Builder）](db-query-builder.md) - 使用简单抽象层查询数据库
 * **编撰中**【需更新】 [活动记录（Active Record）](db-active-record.md) - 活动记录对象关系映射（ORM），检索和操作记录、定义关联关系
 * **编撰中**【需更新】 [数据库迁移（Migration）](db-migrations.md) - 在团体开发中对你的数据库使用版本控制
@@ -112,17 +112,19 @@ Yii 2.0 权威指南
 
 * **编撰中** [创建表单](input-forms.md)
 * **已定稿**【需更新|未校对-20140723-qiansen1386】 [输入验证](input-validation.md)
-* **编撰中** [文件上传](input-file-uploading.md)
-* **待定中** [多模型同时输入](input-multiple-models.md)
+* **编撰中** [文件上传](input-file-upload.md)
+* **编撰中** [收集列表输入（待定）](input-tabular-input.md)
+* **编撰中** [多模型同时输入](input-multiple-models.md)
 
 显示数据
 --------
 
 * **已定稿**【需更新|未校对-20141007-funson86】[格式化输出数据](output-formatter.md)
-* **待定中** [分页（Pagination）](output-pagination.md)
-* **待定中** [排序（Sorting）](output-sorting.md)
+* **编撰中** [分页（Pagination）](output-pagination.md)
+* **编撰中** [排序（Sorting）](output-sorting.md)
 * **编撰中**【需更新】 [数据提供器](output-data-providers.md)
 * **编撰中**【需更新】 [数据小部件](output-data-widgets.md)
+* **编撰中** [操作客户端脚本](output-client-scripts.md)
 * **编撰中**【需更新】 [主题](output-theming.md)
 
 安全
@@ -131,8 +133,8 @@ Yii 2.0 权威指南
 * **编撰中**【需更新】 [认证（Authentication）](security-authentication.md)
 * **编撰中**【需更新】 [授权（Authorization）](security-authorization.md)
 * **编撰中**【需更新】 [处理密码](security-passwords.md)
-* **待定中** [客户端认证](security-auth-clients.md)
-* **待定中** [安全领域的最佳实践](security-best-practices.md)
+* **编撰中** [客户端认证](security-auth-clients.md)
+* **编撰中** [安全领域的最佳实践](security-best-practices.md)
 
 缓存
 -----
@@ -147,14 +149,14 @@ RESTful Web 服务
 ----------------
 
 * **已定稿**【翻译中-yiichina】 [快速入门](rest-quick-start.md)
-* **已定稿**【翻译中-yiichina】 [资源](rest-resources.md)
+* **已定稿**【需更新|未校对-20140518-funson86】 [资源](rest-resources.md)
+* **已定稿**【未校对-20141112-funson86】 [控制器](rest-controllers.md)
 * **已定稿**【翻译中-yiichina】 [路由](rest-routing.md)
 * **已定稿**【翻译中-yiichina】 [格式化响应](rest-response-formatting.md)
 * **已定稿**【翻译中-yiichina】 [授权验证](rest-authentication.md)
 * **已定稿**【翻译中-yiichina】 [速率限制](rest-rate-limiting.md)
 * **已定稿**【翻译中-yiichina】 [版本化](rest-versioning.md)
 * **已定稿**【翻译中-yiichina】 [错误处理](rest-error-handling.md)
-* **已定稿**【翻译中-yiichina】 [测试](rest-testing.md)
 
 开发工具
 --------
@@ -201,18 +203,16 @@ RESTful Web 服务
 * LinkPager：链接到 demo 页
 * LinkSorter：链接到 demo 页
 * **编撰中** [Bootstrap 小部件](widget-bootstrap.md)
-* **编撰中** [Jquery UI 小部件](widget-jui.md)
+* **编撰中** [jQuery UI 小部件](widget-jui.md)
 
 
 助手类
 ------
 
 * **编撰中**【待翻译】 [助手一览](helper-overview.md)
-* **待定中** [ArrayHelper](helper-array.md)
-* **待定中** [Html](helper-html.md)
-* **待定中** [Url](helper-url.md)
-* **待定中** [security](helper-security.md)
-
+* **编撰中**【待翻译】 [Array 助手](helper-array.md)
+* **编撰中** [Html 助手](helper-html.md)
+* **编撰中** [Url 助手](helper-url.md)
 
 不在目录内的文件
 ----------------
