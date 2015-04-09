@@ -80,7 +80,7 @@ Yii 2.0 权威指南
 * **已定稿**【未校对-20141017-funson86】[响应（Response）](runtime-responses.md)
 * **已定稿**【未校对-20141020-funson86】[Sessions 和 Cookies](runtime-sessions-cookies.md)
 * **已定稿**【未校对-20141007-funson86】 [错误处理](runtime-handling-errors.md)
-* **已定稿**【待翻译|需更新】 [日志记录](runtime-logging.md)
+* **已定稿**【翻译中-20150126-shaoyikai】 [日志记录](runtime-logging.md)
 
 关键概念
 --------
