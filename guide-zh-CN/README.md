@@ -99,9 +99,9 @@ Yii 2.0 权威指南
 -------------
 
 * **已定稿**【需更新|待翻译】 [数据访问对象（DAO）](db-dao.md) - 数据库连接、基本查询、事务和模式操作
-* **编撰中**【需更新】 [查询生成器（Query Builder）](db-query-builder.md) - 使用简单抽象层查询数据库
-* **编撰中**【需更新】 [活动记录（Active Record）](db-active-record.md) - 活动记录对象关系映射（ORM），检索和操作记录、定义关联关系
-* **编撰中**【需更新】 [数据库迁移（Migration）](db-migrations.md) - 在团体开发中对你的数据库使用版本控制
+* **已定稿**【需更新】 [查询生成器（Query Builder）](db-query-builder.md) - 使用简单抽象层查询数据库
+* **已定稿**【需更新】 [活动记录（Active Record）](db-active-record.md) - 活动记录对象关系映射（ORM），检索和操作记录、定义关联关系
+* **已定稿**【需更新】 [数据库迁移（Migration）](db-migrations.md) - 在团体开发中对你的数据库使用版本控制
 * **待定中** [Sphinx](db-sphinx.md)
 * **待定中** [Redis](db-redis.md)
 * **待定中** [MongoDB](db-mongodb.md)
@@ -119,19 +119,19 @@ Yii 2.0 权威指南
 显示数据
 --------
 
-* **已定稿**【需更新|未校对-20141007-funson86】[格式化输出数据](output-formatter.md)
-* **编撰中** [分页（Pagination）](output-pagination.md)
-* **编撰中** [排序（Sorting）](output-sorting.md)
-* **编撰中**【需更新】 [数据提供器](output-data-providers.md)
+* **编撰中**【需更新|未校对-20141007-funson86】[格式化输出数据](output-formatting.md)
+* **已定稿** [分页（Pagination）](output-pagination.md)
+* **已定稿** [排序（Sorting）](output-sorting.md)
+* **已定稿**【需更新】 [数据提供器](output-data-providers.md)
 * **编撰中**【需更新】 [数据小部件](output-data-widgets.md)
 * **编撰中** [操作客户端脚本](output-client-scripts.md)
-* **编撰中**【需更新】 [主题](output-theming.md)
+* **已定稿**【需更新】 [主题](output-theming.md)
 
 安全
 -----
 
-* **编撰中**【需更新】 [认证（Authentication）](security-authentication.md)
-* **编撰中**【需更新】 [授权（Authorization）](security-authorization.md)
+* **已定稿**【需更新】 [认证（Authentication）](security-authentication.md)
+* **已定稿**【需更新】 [授权（Authorization）](security-authorization.md)
 * **编撰中**【需更新】 [处理密码](security-passwords.md)
 * **编撰中** [客户端认证](security-auth-clients.md)
 * **编撰中** [安全领域的最佳实践](security-best-practices.md)
@@ -217,3 +217,6 @@ RESTful Web 服务
 不在目录内的文件
 ----------------
 * 【待翻译】 [glossary](glossary.md)
+
+废弃文档
+* **已定稿**【现已更名为formatting|未校对-20141007-funson86】[格式化输出数据](output-formatter.md)
