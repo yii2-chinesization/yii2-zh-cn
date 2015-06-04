@@ -31,7 +31,7 @@ Yii2 开发及用户贡献文档中文本土化组织
 - [Markdown 中文编码规范（试行版）](markdown-code-style.md)，更多 Markdown 的语法规则。
 
 如有疑问欢迎随时[反馈](https://github.com/yii2-chinesization/yii2-zh-cn/issues)。
-
+其他咨询请[致函](mailto://intouch@yii2.cn)
 
 目录结构 Structure and Shortcuts <a name ="directory">
 ----------------
