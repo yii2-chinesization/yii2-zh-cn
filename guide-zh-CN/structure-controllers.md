@@ -1,18 +1,186 @@
 控制器
-==========
+===========
 
-> 注意：该章节还在开发中。
+控制器是 [MVC](http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) 模式中的一部分，
+是继承[[yii\base\Controller]]类的对象，负责处理请求和生成响应。
+具体来说，控制器从[应用主体](structure-applications.md)接管控制后会分析请求数据并传送到[模型](structure-models.md)，
+传送模型结果到[视图](structure-views.md)，最后生成输出响应信息。
 
-控制器是应用的重要部分。它决定处理如何输入请求并创建响应。
 
-通常控制器接收 HTTP 数据请求，返回 HTML、JSON 或 XML 格式的数据，响应请求。
+## 操作 <a name="actions"></a>
 
-基础
-------
+控制器由 *操作* 组成，它是执行终端用户请求的最基础的单元，一个控制器可有一个或多个操作。
 
-控制器位于应用的 `controllers` 目录，命名规范为 `SiteController.php`(控制器名+Controller)， `Site` 部分包括一系列动作。
+如下示例显示包含两个操作`view` and `create` 的控制器`post`：
 
-基本的 web 控制器通常继承自[[yii\web\Controller]]：
+```php
+namespace app\controllers;
+
+use Yii;
+use app\models\Post;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+
+class PostController extends Controller
+{
+    public function actionView($id)
+    {
+        $model = Post::findOne($id);
+        if ($model === null) {
+            throw new NotFoundHttpException;
+        }
+
+        return $this->render('view', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionCreate()
+    {
+        $model = new Post;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+    }
+}
+```
+
+在操作 `view` (定义为 `actionView()` 方法)中， 代码首先根据请求模型ID加载 [模型](structure-models.md)，
+如果加载成功，会渲染名称为`view`的[视图](structure-views.md)并显示，否则会抛出一个异常。
+
+在操作 `create` (定义为 `actionCreate()` 方法)中, 代码相似. 先将请求数据填入[模型](structure-models.md)，
+然后保存模型，如果两者都成功，会跳转到ID为新创建的模型的`view`操作，否则显示提供用户输入的`create`视图。
+
+
+## 路由 <a name="routes"></a>
+
+终端用户通过所谓的*路由*寻找到操作，路由是包含以下部分的字符串：
+
+* 模型ID: 仅存在于控制器属于非应用的[模块](structure-modules.md);
+* 控制器ID: 同应用（或同模块如果为模块下的控制器）下唯一标识控制器的字符串;
+* 操作ID: 同控制器下唯一标识操作的字符串。
+
+路由使用如下格式:
+
+```
+ControllerID/ActionID
+```
+
+如果属于模块下的控制器，使用如下格式：
+
+```php
+ModuleID/ControllerID/ActionID
+```
+
+如果用户的请求地址为 `http://hostname/index.php?r=site/index`, 会执行`site` 控制器的`index` 操作。
+更多关于处理路由的详情请参阅 [路由](runtime-routing.md) 一节。
+
+
+## 创建控制器 <a name="creating-controllers"></a>
+
+在[[yii\web\Application|Web applications]]网页应用中，控制器应继承[[yii\web\Controller]] 或它的子类。
+同理在[[yii\console\Application|console applications]]控制台应用中，控制器继承[[yii\console\Controller]] 或它的子类。
+如下代码定义一个 `site` 控制器:
+
+```php
+namespace app\controllers;
+
+use yii\web\Controller;
+
+class SiteController extends Controller
+{
+}
+```
+
+
+### 控制器ID <a name="controller-ids"></a>
+
+通常情况下，控制器用来处理请求有关的资源类型，因此控制器ID通常为和资源有关的名词。
+例如使用`article`作为处理文章的控制器ID。
+
+控制器ID应仅包含英文小写字母、数字、下划线、中横杠和正斜杠，
+例如 `article` 和 `post-comment` 是真是的控制器ID，`article?`, `PostComment`, `admin\post`不是控制器ID。
+
+控制器Id可包含子目录前缀，例如 `admin/article` 代表
+[[yii\base\Application::controllerNamespace|controller namespace]]控制器命名空间下 `admin`子目录中 `article` 控制器。
+子目录前缀可为英文大小写字母、数字、下划线、正斜杠，其中正斜杠用来区分多级子目录(如 `panels/admin`)。
+
+
+### 控制器类命名 <a name="controller-class-naming"></a>
+
+控制器ID遵循以下规则衍生控制器类名：
+
+* 将用正斜杠区分的每个单词第一个字母转为大写。注意如果控制器ID包含正斜杠，只将最后的正斜杠后的部分第一个字母转为大写；
+* 去掉中横杠，将正斜杠替换为反斜杠;
+* 增加`Controller`后缀;
+* 在前面增加[[yii\base\Application::controllerNamespace|controller namespace]]控制器命名空间.
+
+下面为一些示例，假设[[yii\base\Application::controllerNamespace|controller namespace]]控制器命名空间为 `app\controllers`:
+
+* `article` 对应 `app\controllers\ArticleController`;
+* `post-comment` 对应 `app\controllers\PostCommentController`;
+* `admin/post-comment` 对应 `app\controllers\admin\PostCommentController`;
+* `adminPanels/post-comment` 对应 `app\controllers\adminPanels\PostCommentController`.
+
+控制器类必须能被 [自动加载](concept-autoloading.md)，所以在上面的例子中，
+控制器`article` 类应在 [别名](concept-aliases.md) 为`@app/controllers/ArticleController.php`的文件中定义，
+控制器`admin/post2-comment`应在`@app/controllers/admin/Post2CommentController.php`文件中。
+
+> 补充: 最后一个示例 `admin/post2-comment` 表示你可以将控制器放在
+  [[yii\base\Application::controllerNamespace|controller namespace]]控制器命名空间下的子目录中，
+  在你不想用 [模块](structure-modules.md) 的情况下给控制器分类，这种方式很有用。
+
+
+### 控制器部署 <a name="controller-map"></a>
+
+可通过配置 [[yii\base\Application::controllerMap|controller map]] 来强制上述的控制器ID和类名对应，
+通常用在使用第三方不能掌控类名的控制器上。
+
+配置 [应用配置](structure-applications.md#application-configurations) 
+中的[application configuration](structure-applications.md#application-configurations)，如下所示：
+
+```php
+[
+    'controllerMap' => [
+        // 用类名申明 "account" 控制器
+        'account' => 'app\controllers\UserController',
+
+        // 用配置数组申明 "article" 控制器
+        'article' => [
+            'class' => 'app\controllers\PostController',
+            'enableCsrfValidation' => false,
+        ],
+    ],
+]
+```
+
+
+### 默认控制器 <a name="default-controller"></a>
+
+每个应用有一个由[[yii\base\Application::defaultRoute]]属性指定的默认控制器；
+当请求没有指定 [路由](#ids-routes)，该属性值作为路由使用。
+对于[[yii\web\Application|Web applications]]网页应用，它的值为 `'site'`，
+对于 [[yii\console\Application|console applications]]控制台应用，它的值为 `help`，
+所以URL为 `http://hostname/index.php` 表示由 `site` 控制器来处理。
+
+可以在 [应用配置](structure-applications.md#application-configurations) 中修改默认控制器，如下所示：
+
+```php
+[
+    'defaultRoute' => 'main',
+]
+```
+
+
+## 创建操作 <a name="creating-actions"></a>
+
+创建操作可简单地在控制器类中定义所谓的 *操作方法* 来完成，操作方法必须是以`action`开头的公有方法。
+操作方法的返回值会作为响应数据发送给终端用户，如下代码定义了两个操作 `index` 和 `hello-world`:
 
 ```php
 namespace app\controllers;
@@ -23,229 +191,222 @@ class SiteController extends Controller
 {
     public function actionIndex()
     {
-        // 将渲染 "views/site/index.php"
         return $this->render('index');
     }
 
-    public function actionTest()
+    public function actionHelloWorld()
     {
-        // 仅打印 "test" 到浏览器
-        return 'test';
+        return 'Hello World';
     }
 }
 ```
 
-如你所见，控制器通常包括一系列动作，这些动作是公开的类方法，以`actionSomething`(action+动作名) 形式命名。
-动作的输出结果，就是这些方法返回的结果：可以是字符串或[[yii\web\Response]]的实例，[示例](#custom-response-class)。
-返回值将被 `response` 应用组件处理，该组件可以把输出转变为不同格式，如 JSON,XML。默认行为是输出原始的值（不改变输出值）。
+
+### 操作ID <a name="action-ids"></a>
+
+操作通常是用来执行资源的特定操作，因此，操作ID通常为动词，如`view`, `update`等。
+
+操作ID应仅包含英文小写字母、数字、下划线和中横杠，操作ID中的中横杠用来分隔单词。
+例如`view`, `update2`, `comment-post`是真实的操作ID，`view?`, `Update`不是操作ID.
+
+可通过两种方式创建操作ID，内联操作和独立操作. An inline action is
+内联操作在控制器类中定义为方法；独立操作是继承[[yii\base\Action]]或它的子类的类。
+内联操作容易创建，在无需重用的情况下优先使用；
+独立操作相反，主要用于多个控制器重用，或重构为[扩展](structure-extensions.md)。
 
 
-路由（路径）
-------
+### 内联操作 <a name="inline-actions"></a>
 
-每个控制器动作有相应的内部路径。上例中 `actionIndex` 的路径是 `site/index` ，而 `actionTest` 的路径是 `site/test` 。在这个路径中 `site` 是指控制器 ID ，而 `test` 是动作 ID 。
+内联操作指的是根据我们刚描述的操作方法。
 
-访问确定控制器和动作的默认 URL 格式是`http://example.com/?r=controller/action` 。这个行为可以
-完全自定义。更多细节请参考[URL 管理](url.md)。
+操作方法的名字是根据操作ID遵循如下规则衍生：
 
-如果控制器位于模块内，其动作的路径格式是 `module/controller/action` 。
+* 将每个单词的第一个字母转为大写;
+* 去掉中横杠;
+* 增加`action`前缀.
 
-控制器可以位于应用或模块的控制器目录的子目录，这样路径将在前面加上相应的目录名。如，有个 `UserController` 控制器位于 `controllers/admin` 目录下，该控制器的 `actionIndex` 动作的路径
-将是 `admin/user/index` ， `admin/user` 是控制器 ID 。
+例如`index` 转成 `actionIndex`, `hello-world` 转成 `actionHelloWorld`。
 
-如指定的模块、控制器或动作未找到，Yii 将返回“未找到”的页面和 HTTP 状态码 404 。
-
-> 注意：如果模块名、控制器名或动作名包含驼峰式单词，内部路径将使用破折号。如`DateTimeController::actionFastForward` 的路径将是 `date-time/fast-forward`。
-
-### 预设值
-
-如用户未指定任何路由，如使用 `http://example.com/` 这样的 URL ，Yii 将启用默认路径。默认路径由[[yii\web\Application::defaultRoute]]方法定义，且 `site` 即 `SiteController` 将默认加载。
-
-控制器有默认执行的动作。当用户请求未指明需要执行的动作时，如使用 `http://example.com/?r=site` 这样的 URL ，则默认的动作将被执行。当前预设的默认动作是 `index` 。
-设置[[yii\base\Controller::defaultAction]]属性可以改变预设动作。
-
-动作参数
------------------
-
-如前所述，一个简单的动作只是以 `actionSomething` 命名的公开方法。现在来回顾一下动作从 HTTP 获取参数的途径。
-
-### 动作参数
-
-可以为动作定义具名实参，会自动填充相应的 `$_GET` 值。这非常方便，不仅因为短语法，还因为有能力指定预设值：
-
-```php
-namespace app\controllers;
-
-use yii\web\Controller;
-
-class BlogController extends Controller
-{
-    public function actionView($id, $version = null)
-    {
-        $post = Post::find($id);
-        $text = $post->text;
-
-        if ($version) {
-            $text = $post->getHistory($version);
-        }
-
-        return $this->render('view', [
-            'post' => $post,
-            'text' => $text,
-        ]);
-    }
-}
-```
-
-上述动作可以用`http://example.com/?r=blog/view&id=42` 或`http://example.com/?r=blog/view&id=42&version=3` 访问。前者 `version` 没有指定，将使用默认参数值填充。
-
-### 从请求获取数据
+> 注意: 操作方法的名字*大小写敏感*，如果方法名称为`ActionIndex`不会认为是操作方法，
+  所以请求`index`操作会返回一个异常，也要注意操作方法必须是公有的，私有或者受保护的方法不能定义成内联操作。
 
 
-如果动作运行的数据来自 HTTP请求的POST 或有太多的GET 参数，可以依靠 request 对象以 `\Yii::$app->request` 的方式来访问：
-```php
-namespace app\controllers;
+因为容易创建，内联操作是最常用的操作，但是如果你计划在不同地方重用相同的操作，
+或者你想重新分配一个操作，需要考虑定义它为*独立操作*。
 
-use yii\web\Controller;
-use yii\web\HttpException;
 
-class BlogController extends Controller
-{
-    public function actionUpdate($id)
-    {
-        $post = Post::find($id);
-        if (!$post) {
-            throw new NotFoundHttpException();
-        }
+### 独立操作 <a name="standalone-actions"></a>
 
-        if (\Yii::$app->request->isPost) {
-            $post->load(Yii::$app->request->post());
-            if ($post->save()) {
-                return $this->redirect(['view', 'id' => $post->id]);
-            }
-        }
+独立操作通过继承[[yii\base\Action]]或它的子类来定义。
+例如Yii发布的[[yii\web\ViewAction]]和[[yii\web\ErrorAction]]都是独立操作。
 
-        return $this->render('update', ['post' => $post]);
-    }
-}
-```
-
-独立动作类
-------------------
-
-如果动作非常通用，最好用单独的类实现以便重用。创建 `actions/Page.php` ：
+要使用独立操作，需要通过控制器中覆盖[[yii\base\Controller::actions()]]方法在*action map*中申明，如下例所示：
 
 ```php
-namespace app\actions;
-
-class Page extends \yii\base\Action
-{
-    public $view = 'index';
-
-    public function run()
-    {
-        return $this->controller->render($view);
-    }
-}
-```
-
-以下代码对于实现单独的动作类虽然简单，但提供了如何使用动作类的想法。实现的动作可以在控制器中如下这般使用:
-
-```php
-class SiteController extends \yii\web\Controller
-{
-    public function actions()
-    {
-        return [
-            'about' => [
-                'class' => 'app\actions\Page',
-                'view' => 'about',
-            ],
-        ];
-    }
-}
-```
-
-如上使用后可以通过 `http://example.com/?r=site/about` 访问该动作。
-
-动作过滤器
---------------
-
-可能会对控制器动作使用一些过滤器来实现如确定谁能访问当前动作、渲染动作结果的方式等任务。
-
-动作过滤器是[[yii\base\ActionFilter]]子类的实例。
-
-使用动作过滤器是附加为控制器或模块的行为（behavior）。下例展示了如何为 `index` 动作开启 HTTP 缓存：
-
-```php
-public function behaviors()
+public function actions()
 {
     return [
-        'httpCache' => [
-            'class' => \yii\filters\HttpCache::className(),
-            'only' => ['index'],
-            'lastModified' => function ($action, $params) {
-                $q = new \yii\db\Query();
-                return $q->from('user')->max('updated_at');
-            },
+        // 用类来申明"error" 操作
+        'error' => 'yii\web\ErrorAction',
+
+        // 用配置数组申明 "view" 操作
+        'view' => [
+            'class' => 'yii\web\ViewAction',
+            'viewPrefix' => '',
         ],
     ];
 }
 ```
 
-可以同时使用多个动作过滤器。过滤器启用的顺序定义在`behaviors()`。如任一个过滤器取消动作执行，后面的过滤器将跳过。
+如上所示， `actions()` 方法返回键为操作ID、值为对应操作类名或数组[configurations](concept-configurations.md) 的数组。
+和内联操作不同，独立操作ID可包含任意字符，只要在`actions()` 方法中申明.
 
-过滤器附加到控制器，就被该控制器的所有动作使用；如附加到模块（或整个应用），则模块内所有控制器的所有动作都可以使用该过滤器（或应用的所有控制器的所有动作可以使用该过滤器）。
 
-创建新的动作过滤器，继承[[yii\base\ActionFilter]]并覆写[[yii\base\ActionFilter::beforeAction()|beforeAction()]] 和 [[yii\base\ActionFilter::afterAction()|afterAction()]]方法，前者在动作运行前执行，而后者在动作运行后执行。[[yii\base\ActionFilter::beforeAction()|beforeAction()]]返回值决定动作是否执行。如果过滤器的 `beforeAction()` 返回 false ，该过滤器之后的过滤器都会跳过，且动作也不会执行。
-
-本指南的[授权](authorization.md)部分展示了如何使用[[yii\filters\AccessControl]]过滤器，[缓存](caching.md)部分提供有关[[yii\filters\PageCache]] 和 [[yii\filters\HttpCache]]过滤器更多细节。
-这些内置过滤器是你创建自己的过滤器的良好参考。
-
-捕获所有请求
-----------------
-
-有时使用一个简单的控制器动作处理所有请求是有用的。如，当网站维护时显示一条布告。动态或通过应用配置文件配置 web 应用的 `catchAll` 属性可以实现该目的：
+为创建一个独立操作类，需要继承[[yii\base\Action]] 或它的子类，并实现公有的名称为`run()`的方法,
+`run()` 方法的角色和操作方法类似，例如：
 
 ```php
-return [
-    'id' => 'basic',
-    'basePath' => dirname(__DIR__),
-    // ...
-    'catchAll' => [ // <-- 这里配置
-        'offline/notice',
-        'param1' => 'value1',
-        'param2' => 'value2',
-    ],
-]
+<?php
+namespace app\components;
+
+use yii\base\Action;
+
+class HelloWorldAction extends Action
+{
+    public function run()
+    {
+        return "Hello World";
+    }
+}
 ```
 
-上面 `offline/notice` 指向 `OfflineController::actionNotice()` 。 `param1` 和 `param2` 是传递给动作方法的参数。
 
-自定义响应类
----------------------
+### 操作结果 <a name="action-results"></a>
+
+操作方法或独立操作的`run()`方法的返回值非常中药，它表示对应操作结果。
+
+返回值可为 [响应](runtime-responses.md) 对象，作为响应发送给终端用户。
+
+* 对于[[yii\web\Application|Web applications]]网页应用，返回值可为任意数据, 它赋值给[[yii\web\Response::data]]，
+  最终转换为字符串来展示响应内容。
+* 对于[[yii\console\Application|console applications]]控制台应用，返回值可为整数，
+  表示命令行下执行的 [[yii\console\Response::exitStatus|exit status]] 退出状态。
+
+在上面的例子中，操作结果都为字符串，作为响应数据发送给终端用户，下例显示一个操作通过
+返回响应对象（因为[[yii\web\Controller::redirect()|redirect()]]方法返回一个响应对象）可将用户浏览器跳转到新的URL。
+
+```php
+public function actionForward()
+{
+    // 用户浏览器跳转到 http://example.com
+    return $this->redirect('http://example.com');
+}
+```
+
+
+### 操作参数 <a name="action-parameters"></a>
+
+内联操作的操作方法和独立操作的 `run()` 方法可以带参数，称为*操作参数*。
+参数值从请求中获取，对于[[yii\web\Application|Web applications]]网页应用，
+每个操作参数的值从`$_GET`中获得，参数名作为键；
+对于[[yii\console\Application|console applications]]控制台应用, 操作参数对应命令行参数。
+
+如下例，操作`view` (内联操作) 申明了两个参数 `$id` 和 `$version`。
 
 ```php
 namespace app\controllers;
 
 use yii\web\Controller;
-use app\components\web\MyCustomResponse; //继承自 yii\web\Response
 
-class SiteController extends Controller
+class PostController extends Controller
 {
-    public function actionCustom()
+    public function actionView($id, $version = null)
     {
-        /*
-         * 这里做你自己的事
-         * 既然 Response 类继承自 yii\base\Object,
-         * 可以在__constructor() 传递简单数组初始化该类的值
-         */
-        return new MyCustomResponse(['data' => $myCustomData]);
+        // ...
     }
 }
 ```
 
-也可参考
---------
+操作参数会被不同的参数填入，如下所示：
 
-- [控制台](console.md)
+* `http://hostname/index.php?r=post/view&id=123`: `$id` 会填入`'123'`，`$version` 仍为 null 空因为没有`version`请求参数;
+* `http://hostname/index.php?r=post/view&id=123&version=2`: $id` 和 `$version` 分别填入 `'123'` 和 `'2'`；
+* `http://hostname/index.php?r=post/view`: 会抛出[[yii\web\BadRequestHttpException]] 异常
+  因为请求没有提供参数给必须赋值参数`$id`；
+* `http://hostname/index.php?r=post/view&id[]=123`: 会抛出[[yii\web\BadRequestHttpException]] 异常
+  因为`$id` 参数收到数字值 `['123']`而不是字符串.
+
+如果想让操作参数接收数组值，需要指定$id为`array`，如下所示：
+
+```php
+public function actionView(array $id, $version = null)
+{
+    // ...
+}
+```
+
+现在如果请求为 `http://hostname/index.php?r=post/view&id[]=123`, 参数 `$id` 会使用数组值`['123']`，
+如果请求为 `http://hostname/index.php?r=post/view&id=123`，
+参数 `$id` 会获取相同数组值，因为无类型的`'123'`会自动转成数组。
+
+上述例子主要描述网页应用的操作参数，对于控制台应用，更多详情请参阅[控制台命令](tutorial-console.md)。
+
+
+### 默认操作 <a name="default-action"></a>
+
+每个控制器都有一个由 [[yii\base\Controller::defaultAction]] 属性指定的默认操作，
+当[路由](#ids-routes) 只包含控制器ID，会使用所请求的控制器的默认操作。
+
+默认操作默认为 `index`，如果想修改默认操作，只需简单地在控制器类中覆盖这个属性，如下所示：
+
+```php
+namespace app\controllers;
+
+use yii\web\Controller;
+
+class SiteController extends Controller
+{
+    public $defaultAction = 'home';
+
+    public function actionHome()
+    {
+        return $this->render('home');
+    }
+}
+```
+
+
+## 控制器生命周期 <a name="controller-lifecycle"></a>
+
+处理一个请求时，[应用主体](structure-applications.md) 会根据请求[路由](#routes)创建一个控制器，will create a controller
+控制器经过以下生命周期来完成请求：
+
+1. 在控制器创建和配置后，[[yii\base\Controller::init()]] 方法会被调用。
+2. 控制器根据请求操作ID创建一个操作对象:
+   * 如果操作ID没有指定，会使用[[yii\base\Controller::defaultAction|default action ID]]默认操作ID；
+   * 如果在[[yii\base\Controller::actions()|action map]]找到操作ID，会创建一个独立操作；
+   * 如果操作ID对应操作方法，会创建一个内联操作；
+   * 否则会抛出[[yii\base\InvalidRouteException]]异常。
+3. 控制器按顺序调用应用主体、模块（如果控制器属于模块）、控制器的 `beforeAction()` 方法；
+   * 如果任意一个调用返回false，后面未调用的`beforeAction()`会跳过并且操作执行会被取消；
+     action execution will be cancelled.
+   * 默认情况下每个 `beforeAction()` 方法会触发一个 `beforeAction` 事件，在事件中你可以追加事件处理操作；
+4. 控制器执行操作:
+   * 请求数据解析和填入到操作参数；
+5. 控制器按顺序调用控制器、模块（如果控制器属于模块）、应用主体的 `afterAction()` 方法；
+   * 默认情况下每个 `afterAction()` 方法会触发一个 `afterAction` 事件，在事件中你可以追加事件处理操作；
+6. 应用主体获取操作结果并赋值给[响应](runtime-responses.md).
+
+
+## 最佳实践 <a name="best-practices"></a>
+
+在设计良好的应用中，控制器很精练，包含的操作代码简短；
+如果你的控制器很复杂，通常意味着需要重构，转移一些代码到其他类中。
+
+归纳起来，控制器
+
+* 可访问 [请求](runtime-requests.md) 数据;
+* 可根据请求数据调用 [模型](structure-models.md) 的方法和其他服务组件;
+* 可使用 [视图](structure-views.md) 构造响应;
+* 不应处理应被[模型](structure-models.md)处理的请求数据;
+* 应避免嵌入HTML或其他展示代码，这些代码最好在 [视图](structure-views.md)中处理.

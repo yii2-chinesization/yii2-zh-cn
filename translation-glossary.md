@@ -22,7 +22,7 @@ Constructor         |构造方法          |                                    
 Database            |数据库            |                                     |Noun
 Design Pattern      |设计模式          |                                     |Noun
 Eager Loading       |贪婪加载          |                                     |Noun
-Event Handler       |事件句柄          |或者叫事件处理器                     |Noun
+Event Handler       |事件处理器        |                                      |Noun
 For example         |例如，如          |                                      |
 Extension           |扩展              |                                     |Noun
 Fixtures            |测试夹具          |【待定】非常难翻译的概念，微软翻译为装置，未来认为“定制器”的翻译表意更准|Noun
@@ -37,12 +37,13 @@ Installation        |安装              |                                     |
 Initialization      |初始化            |                                     |Noun
 key-value pair      |键值对            |                                     |Noun
 Lazy Loading        |惰性加载          |                                     |Noun
+Log Target          |日志目标          |                                     |Noun
 massive assignment  |块赋值            |                                     |Noun
 Module              |模块（Module）    |或子模块                             |Noun
 MVC                 |MVC               |模型-视图-控制器                     |Noun
 Model               |Model（模型）     |                                     |Noun
 Overview            |概览              |                                     |Noun
-Override            |重写              |                                     |Noun
+Override            |重写              |覆写                                 |Noun
 Package             |包                |同 Bundle                            |Noun
 perform             |运作或执行        |我觉得两种翻译均可，可根据上下文随意选择|Verb
 Property            |属性              |                                     |Noun
@@ -53,8 +54,10 @@ query building methods|查询生成方法    |                                  
 Request             |请求              |                                     |Noun
 Requirements        |需求              |指做某事的先决条件，如：安装需求     |Noun
 Route               |路由              |                                     |Noun
+Routing             |引导路由              |                                     |Verb
 Response            |响应              |                                     |Noun
 session             |session（会话）   |                                     |Noun
+stack trace         |堆栈跟踪          |                                     |Noun
 Trait               |Trait             |【待定】微软叫特征，东方写为：Traits（术语翻译未定：特征或特质）|Noun
 Validation          |验证，数据有效性验证|全称：数据有效性验证，简称：数据验证或验证。首次出现最好写全称|Noun
 View                |视图（View）      |数据有效性验证                       |Noun

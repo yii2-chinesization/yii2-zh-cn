@@ -1,26 +1,18 @@
-Overview
+总览
 ========
 
-Yii applications are organized according to the [model-view-controller (MVC)](http://wikipedia.org/wiki/Model-view-controller)
-design pattern. [Models](structure-models.md) represent data, business logic and rules; [views](structure-views.md)
-are output representation of models; and [controllers](structure-controllers.md) take input and convert
-it to commands for [models](structure-models.md) and [views](structure-views.md).
+Yii 应用参照[模型-视图-控制器 （MVC）](http://wikipedia.org/wiki/Model-view-controller)
+ 设计模式来组织。 [模型](structure-models.md)代表数据、业务逻辑和规则；[视图](structure-views.md)展示模型的输出；[控制器](structure-controllers.md)接受出入并将其转换为[模型](structure-models.md)和[视图](structure-views.md)命令。
 
-Besides MVC, Yii applications also have the following entities:
+除了 MVC, Yii 应用还有以下部分：
 
-* [entry scripts](structure-entry-scripts.md): they are PHP scripts that are directly accessible by end users.
-  They are responsible for starting a request handling cycle.
-* [applications](structure-applications.md): they are globally accessible objects that manage application components
-  and coordinate them to fulfill requests.
-* [application components](structure-application-components.md): they are objects registered with applications and
-  provide various services for fulfilling requests.
-* [modules](structure-modules.md): they are self-contained packages that contain complete MVC by themselves.
-  An application can be organized in terms of multiple modules.
-* [filters](structure-filters.md): they represent code that need to be invoked before and after the actual
-  handling of each request by controllers.
-* [widgets](structure-widgets.md): they are objects that can be embedded in [views](structure-views.md). They
-  may contain controller logic and can be reused in different views.
+* [入口脚本](structure-entry-scripts.md)：终端用户能直接访问的 PHP 脚本，负责启动一个请求处理周期。
+* [应用](structure-applications.md)：能全局范围内访问的对象，管理协调组件来完成请求.
+* [应用组件](structure-application-components.md)：在应用中注册的对象，提供不同的功能来完成请求。
+* [模块](structure-modules.md)：包含完整 MVC 结构的独立包，一个应用可以由多个模块组建。 
+* [过滤器](structure-filters.md)：控制器在处理请求之前或之后需要触发执行的代码。
+* [小部件](structure-widgets.md)：可嵌入到[视图](structure-views.md)中的对象，可包含控制器逻辑，可被不同视图重复调用。
 
-The following diagram shows the static structure of an application:
+下面的示意图展示了 Yii 应用的静态结构：
 
-![Static Structure of Application](images/application-structure.png)
+![Yii应用静态结构](images/application-structure.png)

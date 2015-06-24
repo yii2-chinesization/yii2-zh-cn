@@ -1,31 +1,25 @@
-Entry Scripts
+入口脚本
 =============
 
-Entry scripts are the first chain in the application bootstrapping process. An application (either
-Web application or console application) has a single entry script. End users make requests to
-entry scripts which instantiate application instances and forward the requests to them.
+入口脚本是应用启动流程中的第一环，一个应用（不管是网页应用还是控制台应用）只有一个入口脚本。终端用户的请求通过入口脚本实例化应用并将将请求转发到应用。
 
-Entry scripts for Web applications must be stored under Web accessible directories so that they
-can be accessed by end users. They are often named as `index.php`, but can also use any other names,
-provided Web servers can locate them.
+Web 应用的入口脚本必须放在终端用户能够访问的目录下，通常命名为 `index.php`，也可以使用 Web 服务器能定位到的其他名称。
 
-Entry scripts for console applications are usually stored under the [base path](structure-applications.md)
-of applications and are named as `yii` (with the `.php` suffix). They should be made executable
-so that users can run console applications through the command `./yii <route> [arguments] [options]`.
+控制台应用的入口脚本一般在应用根目录下命名为 `yii`（后缀为.php），该文件需要有执行权限，这样用户就能通过命令 `./yii <route> [arguments] [options]` 来运行控制台应用。
 
-Entry scripts mainly do the following work:
+入口脚本主要完成以下工作：
 
-* Define global constants;
-* Register [Composer autoloader](http://getcomposer.org/doc/01-basic-usage.md#autoloading);
-* Include the [[Yii]] class file;
-* Load application configuration;
-* Create and configure an [application](structure-applications.md) instance;
-* Call [[yii\base\Application::run()]] to process the incoming request.
+* 定义全局常量；
+* 注册 [Composer 自动加载器](http://getcomposer.org/doc/01-basic-usage.md#autoloading)；
+* 包含 [[Yii]] 类文件；
+* 加载应用配置；
+* 创建一个[应用](structure-applications.md)实例并配置;
+* 调用 [[yii\base\Application::run()]] 来处理请求。
 
 
-## Web Applications <a name="web-applications"></a>
+## Web 应用 <a name="web-applications"></a>
 
-The following is the code in the entry script for the [Basic Web Application Template](start-installation.md).
+以下是[基础应用模版](start-installation.md)入口脚本的代码：
 
 ```php
 <?php
@@ -33,23 +27,23 @@ The following is the code in the entry script for the [Basic Web Application Tem
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 
-// register Composer autoloader
+// 注册 Composer 自动加载器
 require(__DIR__ . '/../vendor/autoload.php');
 
-// include Yii class file
+// 包含 Yii 类文件
 require(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
 
-// load application configuration
+// 加载应用配置
 $config = require(__DIR__ . '/../config/web.php');
 
-// create, configure and run application
+// 创建、配置、运行一个应用
 (new yii\web\Application($config))->run();
 ```
 
 
-## Console Applications <a name="console-applications"></a>
+## 控制台应用 <a name="console-applications"></a>
 
-Similarly, the following is the code for the entry script of a console application:
+以下是一个控制台应用的入口脚本：
 
 ```php
 #!/usr/bin/env php
@@ -64,17 +58,17 @@ Similarly, the following is the code for the entry script of a console applicati
 
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 
-// fcgi doesn't have STDIN and STDOUT defined by default
+// fcgi 默认没有定义 STDIN 和 STDOUT
 defined('STDIN') or define('STDIN', fopen('php://stdin', 'r'));
 defined('STDOUT') or define('STDOUT', fopen('php://stdout', 'w'));
 
-// register Composer autoloader
+// 注册 Composer 自动加载器
 require(__DIR__ . '/vendor/autoload.php');
 
-// include Yii class file
+// 包含 Yii 类文件
 require(__DIR__ . '/vendor/yiisoft/yii2/Yii.php');
 
-// load application configuration
+// 加载应用配置
 $config = require(__DIR__ . '/config/console.php');
 
 $application = new yii\console\Application($config);
@@ -83,26 +77,21 @@ exit($exitCode);
 ```
 
 
-## Defining Constants <a name="defining-constants"></a>
+## 定义常量 <a name="defining-constants"></a>
 
-Entry scripts are the best place for defining global constants. Yii supports the following three constants:
+入口脚本是定义全局常量的最好地方，Yii 支持以下三个常量：
 
-* `YII_DEBUG`: specifies whether the application is running in debug mode. When in debug mode, an application
-  will keep more log information, and will reveal detailed error call stacks if exceptions are thrown. For this
-  reason, debug mode should be used mainly during development. The default value of `YII_DEBUG` is false.
-* `YII_ENV`: specifies which environment the application is running in. This has been described in
-  more detail in the [Configurations](concept-configurations.md#environment-constants) section.
-  The default value of `YII_ENV` is `'prod'`, meaning the application is running in production environment.
-* `YII_ENABLE_ERROR_HANDLER`: specifies whether to enable the error handler provided by Yii. The default
-  value of this constant is true.
+* `YII_DEBUG`：标识应用是否运行在调试模式。当在调试模式下，应用会保留更多日志信息，如果抛出异常，会显示详细的错误调用堆栈。因此，调试模式主要适合在开发阶段使用，`YII_DEBUG` 默认值为 false。
+* `YII_ENV`：标识应用运行的环境，详情请查阅[配置](concept-configurations.md#environment-constants)章节。`YII_ENV` 默认值为 `'prod'`，表示应用运行在线上产品环境。
+* `YII_ENABLE_ERROR_HANDLER`：标识是否启用 Yii 提供的错误处理，默认为 true。
 
-When defining a constant, we often use the code like the following:
+当定义一个常量时，通常使用类似如下代码来定义：
 
 ```php
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 ```
 
-which is equivalent to the following code:
+上面的代码等同于:
 
 ```php
 if (!defined('YII_DEBUG')) {
@@ -110,7 +99,6 @@ if (!defined('YII_DEBUG')) {
 }
 ```
 
-Clearly the former is more succinct and easier to understand.
+显然第一段代码更加简洁易懂。
 
-Constant definitions should be done at the very beginning of an entry script so that they can take effect
-when other PHP files are being included.
+常量定义应该在入口脚本的开头，这样包含其他 PHP 文件时，常量就能生效。

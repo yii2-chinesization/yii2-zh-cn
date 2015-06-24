@@ -1,11 +1,11 @@
 Yii 2.0 权威指南
 ===============================
 
-> ### 翻译说明
+> ### 翻译说明 <a name="shuoming">
 >
 > 参与项目前，请先阅读两篇文档：[翻译手册](../translation-guide.md)及[校阅手册](../translation-proofreading.md)
 >
-> #### 文档汉化进度分为以下几种状态：
+> #### 文档汉化进度分为以下几种状态： <a name="tags"></a>
 >
 > 等待认领：
 >
@@ -27,8 +27,7 @@ Yii 2.0 权威指南
 >
 > 临时说明：
 >
-> 1.目录前 **待定中，编撰中，已定稿** 标示官方文档编写进度情况，【】表示汉化进度。
-> 2.标注了截止当天的翻译状态，【翻译中】和【待翻译】的文档可以暂时不翻译，因官方在重新编写文档。如需学习那些内容的同学也欢迎翻译。
+> 1.目录前的 **待定中，编撰中，已定稿** 标示官方文档编写进度情况，【】内为汉化进度。
 > **************************
 
 本教程的发布遵循[ Yii 文档使用许可](http://www.yiiframework.com/doc/terms/).
@@ -40,57 +39,57 @@ Yii 2.0 权威指南
 介绍
 -----
 
-* **已定稿**【需更新|已校对-20140505-qiansen1386】 [关于 Yii](intro-yii.md)
-* **已定稿**【需更新|已校对-20140627-qiansen1386】 [从 Yii 1.1 升级](intro-upgrade-from-v1.md)
+* **已定稿**【已校对-20140819-qiansen1386】 [关于 Yii](intro-yii.md)
+* **已定稿**【已校对-20141004-qiansen1386】 [从 Yii 1.1 升级](intro-upgrade-from-v1.md)
 
 
 入门
 -----
 
-* **已定稿**【已校对-20140919-riverlet】 [安装 Yii](start-installation.md)
+* **已定稿**【已校对-20141013-riverlet】 [安装 Yii](start-installation.md)
 * **已定稿**【未校对-20140610-AbrahamGreyson】 [运行应用](start-workflow.md)
-* **已定稿**【需更新|未校对-20140610-AbrahamGreyson】 [第一声问候](start-hello.md)
-* **已定稿**【需更新|未校对-20140623-AbrahamGreyson】 [使用 Forms](start-forms.md)
-* **已定稿**【需更新|未校对-20140616-AbrahamGreyson】 [玩转 Databases](start-databases.md)
-* **已定稿**【需更新|未校对-20140616-AbrahamGreyson】 [用 Gii 生成代码](start-gii.md)
-* **已定稿**【需更新|未校对-20140616-AbrahamGreyson】 [更上一层楼](start-looking-ahead.md)
+* **已定稿**【未校对-20140610-AbrahamGreyson】 [第一声问候](start-hello.md)
+* **已定稿**【未校对-20140930-AbrahamGreyson】 [使用 Forms](start-forms.md)
+* **已定稿**【未校对-20141007-AbrahamGreyson】 [玩转 Databases](start-databases.md)
+* **已定稿**【未校对-20140908-AbrahamGreyson】 [用 Gii 生成代码](start-gii.md)
+* **已定稿**【未校对-20141001-AbrahamGreyson】 [更上一层楼](start-looking-ahead.md)
 
 应用结构
 --------
 
-* **已定稿**【翻译中-yiichina】 [结构总览](structure-overview.md)
-* **已定稿**【翻译中-yiichina】 [入口脚本](structure-entry-scripts.md)
-* **已定稿**【翻译中-yiichina】 [应用](structure-applications.md)
-* **已定稿**【翻译中-yiichina】 [应用组件](structure-application-components.md)
-* **已定稿**【翻译中-yiichina】 [控制器（Controller）](structure-controllers.md)
-* **已定稿**【翻译中-yiichina】 [视图（View）](structure-views.md)
-* **已定稿**【翻译中-yiichina】 [模型（Model）](structure-models.md)
-* **已定稿**【翻译中-yiichina】 [过滤器](structure-filters.md)
-* **已定稿**【翻译中-yiichina】 [小部件（Widget）](structure-widgets.md)
-* **已定稿**【翻译中-yiichina】 [模块（Module）](structure-modules.md)
-* **编撰中**【需更新】 [前端资源（Asset）](structure-assets.md)
-* **已定稿**【待翻译】  [扩展（extensions）](structure-extensions.md)
+* **已定稿**【已校对-20140602-funson86】 [结构概述](structure-overview.md)
+* **已定稿**【已校对-20140612-funson86】 [入口脚本](structure-entry-scripts.md)
+* **已定稿**【未校对-20140729-funson86】 [应用](structure-applications.md)
+* **已定稿**【未校对-20140910-funson86】 [应用组件](structure-application-components.md)
+* **已定稿**【未校对-20140910-funson86】 [控制器（Controller）](structure-controllers.md)
+* **已定稿**【未校对-20140927-funson86】 [视图（View）](structure-views.md)
+* **已定稿**【未校对-20140918-funson86】 [模型（Model）](structure-models.md)
+* **已定稿**【未校对-20140912-funson86】 [过滤器](structure-filters.md)
+* **已定稿**【未校对-20140816-funson86】 [小部件（Widget）](structure-widgets.md)
+* **已定稿**【未校对-20141003-funson86】 [模块（Module）](structure-modules.md)
+* **已定稿**【未校对-20141005-funson86】 [前端资源（Asset）](structure-assets.md)
+* **已定稿**【未校对-20141005-ivantree】  [扩展（extensions）](structure-extensions.md)
 
 请求处理
 --------
 
-* **待定中** [引导（Bootstrapping）](runtime-bootstrapping.md)
-* **待定中** [路由（Routing）](runtime-routing.md)
-* **待定中** [请求（Request）](runtime-requests.md)
-* **待定中** [响应（Response）](runtime-responses.md)
-* **待定中** [Sessions（会话）和 Cookies](runtime-sessions-cookies.md)
-* **编撰中**【需更新|待翻译】 [URL 解析和生成](runtime-url-handling.md)
-* **编撰中**【需更新】 [错误处理](runtime-handling-errors.md)
-* **编撰中**【需更新】 [日志](runtime-logging.md)
+* **已定稿**【未校对-20140928-qiansen1386】[运行概述](runtime-overview.md)
+* **已定稿**【未校对-20140928-qiansen1386】[引导启动（Bootstrapping）](runtime-bootstrapping.md)
+* **已定稿**【需更新-20140929-qiansen1386】[路由（Route）引导与创建 URL](runtime-routing.md)
+* **已定稿**【翻译中-20141104-ivantree】[请求（Request）](runtime-requests.md)
+* **已定稿**【未校对-20141017-funson86】[响应（Response）](runtime-responses.md)
+* **已定稿**【未校对-20141020-funson86】[Sessions 和 Cookies](runtime-sessions-cookies.md)
+* **已定稿**【未校对-20141007-funson86】 [错误处理](runtime-handling-errors.md)
+* **已定稿**【待翻译|需更新】 [日志记录](runtime-logging.md)
 
 关键概念
 --------
 
-* **已定稿**【已校对-20140525-qiansen1386】 [组件（Component）](concept-components.md)
-* **已定稿**【已校对-20140628-qiansen1386】 [属性（Property）](concept-properties.md)
-* **已定稿**【已校对-20140704-AbrahamGreyson】 [事件（Event）](concept-events.md)
-* **已定稿**【需更新|已校对-20140704-qiansen1386】 [行为（Behavior）](concept-behaviors.md)
-* **已定稿**【需更新|未校对-20140626-AbrahamGreyson】 [配置（Configurations）](concept-configurations.md)
+* **已定稿**【已校对-20140707-qiansen1386】 [组件（Component）](concept-components.md)
+* **已定稿**【已校对-20141014-qiansen1386】 [属性（Property）](concept-properties.md)
+* **已定稿**【已校对-20141015-AbrahamGreyson】 [事件（Event）](concept-events.md)
+* **已定稿**【已校对-20140913-qiansen1386】 [行为（Behavior）](concept-behaviors.md)
+* **已定稿**【未校对-20141014-AbrahamGreyson】 [配置（Configurations）](concept-configurations.md)
 * **已定稿**【需更新|已校对-20140511-qiansen1386】 [类自动加载（Autoloading）](concept-autoloading.md)
 * **已定稿**【需更新|已校对-20140708-qiansen1386】 [别名（Alias）](concept-aliases.md)
 * **已定稿**【需更新|已校对-20140627-qiansen1386】 [服务定位器（Service Locator）](concept-service-locator.md)
@@ -99,41 +98,43 @@ Yii 2.0 权威指南
 配合数据库工作
 -------------
 
-* **编撰中**【需更新】 [数据访问对象（DAO）](db-dao.md) - 数据库连接、基本查询、事务和模式操作
-* **编撰中**【需更新】 [查询生成器（Query Builder）](db-query-builder.md) - 使用简单抽象层查询数据库
-* **编撰中**【需更新】 [活动记录（Active Record）](db-active-record.md) - 活动记录对象关系映射（ORM），检索和操作记录、定义关联关系
-* **编撰中**【需更新】 [数据库迁移（Migration）](db-migrations.md) - 在团体开发中对你的数据库使用版本控制
+* **已定稿**【需更新|待翻译】 [数据访问对象（DAO）](db-dao.md) - 数据库连接、基本查询、事务和模式操作
+* **已定稿**【需更新】 [查询生成器（Query Builder）](db-query-builder.md) - 使用简单抽象层查询数据库
+* **已定稿**【需更新】 [活动记录（Active Record）](db-active-record.md) - 活动记录对象关系映射（ORM），检索和操作记录、定义关联关系
+* **已定稿**【需更新】 [数据库迁移（Migration）](db-migrations.md) - 在团体开发中对你的数据库使用版本控制
 * **待定中** [Sphinx](db-sphinx.md)
 * **待定中** [Redis](db-redis.md)
 * **待定中** [MongoDB](db-mongodb.md)
-* **待定中** [ElasticSearch](db-elastic-search.md)
+* **待定中** [ElasticSearch](db-elasticsearch.md)
 
 接收用户数据
 -----------
 
 * **编撰中** [创建表单](input-forms.md)
 * **已定稿**【需更新|未校对-20140723-qiansen1386】 [输入验证](input-validation.md)
-* **编撰中** [文件上传](input-file-uploading.md)
-* **待定中** [多模型同时输入](input-multiple-models.md)
+* **编撰中** [文件上传](input-file-upload.md)
+* **编撰中** [收集列表输入（待定）](input-tabular-input.md)
+* **编撰中** [多模型同时输入](input-multiple-models.md)
 
 显示数据
 --------
 
-* **待定中** [格式化输出数据](output-formatting.md)
-* **待定中** [分页（Pagination）](output-pagination.md)
-* **待定中** [排序（Sorting）](output-sorting.md)
-* **编撰中**【需更新】 [数据提供器](output-data-providers.md)
+* **编撰中**【需更新|未校对-20141007-funson86】[格式化输出数据](output-formatting.md)
+* **已定稿** [分页（Pagination）](output-pagination.md)
+* **已定稿** [排序（Sorting）](output-sorting.md)
+* **已定稿**【需更新】 [数据提供器](output-data-providers.md)
 * **编撰中**【需更新】 [数据小部件](output-data-widgets.md)
-* **编撰中**【需更新】 [主题](output-theming.md)
+* **编撰中** [操作客户端脚本](output-client-scripts.md)
+* **已定稿**【需更新】 [主题](output-theming.md)
 
 安全
 -----
 
-* **编撰中**【需更新】 [认证（Authentication）](security-authentication.md)
-* **编撰中**【需更新】 [授权（Authorization）](security-authorization.md)
+* **已定稿**【需更新】 [认证（Authentication）](security-authentication.md)
+* **已定稿**【需更新】 [授权（Authorization）](security-authorization.md)
 * **编撰中**【需更新】 [处理密码](security-passwords.md)
-* **待定中** [客户端认证](security-auth-clients.md)
-* **待定中** [安全领域的最佳实践](security-best-practices.md)
+* **编撰中** [客户端认证](security-auth-clients.md)
+* **编撰中** [安全领域的最佳实践](security-best-practices.md)
 
 缓存
 -----
@@ -142,20 +143,20 @@ Yii 2.0 权威指南
 * **已定稿**【需更新-20140716-riverlet】 [数据缓存](caching-data.md)
 * **已定稿**【未校对-20140520-AbrahamGreyson】 [片段缓存](caching-fragment.md)
 * **已定稿**【未校对-20140628-AbrahamGreyson】 [分页缓存](caching-page.md)
-* **已定稿**【已更新-20140817-AbrahamGreyson】 [HTTP 缓存](caching-http.md)
+* **已定稿**【未校对-20140817-AbrahamGreyson】 [HTTP 缓存](caching-http.md)
 
 RESTful Web 服务
 ----------------
 
 * **已定稿**【翻译中-yiichina】 [快速入门](rest-quick-start.md)
-* **已定稿**【翻译中-yiichina】 [资源](rest-resources.md)
+* **已定稿**【需更新|未校对-20140518-funson86】 [资源](rest-resources.md)
+* **已定稿**【未校对-20141112-funson86】 [控制器](rest-controllers.md)
 * **已定稿**【翻译中-yiichina】 [路由](rest-routing.md)
 * **已定稿**【翻译中-yiichina】 [格式化响应](rest-response-formatting.md)
 * **已定稿**【翻译中-yiichina】 [授权验证](rest-authentication.md)
 * **已定稿**【翻译中-yiichina】 [速率限制](rest-rate-limiting.md)
 * **已定稿**【翻译中-yiichina】 [版本化](rest-versioning.md)
 * **已定稿**【翻译中-yiichina】 [错误处理](rest-error-handling.md)
-* **已定稿**【翻译中-yiichina】 [测试](rest-testing.md)
 
 开发工具
 --------
@@ -186,7 +187,7 @@ RESTful Web 服务
 * **编撰中**【需更新】 [国际化](tutorial-i18n.md)
 * **编撰中** [收发邮件](tutorial-mailing.md)
 * **编撰中**【需更新】 [性能优化](tutorial-performance-tuning.md)
-* **待定中** [共享主机环境](tutorial-shared-hosting.md)
+* **编撰中** [共享主机环境](tutorial-shared-hosting.md)
 * **编撰中**【需更新】 [模板引擎](tutorial-template-engines.md)
 * **已定稿**【未校对-20140706-qiansen1386】 [集成第三方代码](tutorial-yii-integration.md)
 
@@ -201,31 +202,21 @@ RESTful Web 服务
 * 菜单（Menu）：链接到 demo 页
 * LinkPager：链接到 demo 页
 * LinkSorter：链接到 demo 页
-* **已定稿** [Bootstrap 小部件](widget-bootstrap.md)
-* **已定稿** [Jquery UI 小部件](widget-jui.md)
+* **编撰中** [Bootstrap 小部件](widget-bootstrap.md)
+* **编撰中** [jQuery UI 小部件](widget-jui.md)
 
 
 助手类
 ------
 
 * **编撰中**【待翻译】 [助手一览](helper-overview.md)
-* **待定中** [ArrayHelper](helper-array.md)
-* **待定中** [Html](helper-html.md)
-* **待定中** [Url](helper-url.md)
-* **待定中** [security](helper-security.md)
-
+* **编撰中**【待翻译】 [Array 助手](helper-array.md)
+* **编撰中** [Html 助手](helper-html.md)
+* **编撰中** [Url 助手](helper-url.md)
 
 不在目录内的文件
 ----------------
 * 【待翻译】 [glossary](glossary.md)
 
-
-应删除文件
---------
-
-* **编撰中**【需更新】 [创建扩展](extend-creating-extensions.md)
-* **编撰中**【需更新】 [定制核心代码](extend-customizing-core.md)
-* **编撰中**【需更新】 [使用第三方库](extend-using-libs.md)
-* **待定中** [在第三方系统使用 Yii](extend-embedding-in-others.md)
-* **待定中** [Yii 1.1 和 2.0 共用](extend-using-v1-v2.md)
-* **编撰中**【需更新】 [使用依赖包管理器 Composer](extend-using-composer.md)
+废弃文档
+* **已定稿**【现已更名为formatting|未校对-20141007-funson86】[格式化输出数据](output-formatter.md)

@@ -11,7 +11,7 @@ Beta 发行版在 [alpha 版][2] 的基础上，又实现了上百个新功能�
 
   * **Beta 意味着什么？** Beta 意味着功能和设计确定下来了。在Beta 后 GA (General Availability) 前，我们主要聚焦于修复 bugs 和完善文档。我们不会再增加新的主要功能或对设计进行大幅修改。但仍有改动可能会破坏向后兼容性（BC：Backward Compatibility），我们将努力把影响减到最小并明确记录下那些会破坏兼容性的改动。
 
-  * **GA 什么时候发行？** 我们还没有发行 GA 版的准确时间。既然我们下一个焦点主要是 Bug 修复和完善文档，我们只能预期说 GA 版的到来应该不会太久。
+  * **GA 什么时候发布？** 我们还没有发行 GA 版的准确时间。既然我们下一个焦点主要是 Bug 修复和完善文档，我们只能预期说 GA 版的到来应该不会太久。
 
   * **我能把 Beta 运用到我的项目吗？** 如果你的项目时间紧且你还没有熟悉 Yii 2.0 就不要使用 Beta 。不然的话，你可以考虑使用 Yii 2.0 Beta，当然前提是你能接受偶尔的不兼容改动。我们听说目前已经有很多基于 2.0 master 分支创建的项目，且运行良好。同时千万记得 PHP 版本的最低要求是 5.4 哦。
 
@@ -409,7 +409,7 @@ new GroupUrlRule([
 
 ### 扩展和工具
 
-我们建立了一个文档生成器扩展，取名为 `yii2-apidoc`，它可以用来帮助你生成界面好看的 API 文档，以及基于 MarkDown 的教程指南 。该生成器易于定制并可方便扩展以满足你的特定需求。它也用来生成官方文档和 API 文件，你可以在 http://www.yiiframework.com/doc-2.0/ 处查看。
+我们建立了一个文档生成器扩展，取名为 `yii2-apidoc`，它可以用来帮助你生成界面好看的 API 文档，以及基于 MarkDown 的教程指南 。该生成器易于定制并可方便扩展以满足你的特定需求。它也用来生成官方文档和 API 文件，你可以在 http://www.docwithcn.com/ 处查看。
 
 Yii 调试器经过许多微小的改进后更加好用。它现在也在它的总结页面装备了 email 面板，以及数据库查询和邮件总结列。
 
@@ -421,18 +421,18 @@ Yii 2.0 Beta 版的发行是一个重要的里程碑，凝聚了各方极大的�
 
    [1]: http://www.yiiframework.com/download/
    [2]: http://www.yiiframework.com/news/76/yii-2-0-alpha-is-released/
-   [3]: http://www.yiiframework.com/doc-2.0/guide-index.html
-   [4]: http://www.yiiframework.com/doc-2.0/
-   [5]: http://www.yiiframework.com/doc-2.0/guide-upgrade-from-v1.html
+   [3]: http://www.docwithcn.com/guide-index.html
+   [4]: http://www.docwithcn.com/
+   [5]: http://www.docwithcn.com/guide-upgrade-from-v1.html
    [6]: https://github.com/yiisoft/yii2/blob/2.0.0-beta/CHANGELOG.md
    [7]: https://github.com/yiisoft/yii2/blob/2.0.0-beta/framework/CHANGELOG.md
    [8]: https://github.com/php-fig/fig-standards/blob/master/proposed/psr-4-autoloader/psr-4-autoloader.md
    [9]: https://github.com/squizlabs/PHP_CodeSniffer
    [10]: https://github.com/fabpot/PHP-CS-Fixer
    [11]: http://breachattack.com/
-   [12]: http://www.yiiframework.com/doc-2.0/guide-rest.html
+   [12]: http://www.docwithcn.com/guide-rest.html
    [13]: https://github.com/yiisoft/yii2-codeception
-   [14]: http://www.yiiframework.com/doc-2.0/guide-test-fixture.html
+   [14]: http://www.docwithcn.com/guide-test-fixture.html
    [15]: https://github.com/yiisoft/yii2-faker
    [16]: http://www.elasticsearch.org/
    [17]: http://redis.io

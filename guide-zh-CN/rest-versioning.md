@@ -1,38 +1,36 @@
 版本
 ==========
 
-Your APIs should be versioned. Unlike Web applications which you have full control on both client side and server side
-code, for APIs you usually do not have control of the client code that consumes the APIs. Therefore, backward
-compatibility (BC) of the APIs should be maintained whenever possible, and if some BC-breaking changes must be
-introduced to the APIs, you should bump up the version number. You may refer to [Semantic Versioning](http://semver.org/)
-for more information about designing the version numbers of your APIs.
+你的API应该是版本化的。不像你完全控制在客户端和服务器端Web应用程序代码, 对于API，您通常没有对API的客户端代码的控制权。
+因此，应该尽可能的保持向后兼容性(BC)，如果一些不能向后兼容的变化必须引入
+APIs，你应该增加版本号。你可以参考[Semantic Versioning](http://semver.org/)
+有关设计的API的版本号的详细信息。
 
-Regarding how to implement API versioning, a common practice is to embed the version number in the API URLs.
-For example, `http://example.com/v1/users` stands for `/users` API of version 1. Another method of API versioning
-which gains momentum recently is to put version numbers in the HTTP request headers, typically through the `Accept` header,
-like the following:
+关于如何实现API版本，一个常见的做法是在API的URL中嵌入版本号。
+例如，`http://example.com/v1/users`代表`/users`版本1的API. 另一种API版本化的方法最近用的非常多的是把版本号放入HTTP请求头，通常是通过`Accept`头，
+如下：
 
 ```
 // 通过参数
 Accept: application/json; version=v1
-// via a vendor content type
+// 通过vendor的内容类型
 Accept: application/vnd.company.myapp-v1+json
 ```
 
-Both methods have pros and cons, and there are a lot of debates about them. Below we describe a practical strategy
-of API versioning that is kind of a mix of these two methods:
+这两种方法都有优点和缺点， 而且关于他们也有很多争论。
+下面我们描述在一种API版本混合了这两种方法的一个实用的策略:
 
-* Put each major version of API implementation in a separate module whose ID is the major version number (e.g. `v1`, `v2`).
-  Naturally, the API URLs will contain major version numbers.
-* Within each major version (and thus within the corresponding module), use the `Accept` HTTP request header
-  to determine the minor version number and write conditional code to respond to the minor versions accordingly.
+* 把每个主要版本的API实现在一个单独的模块ID的主版本号 (例如 `v1`, `v2`)。
+  自然，API的url将包含主要的版本号。
+* 在每一个主要版本 (在相应的模块)，使用 `Accept` HTTP 请求头
+  确定小版本号编写条件代码来响应相应的次要版本.
 
-For each module serving a major version, it should include the resource classes and the controller classes
-serving for that specific version. To better separate code responsibility, you may keep a common set of
-base resource and controller classes, and subclass them in each individual version module. Within the subclasses,
-implement the concrete code such as `Model::fields()`.
+为每个模块提供一个主要版本， 它应该包括资源类和控制器类
+为特定服务版本。 更好的分离代码， 你可以保存一组通用的
+基础资源和控制器类， 并用在每个子类版本模块。 在子类中，
+实现具体的代码例如 `Model::fields()`。
 
-Your code may be organized like the following:
+你的代码可以类似于如下的方法组织起来：
 
 ```
 api/
@@ -60,7 +58,7 @@ api/
                 Post.php
 ```
 
-Your application configuration would look like:
+你的应用程序配置应该这样：
 
 ```php
 return [
@@ -86,22 +84,22 @@ return [
 ];
 ```
 
-As a result, `http://example.com/v1/users` will return the list of users in version 1, while
-`http://example.com/v2/users` will return version 2 users.
+因此，`http://example.com/v1/users`将返回版本1的用户列表，而
+`http://example.com/v2/users`将返回版本2的用户。
 
-Using modules, code for different major versions can be well isolated. And it is still possible
-to reuse code across modules via common base classes and other shared classes.
+使用模块， 将不同版本的代码隔离。 通过共用基类和其他类
+跨模块重用代码也是有可能的。
 
-To deal with minor version numbers, you may take advantage of the content negotiation
-feature provided by the [[yii\filters\ContentNegotiator|contentNegotiator]] behavior. The `contentNegotiator`
-behavior will set the [[yii\web\Response::acceptParams]] property when it determines which
-content type to support.
+为了处理次要版本号， 可以利用内容协商
+功能通过 [[yii\filters\ContentNegotiator|contentNegotiator]] 提供的行为。`contentNegotiator`
+行为可设置 [[yii\web\Response::acceptParams]] 属性当它确定
+支持哪些内容类型时。
 
-For example, if a request is sent with the HTTP header `Accept: application/json; version=v1`,
-after content negotiation, [[yii\web\Response::acceptParams]] will contain the value `['version' => 'v1']`.
+例如， 如果一个请求通过 `Accept: application/json; version=v1`被发送，
+内容交涉后，[[yii\web\Response::acceptParams]]将包含值`['version' => 'v1']`.
 
-Based on the version information in `acceptParams`, you may write conditional code in places
-such as actions, resource classes, serializers, etc.
+基于 `acceptParams` 的版本信息，你可以写条件代码
+如 actions，resource classes，serializers等等。
 
-Since minor versions require maintaining backward compatibility, hopefully there are not much
-version checks in your code. Otherwise, chances are that you may need to create a new major version.
+由于次要版本需要保持向后兼容性，希望你的代码不会有
+太多的版本检查。否则，有机会你可能需要创建一个新的主要版本。
